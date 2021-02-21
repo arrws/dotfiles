@@ -1,0 +1,66 @@
+#!bash
+# "/etc/nixos/configuration.nix"
+
+paths=(
+
+# ".scripts"
+# ".xmobarrc"
+# ".xmonad/xmonad.hs"
+
+".zshrc"
+".bashrc"
+".bash_aliases"
+
+# ".Xdefaults"
+".tmux.conf"
+
+# ".config/kitty/kitty.conf"
+".config/nvim/init.vim"
+".config/nvim/colors/mscheme.vim"
+# ".config/nvim/colors/tmux.dark_theme"
+# ".config/nvim/colors/tmux.lightline_theme"
+# ".config/vifm/vifmrc"
+# ".config/vifm/colors/Default.vifm"
+# ".config/feh/keys"
+# ".config/mpv/input.conf"
+# ".config/mpd/mpd.conf"
+
+# ".ghc/ghci.conf"
+# ".skynet.png"
+)
+
+
+for item in "${paths[@]}"; do
+    args="${args} ${item}"
+done
+
+
+if which fzf; then
+    ok="$(echo -e 'DIFF\nBACKUP\nPUT' | fzf | cut -c1)"
+else
+    echo -n "[D]iff / [B]ackup / [P]ut: "
+    read -n 1 ok
+fi
+echo $ok
+echo ""
+
+
+if [[ "$ok" == "B" ]]; then
+    echo "backing up to " $PWD
+    echo "cd $HOME && rsync -avR ${args} $PWD"
+    # cd $HOME && rsync -avR ${args} $PATH
+
+elif [[ "$ok" == "P" ]]; then
+    echo "copying to " $HOME
+    echo "rsync -avR ${args} $HOME"
+    # rsync -avR ${args} $HOME
+
+elif [[ "$ok" == "D" ]]; then
+    for item in "${paths[@]}"
+    do
+        echo $item
+        diff -b "$HOME/$item" "$PWD/$item"
+        echo ""
+    done
+fi
+
