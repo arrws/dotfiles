@@ -1,5 +1,4 @@
 " set shell=/bin/bash
-" set mouse=a
 
 " to install vim-plug:
 " sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -33,10 +32,10 @@ Plug 'tpope/vim-surround'                   " smart bindings to change surroundi
 Plug 'godlygeek/tabular'                    " alligning text
 Plug 'Yggdroot/indentLine'                  " display thin vertical lines at each indentation level
 Plug 'ntpeters/vim-better-whitespace'       " for trailling whitespace
-
-
-Plug 'zxqfl/tabnine-vim'                    " ml autocomplete
-Plug 'ledger/vim-ledger'				    " for ledger file
+Plug 'AndrewRadev/linediff.vim'             " :Linediff diff two blocks of text selected in visual mode
+Plug 'AndrewRadev/splitjoin.vim'            " reformat between single-line statement and a multi-line one
+    " gS to split a one-liner into multiple lines
+    " gJ (with the cursor on the first line of a block) to join a block into a single-line statement.
 
 
 """ vim & tmux integration
@@ -47,6 +46,8 @@ Plug 'ledger/vim-ledger'				    " for ledger file
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " update the parsers on update
+Plug 'nvim-lua/completion-nvim' " lsp autocomplete
+Plug 'aca/completion-tabnine', {'do': './install.sh'} " ml autocomplete
 
 
 
@@ -56,10 +57,10 @@ set rtp+=$GOROOT/misc/vim
 filetype plugin indent on
 syntax on
 
-" filetype on
-" syntax on
+set mouse=a " enable mouse mode
 
-set hidden              " can hide a buffer that was unsaved and thus work with multiple files
+
+set hidden              " do not save when swithing buffers -> work with multiple files easier
 set nobackup
 set noswapfile
 set history=1000        " status line commands history
@@ -77,22 +78,21 @@ set signcolumn=yes:1
 " set signcolumn=number	" merge sign and numbers gutter golumns
 
 
-set autoindent
-set smartindent
-set backspace=indent,eol,start
-set backspace=2
-set linespace=0
-
 set cursorline          " highlight current line
 set foldcolumn=1        " number of folds / nesting level (?) the width of the grey column on the left side
 set showmatch           " show matching braces
 
 
 
+set undofile            " save undo history
+
+
+
+
+
 """ lightline
 colorscheme mscheme
-
-" \ 'colorscheme': 'powerline',
+" \   'gitbranch': 'fugitive#head',
 let g:lightline = {
       \ 'colorscheme': 'ayu_dark',
       \ 'active': {
@@ -142,6 +142,12 @@ no L $
 nnoremap { }zz
 nnoremap } {zz
 
+
+" Remap for dealing with word wrap
+nnoremap <expr> k v:count == 0 ? 'gk' : 'k'
+nnoremap <expr> j v:count == 0 ? 'gj' : 'j'
+
+
 " Redo with U instead of Ctrl+R
 nnoremap U <C-R>
 
@@ -158,6 +164,9 @@ nnoremap ]e ddkP
 vnoremap ]e :m '<-2<CR>gv=gv
 vnoremap [e :m '>+1<CR>gv=gv
 nnoremap [e ddp
+
+
+
 
 " upper or lowercase
 nmap [c gUiW
@@ -212,13 +221,11 @@ nnoremap <leader>s <C-w>v
 
 
 
-" " buffers management
-" noremap <leader>n :bnext<CR>
-" noremap <leader>N :bprev<CR>
-" noremap <leader>x :bdelete<CR>
-" noremap <C-n> :bnext<CR>
-" noremap <C-p> :bprev<CR>
-" noremap <C-x> :bdelete<CR>
+" buffers management
+noremap <leader>n :Buffers<CR>
+noremap <C-n> :bnext<CR>
+noremap <C-p> :bprev<CR>
+noremap <C-x> :bdelete<CR>
 
 
 " " tabs management
@@ -228,7 +235,21 @@ nnoremap <leader>s <C-w>v
 
 
 
-"""""" INDENTING
+""" SPACING
+
+set expandtab      " TAB is expanded into spaces
+set shiftwidth=4   " num space characters for indent
+set tabstop=4      " num space characters for TAB key
+set softtabstop=4
+
+set autoindent
+set smartindent
+set breakindent
+set backspace=indent,eol,start " change backspace to behave more intuitively
+set backspace=2
+set linespace=0
+
+""" indenting
 
 let g:indentLine_enabled = 1
 let g:indentLine_concealcursor = 0
@@ -241,11 +262,6 @@ nnoremap <S-TAB> <<
 vnoremap <TAB> >gv
 vnoremap <S-TAB> <gv
 
-" set noexpandtab  " TAB is tab
-set expandtab      " to insert spaces at TAB key
-set shiftwidth=4   " num space characters for indent
-set tabstop=4      " num space characters for TAB key
-
 """ vim tabular
 nmap <Leader>a :Tabularize /
 
@@ -255,12 +271,14 @@ let g:better_whitespace_enabled=1
 let g:strip_whitespace_on_save=0
 
 
+
+
 """""" SEARCHING
 
-set hlsearch 	" highligh matched search terms
-set incsearch   " start searching as you type letters
-set ignorecase  " make searches case sensitive
-set smartcase   " will search case sensitive if uppercase present, needs ignorecase set
+set hlsearch 	    " highligh matched search terms
+set incsearch       " start searching as you type letters
+set ignorecase      " make searches case sensitive
+set smartcase       " will search case sensitive if uppercase present, needs ignorecase set
 
 noremap <BS> :noh<CR>   " clear search highlight
 
@@ -418,6 +436,92 @@ highlight SignifySignChange ctermfg=yellow  ctermbg=black
 " set foldmethod=expr
 " set foldexpr=nvim_treesitter#foldexpr()
 
+
+" "completion
+
+" Use completion-nvim in every buffer
+autocmd BufEnter * lua require'completion'.on_attach()
+
+" " enable disable the feature
+" let g:completion_enable_auto_popup = 1
+
+
+" " by default is disabled / possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
+" let g:completion_enable_snippet = 'UltiSnips'
+
+
+" " By default <CR> is used to confirm completion and expand snippets, change it by (needs escaping)
+" let g:completion_confirm_key = "\<C-y>"
+
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
+
+
+
+" By default when navigating through completion items, LSP's hover is automatically called and displays in a floating window. Disable it by
+let g:completion_enable_auto_hover = 0
+
+" By default signature help opens automatically whenever it's available. Disable it by
+let g:completion_enable_auto_signature = 0
+
+" You can decide how your items being sorted in the popup menu. The default value is "alphabet", change it by possible value: "length", "alphabet", "none"
+let g:completion_sorting = "length"
+
+
+
+" " specify a list of matching strategy, assign priority from high to low. For example
+" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
+" let g:completion_matching_smart_case = 1
+
+
+" " By default, completion-nvim respect the trigger character of your language server, if you want more trigger characters, add it by
+" let g:completion_trigger_character = ['.', '::']
+
+
+" " completion-nvim doesn't trigger completion on delete by default because sometimes I've found it annoying. However, you can enable it by
+" let g:completion_trigger_on_delete = 1
+
+
+
+" " completion-nvim uses a timer to control the rate of completion. You can adjust the timer rate by
+" let g:completion_timer_cycle = 200 "default value is 80
+
+
+
+" tabnine
+
+let g:completion_chain_complete_list = {
+    \ 'default': [
+    \    {'complete_items': ['tabnine', 'lsp']},
+    \    {'mode': '<c-p>'},
+    \    {'mode': '<c-n>'}
+    \]
+\}
+
+" max tabnine completion options(default: 7)
+let g:completion_tabnine_max_num_results=5
+
+" sort by tabnine score (default: 0)
+let g:completion_tabnine_sort_by_details=1
+
+" max line for tabnine input(default: 1000)
+" from current line -1000 ~ +1000 lines is passed as input
+let g:completion_tabnine_max_lines=1000
+
+
+
+
+
+
+
 lua << EOF
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.gopls.setup{}
@@ -433,6 +537,7 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   }
 }
+require'lspconfig'.pyls.setup{on_attach=require'completion'.on_attach}
 EOF
 
 

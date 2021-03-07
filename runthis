@@ -13,12 +13,11 @@ paths=(
 
 # ".Xdefaults"
 ".tmux.conf"
+".gitconfig"
 
 # ".config/kitty/kitty.conf"
 ".config/nvim/init.vim"
 ".config/nvim/colors/mscheme.vim"
-# ".config/nvim/colors/tmux.dark_theme"
-# ".config/nvim/colors/tmux.lightline_theme"
 # ".config/vifm/vifmrc"
 # ".config/vifm/colors/Default.vifm"
 # ".config/feh/keys"
