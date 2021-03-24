@@ -7,16 +7,18 @@ paths=(
 # ".xmobarrc"
 # ".xmonad/xmonad.hs"
 
-".zshrc"
-".bashrc"
-".bash_aliases"
+# ".zshrc"
+# ".bashrc"
+# ".bash_aliases"
 
 # ".Xdefaults"
-".tmux.conf"
-".gitconfig"
+# ".tmux.conf"
+# ".gitconfig"
 
 # ".config/kitty/kitty.conf"
 ".config/nvim/init.vim"
+".config/nvim/lua/init.lua"
+".config/nvim/lua/lualine/themes/mtheme.lua"
 ".config/nvim/colors/mscheme.vim"
 # ".config/vifm/vifmrc"
 # ".config/vifm/colors/Default.vifm"
@@ -42,6 +44,8 @@ else
 fi
 echo $ok
 echo ""
+
+
 
 
 if [[ "$ok" == "B" ]]; then
