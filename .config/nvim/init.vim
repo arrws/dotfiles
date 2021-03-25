@@ -35,6 +35,7 @@ Plug 'AndrewRadev/splitjoin.vim'                            " reformat between s
 Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }  " display thin vertical lines at each indentation level
 Plug 'ntpeters/vim-better-whitespace'                       " for trailling whitespace
 
+Plug 'ap/vim-css-color'
 call plug#end()
 
 set rtp+=$GOROOT/misc/vim
@@ -96,7 +97,6 @@ let g:lualine = {
     \}
 
 
-
 """ MY BINDINGS
 
 let mapleader='\'
@@ -131,8 +131,6 @@ nnoremap zH 10zh
 " Redo with U instead of Ctrl+R
 nnoremap U <C-R>
 
-"block mode
-nnoremap <leader>v <C-v>
 
 " arrow keys to move lines
 " nnoremap g] ddkP
@@ -276,8 +274,9 @@ noremap <BS> :noh<CR>   " clear search highlight
 
 """ FZF fuzzy finder
 
-" nmap <C-r> :FZF<CR>
-nmap <C-r> :Files<CR>
+nmap <leader>r :Files<CR>
+nmap <leader>e :Rg<CR>
+" nmap <leader>r :Files<CR>
 
     " \ 'ctrl-q': function('s:build_quickfix_list'),
 let g:fzf_action = {
@@ -285,11 +284,14 @@ let g:fzf_action = {
     \ 'ctrl-S': 'split',
     \ 'ctrl-s': 'vsplit' }
 
+
 " let g:fzf_layout = { 'down': '~30%' }
 " let g:fzf_preview_window = []
 let g:fzf_layout = { 'window': { 'width': 0.6, 'height': 0.6, 'highlight': 'Comment' } }
 let g:fzf_preview_window = ['right:50%', 'ctrl-/']
 
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_buffers_jump = 1 " [Buffers] Jump to the existing window if possible
@@ -377,31 +379,18 @@ let g:nvim_tree_icons = {
 
 """ LSP Language Server Protocol
 
-" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-" nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-" nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-" nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> ]d         <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> [d         <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+" nnoremap <silent> <leader>e  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
+nnoremap <silent> <leader>d  <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <leader>D  <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>h  <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> <leader>d  <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> <leader>d  <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> <leader>H  <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> <leader>k  <cmd>lua vim.lsp.buf.type_definition()<CR>
 
-nnoremap <silent> <leader>h <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <leader>j <cmd>lua vim.lsp.buf.implementation()<CR>
-
-" nnoremap <silent> <leader>j <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader>l <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> <leader>k <cmd>lua vim.lsp.buf.type_definition()<CR>
-" nnoremap <silent> <leader>k <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> <leader>k <cmd>lua vim.lsp.buf.document_symbol()<CR>
-" nnoremap <silent> <leader>k <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> <leader>k <cmd>lua vim.lsp.buf.declaration()<CR>
-
-" nnoremap <silent>gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-" nnoremap <silent><c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap <silent>K     <cmd>lua vim.lsp.buf.hover()<CR>
 
 
 
