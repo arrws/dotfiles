@@ -80,13 +80,13 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                 , xK_x      ), kill)                                -- close the focused window
 
     -- volume control
-    , ((0                       , 0x1008ff11), spawn "amixer -q sset Master 5%-")
-    , ((0                       , 0x1008ff13), spawn "amixer -q sset Master 5%+")
-    , ((0                       , 0x1008ff12), spawn "amixer set Master toggle")
+    , ((0                       , 0x1008ff11), spawn "amixer -q sset Master 5%- && ./.scripts/info_volume.sh")
+    , ((0                       , 0x1008ff13), spawn "amixer -q sset Master 5%+ && ./.scripts/info_volume.sh")
+    , ((0                       , 0x1008ff12), spawn "amixer set Master toggle && ./.scripts/info_volume.sh")
 
     -- brightness control
-    , ((0                       , 0x1008ff02), spawn "light -A 5")
-    , ((0                       , 0x1008ff03), spawn "light -U 5")
+    , ((0                       , 0x1008ff02), spawn "light -A -r 10 && ./.scripts/info_brightness.sh")
+    , ((0                       , 0x1008ff03), spawn "light -U -r 10 && ./.scripts/info_brightness.sh")
     , ((modMask                 , xK_i      ), spawn "xcalib -invert -alter")           -- invert colors
 
     -- screenshots

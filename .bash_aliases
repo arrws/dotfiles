@@ -29,6 +29,7 @@ alias nnn='vifm .'
 alias v='nvim'
 alias vv='nvim $(fzf)'
 alias vconfig='nvim ~/.config/nvim/init.vim'
+alias vscheme='nvim ~/.config/nvim/colors/mscheme.vim'
 
 alias feh='feh --scale-down'
 alias mupdf='mupdf-x11'

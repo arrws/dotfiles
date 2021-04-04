@@ -17,6 +17,8 @@ let
     concurrency
     pipes-concurrency
     split
+    Glob
+    parsec
   ];
 
   ghc = haskellPackages.ghcWithPackages haskellDeps;
