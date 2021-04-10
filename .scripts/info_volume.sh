@@ -7,11 +7,11 @@ PercentVolume=$(($MyVolume*100/$MaxVolume))
 
 echo ${MyMute:1:-1}
 if [[ ${MyMute:1:-1} == "off" ]]; then
-    osd_cat -f -*-helvetica-*-r-*-*-32-*-*-*-*-*-*-* -A center -p middle -c white -d 1 <<< "
+    osd_cat -f -*-helvetica-*-r-*-*-32-*-*-*-*-*-*-* -A center -p middle -c green -d 1 <<< "
     $PercentVolume% volume [MUTED]
     " >& /home/nan/osd.log
 else
-    osd_cat -f -*-helvetica-*-r-*-*-32-*-*-*-*-*-*-* -A center -p middle -c white -d 1 <<< "
+    osd_cat -f -*-helvetica-*-r-*-*-32-*-*-*-*-*-*-* -A center -p middle -c green -d 1 <<< "
     $PercentVolume% volume
     " >& /home/nan/osd.log
 fi

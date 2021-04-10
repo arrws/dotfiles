@@ -1,19 +1,5 @@
 #!/usr/bin/awk -f
-
-# This program is a copy of guff, a plot device. https://github.com/silentbicycle/guff
-# My copy here is written in awk instead of C, has no compelling benefit.
-# Public domain. @thingskatedid
-
-# Run as awk -v x=xyz ... or env variables for stuff?
 # Assumptions: the data is evenly spaced along the x-axis
-
-# TODO: moving average
-# TODO: trend lines, or guess at complexities
-# TODO: points vs. lines
-# TODO: colourblind safe scheme
-# TODO: center data around the 0 axis
-# TODO: scanning for all float formats input, including -inf, NaN etc
-# TODO: guess at whether to use lines or circles, based on delta within a window?
 
 function hastitle() {
 	for (i = 1; i <= NF; i++) {
@@ -21,78 +7,22 @@ function hastitle() {
 			return 1
 		}
 	}
-
 	return 0
 }
 
-function amax(a,	i, max) {
-	max = -1
-
-	for (i in a) {
-		if (max == -1 || a[i] > a[max]) {
-			max = i
-		}
-	}
-
-	return max
-}
-
 function normalise(	delta) {
+	delta = 1
 	for (i = 1; i <= NF; i++) {
-		max[i] = 0
-		min[i] = 0
-
 		for (j = 1; j <= NR; j++) {
-			if (a[i, j] > max[i]) {
-				max[i] = a[i, j]
-			} else
-			if (a[i, j] < min[i]) {
-				min[i] = a[i, j]
-			}
-		}
-
-		delta[i] = max[i] - min[i]
-
+            if (a[i, j] > delta) {
+                delta = a[i, j]
+            }
+        }
+    }
+	for (i = 1; i <= NF; i++) {
 		for (j = 1; j <= NR; j++) {
-			a[i, j] -= min[i]
-			if (delta[i] > 0) {
-				a[i, j] /= delta[i]
-			}
+		    a[i, j] /= delta
 		}
-	}
-
-	# TODO: rescale to center around 0
-
-	# Here the data is squished slightly in descending order of deltas.
-	# Each column is scaled independently anyway, so they're never to scale.
-	# The idea here is to help show intutively which are smaller, but without
-	# actually drawing them to size (since then very small deltas would not be
-	# visible at all).
-
-	k = 0
-	prev = -1
-
-	while (length(delta) > 0) {
-		i = amax(delta)
-
-		# Several columns can share the same delta
-		# Formatting to %.3f here is just for sake of rounding
-		if (prev != -1 && sprintf("%.3f", prev) != sprintf("%.3f", delta[i])) {
-			k++
-		}
-
-		# +2 to squish things upwards a bit
-		scale = (NF + 2 - k) / (NF + 2)
-
-		# there's no need to scale by 1
-		if (scale != 1) {
-			for (j = 1; j <= NR; j++) {
-				a[i, j] *= scale
-			}
-		}
-
-		prev = delta[i]
-		delete delta[i]
 	}
 }
 
@@ -100,7 +30,6 @@ function normalise(	delta) {
 function point(x, y) {
 	x = x * (chart_width - 2 * xmargin) + xmargin
 	y = (height - 2 * ymargin) - y * (height - 2 * ymargin) + ymargin
-
 	return sprintf("%u,%u", x, y)
 }
 
@@ -108,8 +37,12 @@ function line(i) {
 	printf "  <polyline stroke='%s%s' stroke-width='1.5' fill='none'", color[i], alpha
 	printf " points='"
 
+    if (NR > x_step) {
+        x_step = NR
+    }
+
 	for (j = 1; j <= NR; j++) {
-		printf "%s ", point((j - 1) / NR, a[i, j])
+		printf "%s ", point((j - 1) / x_step, a[i, j])
 	}
 
 	printf "'/>\n"
@@ -128,9 +61,9 @@ function legend_text(i, title) {
 	printf "  <g transform='translate(%u %u)'>\n", chart_width + gutter, i * line_height
 	printf "    <circle cx='%d' cy='%d' r='3.5' fill='%s' stroke='%s'/>\n",
 		-10, -line_height / 2 + 5, color[i], color[i]
-	printf "    <text style='%s' xml:space='preserve'>%-*s[%.3g, %.3g]</text>\n",
+	printf "    <text style='%s' xml:space='preserve'>%-*s</text>\n",
 		sprintf("fill: %s; font-size: %upx; font-family: mono", fg, font_size),
-		(title_width > 0) ? title_width + 1 : 0, title, min[i], max[i]
+		(title_width > 0) ? title_width + 1 : 0, title
 	printf "  </g>\n"
 }
 
@@ -157,7 +90,6 @@ function display() {
 			legend_text(i, title[i])
 		}
 	}
-
 	print "</svg>"
 }
 
@@ -166,7 +98,6 @@ NR == 1 {
 		for (i = 1; i <= NF; i++) {
 			title[i] = $i
 		}
-
 		NR--
 		next
 	}
@@ -179,18 +110,18 @@ NR == 1 {
 }
 
 END {
-	fg    = "#eeeeee"
+	fg    = "#ffffff"
 	alpha = "ff"
-
-	# Bang Wong's colour-safe palette, https://www.nature.com/articles/nmeth.1618
-	# (using just the last five colours)
-	color[3] = "#009E73"
-	color[2] = "#F0E442"
-	color[1] = "#0072B2"
-	color[4] = "#CC79A7"
-	color[5] = "#D55E00"
-
-	color[6] = fg
+	color[1] = "#8dd3c7"
+	color[2] = "#ffffd3"
+	color[3] = "#bebada"
+	color[4] = "#fb8072"
+	color[5] = "#80b1d3"
+	color[6] = "#fdb462"
+	color[7] = "#b3de69"
+	color[8] = "#fccde5"
+	color[9] = "#d9d9d9"
+	color[10] = fg
 
 	if (NF == 1) {
 		color[1] = fg
@@ -201,18 +132,18 @@ END {
 		exit 1
 	}
 
-	chart_width=320
-	legend_width=300
-	height=120
-	xmargin=0
+	chart_width=600
+	legend_width=100
+	height=150
+	xmargin=10
 	ymargin=5
-	gutter=30
-	font_size=15
-	line_height=20
+	gutter=10
+	font_size=10
+	line_height=16
+    x_step = 20
 
 	# the data is scaled 0..1 for our internal coordinate space
 	normalise()
-
 	display()
 }
 

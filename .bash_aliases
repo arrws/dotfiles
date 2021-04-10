@@ -2,14 +2,14 @@ set -o vi
 export EDITOR=nvim
 export VISUAL=nvim
 
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob '"'"'!.git/'"'"
+export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs --vimgrep --glob=\!.git'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 
 
 
 alias la='ls -Flah'
-alias cp="cp -Riv"
-alias mv="mv -iv"
+alias cp='cp -Riv'
+alias mv='mv -iv'
 alias rm='rm -riv'
 alias mkdir='mkdir -p'
 alias tree='tree -F'
@@ -30,6 +30,8 @@ alias v='nvim'
 alias vv='nvim $(fzf)'
 alias vconfig='nvim ~/.config/nvim/init.vim'
 alias vscheme='nvim ~/.config/nvim/colors/mscheme.vim'
+alias vlua='nvim ~/.config/nvim/lua/init.lua'
+alias valias='nvim ~/.bash_aliases'
 
 alias feh='feh --scale-down'
 alias mupdf='mupdf-x11'
@@ -40,6 +42,21 @@ alias icat='kitty +kitten icat --place=40x40@132x0'
 alias gs='git status'
 alias p='python3'
 alias ghc='ghc -dynamic -no-keep-hi-files -no-keep-o-files -o o'
+
+alias grit='/usr/bin/grit'
+
+alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +kitten icat --align left'
+alias awkplotu='awk -f .scripts/plot.awk'
+alias hledgerplot="sed \"s/.*|| *//\" | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' '"
+
+function calx {
+    cal -wym --color=always | perl -p -E '
+       sub col { "\033\[38;5;$_[0]m$1\033\[0m" }
+       s/^(.\d)/col 241/ge;
+       s/   \K( [2-9]|\d\d) /col(241).q( )/ge;
+       /y|er/ && s/^(.+)$/col 12/ge;
+       /Mo Tu/ && s/^(.+)$/col 6/ge'
+}
 
 
 alias nconfig='sudo vim /etc/nixos/configuration.nix'
@@ -56,7 +73,6 @@ function man {
     LESS_TERMCAP_us=$'\e[01;32m' \
     command man "$@"
 }
-
 
 function tmx {
   name=$1

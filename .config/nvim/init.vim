@@ -38,6 +38,7 @@ Plug 'ntpeters/vim-better-whitespace'                       " for trailling whit
 Plug 'ap/vim-css-color'
 call plug#end()
 
+
 set rtp+=$GOROOT/misc/vim
 filetype plugin indent on
 syntax on
@@ -67,7 +68,7 @@ set showmatch           " show matching braces
 
 set undofile            " save undo history
 
-
+set diffopt+=vertical
 
 colorscheme mscheme
 let g:lualine = {
@@ -102,11 +103,13 @@ let g:lualine = {
 let mapleader='\'
 set timeout timeoutlen=1000 ttimeoutlen=10
 
+noremap <leader>a :source ~/.config/nvim/colors/mscheme.vim<cr>
 
 noremap <leader>q :q!<cr>
 nnoremap <leader>w :w<cr>
 inoremap <leader>w <C-c>:w<cr>
 
+noremap <leader>v <C-v>
 imap jk <Esc>
 
 no J }
@@ -178,13 +181,17 @@ map <C-u> <Nop> " move your cursor upward half a screen.
 map <C-d> <Nop> " move your cursordownward half a screen.
 
 
+""" TABS
+nnoremap <C-[> gt
+nnoremap <C-]> gT
+nnoremap <leader>t :tabnew<cr>
+
 
 """ BUFFERS
-" nnoremap <leader>n :Buffers<CR>
-nnoremap <C-n> :bn<CR>
-nnoremap <C-b> :bp<CR>
-" noremap <C-x> :bdelete<CR>
-nnoremap <C-x> :Bdelete<CR>
+nnoremap <leader>n :bn<CR>
+nnoremap <leader>b :bp<CR>
+nnoremap <leader>x :Bdelete<CR>
+" noremap <C-q> :bdelete<CR>
 
 
 """ WINDOWS
@@ -199,20 +206,13 @@ nnoremap <C-h> <C-w>h
 nnoremap <leader>S <C-w>s
 nnoremap <leader>s <C-w>v
 
-nnoremap <leader>r <C-w>r  " rotate the windows
-nnoremap <leader>e <C-w>x  " exchange with next window
-nnoremap <leader>= <C-w>=  " reset all windows
-nnoremap <leader>+ :vertical resize +5<CR>
-nnoremap <leader>_ :vertical resize -5<CR>
-nnoremap <leader>> :resize +5<CR>
-nnoremap <leader>< :resize -5<CR>
-
-
-""" TABS
-" nnoremap <leader>m gt
-" nnoremap <leader>M gT
-" nnoremap <leader>t :tabnew<cr>
-
+nnoremap <C-\>r <C-w>r  " rotate the windows
+nnoremap <C-\>e <C-w>x  " exchange with next window
+nnoremap <C-\>= <C-w>=  " reset all windows
+nnoremap <C-\>l :vertical resize +5<CR>
+nnoremap <C-\>h :vertical resize -5<CR>
+nnoremap <C-\>j :resize +5<CR>
+nnoremap <C-\>k :resize -5<CR>
 
 
 
@@ -274,9 +274,18 @@ noremap <BS> :noh<CR>   " clear search highlight
 
 """ FZF fuzzy finder
 
-nmap <leader>r :Files<CR>
-nmap <leader>e :Rg<CR>
-" nmap <leader>r :Files<CR>
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+command! -bang -nargs=? -complete=dir HFiles
+  \ call fzf#vim#files(<q-args>, {'source': 'rg --files'}, <bang>0)
+
+nmap <C-r> :HFiles<CR>
+nmap <C-e> :Files<CR>
+nmap <C-f> :Rg<CR>
+nmap <C-b> :Buffers<CR>
+nmap <C-m> :Marks<CR>
+nmap <C-c> :Commits<CR>
 
     " \ 'ctrl-q': function('s:build_quickfix_list'),
 let g:fzf_action = {
@@ -316,6 +325,42 @@ let g:fzf_buffers_jump = 1 " [Buffers] Jump to the existing window if possible
 
 
 
+
+""" Fugitive
+
+" augroup FugitiveMappings
+"   autocmd!
+"   autocmd FileType fugitive nmap o fugitive_gO
+" augroup
+
+" nmap o fugitive_o
+
+" fugitive git bindings
+" nnoremap <space>ga :Git add %:p<CR><CR>
+" nnoremap gs :Gstatus<CR>
+" nnoremap gd :Gdiff<CR>
+" nnoremap <space>gc :Gcommit -v -q<CR>
+" nnoremap <space>gt :Gcommit -v -q %:p<CR>
+" nnoremap <space>ge :Gedit<CR>
+" nnoremap <space>gr :Gread<CR>
+" nnoremap <space>gw :Gwrite<CR><CR>
+" nnoremap <space>gl :silent! Glog<CR>:bot copen<CR>
+" nnoremap <space>gp :Ggrep<Space>
+" nnoremap <space>gm :Gmove<Space>
+" nnoremap <space>gb :Git branch<Space>
+" nnoremap <space>go :Git checkout<Space>
+" nnoremap <space>gps :Dispatch! git push<CR>
+" nnoremap <space>gpl :Dispatch! git pull<CR>
+
+
+nnoremap <SPACE> <Nop>
+
+
+
+
+
+
+
 """ TREE view
 
 nnoremap <leader>m :NvimTreeToggle<CR>
@@ -325,22 +370,22 @@ nnoremap <leader>m :NvimTreeToggle<CR>
 " You can disable default mappings with
 " " let nvim_tree_disable_keybindings=1
 
-let g:nvim_tree_side = 'left' " or right
-let g:nvim_tree_width = 30 "30 by default
-let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
-let g:nvim_tree_auto_open = 0 "0 by default, opens the tree when typing `vim $DIR` or `vim`
-let g:nvim_tree_auto_close = 0 "0 by default, closes the tree when it's the last window
-" let g:nvim_tree_auto_ignore_ft = {'startify', 'dashboard'} "empty by default, don't auto open tree on specific filetypes.
-let g:nvim_tree_quit_on_open = 0 "0 by default, closes the tree when you open a file
-let g:nvim_tree_follow = 0 "0 by default, this option allows the cursor to be updated when entering a buffer
-let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
-let g:nvim_tree_hide_dotfiles = 0 "0 by default, this option hides files and folders starting with a dot `.`
-let g:nvim_tree_git_hl = 0 "0 by default, will enable file highlight for git attributes (can be used without the icons).
-let g:nvim_tree_root_folder_modifier = ':~' "This is the default. See :help filename-modifiers for more options
-let g:nvim_tree_tab_open = 0 "0 by default, will open the tree when entering a new tab and the tree was previously open
-let g:nvim_tree_width_allow_resize  = 0 "0 by default, will not resize the tree when opening a file
-let g:nvim_tree_disable_netrw = 1 "1 by default, disables netrw
-let g:nvim_tree_hijack_netrw = 1 "1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
+let g:nvim_tree_side = 'left'               " or right
+let g:nvim_tree_width = 30                  " 30 by default
+let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ]
+let g:nvim_tree_auto_open = 0               " 0 by default, opens the tree when typing `vim $DIR` or `vim`
+let g:nvim_tree_auto_close = 0              " 0 by default, closes the tree when it's the last window
+                                            " let g:nvim_tree_auto_ignore_ft = {'startify', 'dashboard'} "empty by default, don't auto open tree on specific filetypes.
+let g:nvim_tree_quit_on_open = 0            " 0 by default, closes the tree when you open a file
+let g:nvim_tree_follow = 0                  " 0 by default, this option allows the cursor to be updated when entering a buffer
+let g:nvim_tree_indent_markers = 1          " 0 by default, this option shows indent markers when folders are open
+let g:nvim_tree_hide_dotfiles = 0           " 0 by default, this option hides files and folders starting with a dot `.`
+let g:nvim_tree_git_hl = 0                  " 0 by default, will enable file highlight for git attributes (can be used without the icons).
+let g:nvim_tree_root_folder_modifier = ':~' " This is the default. See :help filename-modifiers for more options
+let g:nvim_tree_tab_open = 0                " 0 by default, will open the tree when entering a new tab and the tree was previously open
+let g:nvim_tree_width_allow_resize  = 0     " 0 by default, will not resize the tree when opening a file
+let g:nvim_tree_disable_netrw = 1           " 1 by default, disables netrw
+let g:nvim_tree_hijack_netrw = 1            " 1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
 
 let g:nvim_tree_show_icons = {
     \ 'git': 0,
@@ -379,17 +424,19 @@ let g:nvim_tree_icons = {
 
 """ LSP Language Server Protocol
 
+" space something
+
 nnoremap <silent> ]d         <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> [d         <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-" nnoremap <silent> <leader>e  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+" nnoremap <silent> <space>e  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
-nnoremap <silent> <leader>d  <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <leader>D  <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <leader>h  <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> <leader>d  <cmd>lua vim.lsp.buf.declaration()<CR>
-" nnoremap <silent> <leader>d  <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> <leader>H  <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> <leader>k  <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gd  <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD  <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gh  <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> gd  <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> gd  <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> gH  <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> gk  <cmd>lua vim.lsp.buf.type_definition()<CR>
 
 
 
@@ -430,7 +477,7 @@ let g:completion_chain_complete_list = {
 
 let g:completion_tabnine_max_num_results=5 " max tabnine completion options
 let g:completion_tabnine_sort_by_details=1 " sort by tabnine score (default: 0)
-let g:completion_tabnine_max_lines=1000 " max line for input. from current line -1000 ~ +1000 lines is passed as input
+let g:completion_tabnine_max_lines=1000    " max line for input. from current line -1000 ~ +1000 lines is passed as input
 
 
 
