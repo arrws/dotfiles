@@ -8,16 +8,13 @@ endif
 set t_Co=256
 let g:colors_name = "mscheme"
 
-
-" let g:fg         = ' guisp = NONE'
-let g:fg    = ' guifg = NONE      guisp = NONE      ctermfg = NONE'
-let g:fg_none    = ' guifg = NONE      guisp = NONE      ctermfg = NONE'
+let g:fg         = ' guifg = NONE      guisp = NONE      ctermfg = NONE'
 let g:fg_white   = ' guifg = #ffffff   guisp = #ffffff   ctermfg = 15'
 let g:fg_white1  = ' guifg = #dadada   guisp = #dadada   ctermfg = 253'
 let g:fg_gray    = ' guifg = #a8a8a8   guisp = #a8a8a8   ctermfg = 248'
 let g:fg_gray2   = ' guifg = #6c6c6c   guisp = #6c6c6c   ctermfg = 242'
 let g:fg_gray3   = ' guifg = #303030   guisp = #303030   ctermfg = 236'
-let g:fg_gray4  = ' guifg = #121212   guisp = #121212   ctermfg = 233'
+let g:fg_gray4   = ' guifg = #202020   guisp = #121212   ctermfg = 233'
 let g:fg_black   = ' guifg = #000000   guisp = #000000   ctermfg = 0'
 let g:fg_red     = ' guifg = #ff0000   guisp = #ff0000   ctermfg = 9'
 let g:fg_red1    = ' guifg = #ff5f5f   guisp = #ff5f5f   ctermfg = 203'
@@ -36,8 +33,8 @@ let g:fg_green2  = ' guifg = #afffd7   guisp = #afffd7   ctermfg = 158'
 let g:fg_blue    = ' guifg = #005fff   guisp = #005fff   ctermfg = 27'
 let g:fg_blue1   = ' guifg = #00afff   guisp = #00afff   ctermfg = 39'
 let g:fg_blue2   = ' guifg = #5fd7ff   guisp = #5fd7ff   ctermfg = 81'
-let g:fg_blue3   = ' guifg = #afd7ff   guisp = #afd7ff   ctermfg = 153'
-let g:fg_blue4   = ' guifg = #d7ffff   guisp = #d7ffff   ctermfg = 195'
+let g:fg_cyan    = ' guifg = #00ffff   guisp = #00ffff   ctermfg = 14'
+let g:fg_cyan2   = ' guifg = #e7ffff   guisp = #d7ffff   ctermfg = 159'
 let g:fg_pink    = ' guifg = #ff00ff   guisp = #ff00ff   ctermfg = 13'
 let g:fg_pink1   = ' guifg = #ff87ff   guisp = #ff87ff   ctermfg = 213'
 let g:fg_pink2   = ' guifg = #ffb0ff   guisp = #ffb0ff   ctermfg = 219'
@@ -47,9 +44,10 @@ let g:fg_purple1 = ' guifg = #d7d7ff   guisp = #d7d7ff   ctermfg = 189'
 
 let g:bg         = ' guibg = NONE      ctermbg = NONE'
 let g:bg_black   = ' guibg = #000000   ctermbg = 0'
-let g:bg_gray4   = ' guibg = #303030   ctermbg = 236'
-let g:bg_gray3   = ' guibg = #6c6c6c   ctermbg = 242'
-let g:bg_gray2   = ' guibg = #a8a8a8   ctermbg = 248'
+let g:bg_gray4   = ' guibg = #202020   ctermbg = 234'
+let g:bg_gray3   = ' guibg = #303030   ctermbg = 236'
+let g:bg_gray2   = ' guibg = #6c6c6c   ctermbg = 242'
+let g:bg_gray    = ' guibg = #a8a8a8   ctermbg = 248'
 let g:bg_pink    = ' guibg = #ffafd7   ctermbg = 218'
 let g:bg_yellow  = ' guibg = #ffff87   ctermbg = 228'
 
@@ -61,16 +59,15 @@ let g:t_bold     = ' gui = bold     cterm = bold'
 
 
 
-
-" BUILDIN GROUPS
-
+"""""" Buildin Groups
 
 
+exec 'hi Cursor '                . g:fg_white1  . g:bg        . g:t_none   | " char under the cursor
+exec 'hi lCursor '               . g:fg_white1  . g:bg        . g:t_none   | " the char under the cursor when language-mappin
+exec 'hi CursorIM '              . g:fg_white1  . g:bg        . g:t_none   | " like Cursor, but used when in IME mode CursorIM
+exec 'hi CursorColumn '          . g:fg         . g:bg_gray4  . g:t_none   | " Screen-line at the cursor, when cursorline is set.  Low-priority if foreground (ctermfg OR guifg) is not set .
+exec 'hi CursorLine '            . g:fg         . g:bg_gray4  . g:t_none   | " Screen-column at the cursor, when cursorcolumn is set .
 
-exec 'hi Cursor '                . g:fg_gray3   . g:bg_yellow . g:t_none   | " char under the cursor
-exec 'hi lCursor '               . g:fg_gray3   . g:bg_yellow . g:t_none   | " the char under the cursor when language-mappin
-exec 'hi CursorIM '              . g:fg_gray3   . g:bg_yellow . g:t_none   | " like Cursor, but used when in IME mode CursorIM
-exec 'hi CursorColumn '          . g:fg_none    . g:bg_gray4  . g:t_none   | " Screen-line at the cursor, when cursorline is set.  Low-priority if foreground (ctermfg OR guifg) is not set .
 exec 'hi TermCursor '            . g:fg_gray3   . g:bg_yellow . g:t_none   | " cursor in a focused terminal
 exec 'hi TermCursorNC '          . g:fg_gray3   . g:bg_yellow . g:t_none   | " cursor in an unfocused terminal
 exec 'hi Directory '             . g:fg         . g:bg        . g:t_none   | " directory names (and other special names in listings)
@@ -78,30 +75,33 @@ exec 'hi Directory '             . g:fg         . g:bg        . g:t_none   | " d
 
 " Conditional Line Highlighting
 exec 'hi link Conceal NonText'
-exec 'hi CursorLine '            . g:fg_none    . g:bg_gray4  . g:t_none   | " Screen-column at the cursor, when cursorcolumn is set .
 exec 'hi CursorLineNr '          . g:fg_yellow  . g:bg_black  . g:t_none   | " Like LineNr when 'cursorline' or 'relativenumber' is set for	the cursor line.
 exec 'hi LineNr '                . g:fg_gray    . g:bg        . g:t_none   | " Line number for  :number and commands, and when 'number'or 'relativenumber' option is set.
-exec 'hi QuickFixLine '          . g:fg         . g:bg_gray2  . g:t_none   | " Current quickfix item in the quickfix window. Combined with l-CursorLine when the cursor is there.
-exec 'hi Visual '                . g:fg         . g:bg_gray4  . g:t_none   | " Visual mode selection
-exec 'hi VisualNOS '             . g:fg         . g:bg_gray4  . g:t_none   | " Visual mode selection when vim is  Not Owning the Selection .
+exec 'hi QuickFixLine '          . g:fg         . g:bg_gray   . g:t_none   | " Current quickfix item in the quickfix window. Combined with l-CursorLine when the cursor is there.
+exec 'hi Visual '                . g:fg         . g:bg_gray3  . g:t_none   | " Visual mode selection
+exec 'hi VisualNOS '             . g:fg         . g:bg_gray3  . g:t_none   | " Visual mode selection when vim is  Not Owning the Selection .
+
 
 " Conditional Column Highlighting
+" Collumn Bars : | VertSplit | FoldedColumn | SignColumn | LineNr
 exec 'hi ColorColumn '           . g:fg         . g:bg        . g:t_none   | " for the columns
 exec 'hi SignColumn '            . g:fg_gray    . g:bg_black  . g:t_none   | " column where signs are displayed
-
+exec 'hi Folded '                . g:fg         . g:bg        . g:t_none   | " line used for closed folds
+exec 'hi FoldColumn '            . g:fg         . g:bg        . g:t_none   | " foldcolumn
 
 
 " Popup Menu
-exec 'hi PMenu '                 . g:fg_yellow  . g:bg        . g:t_none   | " Popup menu: normal item.
-exec 'hi PMenuSel '              . g:fg_green   . g:bg        . g:t_bold   | " Popup menu: selected item.
-exec 'hi PMenuSbar '             . g:fg_green   . g:bg_gray3  . g:t_none   | " Popup menu: scrollbar.
-exec 'hi PMenuThumb '            . g:fg_none    . g:bg_gray2  . g:t_none   | " Popup menu: Thumb of the scrollbar.
-exec 'hi link WildMenu PMenuSel'
+exec 'hi PMenu '                 . g:fg_cyan2   . g:bg_gray4  . g:t_none   | " Popup menu: normal item.
+exec 'hi PMenuSel '              . g:fg_blue1   . g:bg_gray4  . g:t_none   | " Popup menu: selected item.
 
+exec 'hi PMenuSbar '             . g:fg_white   . g:bg_black  . g:t_none   | " Popup menu: scrollbar.
+exec 'hi PMenuThumb '            . g:fg_white   . g:bg_gray   . g:t_none   | " Popup menu: Thumb of the scrollbar.
 
-exec 'hi Folded '                . g:fg_gray    . g:bg_gray3  . g:t_none   | " line used for closed folds
-exec 'hi FoldColumn '            . g:fg_gray    . g:bg_gray3  . g:t_none   | " 'foldcolumn'
-
+exec 'hi WildMenu'               . g:fg_green1  . g:bg_gray4  . g:t_none   | " quick select active
+exec 'hi StatusLine '            . g:fg_gray    . g:bg_gray4  . g:t_none   | " quick select inactive
+exec 'hi StatusLineNC '          . g:fg_black   . g:bg_black  . g:t_none   | " status lines of not-current windows
+exec 'hi link StatusLineTerm StatusLine '
+exec 'hi link StatusLineTermNC StatusLineNC '
 
 
 " Messages
@@ -115,7 +115,6 @@ exec 'hi MsgArea '               . g:fg         . g:bg_black  . g:t_none   | " A
 exec 'hi MsgSeparator '          . g:fg         . g:bg_black  . g:t_none   | " Separator for scrolled messages, `msgsep` flag of 'display'
 
 
-
 " Searching
 exec 'hi IncSearch '             . g:fg_black   . g:bg_pink   . g:t_none   | " 'incsearch' highlighting; also used for the text replaced with
 exec 'hi MatchParen '            . g:fg_yellow1 . g:bg_black  . g:t_bold   | " The char under the cursor or just before it, if it		is a paired bracket, and its match. pi_paren.txt
@@ -124,28 +123,18 @@ exec 'hi Search '                . g:fg_gray3   . g:bg_pink   . g:t_none   | " L
 exec 'hi Substitute '            . g:fg         . g:bg_black  . g:t_none   | " :substitute replacement text highlighting
 
 
-
 exec 'hi SpellBad '              . g:fg         . g:bg        . g:t_none   | " Word that is not recognized by the spellchecker. spell Combined with the highlighting used otherwise.
 exec 'hi SpellCap '              . g:fg         . g:bg        . g:t_none   | " Word that should start with a capital. spell Combined with the highlighting used otherwise.
 exec 'hi SpellLocal '            . g:fg         . g:bg        . g:t_none   | " Word that is recognized by the spellchecker as one that is used in another region. spell Combined with the highlighting used otherwise.
 exec 'hi SpellRare '             . g:fg         . g:bg        . g:t_none   | " Word that is recognized by the spellchecker as one that is hardly ever used. spell Combined with the highlighting used otherwise.
 
 
-
-exec 'hi StatusLine '            . g:fg_green1  . g:bg_yellow . g:t_none   | " status line of current window
-exec 'hi StatusLineNC '          . g:fg_black   . g:bg_yellow . g:t_bold   | " status lines of not-current windows
-exec 'hi link StatusLineTerm StatusLine '
-exec 'hi link StatusLineTermNC StatusLineNC '
-
-
-
-
 " Separators
-exec 'hi VertSplit '             . g:fg_black   . g:bg_black  . g:t_none   | " the column separating vertically split windows
-exec 'hi TabLine '               . g:fg         . g:bg        . g:t_none   | " tab pages line, not active tab page label
-exec 'hi TabLineFill '           . g:fg         . g:bg        . g:t_none   | " tab pages line, where there are no labels
-exec 'hi TabLineSel '            . g:fg         . g:bg        . g:t_none   | " tab pages line, active tab page label
-exec 'hi Title '                 . g:fg_yellow3 . g:bg        . g:t_bold   | " titles for output from :set all   :autocmd etc.
+exec 'hi VertSplit '             . g:fg_black   . g:bg_black  . g:t_none   | " column separating vertically split windows
+exec 'hi TabLine '               . g:fg_gray    . g:bg_black  . g:t_none   | " inactive tab text
+exec 'hi TabLineFill '           . g:fg         . g:bg_black  . g:t_none   | " empty tab line color
+exec 'hi TabLineSel '            . g:fg_green1  . g:bg_gray3  . g:t_none   | " active tab text
+exec 'hi Title '                 . g:fg_gray    . g:bg        . g:t_none   | " titles for output from :set all   :autocmd etc.
 
 
 exec 'hi Normal '                . g:fg_white1  . g:bg_black  . g:t_none   | " normal text
@@ -155,7 +144,9 @@ exec 'hi NormalNC '              . g:fg_white1  . g:bg_black  . g:t_none   | " n
 
 
 
-" CODING SYNTAX
+
+"""""" Buildin Coding Syntax
+
 " Text
 exec 'hi Comment '               . g:fg_gray2   . g:bg        . g:t_italic | " any comment
 exec 'hi NonText '               . g:fg_gray3   . g:bg        . g:t_none   | " other chars that do not really exist in the text
@@ -218,63 +209,76 @@ exec 'hi Warning '               . g:fg_gray2   . g:bg        . g:t_none
 
 
 
-exec 'hi GitSignsAdd '           . g:fg_green   .           g:bg        .        g:t_none
-exec 'hi GitSignsChange '        . g:fg_yellow  .           g:bg        .        g:t_none
-exec 'hi GitSignsDelete '        . g:fg_red     .           g:bg        .        g:t_none
-exec 'hi DiffAdd '               . g:fg         .           g:bg        .        g:t_none
-exec 'hi DiffChange '            . g:fg         .           g:bg        .        g:t_none
-exec 'hi DiffDelete '            . g:fg         .           g:bg        .        g:t_none
-exec 'hi DiffText '              . g:fg         .           g:bg        .        g:t_none
-
-
 " set termguicolors " this variable must be enabled for colors to be applied properly
-" a list of groups can be found at `:help nvim_tree_highlight`
-exec 'hi NvimTreeFolderIcon '    . g:fg_gray2 . g:bg_black . g:t_none
-exec 'hi NvimTreeIndentMarker '  . g:fg_gray2 . g:bg_black . g:t_none
 
-" hi NvimTreeSymlink
-" hi NvimTreeFolderName
-" hi NvimTreeRootFolder
-" hi NvimTreeFolderIcon
-" hi NvimTreeEmptyFolderName
-" hi NvimTreeExecFile
-" hi NvimTreeSpecialFile
-" hi NvimTreeImageFile
-" hi NvimTreeMarkdownFile
-" hi NvimTreeIndentMarker
+"""""" Hop
+exec 'hi HopNextKey '       . g:fg_cyan     . g:bg        . g:t_none
+exec 'hi HopNextKey1 '      . g:fg_cyan     . g:bg        . g:t_none
+exec 'hi HopNextKey2 '      . g:fg_cyan2    . g:bg        . g:t_none
 
-" hi NvimTreeLicenseIcon
-" hi NvimTreeYamlIcon
-" hi NvimTreeTomlIcon
-" hi NvimTreeGitignoreIcon
-" hi NvimTreeJsonIcon
 
-" hi NvimTreeLuaIcon
-" hi NvimTreePythonIcon
-" hi NvimTreeShellIcon
-" hi NvimTreeJavascriptIcon
-" hi NvimTreeCIcon
-" hi NvimTreeReactIcon
-" hi NvimTreeHtmlIcon
-" hi NvimTreeRustIcon
-" hi NvimTreeVimIcon
-" hi NvimTreeTypescriptIcon
 
-" hi NvimTreeGitDirty
-" hi NvimTreeGitStaged
-" hi NvimTreeGitMerge
-" hi NvimTreeGitRenamed
-" hi NvimTreeGitNew
+"""""" Git Signs
 
-" hi NvimTreeFileDirty
-" hi NvimTreeFileStaged
-" hi NvimTreeFileMerge
-" hi NvimTreeFileNew
-" hi NvimTreeFileRenamed
+exec 'hi GitSignsAdd '           . g:fg_green   . g:bg        . g:t_none
+exec 'hi GitSignsChange '        . g:fg_yellow  . g:bg        . g:t_none
+exec 'hi GitSignsDelete '        . g:fg_red     . g:bg        . g:t_none
+exec 'hi GitSignsAddNr '         . g:fg_green   . g:bg        . g:t_none
+exec 'hi GitSignsChangeNr '      . g:fg_yellow  . g:bg        . g:t_none
+exec 'hi GitSignsDeleteNr '      . g:fg_red     . g:bg        . g:t_none
+exec 'hi DiffAdd '               . g:fg         . g:bg        . g:t_none
+exec 'hi DiffChange '            . g:fg         . g:bg        . g:t_none
+exec 'hi DiffDelete '            . g:fg         . g:bg        . g:t_none
+exec 'hi DiffText '              . g:fg         . g:bg        . g:t_none
 
 
 
 
+"""""" Nvim Tree View
+
+exec 'hi NvimTreeSymlink '          . g:fg_green        . g:bg_black    . g:t_none
+exec 'hi NvimTreeFolderName '       . g:fg_green1       . g:bg_black    . g:t_none
+exec 'hi NvimTreeRootFolder '       . g:fg_green        . g:bg_black    . g:t_none
+exec 'hi NvimTreeEmptyFolderName '  . g:fg_gray         . g:bg_black    . g:t_none
+exec 'hi NvimTreeFolderIcon '       . g:fg_gray2        . g:bg_black    . g:t_none
+exec 'hi link NvimTreeIndentMarker NvimTreeFolderIcon'
+
+exec 'hi NvimTreeExecFile '         . g:fg_yellow2      . g:bg_black    . g:t_none
+exec 'hi NvimTreeSpecialFile '      . g:fg_orange2      . g:bg_black    . g:t_none
+exec 'hi NvimTreeMarkdownFile '     . g:fg_orange2      . g:bg_black    . g:t_none
+exec 'hi NvimTreeImageFile '        . g:fg_gray         . g:bg_black    . g:t_none
+
+" exec 'hi NvimTreeLicenseIcon '      . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeYamlIcon '         . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeTomlIcon '         . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeGitignoreIcon '    . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeJsonIcon '         . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeLuaIcon '          . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreePythonIcon '       . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeShellIcon '        . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeJavascriptIcon '   . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeCIcon '            . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeReactIcon '        . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeHtmlIcon '         . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeRustIcon '         . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeVimIcon '          . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeTypescriptIcon '   . g:fg_pink3     . g:bg_black    . g:t_none
+
+" exec 'hi NvimTreeGitDirty '         . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeGitStaged '        . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeGitMerge '         . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeGitRenamed '       . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeGitNew '           . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeFileDirty '        . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeFileStaged '       . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeFileMerge '        . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeFileNew '          . g:fg_pink3     . g:bg_black    . g:t_none
+" exec 'hi NvimTreeFileRenamed '      . g:fg_pink3     . g:bg_black    . g:t_none
+
+
+
+
+"""""" TreeSitter Syntax
 
 "  C
 exec 'hi link cConstant Constant'
@@ -455,8 +459,5 @@ exec 'hi link helpOption Keyword'
 exec 'hi link helpHeadline Title'
 exec 'hi link helpSectionDelim Delimiter'
 exec 'hi link helpHyperTextJump Underlined'
-
-
-
 
 

@@ -1,38 +1,41 @@
 
 local colors = {
-  color2   = "#000000",
-  color3   = "#ffee99",
-  color4   = "#e6e1cf",
-  color5   = "#14191f",
-  color13  = "#b8cc52",
-  color10  = "#36a3d9",
-  color8   = "#f07178",
-  color9   = "#e6e1cf",
+    black    = "#000000",
+    darkgray = "#303030",
+    white    = "#ffffff",
+    whiteish = "#dadada",
+    green    = "#99df87 ",
+    blue     = "#36a3d9",
+    red      = "#ff5f5f",
 }
 
 local mtheme = {
-  visual = {
-    a = { fg = colors.color2, bg = colors.color3 , "bold", },
-    b = { fg = colors.color4, bg = colors.color5 },
-  },
-  replace = {
-    a = { fg = colors.color2, bg = colors.color8 , "bold", },
-    b = { fg = colors.color4, bg = colors.color5 },
-  },
-  inactive = {
-    c = { fg = colors.color4, bg = colors.color2 },
-    a = { fg = colors.color4, bg = colors.color5 , "bold", },
-    b = { fg = colors.color4, bg = colors.color5 },
-  },
-  normal = {
-    c = { fg = colors.color9, bg = colors.color2 },
-    a = { fg = colors.color2, bg = colors.color10 , "bold", },
-    b = { fg = colors.color4, bg = colors.color5 },
-  },
-  insert = {
-    a = { fg = colors.color2, bg = colors.color13 , "bold", },
-    b = { fg = colors.color4, bg = colors.color5 },
-  },
+    visual = {
+        a = { fg = colors.black,    bg = colors.yellow,     },
+        b = { fg = colors.white,    bg = colors.darkgray    },
+    },
+    replace = {
+        a = { fg = colors.black,    bg = colors.red,        },
+        b = { fg = colors.white,    bg = colors.darkgray    },
+    },
+    inactive = {
+        a = { fg = colors.whiteish, bg = colors.darkgray,   },
+        b = { fg = colors.whiteish, bg = colors.darkgray    },
+        c = { fg = colors.whiteish, bg = colors.black       },
+    },
+    normal = {
+        a = { fg = colors.black,    bg = colors.blue,       },
+        b = { fg = colors.white,    bg = colors.darkgray    },
+        c = { fg = colors.whiteish, bg = colors.black       },
+    },
+    insert = {
+        a = { fg = colors.black,    bg = colors.green,      },
+        b = { fg = colors.white,    bg = colors.darkgray    },
+    },
+    command = {
+        a = { fg = colors.black,    bg = colors.red,        },
+        b = { fg = colors.white,    bg = colors.darkgray    },
+    },
 }
 
 return mtheme

@@ -14,11 +14,13 @@ Plug 'kyazdani42/nvim-tree.lua'                             " file explorer
 Plug 'neovim/nvim-lspconfig'                                " for LSP help
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " LSP based syntax highlighting
 Plug 'nvim-lua/completion-nvim'                             " LSP autocomplete
-Plug 'ojroques/nvim-lspfuzzy'                               " use FZF for displaying LSP searches
 Plug 'aca/completion-tabnine', {'do': './install.sh'}       " ML autocomplete
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fuzzy searcher
 Plug 'junegunn/fzf.vim'                                     " fuzzy searcher helpers
+Plug 'gfanto/fzf-lsp.nvim'                                  " use FZF for  displaying LSP searches
+Plug 'ojroques/nvim-lspfuzzy'                               " integrate FZF with the LSP server
+
 Plug 'phaazon/hop.nvim'                                     " better easy-motion
 
 Plug 'nvim-lua/plenary.nvim'
@@ -59,16 +61,19 @@ set wildoptions=tagfile
 set number              " or relativenumber
 set numberwidth=1       " number column width
 set ruler               " show current column in status bar right corner
-set signcolumn=yes:1
 " set signcolumn=number	" merge sign and numbers gutter golumns
+" set signcolumn=yes:1   " always show sign column
+set signcolumn=auto:1   " sign column
+set foldcolumn=0        " fold column width
+set fillchars=vert:\│   " vertical bar delimiter
 
 set cursorline          " highlight current line
-set foldcolumn=1        " number of folds / nesting level (?) the width of the grey column on the left side
 set showmatch           " show matching braces
 
 set undofile            " save undo history
 
 set diffopt+=vertical
+
 
 colorscheme mscheme
 let g:lualine = {
@@ -90,7 +95,7 @@ let g:lualine = {
     \  'lualine_a' : [  ],
     \  'lualine_b' : [  ],
     \  'lualine_c' : [ 'filename' ],
-    \  'lualine_x' : [ 'location' ],
+    \  'lualine_x' : [  ],
     \  'lualine_y' : [  ],
     \  'lualine_z' : [  ],
     \},
@@ -186,6 +191,17 @@ nnoremap <C-[> gt
 nnoremap <C-]> gT
 nnoremap <leader>t :tabnew<cr>
 
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap <leader>7 7gt
+nnoremap <leader>8 8gt
+nnoremap <leader>9 9gt
+nnoremap <leader>0 :tablast<CR>
+
 
 """ BUFFERS
 nnoremap <leader>n :bn<CR>
@@ -270,6 +286,7 @@ set smartcase       " will search case sensitive if uppercase present, needs ign
 
 noremap <BS> :noh<CR>   " clear search highlight
 
+set inccommand=nosplit " live visualization of substitutions
 
 
 """ FZF fuzzy finder
@@ -305,22 +322,21 @@ autocmd! FileType fzf set laststatus=0 noshowmode noruler
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_buffers_jump = 1 " [Buffers] Jump to the existing window if possible
 
-" " Customize fzf colors to match your color scheme
-" let g:fzf_colors =
-" \ { 'fg':      ['fg', 'Normal'],
-"   \ 'bg':      ['bg', 'Normal'],
-"   \ 'hl':      ['fg', 'Comment'],
-"   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-"   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-"   \ 'hl+':     ['fg', 'Statement'],
-"   \ 'info':    ['fg', 'PreProc'],
-"   \ 'border':  ['fg', 'Ignore'],
-"   \ 'prompt':  ['fg', 'Conditional'],
-"   \ 'pointer': ['fg', 'Exception'],
-"   \ 'marker':  ['fg', 'Keyword'],
-"   \ 'spinner': ['fg', 'Label'],
-"   \ 'header':  ['fg', 'Comment'] }
-
+" make fzf obey your colorscheme
+let g:fzf_colors = {
+    \ 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
 
 
 
@@ -364,22 +380,19 @@ nnoremap <SPACE> <Nop>
 """ TREE view
 
 nnoremap <leader>m :NvimTreeToggle<CR>
-" nnoremap <leader>r :NvimTreeRefresh<CR>
 " nnoremap <leader>n :NvimTreeFindFile<CR>
 
-" You can disable default mappings with
-" " let nvim_tree_disable_keybindings=1
-
+" let nvim_tree_disable_keybindings = 1       " to disable default mappings
 let g:nvim_tree_side = 'left'               " or right
 let g:nvim_tree_width = 30                  " 30 by default
-let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ]
+let g:nvim_tree_ignore = [ '.git', '.cache' ]
 let g:nvim_tree_auto_open = 0               " 0 by default, opens the tree when typing `vim $DIR` or `vim`
 let g:nvim_tree_auto_close = 0              " 0 by default, closes the tree when it's the last window
                                             " let g:nvim_tree_auto_ignore_ft = {'startify', 'dashboard'} "empty by default, don't auto open tree on specific filetypes.
 let g:nvim_tree_quit_on_open = 0            " 0 by default, closes the tree when you open a file
 let g:nvim_tree_follow = 0                  " 0 by default, this option allows the cursor to be updated when entering a buffer
 let g:nvim_tree_indent_markers = 1          " 0 by default, this option shows indent markers when folders are open
-let g:nvim_tree_hide_dotfiles = 0           " 0 by default, this option hides files and folders starting with a dot `.`
+let g:nvim_tree_hide_dotfiles = 1           " 0 by default, this option hides files and folders starting with a dot `.`
 let g:nvim_tree_git_hl = 0                  " 0 by default, will enable file highlight for git attributes (can be used without the icons).
 let g:nvim_tree_root_folder_modifier = ':~' " This is the default. See :help filename-modifiers for more options
 let g:nvim_tree_tab_open = 0                " 0 by default, will open the tree when entering a new tab and the tree was previously open
@@ -392,12 +405,7 @@ let g:nvim_tree_show_icons = {
     \ 'folders': 1,
     \ 'files': 0,
     \ }
-"If 0, do not show the icons for one of 'git' 'folder' and 'files'
-"1 by default, notice that if 'files' is 1, it will only display
-"if nvim-web-devicons is installed and on your runtimepath
 
-" default will show icon by default if no icon is provided
-" default shows no icon by default
 let g:nvim_tree_icons = {
     \ 'default': '',
     \ 'symlink': '~',
@@ -421,22 +429,39 @@ let g:nvim_tree_icons = {
 
 
 
-
 """ LSP Language Server Protocol
 
-" space something
-
+" call :Diagnostics to show all the available diagnostic informations in the current buffer (optionally pass the desired severity level)
+" nnoremap <silent> <space>e  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <silent> ]d         <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> [d         <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-" nnoremap <silent> <space>e  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
-nnoremap <silent> gd  <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD  <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gh  <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> gd  <cmd>lua vim.lsp.buf.declaration()<CR>
-" nnoremap <silent> gd  <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> gH  <cmd>lua vim.lsp.buf.signature_help()<CR>
+" call :Definitions to show the definition for the symbols under the cursor
+nnoremap <silent> gD  <cmd>lua vim.lsp.buf.definition()<CR>
+
+" call :References to show the references for the symbol under the cursor
+nnoremap <silent> gr  <cmd>lua vim.lsp.buf.references()<CR>
+
+" call :Declarations to show the declaration for the symbols under the cursor*
+nnoremap <silent> gd  <cmd>lua vim.lsp.buf.declaration()<CR>
+
+" call :TypeDefinitions to show the type definition for the symbols under the cursor*
 " nnoremap <silent> gk  <cmd>lua vim.lsp.buf.type_definition()<CR>
+
+" call :Implementations to show the implementation for the symbols under the cursor*
+nnoremap <silent> gi  <cmd>lua vim.lsp.buf.implementation()<CR>
+
+
+" nnoremap <silent> gh  <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> gH  <cmd>lua vim.lsp.buf.signature_help()<CR>
+
+
+" call :DocumentSymbols to show all the symbols in the current buffer
+" call :WorkspaceSymbols to show all the symbols in the workspace, you can optionally pass the query as argument to the command
+" call :IncomingCalls to show the incoming calls
+" call :OutgoingCalls to show the outgoing calls
+" call :CodeActions to show the list of available code actions
+" call :RangeCodeActions to show the list of available code actions in the visual selection
 
 
 
@@ -445,6 +470,9 @@ nnoremap <silent> gh  <cmd>lua vim.lsp.buf.hover()<CR>
 " set foldmethod=expr
 " set foldexpr=nvim_treesitter#foldexpr()
 
+
+
+""" Completion nvim
 
 " Use completion-nvim in every buffer
 autocmd BufEnter * lua require'completion'.on_attach()

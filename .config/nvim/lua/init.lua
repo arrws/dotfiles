@@ -42,8 +42,8 @@ vim.g.nvim_tree_bindings = {
     ["d"]              = tree_cb("cut"),
     ["y"]              = tree_cb("copy"),
     ["p"]              = tree_cb("paste"),
-    ["]c"]             = tree_cb("prev_git_item"),
-    ["[c"]             = tree_cb("next_git_item"),
+    -- ["]c"]             = tree_cb("prev_git_item"),
+    -- ["[c"]             = tree_cb("next_git_item"),
     ["q"]              = tree_cb("close"),
 }
 
@@ -55,22 +55,22 @@ require('gitsigns').setup {
         topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
         changedelete = {hl = 'GitSignsChange', text = '-', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
     },
-    numhl = false,
+    numhl = false, --- highlight num column text
     linehl = false,
     keymaps = {
         -- Default keymap options
         noremap = true,
         buffer = true,
 
-        ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
-        ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
+        ['n [c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"},
+        ['n ]c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"},
 
-        ['n ghs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-        ['n ghu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+        ['n ghp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
         ['n ghr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
         ['n ghR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-        ['n ghp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
         ['n ghb'] = '<cmd>lua require"gitsigns".blame_line()<CR>',
+        ['n ghs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+        ['n ghu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
 
         -- -- Text objects
         -- ['o ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>',

@@ -37,10 +37,10 @@ setopt share_history
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# if [ -n "${commands[fzf-share]}" ]; then
-#   source "$(fzf-share)/key-bindings.zsh"
-#   source "$(fzf-share)/completion.zsh"
-# fi
+if [ -n "${commands[fzf-share]}" ]; then
+  source "$(fzf-share)/key-bindings.zsh"
+  source "$(fzf-share)/completion.zsh"
+fi
 
 export PATH=$HOME/.toolbox/bin:$PATH
 
