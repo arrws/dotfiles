@@ -209,7 +209,7 @@ exec 'hi Warning '               . g:fg_gray2   . g:bg        . g:t_none
 
 
 
-" set termguicolors " this variable must be enabled for colors to be applied properly
+set termguicolors " this variable must be enabled for colors to be applied properly
 
 """""" Hop
 exec 'hi HopNextKey '       . g:fg_cyan     . g:bg        . g:t_none
