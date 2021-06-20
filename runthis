@@ -10,6 +10,7 @@ paths=(
 # ".zshrc"
 # ".bashrc"
 # ".bash_aliases"
+# ".borg.backup"
 
 # ".Xdefaults"
 # ".tmux.conf"
@@ -62,7 +63,7 @@ elif [[ "$ok" == "D" ]]; then
     for item in "${paths[@]}"
     do
         echo $item
-        diff -b "$HOME/$item" "$PWD/$item"
+        patdiff -context 2 "$HOME/$item" "$PWD/$item"
         echo ""
     done
 fi

@@ -3,6 +3,7 @@
 " to install vim-plug:
 " sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+
 call plug#begin('~/.config/nvim/bundle')
 
 Plug 'moll/vim-bbye'                                        " close buffers without closing windows with :Bdelete
@@ -20,9 +21,11 @@ Plug 'mhartington/formatter.nvim'                           " auto formateer
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'                              " git signs for vertical bar
-Plug 'tpope/vim-fugitive'                                   " git commands
+" Plug 'tpope/vim-fugitive'                                   " git commands
+Plug 'TimUntersberger/neogit'                               " git commands
 
 Plug 'phaazon/hop.nvim'                                     " better easy-motion
+" Plug 'ggandor/lightspeed.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fuzzy searcher
 Plug 'junegunn/fzf.vim'                                     " fuzzy searcher helpers
@@ -33,7 +36,7 @@ Plug 'junegunn/vim-easy-align'                              " alligning text
 Plug 'tpope/vim-surround'                                   " smart bindings to change surrounding elements
 Plug 'tpope/vim-repeat'                                     " enable . repeat for plugins
 Plug 'tpope/vim-commentary'                                 " bindings to comment stuff out
-Plug 'jiangmiao/auto-pairs'                                 " auto-complete parenthesis and other brackets
+Plug 'windwp/nvim-autopairs'                                " auto-complete parenthesis and other brackets
 Plug 'AndrewRadev/linediff.vim'                             " :Linediff diff two blocks of text selected in visual mode
 Plug 'AndrewRadev/splitjoin.vim'                            " reformat between single-line statement and a multi-line one
 Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }  " display thin vertical lines at each indentation level
@@ -85,7 +88,7 @@ colorscheme mscheme
 let mapleader='\'
 set timeout timeoutlen=1000 ttimeoutlen=10
 
-noremap <leader>a :source ~/.config/nvim/colors/mscheme.vim<cr>
+" noremap <leader>a :source ~/.config/nvim/colors/mscheme.vim<cr>
 
 noremap <leader>q :q!<cr>
 nnoremap <leader>w :w<cr>
@@ -290,7 +293,7 @@ nmap <C-r> :HFiles<CR>
 nmap <C-e> :Files<CR>
 nmap <C-f> :Rg<CR>
 nmap <C-b> :Buffers<CR>
-nmap <C-m> :Marks<CR>
+" nmap <C-m> :Marks<CR>
 nmap <C-c> :Commits<CR>
 
     " \ 'ctrl-q': function('s:build_quickfix_list'),
@@ -388,6 +391,8 @@ let g:nvim_tree_tab_open = 0                " 0 by default, will open the tree w
 let g:nvim_tree_width_allow_resize  = 0     " 0 by default, will not resize the tree when opening a file
 let g:nvim_tree_disable_netrw = 1           " 1 by default, disables netrw
 let g:nvim_tree_hijack_netrw = 1            " 1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
+let g:nvim_tree_highlight_opened_files = 1  "0 by default, will enable folder and file icon highlight for opened files/directories.
+
 
 let g:nvim_tree_show_icons = {
     \ 'git': 0,

@@ -162,8 +162,8 @@ exec 'hi Boolean '               . g:fg_blue1   . g:bg        . g:t_none   | " a
 exec 'hi Float '                 . g:fg_blue2   . g:bg        . g:t_none   | " a floating point constant: 2.3e10
 
 " Identifiers
-exec 'hi Identifier '            . g:fg_yellow2 . g:bg        . g:t_none   | " any variable name
-exec 'hi Function '              . g:fg_green1  . g:bg        . g:t_none   | " function name (also: methods for classes)
+exec 'hi Identifier '            . g:fg_white1 . g:bg        . g:t_none   | " any variable name
+exec 'hi Function '              . g:fg_yellow1  . g:bg        . g:t_none   | " function name (also: methods for classes)
 
 " Syntax
 exec 'hi Statement '             . g:fg_red1    . g:bg        . g:t_none   | " statements
@@ -182,7 +182,7 @@ exec 'hi Structure '             . g:fg_orange3 . g:bg        . g:t_none   | " s
 exec 'hi Typedef '               . g:fg_green1  . g:bg        . g:t_none   | " A typedef
 
 " Meta Text
-exec 'hi PreProc '               . g:fg_blue2   . g:bg        . g:t_none   | " Preprocessor generic
+exec 'hi PreProc '               . g:fg_blue2   . g:bg        . g:t_none   | " Preprocessor generic ??? functoin params in typescript
 exec 'hi Include '               . g:fg_blue2   . g:bg        . g:t_none   | " preprocessor #include
 exec 'hi Define '                . g:fg_blue2   . g:bg        . g:t_none   | " preprocessor #define
 exec 'hi Macro '                 . g:fg_blue2   . g:bg        . g:t_italic | " same as Define
@@ -211,10 +211,11 @@ exec 'hi Warning '               . g:fg_gray2   . g:bg        . g:t_none
 
 set termguicolors " this variable must be enabled for colors to be applied properly
 
-"""""" Hop
-exec 'hi HopNextKey '       . g:fg_cyan     . g:bg        . g:t_none
-exec 'hi HopNextKey1 '      . g:fg_cyan     . g:bg        . g:t_none
-exec 'hi HopNextKey2 '      . g:fg_cyan2    . g:bg        . g:t_none
+
+" """""" Hop
+" exec 'hi HopNextKey '       . g:fg_cyan     . g:bg        . g:t_none
+" exec 'hi HopNextKey1 '      . g:fg_cyan     . g:bg        . g:t_none
+" exec 'hi HopNextKey2 '      . g:fg_cyan2    . g:bg        . g:t_none
 
 
 
@@ -238,9 +239,11 @@ exec 'hi DiffText '              . g:fg         . g:bg        . g:t_none
 
 exec 'hi NvimTreeSymlink '          . g:fg_green        . g:bg_black    . g:t_none
 exec 'hi NvimTreeFolderName '       . g:fg_green1       . g:bg_black    . g:t_none
-exec 'hi NvimTreeRootFolder '       . g:fg_green        . g:bg_black    . g:t_none
+exec 'hi NvimTreeOpenedFolderName ' . g:fg_green1       . g:bg_black    . g:t_none
 exec 'hi NvimTreeEmptyFolderName '  . g:fg_gray         . g:bg_black    . g:t_none
 exec 'hi NvimTreeFolderIcon '       . g:fg_gray2        . g:bg_black    . g:t_none
+
+exec 'hi NvimTreeRootFolder '       . g:fg_green        . g:bg_black    . g:t_none
 exec 'hi link NvimTreeIndentMarker NvimTreeFolderIcon'
 
 exec 'hi NvimTreeExecFile '         . g:fg_yellow2      . g:bg_black    . g:t_none

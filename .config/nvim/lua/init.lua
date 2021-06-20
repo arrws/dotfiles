@@ -1,4 +1,11 @@
 
+require('neogit').setup{}
+
+--- HOP
+-- Use better keys for the bépo keyboard layout and set
+-- a balanced distribution of terminal / sequence keys
+require'hop'.setup{} -- keys = 'etovxqpdygfblzhckisuran', term_seq_bias = 0.5 }
+
 
 -- Toggle to disable mouse mode and indentlines for easier paste
 ToggleMouse = function()
@@ -59,7 +66,7 @@ local on_attach = function(_client, bufnr)
   local opts = { noremap=true, silent=true }
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -72,7 +79,7 @@ local on_attach = function(_client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
 local nvim_lsp = require('lspconfig')
 end
@@ -263,4 +270,17 @@ require('formatter').setup({
   }
 })
 
+---- auto pairs
+-- require('nvim-autopairs').setup()
+require('nvim-autopairs').setup({
+  enable_check_bracket_line = false
+  -- disable_filetype = { "TelescopePrompt" , "vim" },
+  --- default values
+  -- local disable_filetype = { "TelescopePrompt" }
+-- local ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]],"%s+", "")
+-- local enable_moveright = true
+-- local enable_afterquote = true  -- add bracket pairs after quote
+-- local enable_check_bracket_line = true  --- check bracket in same line
+-- local check_ts = false
+})
 
