@@ -6,7 +6,6 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs --vimgrep --glob
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 
 
-
 alias la='ls -Flah'
 alias cp='cp -Riv'
 alias mv='mv -iv'
@@ -21,7 +20,7 @@ cll() { builtin cd "$1" && ls -l; }
 
 alias ..='cd ..'
 alias cd..='cd ..'
-alias fuck='sudo $(history -p !!)'
+alias fuck='sudo !!'
 alias cclear='printf "\033c"' # actually clear text from the terminal
 
 
@@ -35,7 +34,7 @@ alias valias='nvim ~/.bash_aliases'
 
 alias feh='feh --scale-down'
 alias mupdf='mupdf-x11'
-alias diff='diff -u --color'
+alias diff='patdiff'
 
 alias icat='kitty +kitten icat --place=40x40@132x0'
 
@@ -47,10 +46,13 @@ alias grit='/usr/bin/grit'
 
 alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +kitten icat --align left'
 alias awkplotu='awk -f .scripts/plot.awk'
-alias hledgerplot="sed \"s/.*|| *//\" | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' '"
+alias hledgerplot="sed \"s/.*|| *//\" | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' ' | sed 's/|/ /g'"
+
+alias neofetch='neofetch --ascii_distro nixos_old --color_blocks off'
+
 
 function calx {
-    cal -wym --color=always | perl -p -E '
+    cal -wym --color=always $@ | perl -p -E '
        sub col { "\033\[38;5;$_[0]m$1\033\[0m" }
        s/^(.\d)/col 241/ge;
        s/   \K( [2-9]|\d\d) /col(241).q( )/ge;
@@ -89,8 +91,5 @@ alias colors='for i in {0..255}; do printf "\x1b[38;5;${i}m ███  $i  ${col
 function grepcolor {
     printf "\x1b[38;5;$1m ███  $1  ${colorarr[$i+1]}  \\\e[38;5;$1m ... \\\x1b[0m\n"
 }
-
-
-
 
 

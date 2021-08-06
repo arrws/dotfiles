@@ -10,22 +10,18 @@ Plug 'moll/vim-bbye'                                        " close buffers with
 Plug 'hoob3rt/lualine.nvim'                                 " lua statusline
 
 Plug 'kyazdani42/nvim-tree.lua'                             " file explorer
-
 Plug 'neovim/nvim-lspconfig'                                " for LSP help
 Plug 'hrsh7th/nvim-compe'                                   " LSP autocomplete
 Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }      " ML autocomplete
-" Plug 'nvim-lua/completion-nvim'                             " LSP autocomplete
-" Plug 'aca/completion-tabnine', {'do': './install.sh'}       " ML autocomplete
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " LSP based syntax highlighting
 Plug 'mhartington/formatter.nvim'                           " auto formateer
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'                              " git signs for vertical bar
-" Plug 'tpope/vim-fugitive'                                   " git commands
-Plug 'TimUntersberger/neogit'                               " git commands
+
+" Plug 'TimUntersberger/neogit'                               " git commands
 
 Plug 'phaazon/hop.nvim'                                     " better easy-motion
-" Plug 'ggandor/lightspeed.nvim'
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fuzzy searcher
 Plug 'junegunn/fzf.vim'                                     " fuzzy searcher helpers
@@ -39,12 +35,11 @@ Plug 'tpope/vim-commentary'                                 " bindings to commen
 Plug 'windwp/nvim-autopairs'                                " auto-complete parenthesis and other brackets
 Plug 'AndrewRadev/linediff.vim'                             " :Linediff diff two blocks of text selected in visual mode
 Plug 'AndrewRadev/splitjoin.vim'                            " reformat between single-line statement and a multi-line one
-Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }  " display thin vertical lines at each indentation level
+Plug 'glepnir/indent-guides.nvim'                           " display thin vertical lines at each indentation level
 Plug 'ntpeters/vim-better-whitespace'                       " for trailling whitespace
 Plug 'norcalli/nvim-colorizer.lua'                          " highlight colors
 
 call plug#end()
-
 
 set rtp+=$GOROOT/misc/vim
 filetype plugin indent on
@@ -227,14 +222,6 @@ set backspace=2
 set linespace=0
 
 
-""" indenting
-let g:indent_blankline_char = '¦'
- " let g:indent_blankline_space_char = ' '
-" let g:indent_blankline_char_list = ['|', '¦', '┆', '┊']
-let g:indent_blankline_char_highlight_list = ['NonText']
-let g:indent_blankline_filetype_exclude = ['help', 'packer']
-let g:indent_blankline_buftype_exclude = ['terminal', 'nofile']
-
 
 """ normal tabbing with TAB key
 nnoremap <TAB> >>
@@ -331,40 +318,8 @@ let g:fzf_colors = {
     \ 'header':  ['fg', 'Comment'] }
 
 
-
-
-
-""" Fugitive
-
-" augroup FugitiveMappings
-"   autocmd!
-"   autocmd FileType fugitive nmap o fugitive_gO
-" augroup
-
-" nmap o fugitive_o
-
-" fugitive git bindings
-" nnoremap <space>ga :Git add %:p<CR><CR>
-" nnoremap gs :Gstatus<CR>
-" nnoremap gd :Gdiff<CR>
-" nnoremap <space>gc :Gcommit -v -q<CR>
-" nnoremap <space>gt :Gcommit -v -q %:p<CR>
-" nnoremap <space>ge :Gedit<CR>
-" nnoremap <space>gr :Gread<CR>
-" nnoremap <space>gw :Gwrite<CR><CR>
-" nnoremap <space>gl :silent! Glog<CR>:bot copen<CR>
-" nnoremap <space>gp :Ggrep<Space>
-" nnoremap <space>gm :Gmove<Space>
-" nnoremap <space>gb :Git branch<Space>
-" nnoremap <space>go :Git checkout<Space>
-" nnoremap <space>gps :Dispatch! git push<CR>
-" nnoremap <space>gpl :Dispatch! git pull<CR>
-
-
+" so that it won't move cursor
 nnoremap <SPACE> <Nop>
-
-
-
 
 
 
@@ -422,54 +377,9 @@ let g:nvim_tree_icons = {
 
 
 
-
-" """ LSP Language Server Protocol
-
-" " call :Diagnostics to show all the available diagnostic informations in the current buffer (optionally pass the desired severity level)
-" " nnoremap <silent> <space>e  <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-" nnoremap <silent> ]d         <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-" nnoremap <silent> [d         <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-
-" " call :Definitions to show the definition for the symbols under the cursor
-" nnoremap <silent> gD  <cmd>lua vim.lsp.buf.definition()<CR>
-
-" " call :References to show the references for the symbol under the cursor
-" nnoremap <silent> gr  <cmd>lua vim.lsp.buf.references()<CR>
-
-" " call :Declarations to show the declaration for the symbols under the cursor*
-" nnoremap <silent> gd  <cmd>lua vim.lsp.buf.declaration()<CR>
-
-" " call :TypeDefinitions to show the type definition for the symbols under the cursor*
-" " nnoremap <silent> gk  <cmd>lua vim.lsp.buf.type_definition()<CR>
-" " leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>'
-
-" " call :Implementations to show the implementation for the symbols under the cursor*
-" nnoremap <silent> gi  <cmd>lua vim.lsp.buf.implementation()<CR>
-
-" nnoremap <silent> <leader>wa    <cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
-" nnoremap <silent> <leader>wr    <cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
-" nnoremap <silent> <leader>wl    <cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
-" nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
-" nnoremap <silent> <leader>ca    <cmd>lua vim.lsp.buf.code_action()<CR>
-
-" " nnoremap <silent> K gh  <cmd>lua vim.lsp.buf.hover()<CR>
-" " nnoremap <silent> <C-k> gH  <cmd>lua vim.lsp.buf.signature_help()<CR>
-
-
-" " call :DocumentSymbols to show all the symbols in the current buffer
-" " call :WorkspaceSymbols to show all the symbols in the workspace, you can optionally pass the query as argument to the command
-" " call :IncomingCalls to show the incoming calls
-" " call :OutgoingCalls to show the outgoing calls
-" " call :CodeActions to show the list of available code actions
-" " call :RangeCodeActions to show the list of available code actions in the visual selection
-
-
-
-
 " treesitter folding
 " set foldmethod=expr
 " set foldexpr=nvim_treesitter#foldexpr()
-
 
 
 
@@ -485,40 +395,6 @@ augroup END
 command! Format execute 'lua vim.lsp.buf.formatting()'
 
 
-" """ Completion nvim
-
-" " Use completion-nvim in every buffer
-" autocmd BufEnter * lua require'completion'.on_attach()
-
-" " Use <Tab> and <S-Tab> to navigate through popup menu
-" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" set completeopt=menuone,noinsert,noselect   " Set completeopt to have a better completion experience
-" set shortmess+=c                            " Avoid showing message extra message when using completion
-
-" let g:completion_enable_auto_hover = 1           " enable/disable when navigating through completion items, LSP's hover is automatically called and displays in a floating window
-" let g:completion_enable_auto_signature = 1       " enable/disable signature help opens automatically whenever it's available
-" let g:completion_sorting = "none"                " how your items being sorted in the popup menu. possible value: length, alphabet, none
-
-" " let g:completion_matching_smart_case = 1       " specify a list of matching strategy, assign priority from high to low. For example
-" " let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy', 'all']
-
-" let g:completion_trigger_character = ['.', '::'] " additional trigger character, default is gien by your language server
-" " let g:completion_trigger_on_delete = 1         " enable trigger completion on delete
-" " let g:completion_timer_cycle = 200             " default value is 80 timer to control the rate of completion
-
-" let g:completion_chain_complete_list = {
-"     \ 'default': [
-"     \    {'complete_items': ['tabnine', 'lsp']},
-"     \    {'mode': '<c-p>'},
-"     \    {'mode': '<c-n>'}
-"     \]
-" \}
-
-" let g:completion_tabnine_max_num_results=5 " max tabnine completion options
-" let g:completion_tabnine_sort_by_details=1 " sort by tabnine score (default: 0)
-" let g:completion_tabnine_max_lines=1000    " max line for input. from current line -1000 ~ +1000 lines is passed as input
 
 
 

@@ -3,31 +3,31 @@
 
 paths=(
 
-# ".scripts"
-# ".xmobarrc"
-# ".xmonad/xmonad.hs"
+".scripts"
+".xmobarrc"
+".xmonad/xmonad.hs"
 
-# ".zshrc"
-# ".bashrc"
-# ".bash_aliases"
-# ".borg.backup"
+".zshrc"
+".bashrc"
+".bash_aliases"
+".borg.backup"
 
-# ".Xdefaults"
-# ".tmux.conf"
-# ".gitconfig"
+".Xdefaults"
+".tmux.conf"
+".gitconfig"
 
-# ".config/kitty/kitty.conf"
+".config/kitty/kitty.conf"
 ".config/nvim/init.vim"
 ".config/nvim/lua/init.lua"
 ".config/nvim/lua/lualine/themes/mtheme.lua"
 ".config/nvim/colors/mscheme.vim"
-# ".config/vifm/vifmrc"
-# ".config/vifm/colors/Default.vifm"
-# ".config/feh/keys"
-# ".config/mpv/input.conf"
-# ".config/mpd/mpd.conf"
+".config/vifm/vifmrc"
+".config/vifm/colors/Default.vifm"
+".config/feh/keys"
+".config/mpv/input.conf"
+".config/mpd/mpd.conf"
 
-# ".ghc/ghci.conf"
+".ghc/ghci.conf"
 # ".skynet.png"
 )
 
@@ -63,7 +63,7 @@ elif [[ "$ok" == "D" ]]; then
     for item in "${paths[@]}"
     do
         echo $item
-        patdiff -context 2 "$HOME/$item" "$PWD/$item"
+        patdiff -context 2 "$PWD/$item" "$HOME/$item"
         echo ""
     done
 fi

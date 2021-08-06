@@ -1,13 +1,15 @@
 
-require('neogit').setup{}
+-- require('neogit').setup{}
+
+require("colorizer").setup()
 
 --- HOP
--- Use better keys for the bépo keyboard layout and set
--- a balanced distribution of terminal / sequence keys
 require'hop'.setup{} -- keys = 'etovxqpdygfblzhckisuran', term_seq_bias = 0.5 }
 
 
--- Toggle to disable mouse mode and indentlines for easier paste
+--------  ToggleMouse
+
+-- disable mouse mode and indentlines for easier paste
 ToggleMouse = function()
   if vim.o.mouse == 'a' then
     vim.cmd[[IndentBlanklineDisable]]
@@ -25,6 +27,9 @@ ToggleMouse = function()
 end
 -- vim.api.nvim_set_keymap('n', '<F10>', '<cmd>lua ToggleMouse()<cr>', { noremap = true })
 
+
+
+-------- LuaLine
 
 require'lualine'.setup {
   options = {
@@ -55,9 +60,8 @@ require'lualine'.setup {
 }
 
 
-require("colorizer").setup()
 
-
+--------  Language Server Protocol (LSP)
 
 local nvim_lsp = require('lspconfig')
 local on_attach = function(_client, bufnr)
@@ -81,6 +85,16 @@ local on_attach = function(_client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
+
+-- call :DocumentSymbols to show all the symbols in the current buffer
+-- call :WorkspaceSymbols to show all the symbols in the workspace, you can optionally pass the query as argument to the command
+-- call :IncomingCalls to show the incoming calls
+-- call :OutgoingCalls to show the outgoing calls
+-- call :CodeActions to show the list of available code actions
+-- call :RangeCodeActions to show the list of available code actions in the visual selection
+
+
+
 local nvim_lsp = require('lspconfig')
 end
 
@@ -88,9 +102,9 @@ end
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.gopls.setup{}
 require'lspconfig'.hls.setup{}
-require'lspconfig'.pyls.setup{}
+-- require'lspconfig'.pyls.setup{}
 
-local servers = { 'hls', 'gopls', 'pyls', 'tsserver' }
+local servers = { 'hls', 'gopls', 'tsserver' }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup { on_attach = on_attach }
 end
@@ -108,6 +122,10 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   }
 }
+
+
+
+-------- Tree View
 
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 vim.g.nvim_tree_bindings = {
@@ -136,6 +154,10 @@ vim.g.nvim_tree_bindings = {
     -- ["[c"]             = tree_cb("next_git_item"),
     ["q"]              = tree_cb("close"),
 }
+
+
+
+--------  Git Signs
 
 require('gitsigns').setup {
     signs = {
@@ -172,13 +194,12 @@ require('gitsigns').setup {
     sign_priority = 6,
     update_debounce = 100,
     status_formatter = nil,     -- Use default
-    use_decoration_api = true,
     use_internal_diff = true,   -- If luajit is present
 }
 
 
 
--------- compe
+-------- COMPE completion
 
 require'compe'.setup {
   enabled = true;
@@ -195,11 +216,13 @@ require'compe'.setup {
   documentation = true;
 
   source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    tabnine = true;
+    -- path = true;
+    -- buffer = true;
+    -- calc = true;
+    -- nvim_lua = true;
+    -- nvim_lsp = true;
+    -- tabnine = true;
+    -- treesiter = true;
     -- tabnine = {
     --     max_line = 1000;
     --     max_num_results = 6;
@@ -252,7 +275,8 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
 
--------- formatter
+
+-------- Formatter
 
 require('formatter').setup({
   logging = false,
@@ -270,7 +294,8 @@ require('formatter').setup({
   }
 })
 
----- auto pairs
+
+-------- auto pairs
 -- require('nvim-autopairs').setup()
 require('nvim-autopairs').setup({
   enable_check_bracket_line = false
@@ -282,5 +307,18 @@ require('nvim-autopairs').setup({
 -- local enable_afterquote = true  -- add bracket pairs after quote
 -- local enable_check_bracket_line = true  --- check bracket in same line
 -- local check_ts = false
+})
+
+require('indent_guides').setup({
+    indent_levels = 20;
+    indent_guide_size = 1;
+    indent_start_level = 1;
+    indent_enable = true;
+    indent_space_guides = true;
+    indent_tab_guides = false;
+    indent_soft_pattern = '\\s';
+    exclude_filetypes = {'help','dashboard','dashpreview','NvimTree','vista','sagahover'};
+    even_colors = { fg ='#2a3834',bg='#000000' };
+    odd_colors = {fg='#332b36',bg='#000000'};
 })
 

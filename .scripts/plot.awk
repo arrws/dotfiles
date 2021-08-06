@@ -134,7 +134,7 @@ END {
 
 	chart_width=600
 	legend_width=100
-	height=150
+	height=200
 	xmargin=10
 	ymargin=5
 	gutter=10
