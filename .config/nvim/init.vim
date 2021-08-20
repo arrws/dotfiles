@@ -156,12 +156,14 @@ nmap S :HopChar2<CR>
 """""" MOVEMENT
 
 " disable these
-map <C-e> <Nop> " scroll the window downwards.
-map <C-u> <Nop> " move your cursor upward half a screen.
-map <C-d> <Nop> " move your cursordownward half a screen.
+" map <C-e> <Nop> " scroll the window downwards.
+" map <C-u> <Nop> " move your cursor upward half a screen.
+" map <C-d> <Nop> " move your cursordownward half a screen.
+
 
 
 """ TABS
+
 nnoremap <C-[> gt
 nnoremap <C-]> gT
 nnoremap <leader>t :tabnew<cr>
@@ -178,14 +180,9 @@ nnoremap <leader>9 9gt
 nnoremap <leader>0 :tablast<CR>
 
 
-""" BUFFERS
-nnoremap <leader>n :bn<CR>
-nnoremap <leader>b :bp<CR>
-nnoremap <leader>x :Bdelete<CR>
-" noremap <C-q> :bdelete<CR>
-
 
 """ WINDOWS
+
 set splitbelow
 set splitright
 
@@ -193,6 +190,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
+nnoremap <C-T> <C-w>T
+
 
 nnoremap <leader>S <C-w>s
 nnoremap <leader>s <C-w>v
@@ -204,6 +203,38 @@ nnoremap <C-\>l :vertical resize +5<CR>
 nnoremap <C-\>h :vertical resize -5<CR>
 nnoremap <C-\>j :resize +5<CR>
 nnoremap <C-\>k :resize -5<CR>
+
+
+
+""" TERMINAL
+
+" Maps ESC to exit terminal's insert mode
+if has('nvim')
+    tnoremap <Esc> <C-\><C-n>
+    tnoremap <leader>q  <C-\><C-n>
+endif
+
+" open a new tab window
+nnoremap <C-\>t :tabnew +terminal<CR>
+tnoremap <C-\>t <C-\><C-n>:tabnew +terminal<CR>
+
+" open a new horizontal split with a terminal
+nnoremap <C-\>S :new +terminal<CR>
+tnoremap <C-\>S <C-\><C-n>:new +terminal<CR>
+
+" open a new vertical split with a terminal
+nnoremap <C-\>s :vnew +terminal<CR>
+tnoremap <C-\>s <C-\><C-n>:vnew +terminal<cr>
+
+""" BUFFERS
+nnoremap <leader>n :bn<CR>
+nnoremap <leader>b :bp<CR>
+nnoremap <leader>x :Bdelete<CR>
+" noremap <C-q> :bdelete<CR>
+
+
+
+
 
 
 
@@ -326,10 +357,10 @@ nnoremap <SPACE> <Nop>
 
 """ TREE view
 
-nnoremap <leader>m :NvimTreeToggle<CR>
+nnoremap <C-m> :NvimTreeToggle<CR>
 " nnoremap <leader>n :NvimTreeFindFile<CR>
-
-" let nvim_tree_disable_keybindings = 1       " to disable default mappings
+"
+let g:nvim_tree_disable_default_keybindings = 1 " to disable default mappings
 let g:nvim_tree_side = 'left'               " or right
 let g:nvim_tree_width = 30                  " 30 by default
 let g:nvim_tree_ignore = [ '.git', '.cache' ]
@@ -397,26 +428,6 @@ command! Format execute 'lua vim.lsp.buf.formatting()'
 
 
 
-
-""" TERMINAL
-
-" Maps ESC to exit terminal's insert mode
-if has('nvim')
-    tnoremap <Esc> <C-\><C-n>
-    tnoremap <leader>q  <C-\><C-n>
-endif
-
-" open a new tab window
-nnoremap <C-\>t :tabnew +terminal<CR>
-tnoremap <C-\>t <C-\><C-n>:tabnew +terminal<CR>
-
-" open a new horizontal split with a terminal
-nnoremap <C-\>S :new +terminal<CR>
-tnoremap <C-\>S <C-\><C-n>:new +terminal<CR>
-
-" open a new vertical split with a terminal
-nnoremap <C-\>s :vnew +terminal<CR>
-tnoremap <C-\>s <C-\><C-n>:vnew +terminal<cr>
 
 
 augroup startup

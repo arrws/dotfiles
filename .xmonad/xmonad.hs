@@ -57,27 +57,14 @@ import XMonad.Layout.Renamed
 
 
 
-my_workspaces :: [WorkspaceId]
-my_workspaces = ["one", "main", "alt", "web", "five", "six", "seven", "inf", "thrash"] -- + (map show [5 .. 9 :: Int])
-
-my_ModMask :: KeyMask
-my_ModMask = mod1Mask -- use ALT key
-my_terminal = "kitty" -- "xterm -bg black -fg white" -- "urxvt"
-
-my_dmenu = "dmenu_run -nb black -nf '#DDDDDD' -sb darkred -sf white -fn 'Source Code Pro-12.0:antialias=true' -p '>'"
-my_dmenu_music_script = "mpc play \"$(mpc ls | sort | nl -nln -s' ' -ba \
-                        \ | dmenu -nb black -nf '#DDDDDD' -sb darkblue -sf white -fn 'Source Code Pro-12.0:antialias=true' -p '>' -i -l 43 \
-                        \ | cut -d' ' -f1)\""
-
-
 my_keys_bindings :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launching and killing programs
-    [ ((modMask                 , xK_Return ), spawn $ XMonad.terminal conf)        -- launch default terminal
-    , ((modMask                 , xK_p      ), spawn my_dmenu)                      -- launch dmenu command search
-    , ((modMask .|. shiftMask   , xK_p      ), spawn my_dmenu_music_script)         -- launch dmenu music search
-    , ((modMask                 , xK_x      ), kill)                                -- close the focused window
+    [ ((modMask                 , xK_Return ), spawn $ XMonad.terminal conf)      -- launch default terminal
+    , ((modMask                 , xK_p      ), spawn "./.scripts/dmenu.sh")       -- launch dmenu command search
+    , ((modMask .|. shiftMask   , xK_p      ), spawn "./.scripts/dmusic.sh")      -- launch dmenu music search
+    , ((modMask                 , xK_x      ), kill)                              -- close the focused window
 
     -- volume control
     , ((0                       , 0x1008ff11), spawn "amixer -q sset Master 5%- && ./.scripts/info_volume.sh")
@@ -85,9 +72,14 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((0                       , 0x1008ff12), spawn "amixer set Master toggle && ./.scripts/info_volume.sh")
 
     -- brightness control
-    , ((0                       , 0x1008ff02), spawn "light -A -r 10 && ./.scripts/info_brightness.sh")
-    , ((0                       , 0x1008ff03), spawn "light -U -r 10 && ./.scripts/info_brightness.sh")
-    , ((modMask                 , xK_i      ), spawn "xcalib -invert -alter")           -- invert colors
+    , ((0                       , 0x1008ff02), spawn "light -A -r 50 && ./.scripts/info_brightness.sh")
+    , ((0                       , 0x1008ff03), spawn "light -U -r 50 && ./.scripts/info_brightness.sh")
+    , ((0                       , 0x1008ff81), spawn "xcalib -invert -alter")           -- invert colors
+
+    --- redshift control
+    , ((modMask                 , 0x1008ff02), spawn "./.scripts/info_redshift.sh -500")
+    , ((modMask                 , 0x1008ff03), spawn "./.scripts/info_redshift.sh 500")
+    , ((modMask                 , 0x1008ff81), spawn "./.scripts/info_redshift.sh 0")     -- reset redshift
 
     -- screenshots
     , ((modMask                 , xK_Print  ), spawn "sleep 0.2; scrot `date +%s`.png -s -z -e 'mv $f ~/screenshots'")
@@ -155,7 +147,6 @@ my_mouse_bindings (XConfig {XMonad.modMask = modMask}) = M.fromList []
 --     , ((modMask,    button4 ), withFocused $ windows . W.sink)                                  -- push window back into tiling
 --     ]
 
-
 my_layout_hook = mkToggle (single NBFULL) $ my_maximize ||| my_vertical ||| my_horizontal -- ||| my_spiral
                 where
                     -- my_spiral       = renamed [Replace "Sprl"] $ my_gaps $ spiral (6/7)
@@ -166,9 +157,12 @@ my_layout_hook = mkToggle (single NBFULL) $ my_maximize ||| my_vertical ||| my_h
                     my_gaps layout  = let x = 3 in avoidStruts $ spacing x $ gaps [(U,x+20),(D,x),(R,x),(L,x)] layout
 
 
+my_workspaces :: [WorkspaceId]
+my_workspaces = ["λ", "main", "web"] ++ (map show [4 .. 9 :: Int])
+
 my_manage_hook = composeAll
-    [ className =? "Firefox"  --> doShift (my_workspaces !! 3)
-    , className =? "Firefox"  --> viewShift (my_workspaces !! 3)
+    [ className =? "Firefox"  --> doShift (my_workspaces !! 2)
+    , className =? "Firefox"  --> viewShift (my_workspaces !! 2)
     -- , className =? "Google-chrome"  --> doShift (my_workspaces !! 1)
     -- , className =? "Google-chrome"  --> viewShift (my_workspaces !! 1)
     , isFullscreen --> (doF W.focusDown <+> doFullFloat)
@@ -176,29 +170,41 @@ my_manage_hook = composeAll
     where viewShift = doF . liftM2 (.) W.greedyView W.shift
 
 
+my_modmask = mod1Mask -- use ALT key
+my_terminal = "kitty" -- "xterm -bg black -fg white" -- "urxvt"
+
+my_xmobarPP xmproc = xmobarPP {
+    ppCurrent           = xmobarColor "green" "" . wrapBrackets
+    , ppVisible         = xmobarColor "green" "" . wrapBrackets
+    , ppHidden          = xmobarColor "yellow" "" . addSpace
+    , ppHiddenNoWindows = xmobarColor "grey" "" . addSpace
+    , ppOutput          = hPutStrLn xmproc
+    , ppTitle           = xmobarColor "#afffff" "" . shorten 50
+    , ppSep             = "  "  -- space between WSs and title
+    , ppWsSep           = ""    -- space inbetween WSs
+    , ppLayout          = xmobarColor "orange" ""
+    }
+    where
+        addSpace = (\x -> " " ++ x)
+        wrapBrackets = wrap " [" "]"
+
 main = do
         xmproc <- spawnPipe "xmobar"
         xmonad $ defaultConfig
             { terminal          = my_terminal
-            , modMask           = my_ModMask
+            , modMask           = my_modmask
             , workspaces        = my_workspaces
             , keys              = my_keys_bindings
             , mouseBindings     = my_mouse_bindings
             , focusFollowsMouse = True
             , clickJustFocuses  = True
-            , normalBorderColor = "#222222"
+            , normalBorderColor = "#000000"
             , focusedBorderColor= "#666666"
 
             , handleEventHook   = fullscreenEventHook
             , manageHook        = manageDocks <+> my_manage_hook    -- manageHook defaultConfig
             , layoutHook        = avoidStruts $ my_layout_hook      -- layoutHook defaultConfig
-            , logHook           = dynamicLogWithPP xmobarPP         -- load xmobar
-                    { ppOutput  = hPutStrLn xmproc
-                    , ppTitle   = xmobarColor "lightblue" "" . shorten 50
-                    , ppSep     = "  "  -- space between WSs and title
-                    , ppWsSep   = " "
-                    , ppLayout  = xmobarColor "orange" ""
-                    }
+            , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc        -- load xmobar
             }
 
 

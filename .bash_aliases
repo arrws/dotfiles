@@ -5,50 +5,60 @@ export VISUAL=nvim
 export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs --vimgrep --glob=\!.git'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 
+export EXA_COLORS='ur=33:uw=33:ux=33:ue=33:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:xa=0:uu=0:un=31:gu=0:gn=31:da=36:sn=32:sb=32:lc=0:hd=30;47;01'
 
-alias la='ls -Flah'
+alias vial='appimage-run /home/nan/Downloads/Vial-v0.4.1-x86_64.AppImage'
+
+alias ls='exa'
+alias ll='exa -l --links'
+alias la='exa -l --links -a'
+alias latree='exa -l --links -a --tree --level=3'
+alias lasize='exa -l --links -a --sort=size'
+alias lamodified='exa -l --links -a --sort=modified'
+
 alias cp='cp -Riv'
 alias mv='mv -iv'
 alias rm='rm -riv'
 alias mkdir='mkdir -p'
-alias tree='tree -F'
 
 md() { mkdir -p "$@" && builtin cd "$1"; }
 cl() { builtin cd "$1" && ls; }
 cll() { builtin cd "$1" && ls -l; }
 
-
 alias ..='cd ..'
 alias cd..='cd ..'
-alias fuck='sudo !!'
 alias cclear='printf "\033c"' # actually clear text from the terminal
 
-
-alias nnn='vifm .'
+alias r='vifm .'
 alias v='nvim'
 alias vv='nvim $(fzf)'
+
 alias vconfig='nvim ~/.config/nvim/init.vim'
 alias vscheme='nvim ~/.config/nvim/colors/mscheme.vim'
 alias vlua='nvim ~/.config/nvim/lua/init.lua'
-alias valias='nvim ~/.bash_aliases'
+alias vbash='nvim ~/.bash_aliases'
+alias vmonad='nvim ~/.xmonad/xmonad.hs'
 
+alias nconfig='sudo vim /etc/nixos/configuration.nix'
+alias nre='sudo nixos-rebuild switch'
+alias nup='sudo nixos-rebuild switch --upgrade'
+
+alias neofetch='neofetch --ascii_distro nixos_old --color_blocks off'
+alias icat='kitty +kitten icat --place=40x40@132x0'
 alias feh='feh --scale-down'
 alias mupdf='mupdf-x11'
 alias diff='patdiff'
-
-alias icat='kitty +kitten icat --place=40x40@132x0'
+alias ncm='ncmpcpp -b .config/ncmpcpp/bindings'
 
 alias gs='git status'
+
 alias p='python3'
 alias ghc='ghc -dynamic -no-keep-hi-files -no-keep-o-files -o o'
-
 alias grit='/usr/bin/grit'
 
 alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +kitten icat --align left'
 alias awkplotu='awk -f .scripts/plot.awk'
 alias hledgerplot="sed \"s/.*|| *//\" | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' ' | sed 's/|/ /g'"
-
-alias neofetch='neofetch --ascii_distro nixos_old --color_blocks off'
 
 
 function calx {
@@ -60,10 +70,6 @@ function calx {
        /Mo Tu/ && s/^(.+)$/col 6/ge'
 }
 
-
-alias nconfig='sudo vim /etc/nixos/configuration.nix'
-alias nre='sudo nixos-rebuild switch'
-alias nup='sudo nixos-rebuild switch --upgrade'
 
 # Colored output in man pages
 function man {

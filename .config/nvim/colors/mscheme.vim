@@ -12,7 +12,7 @@ let g:fg         = ' guifg = NONE      guisp = NONE      ctermfg = NONE'
 let g:fg_white   = ' guifg = #ffffff   guisp = #ffffff   ctermfg = 15'
 let g:fg_white1  = ' guifg = #dadada   guisp = #dadada   ctermfg = 253'
 let g:fg_gray    = ' guifg = #a8a8a8   guisp = #a8a8a8   ctermfg = 248'
-let g:fg_gray2   = ' guifg = #6c6c6c   guisp = #6c6c6c   ctermfg = 242'
+let g:fg_gray1   = ' guifg = #6c6c6c   guisp = #6c6c6c   ctermfg = 242'
 let g:fg_gray3   = ' guifg = #303030   guisp = #303030   ctermfg = 236'
 let g:fg_gray4   = ' guifg = #202020   guisp = #121212   ctermfg = 233'
 let g:fg_black   = ' guifg = #000000   guisp = #000000   ctermfg = 0'
@@ -46,7 +46,7 @@ let g:bg         = ' guibg = NONE      ctermbg = NONE'
 let g:bg_black   = ' guibg = #000000   ctermbg = 0'
 let g:bg_gray4   = ' guibg = #202020   ctermbg = 234'
 let g:bg_gray3   = ' guibg = #303030   ctermbg = 236'
-let g:bg_gray2   = ' guibg = #6c6c6c   ctermbg = 242'
+let g:bg_gray1   = ' guibg = #6c6c6c   ctermbg = 242'
 let g:bg_gray    = ' guibg = #a8a8a8   ctermbg = 248'
 let g:bg_pink    = ' guibg = #ffafd7   ctermbg = 218'
 let g:bg_yellow  = ' guibg = #ffff87   ctermbg = 228'
@@ -76,7 +76,7 @@ exec 'hi Directory '             . g:fg         . g:bg        . g:t_none   | " d
 " Conditional Line Highlighting
 exec 'hi link Conceal NonText'
 exec 'hi CursorLineNr '          . g:fg_yellow  . g:bg_black  . g:t_none   | " Like LineNr when 'cursorline' or 'relativenumber' is set for	the cursor line.
-exec 'hi LineNr '                . g:fg_gray    . g:bg        . g:t_none   | " Line number for  :number and commands, and when 'number'or 'relativenumber' option is set.
+exec 'hi LineNr '                . g:fg_gray1   . g:bg        . g:t_none   | " Line number for  :number and commands, and when 'number'or 'relativenumber' option is set.
 exec 'hi QuickFixLine '          . g:fg         . g:bg_gray   . g:t_none   | " Current quickfix item in the quickfix window. Combined with l-CursorLine when the cursor is there.
 exec 'hi Visual '                . g:fg         . g:bg_gray3  . g:t_none   | " Visual mode selection
 exec 'hi VisualNOS '             . g:fg         . g:bg_gray3  . g:t_none   | " Visual mode selection when vim is  Not Owning the Selection .
@@ -120,7 +120,7 @@ exec 'hi IncSearch '             . g:fg_black   . g:bg_pink   . g:t_none   | " '
 exec 'hi MatchParen '            . g:fg_yellow1 . g:bg_black  . g:t_bold   | " The char under the cursor or just before it, if it		is a paired bracket, and its match. pi_paren.txt
 exec 'hi Search '                . g:fg_gray3   . g:bg_pink   . g:t_none   | " Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
 
-exec 'hi Substitute '            . g:fg         . g:bg_black  . g:t_none   | " :substitute replacement text highlighting
+exec 'hi Substitute '            . g:fg_yellow . g:bg_black  . g:t_bold   | " :substitute replacement text highlighting
 
 
 exec 'hi SpellBad '              . g:fg         . g:bg        . g:t_none   | " Word that is not recognized by the spellchecker. spell Combined with the highlighting used otherwise.
@@ -148,7 +148,7 @@ exec 'hi NormalNC '              . g:fg_white1  . g:bg_black  . g:t_none   | " n
 """""" Buildin Coding Syntax
 
 " Text
-exec 'hi Comment '               . g:fg_gray2   . g:bg        . g:t_italic | " any comment
+exec 'hi Comment '               . g:fg_gray1   . g:bg        . g:t_italic | " any comment
 exec 'hi NonText '               . g:fg_gray3   . g:bg        . g:t_none   | " other chars that do not really exist in the text
 exec 'hi link EndOfBuffer NonText'
 exec 'hi link Whitespace NonText'
@@ -192,19 +192,19 @@ exec 'hi PreCondit '             . g:fg_blue2   . g:bg        . g:t_italic | " p
 exec 'hi Special '               . g:fg_purple  . g:bg        . g:t_none   | " any special symbol
 exec 'hi SpecialChar '           . g:fg_purple  . g:bg        . g:t_none   | " special char in a constant
 exec 'hi SpecialKey '            . g:fg_purple  . g:bg        . g:t_none   | " special char in a constant
-exec 'hi SpecialComment '        . g:fg_gray2   . g:bg        . g:t_bold   | " special things inside a comment
+exec 'hi SpecialComment '        . g:fg_gray1   . g:bg        . g:t_bold   | " special things inside a comment
 exec 'hi Tag '                   . g:fg_orange2 . g:bg        . g:t_none   | " you can use CTRL-] on this
 exec 'hi Delimiter '             . g:fg_white   . g:bg        . g:t_none   | " char that needs attention
 exec 'hi Debug '                 . g:fg_orange2 . g:bg        . g:t_none   | " debugging statements
 
 " Help Syntax
-exec 'hi Underlined '            . g:fg_gray2   . g:bg        . g:t_none   | " text that stands out, HTML links
-exec 'hi Ignore '                . g:fg_gray2   . g:bg        . g:t_none   | " left blank, hidden  hl-Ignore
-exec 'hi Error '                 . g:fg_gray2   . g:bg        . g:t_none   | " any erroneous construct
-exec 'hi Todo '                  . g:fg_gray2   . g:bg        . g:t_none   | " anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-exec 'hi Hint '                  . g:fg_gray2   . g:bg        . g:t_none
-exec 'hi Info '                  . g:fg_gray2   . g:bg        . g:t_none
-exec 'hi Warning '               . g:fg_gray2   . g:bg        . g:t_none
+exec 'hi Underlined '            . g:fg_gray1   . g:bg        . g:t_none   | " text that stands out, HTML links
+exec 'hi Ignore '                . g:fg_gray1   . g:bg        . g:t_none   | " left blank, hidden  hl-Ignore
+exec 'hi Error '                 . g:fg_gray1   . g:bg        . g:t_none   | " any erroneous construct
+exec 'hi Todo '                  . g:fg_gray1   . g:bg        . g:t_none   | " anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+exec 'hi Hint '                  . g:fg_gray1   . g:bg        . g:t_none
+exec 'hi Info '                  . g:fg_gray1   . g:bg        . g:t_none
+exec 'hi Warning '               . g:fg_gray1   . g:bg        . g:t_none
 
 
 
@@ -241,7 +241,7 @@ exec 'hi NvimTreeSymlink '          . g:fg_green        . g:bg_black    . g:t_no
 exec 'hi NvimTreeFolderName '       . g:fg_green1       . g:bg_black    . g:t_none
 exec 'hi NvimTreeOpenedFolderName ' . g:fg_green1       . g:bg_black    . g:t_none
 exec 'hi NvimTreeEmptyFolderName '  . g:fg_gray         . g:bg_black    . g:t_none
-exec 'hi NvimTreeFolderIcon '       . g:fg_gray2        . g:bg_black    . g:t_none
+exec 'hi NvimTreeFolderIcon '       . g:fg_gray1        . g:bg_black    . g:t_none
 
 exec 'hi NvimTreeRootFolder '       . g:fg_green        . g:bg_black    . g:t_none
 exec 'hi link NvimTreeIndentMarker NvimTreeFolderIcon'

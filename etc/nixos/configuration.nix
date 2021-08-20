@@ -40,7 +40,7 @@
 
 
    fonts = {
-    enableFontDir = true;
+    fontDir.enable = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
       source-code-pro
@@ -103,25 +103,43 @@
     rsyslog
     pmutils
     gnome3.librsvg
+    cmatrix
+    sqlite
+    borgbackup
+    patdiff
+    redshift
+    exa
+    cmus
+    moc
+    ncmpcpp
+
     linuxPackages.cpupower
     linuxPackages.turbostat
+
     gcc
     go
     gopls
+
     nodejs
     nodePackages.typescript
     nodePackages.typescript-language-server
     nodePackages.json
     #nodePackages.npm
-    ghc
+ 
     haskellPackages.xmobar
     haskellPackages.haskell-language-server
-    #haskellPackages.base_4_14_0_0
-    haskellPackages.random
-    haskellPackages.parsec_3_1_14_0
+
+    (haskellPackages.ghcWithPackages (self: [
+      self.random
+      self.Glob
+    ]))
+
+    rustc
+    cargo
+
+    gnumake
     python3
     python38Packages.python-language-server
-    python38Packages.pynvim # for defx vim plugin
     python38Packages.numpy
     python38Packages.pandas
     python38Packages.matplotlib
@@ -152,8 +170,6 @@
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  # programs.java.enable = true;
 
   programs.adb.enable = true;
   programs.light.enable = true;
@@ -261,9 +277,9 @@ exit 0
 
   programs.zsh.enable = true;
   programs.zsh.promptInit = "";
-  users.extraUsers.USER = {
-    shell = pkgs.zsh;
-  };
+  # users.extraUsers.USER = {
+  #   shell = pkgs.zsh;
+  # };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
