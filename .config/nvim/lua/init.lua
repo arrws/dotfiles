@@ -6,6 +6,70 @@ require("colorizer").setup()
 --- HOP
 require'hop'.setup{} -- keys = 'etovxqpdygfblzhckisuran', term_seq_bias = 0.5 }
 
+--- Which Key
+require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  plugins = {
+    marks = true, -- shows a list of your marks on ' and `
+    registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+    spelling = {
+      enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+      suggestions = 20, -- how many suggestions should be shown in the list?
+    },
+    -- the presets plugin, adds help for a bunch of default keybindings in Neovim
+    -- No actual key bindings are created
+    presets = {
+      operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+      motions = true, -- adds help for motions
+      text_objects = true, -- help for text objects triggered after entering an operator
+      windows = true, -- default bindings on <c-w>
+      nav = true, -- misc bindings to work with windows
+      z = true, -- bindings for folds, spelling and others prefixed with z
+      g = true, -- bindings for prefixed with g
+    },
+  },
+  -- add operators that will trigger motion and text object completion
+  -- to enable all native operators, set the preset / operators plugin above
+  operators = { gc = "Comments" },
+  key_labels = {
+    -- override the label used to display some keys. It doesn't effect WK in any other way.
+    -- For example:
+    -- ["<space>"] = "SPC",
+    -- ["<cr>"] = "RET",
+    -- ["<tab>"] = "TAB",
+  },
+  icons = {
+    breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+    separator = "➜", -- symbol used between a key and it's label
+    group = "+", -- symbol prepended to a group
+  },
+  window = {
+    border = "none", -- none, single, double, shadow
+    position = "bottom", -- bottom, top
+    margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+  },
+  layout = {
+    height = { min = 4, max = 25 }, -- min and max height of the columns
+    width = { min = 20, max = 50 }, -- min and max width of the columns
+    spacing = 3, -- spacing between columns
+    align = "left", -- align columns left, center or right
+  },
+  ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
+  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "}, -- hide mapping boilerplate
+  show_help = true, -- show help message on the command line when the popup is visible
+  triggers = "auto", -- automatically setup triggers
+  -- triggers = {"<leader>"} -- or specify a list manually
+  triggers_blacklist = {
+    -- list of mode / prefixes that should never be hooked by WhichKey
+    -- this is mostly relevant for key maps that start with a native binding
+    -- most people should not need to change this
+    i = { "j", "k" },
+    v = { "j", "k" },
+  },
+}
 
 --------  ToggleMouse
 
@@ -94,21 +158,40 @@ local on_attach = function(_client, bufnr)
 -- call :RangeCodeActions to show the list of available code actions in the visual selection
 
 
-
 local nvim_lsp = require('lspconfig')
 end
 
+require'lspinstall'.setup() -- important
+
+local servers = require'lspinstall'.installed_servers()
+for _, server in pairs(servers) do
+  require'lspconfig'[server].setup{
+      capabilities = capabilities, -- advertise capabilities for nvim_cmp
+  }
+  nvim_lsp[server].setup { on_attach = on_attach }
+end
+
+
+--[[
 -- Enable the following language servers
-require'lspconfig'.tsserver.setup{}
-require'lspconfig'.gopls.setup{}
-require'lspconfig'.hls.setup{}
--- require'lspconfig'.pyls.setup{}
+require'lspconfig'.tsserver.setup{
+  capabilities = capabilities, -- advertise cmp capabilities
+}
+require'lspconfig'.gopls.setup{
+  capabilities = capabilities, -- advertise cmp capabilities
+}
+require'lspconfig'.hls.setup{
+  capabilities = capabilities, -- advertise cmp capabilities
+}
+-- require'lspconfig'.pyls.setup{
+--   capabilities = capabilities, -- advertise cmp capabilities
+-- }
 
 local servers = { 'hls', 'gopls', 'tsserver' }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup { on_attach = on_attach }
 end
-
+ ]]
 
 require('lspfuzzy').setup {}
 
@@ -195,98 +278,86 @@ require('gitsigns').setup {
 
 -------- COMPE completion
 
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
+-- nvim-cmp setup
+local has_words_before = function()
+  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+    return false
+  end
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
-  source = {
-    -- path = true;
-    -- buffer = true;
-    -- calc = true;
-    -- nvim_lua = true;
-    -- nvim_lsp = true;
-    -- tabnine = true;
-    -- treesiter = true;
-    -- tabnine = {
-    --     max_line = 1000;
-    --     max_num_results = 6;
-    --     priority = 5000;
-    --     sort = v:false; -- false means compe will leave tabnine to sort the completion items
-    --     show_prediction_strength = v:true;
-    --     ignore_pattern = '';
-    -- };
-  };
+local feedkey = function(key)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
+end
+
+-- local lspkind = require('lspkind')
+local luasnip = require("luasnip")
+local cmp = require 'cmp'
+cmp.setup {
+  mapping = {
+    -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    -- ['<Tab>'] = cmp.mapping.select_next_item(),
+    -- ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    -- ['<C-Space>'] = cmp.mapping.complete(),
+    -- ['<C-e>'] = cmp.mapping.close(),
+    -- ['<CR>'] = cmp.mapping.confirm {
+      -- behavior = cmp.ConfirmBehavior.Replace,
+      -- select = true,
+    -- },
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if vim.fn.pumvisible() == 1 then
+        feedkey("<C-n>")
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+      end
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if vim.fn.pumvisible() == 1 then
+        feedkey("<C-p>")
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'cmp_tabnine' },
+    { name = 'treesitter' },
+    { name = 'spell' },
+    { name = 'path' },
+  },
+  formatting = { -- to show completion source
+    format = function(entry, vim_item)
+    -- set a name for each source
+    vim_item.menu = ({
+      nvim_lsp = "[LSP]",
+      cmp_tabnine = "[Tabnine]",
+      treesitter = "[Treesitter]",
+    })[entry.source.name]
+    return vim_item
+  end,
+  }
 }
 
--- highlight link CompeDocumentation NormalFloat
-
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
-end
-
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  else
-    return t "<S-Tab>"
-  end
-end
-
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-
-
-
--------- Formatter
-
-require('formatter').setup({
-  logging = false,
-  filetype = {
-    javascript = {
-        -- prettier
-       function()
-          return {
-            exe = "prettier",
-            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'},
-            stdin = true
-          }
-        end
-    },
-  }
+local tabnine = require('cmp_tabnine.config')
+tabnine:setup({
+        max_lines = 1000;
+        max_num_results = 10;
+        sort = true;
 })
+
+-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 
 -------- auto pairs

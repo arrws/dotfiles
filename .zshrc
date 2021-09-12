@@ -45,7 +45,6 @@ fi
 export PATH=$HOME/.toolbox/bin:$PATH
 
 
-
 # Rationalize dot (... -> ../..)
 rationalise-dot() {
   if [[ $LBUFFER = *.. ]]; then

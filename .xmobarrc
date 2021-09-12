@@ -1,5 +1,5 @@
 Config {
-        font = "xft:Source Code Pro:size=12"
+        font = "xft:Fira Code Kewl:size=12,xft:Segoe UI Symbol:style=Regular"
 
         , borderColor = "black"
         , border = TopB
@@ -17,7 +17,7 @@ Config {
         , commands = [
                         Run StdinReader
                         --- , Run Weather "CYVR" ["-t","<tempC>C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
-                        , Run Network "wlp2s0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                        , Run Network "wlp2s0" ["--template" , "↑<tx>kB ↓<rx>kB ", "-L","0","-H","32","--normal","green","--high","red"] 10
                         , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                         , Run Memory ["-t","Mem: <usedratio>%"] 10
                         --- , Run Swap [] 10
@@ -28,6 +28,6 @@ Config {
                         ]
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%StdinReader% }{  %cpu%   %memory%   %wlp2s0%   %battery%   <fc=#ee9a00>%date%</fc> "
+        , template = "%StdinReader% }{  %cpu%   %memory%   %wlp2s0%  %battery%   <fc=#ee9a00>%date%</fc> "
     }
 

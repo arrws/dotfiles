@@ -29,6 +29,7 @@ alias ..='cd ..'
 alias cd..='cd ..'
 alias cclear='printf "\033c"' # actually clear text from the terminal
 
+alias top='htop'
 alias r='vifm .'
 alias v='nvim'
 alias vv='nvim $(fzf)'

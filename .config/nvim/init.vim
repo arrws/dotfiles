@@ -11,10 +11,22 @@ Plug 'hoob3rt/lualine.nvim'                                 " lua statusline
 
 Plug 'kyazdani42/nvim-tree.lua'                             " file explorer
 Plug 'neovim/nvim-lspconfig'                                " for LSP help
-Plug 'hrsh7th/nvim-compe'                                   " LSP autocomplete
-Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }      " ML autocomplete
+Plug 'kabouzeid/nvim-lspinstall'                            " utility for installing lsp servers
+
+Plug 'hrsh7th/nvim-cmp'                                     " LSP autocomplete
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-path'
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }        " ML autocomplete
+Plug 'ray-x/cmp-treesitter'
+Plug 'f3fora/cmp-spell'
+Plug 'L3MON4D3/LuaSnip'                                     " Snippets plugin
+
+
+
+Plug 'folke/which-key.nvim'
+
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " LSP based syntax highlighting
-Plug 'mhartington/formatter.nvim'                           " auto formateer
+Plug 'sbdchd/neoformat'                                     " auto formateer
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'                              " git signs for vertical bar
