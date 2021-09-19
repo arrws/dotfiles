@@ -6,71 +6,6 @@ require("colorizer").setup()
 --- HOP
 require'hop'.setup{} -- keys = 'etovxqpdygfblzhckisuran', term_seq_bias = 0.5 }
 
---- Which Key
-require("which-key").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  plugins = {
-    marks = true, -- shows a list of your marks on ' and `
-    registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-    spelling = {
-      enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-      suggestions = 20, -- how many suggestions should be shown in the list?
-    },
-    -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-    -- No actual key bindings are created
-    presets = {
-      operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-      motions = true, -- adds help for motions
-      text_objects = true, -- help for text objects triggered after entering an operator
-      windows = true, -- default bindings on <c-w>
-      nav = true, -- misc bindings to work with windows
-      z = true, -- bindings for folds, spelling and others prefixed with z
-      g = true, -- bindings for prefixed with g
-    },
-  },
-  -- add operators that will trigger motion and text object completion
-  -- to enable all native operators, set the preset / operators plugin above
-  operators = { gc = "Comments" },
-  key_labels = {
-    -- override the label used to display some keys. It doesn't effect WK in any other way.
-    -- For example:
-    -- ["<space>"] = "SPC",
-    -- ["<cr>"] = "RET",
-    -- ["<tab>"] = "TAB",
-  },
-  icons = {
-    breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-    separator = "➜", -- symbol used between a key and it's label
-    group = "+", -- symbol prepended to a group
-  },
-  window = {
-    border = "none", -- none, single, double, shadow
-    position = "bottom", -- bottom, top
-    margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-  },
-  layout = {
-    height = { min = 4, max = 25 }, -- min and max height of the columns
-    width = { min = 20, max = 50 }, -- min and max width of the columns
-    spacing = 3, -- spacing between columns
-    align = "left", -- align columns left, center or right
-  },
-  ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "}, -- hide mapping boilerplate
-  show_help = true, -- show help message on the command line when the popup is visible
-  triggers = "auto", -- automatically setup triggers
-  -- triggers = {"<leader>"} -- or specify a list manually
-  triggers_blacklist = {
-    -- list of mode / prefixes that should never be hooked by WhichKey
-    -- this is mostly relevant for key maps that start with a native binding
-    -- most people should not need to change this
-    i = { "j", "k" },
-    v = { "j", "k" },
-  },
-}
-
 --------  ToggleMouse
 
 -- disable mouse mode and indentlines for easier paste
@@ -134,19 +69,19 @@ local on_attach = function(_client, bufnr)
   local opts = { noremap=true, silent=true }
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gh', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gH', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
 
@@ -157,22 +92,8 @@ local on_attach = function(_client, bufnr)
 -- call :CodeActions to show the list of available code actions
 -- call :RangeCodeActions to show the list of available code actions in the visual selection
 
-
-local nvim_lsp = require('lspconfig')
 end
 
-require'lspinstall'.setup() -- important
-
-local servers = require'lspinstall'.installed_servers()
-for _, server in pairs(servers) do
-  require'lspconfig'[server].setup{
-      capabilities = capabilities, -- advertise capabilities for nvim_cmp
-  }
-  nvim_lsp[server].setup { on_attach = on_attach }
-end
-
-
---[[
 -- Enable the following language servers
 require'lspconfig'.tsserver.setup{
   capabilities = capabilities, -- advertise cmp capabilities
@@ -191,7 +112,7 @@ local servers = { 'hls', 'gopls', 'tsserver' }
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup { on_attach = on_attach }
 end
- ]]
+
 
 require('lspfuzzy').setup {}
 
@@ -204,32 +125,6 @@ require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true
   }
-}
-
-
-
--------- Tree View
-
-local tree_cb = require'nvim-tree.config'.nvim_tree_callback
-vim.g.nvim_tree_bindings = {
-    { key = "<CR>",          cb = tree_cb("edit") },
-    { key = "o",             cb = tree_cb("edit") },
-    { key = "<leader>o",     cb = tree_cb("cd") },
-    { key = "<leader>O",     cb = tree_cb("dir_up") },
-    { key = "<leader>s",     cb = tree_cb("vsplit") },
-    { key = "<leader>S",     cb = tree_cb("split") },
-    { key = "<C-t>",         cb = tree_cb("tabnew") },
-    { key = "<BS>",          cb = tree_cb("close_node") },
-    { key = "z",             cb = tree_cb("toggle_ignored") },
-    { key = ".",             cb = tree_cb("toggle_dotfiles") },
-    { key = "R",             cb = tree_cb("refresh") },
-    { key = "c",             cb = tree_cb("create") },
-    { key = "D",             cb = tree_cb("remove") },
-    { key = "r",             cb = tree_cb("rename") },
-    { key = "d",             cb = tree_cb("cut") },
-    { key = "y",             cb = tree_cb("copy") },
-    { key = "p",             cb = tree_cb("paste") },
-    { key = "q",             cb = tree_cb("close") },
 }
 
 
@@ -271,7 +166,6 @@ require('gitsigns').setup {
     sign_priority = 6,
     update_debounce = 100,
     status_formatter = nil,     -- Use default
-    use_internal_diff = true,   -- If luajit is present
 }
 
 
@@ -291,21 +185,10 @@ local feedkey = function(key)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
 end
 
--- local lspkind = require('lspkind')
 local luasnip = require("luasnip")
 local cmp = require 'cmp'
 cmp.setup {
   mapping = {
-    -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    -- ['<Tab>'] = cmp.mapping.select_next_item(),
-    -- ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    -- ['<C-Space>'] = cmp.mapping.complete(),
-    -- ['<C-e>'] = cmp.mapping.close(),
-    -- ['<CR>'] = cmp.mapping.confirm {
-      -- behavior = cmp.ConfirmBehavior.Replace,
-      -- select = true,
-    -- },
     ["<Tab>"] = cmp.mapping(function(fallback)
       if vim.fn.pumvisible() == 1 then
         feedkey("<C-n>")
@@ -327,6 +210,13 @@ cmp.setup {
         fallback()
       end
     end, { "i", "s" }),
+
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-BS>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm {
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true,
+    },
   },
   sources = {
     { name = 'nvim_lsp' },
@@ -374,16 +264,34 @@ require('nvim-autopairs').setup({
 -- local check_ts = false
 })
 
-require('indent_guides').setup({
-    indent_levels = 20;
-    indent_guide_size = 1;
-    indent_start_level = 1;
-    indent_enable = true;
-    indent_space_guides = true;
-    indent_tab_guides = false;
-    indent_soft_pattern = '\\s';
-    exclude_filetypes = {'help','dashboard','dashpreview','NvimTree','vista','sagahover'};
-    even_colors = { fg ='#2a3834',bg='#000000' };
-    odd_colors = {fg='#332b36',bg='#000000'};
-})
+------ indent guides
+require("indent_blankline").setup {
+    char = "|",
+    buftype_exclude = {"terminal", "help", "NvimTree"}
+}
+
+
+-------- Tree View
+
+local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+vim.g.nvim_tree_bindings = {
+    { key = "<CR>",          cb = tree_cb("edit") },
+    { key = "o",             cb = tree_cb("edit") },
+    { key = "<C-Cr>",     cb = tree_cb("cd") },
+    { key = "<C-BS>",     cb = tree_cb("dir_up") },
+    { key = "<C-m>s",     cb = tree_cb("vsplit") },
+    { key = "<C-m>S",     cb = tree_cb("split") },
+    -- { key = "<C-t>",         cb = tree_cb("tabnew") },
+    { key = "<BS>",          cb = tree_cb("close_node") },
+    { key = "z",             cb = tree_cb("toggle_ignored") },
+    { key = ".",             cb = tree_cb("toggle_dotfiles") },
+    { key = "R",             cb = tree_cb("refresh") },
+    { key = "c",             cb = tree_cb("create") },
+    { key = "D",             cb = tree_cb("remove") },
+    { key = "r",             cb = tree_cb("rename") },
+    { key = "d",             cb = tree_cb("cut") },
+    { key = "y",             cb = tree_cb("copy") },
+    { key = "p",             cb = tree_cb("paste") },
+    { key = "q",             cb = tree_cb("close") },
+}
 

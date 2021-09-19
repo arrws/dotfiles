@@ -243,7 +243,7 @@ exec 'hi NvimTreeOpenedFolderName ' . g:fg_green1       . g:bg_black    . g:t_no
 exec 'hi NvimTreeEmptyFolderName '  . g:fg_gray         . g:bg_black    . g:t_none
 exec 'hi NvimTreeFolderIcon '       . g:fg_gray1        . g:bg_black    . g:t_none
 
-exec 'hi NvimTreeRootFolder '       . g:fg_green        . g:bg_black    . g:t_none
+exec 'hi NvimTreeRootFolder '       . g:fg_gray        . g:bg_black    . g:t_none
 exec 'hi link NvimTreeIndentMarker NvimTreeFolderIcon'
 
 exec 'hi NvimTreeExecFile '         . g:fg_yellow2      . g:bg_black    . g:t_none

@@ -1,59 +1,49 @@
 " set shell=/bin/bash
 
-" to install vim-plug:
-" sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+""" to install vim-plug:
+" curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
 call plug#begin('~/.config/nvim/bundle')
 
-Plug 'moll/vim-bbye'                                        " close buffers without closing windows with :Bdelete
 Plug 'hoob3rt/lualine.nvim'                                 " lua statusline
-
 Plug 'kyazdani42/nvim-tree.lua'                             " file explorer
+
 Plug 'neovim/nvim-lspconfig'                                " for LSP help
-Plug 'kabouzeid/nvim-lspinstall'                            " utility for installing lsp servers
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " LSP based syntax highlighting
+Plug 'sbdchd/neoformat'                                     " auto formateer
 
 Plug 'hrsh7th/nvim-cmp'                                     " LSP autocomplete
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-path'
-Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }        " ML autocomplete
 Plug 'ray-x/cmp-treesitter'
-Plug 'f3fora/cmp-spell'
-Plug 'L3MON4D3/LuaSnip'                                     " Snippets plugin
+Plug 'L3MON4D3/LuaSnip'                                     " requiered Snippets plugin
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }        " ML autocomplete
 
-
-
-Plug 'folke/which-key.nvim'
-
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " LSP based syntax highlighting
-Plug 'sbdchd/neoformat'                                     " auto formateer
-
+Plug 'tpope/vim-fugitive'                                   " git commands
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'                              " git signs for vertical bar
-
-" Plug 'TimUntersberger/neogit'                               " git commands
-
-Plug 'phaazon/hop.nvim'                                     " better easy-motion
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }         " fuzzy searcher
 Plug 'junegunn/fzf.vim'                                     " fuzzy searcher helpers
 Plug 'gfanto/fzf-lsp.nvim'                                  " use FZF for  displaying LSP searches
 Plug 'ojroques/nvim-lspfuzzy'                               " integrate FZF with the LSP server
 
+Plug 'phaazon/hop.nvim'                                     " better easy-motion
 Plug 'junegunn/vim-easy-align'                              " alligning text
 Plug 'tpope/vim-surround'                                   " smart bindings to change surrounding elements
-Plug 'tpope/vim-repeat'                                     " enable . repeat for plugins
 Plug 'tpope/vim-commentary'                                 " bindings to comment stuff out
+
+Plug 'tpope/vim-repeat'                                     " enable . repeat for plugins
 Plug 'windwp/nvim-autopairs'                                " auto-complete parenthesis and other brackets
-Plug 'AndrewRadev/linediff.vim'                             " :Linediff diff two blocks of text selected in visual mode
-Plug 'AndrewRadev/splitjoin.vim'                            " reformat between single-line statement and a multi-line one
-Plug 'glepnir/indent-guides.nvim'                           " display thin vertical lines at each indentation level
+Plug 'lukas-reineke/indent-blankline.nvim'                       " display thin vertical lines at each indentation level
 Plug 'ntpeters/vim-better-whitespace'                       " for trailling whitespace
+Plug 'moll/vim-bbye'                                        " close buffers without closing windows with :Bdelete
 Plug 'norcalli/nvim-colorizer.lua'                          " highlight colors
 
 call plug#end()
 
-set rtp+=$GOROOT/misc/vim
+set rtp+=$GOROOT/misc/vim " runtime path
 filetype plugin indent on
 syntax on
 
@@ -90,6 +80,7 @@ set diffopt+=vertical
 colorscheme mscheme
 
 
+
 """ MY BINDINGS
 
 let mapleader='\'
@@ -100,8 +91,10 @@ set timeout timeoutlen=1000 ttimeoutlen=10
 noremap <leader>q :q!<cr>
 nnoremap <leader>w :w<cr>
 inoremap <leader>w <C-c>:w<cr>
-
-noremap <leader>v <C-v>
+noremap <C-q> :q!<cr>
+nnoremap <C-w> :w<cr>
+inoremap <C-w> <C-c>:w<cr>
+nnoremap <space>w :w<cr>
 imap jk <Esc>
 
 no J }
@@ -109,13 +102,13 @@ no K {
 no H ^
 no L $
 
-" autocentering
-nnoremap { }zz
-nnoremap } {zz
+" " autocentering
+" nnoremap { }zz
+" nnoremap } {zz
 
-" move viewport to the right/left
-nnoremap zL 10zl
-nnoremap zH 10zh
+" " move viewport to the right/left
+" nnoremap zL 10zl
+" nnoremap zH 10zh
 
 
 " " Remap for dealing with word wrap
@@ -128,14 +121,15 @@ nnoremap U <C-R>
 
 
 " arrow keys to move lines
-" nnoremap g] ddkP
-" vnoremap g] :m '<-2<CR>gv=gv
-" vnoremap g[ :m '>+1<CR>gv=gv
-" nnoremap g[ ddp
-nnoremap <up> ddkP
-vnoremap <up> :m '<-2<CR>gv=gv
-vnoremap <down> :m '>+1<CR>gv=gv
-nnoremap <down> ddp
+nnoremap ]e ddkP
+vnoremap ]e :m '<-2<CR>gv=gv
+vnoremap [e :m '>+1<CR>gv=gv
+nnoremap [e ddp
+" nnoremap <up> ddkP
+" vnoremap <up> :m '<-2<CR>gv=gv
+" vnoremap <down> :m '>+1<CR>gv=gv
+" nnoremap <down> ddp
+
 
 " add newline without insert
 nmap go o<ESC>k
@@ -148,48 +142,29 @@ map gZ :set nospell<CR>
 
 
 
-" make vim remember last cursor position
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
-
-
-""" hop
-nmap s :HopChar1<CR>
-nmap S :HopChar2<CR>
-" nmap x :HopPattern<CR>
-" nmap s :HopWord<CR>
-" nmap F :HopLine<CR>
-
-
-
 
 """""" MOVEMENT
 
-" disable these
-" map <C-e> <Nop> " scroll the window downwards.
-" map <C-u> <Nop> " move your cursor upward half a screen.
-" map <C-d> <Nop> " move your cursordownward half a screen.
-
-
-
 """ TABS
+""" don't use tabs
 
-nnoremap <C-[> gt
-nnoremap <C-]> gT
-nnoremap <leader>t :tabnew<cr>
+" " open a new tab window
+" nnoremap <C-\>t :tabnew +terminal<CR>
+" tnoremap <C-\>t <C-\><C-n>:tabnew +terminal<CR>
 
-nnoremap <leader>1 1gt
-nnoremap <leader>2 2gt
-nnoremap <leader>3 3gt
-nnoremap <leader>4 4gt
-nnoremap <leader>5 5gt
-nnoremap <leader>6 6gt
-nnoremap <leader>7 7gt
-nnoremap <leader>8 8gt
-nnoremap <leader>9 9gt
-nnoremap <leader>0 :tablast<CR>
+" nnoremap <C-[> gt
+" nnoremap <C-]> gT
+" nnoremap <leader>t :tabnew<cr>
+" nnoremap <leader>1 1gt
+" nnoremap <leader>2 2gt
+" nnoremap <leader>3 3gt
+" nnoremap <leader>4 4gt
+" nnoremap <leader>5 5gt
+" nnoremap <leader>6 6gt
+" nnoremap <leader>7 7gt
+" nnoremap <leader>8 8gt
+" nnoremap <leader>9 9gt
+" nnoremap <leader>0 :tablast<CR>
 
 
 
@@ -202,51 +177,40 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
-nnoremap <C-T> <C-w>T
+
+nnoremap <C-m>S <C-w>s
+nnoremap <C-m>s <C-w>v
+nnoremap <C-m>q <C-w>q
+
+" nnoremap <C-\>r <C-w>r  " rotate the windows
+" nnoremap <C-\>e <C-w>x  " exchange with next window
+" nnoremap <C-\>= <C-w>=  " reset all windows
+" nnoremap <C-\>l :vertical resize +5<CR>
+" nnoremap <C-\>h :vertical resize -5<CR>
+" nnoremap <C-\>j :resize +5<CR>
+" nnoremap <C-\>k :resize -5<CR>
 
 
-nnoremap <leader>S <C-w>s
-nnoremap <leader>s <C-w>v
 
-nnoremap <C-\>r <C-w>r  " rotate the windows
-nnoremap <C-\>e <C-w>x  " exchange with next window
-nnoremap <C-\>= <C-w>=  " reset all windows
-nnoremap <C-\>l :vertical resize +5<CR>
-nnoremap <C-\>h :vertical resize -5<CR>
-nnoremap <C-\>j :resize +5<CR>
-nnoremap <C-\>k :resize -5<CR>
-
-
-
-""" TERMINAL
-
-" Maps ESC to exit terminal's insert mode
-if has('nvim')
-    tnoremap <Esc> <C-\><C-n>
-    tnoremap <leader>q  <C-\><C-n>
-endif
-
-" open a new tab window
-nnoremap <C-\>t :tabnew +terminal<CR>
-tnoremap <C-\>t <C-\><C-n>:tabnew +terminal<CR>
-
-" open a new horizontal split with a terminal
-nnoremap <C-\>S :new +terminal<CR>
-tnoremap <C-\>S <C-\><C-n>:new +terminal<CR>
-
-" open a new vertical split with a terminal
-nnoremap <C-\>s :vnew +terminal<CR>
-tnoremap <C-\>s <C-\><C-n>:vnew +terminal<cr>
 
 """ BUFFERS
-nnoremap <leader>n :bn<CR>
-nnoremap <leader>b :bp<CR>
-nnoremap <leader>x :Bdelete<CR>
+
+" disable space so that it won't move cursor
+nnoremap <SPACE> <Nop>
+
+" disable these
+" map <C-e> <Nop> " scroll the window downwards one line.
+" map <C-y> <Nop> " scroll the window upwards one line.
+" map <C-u> <Nop> " move your cursor upward half a screen.
+" map <C-d> <Nop> " move your cursordownward half a screen.
+map <C-b> <Nop>  " moves screen up one page, cursor to last line
+map <C-f> <Nop>  " moves screen down one page, cursor to first line
+
+
+nnoremap <C-m>n :bn<CR>
+nnoremap <C-m>p :bp<CR>
+nnoremap <C-m>x :Bdelete<CR>
 " noremap <C-q> :bdelete<CR>
-
-
-
-
 
 
 
@@ -273,21 +237,6 @@ vnoremap <TAB> >gv
 vnoremap <S-TAB> <gv
 
 
-""" easy align
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-
-
-""" better whitespace
-let g:better_whitespace_ctermcolor='darkgray'
-let g:better_whitespace_enabled=1
-let g:strip_whitespace_on_save=0
-
-
-
-
 " yank until the end of line
 nnoremap Y y$
 
@@ -311,6 +260,43 @@ noremap <BS> :noh<CR>   " clear search highlight
 set inccommand=nosplit " live visualization of substitutions
 
 
+
+" make vim remember last cursor position
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+
+
+
+""""" PLUGINS
+
+
+""" HOP
+nmap s :HopChar1<CR>
+nmap S :HopChar2<CR>
+" nmap x :HopPattern<CR>
+" nmap s :HopWord<CR>
+" nmap F :HopLine<CR>
+
+
+
+""" Easy Align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+
+
+""" better whitespace
+let g:better_whitespace_ctermcolor='darkgray'
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=0
+
+
+
+
 """ FZF fuzzy finder
 
 command! -bang -nargs=* Rg
@@ -320,17 +306,28 @@ command! -bang -nargs=? -complete=dir HFiles
   \ call fzf#vim#files(<q-args>, {'source': 'rg --files'}, <bang>0)
 
 nmap <C-r> :HFiles<CR>
-nmap <C-e> :Files<CR>
+nmap <C-R> :Files<CR>
 nmap <C-f> :Rg<CR>
 nmap <C-b> :Buffers<CR>
 " nmap <C-m> :Marks<CR>
-nmap <C-c> :Commits<CR>
+" nmap <C-c> :Commits<CR>
 
-    " \ 'ctrl-q': function('s:build_quickfix_list'),
+
+" CTRL-A CTRL-Q to select all and build quickfix list
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
 let g:fzf_action = {
+    \ 'ctrl-l': function('s:build_quickfix_list'),
     \ 'ctrl-t': 'tab split',
     \ 'ctrl-S': 'split',
     \ 'ctrl-s': 'vsplit' }
+
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
 
 
 " let g:fzf_layout = { 'down': '~30%' }
@@ -344,7 +341,10 @@ autocmd! FileType fzf set laststatus=0 noshowmode noruler
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 let g:fzf_buffers_jump = 1 " [Buffers] Jump to the existing window if possible
 
+
+
 " make fzf obey your colorscheme
+
 let g:fzf_colors = {
     \ 'fg':      ['fg', 'Normal'],
     \ 'bg':      ['bg', 'Normal'],
@@ -361,15 +361,54 @@ let g:fzf_colors = {
     \ 'header':  ['fg', 'Comment'] }
 
 
-" so that it won't move cursor
-nnoremap <SPACE> <Nop>
+
+
+
+""" Fugitive
+
+" augroup FugitiveMappings
+"   autocmd!
+"   autocmd FileType fugitive nmap o fugitive_gO
+" augroup
+
+" nmap o fugitive_o
+
+" " fugitive git bindings
+" nnoremap <space>ga :Git add %:p<CR><CR>
+" nnoremap gs :Gstatus<CR>
+" nnoremap gd :Gdiff<CR>
+" nnoremap <space>gc :Gcommit -v -q<CR>
+" nnoremap <space>gt :Gcommit -v -q %:p<CR>
+" nnoremap <space>ge :Gedit<CR>
+" nnoremap <space>gr :Gread<CR>
+" nnoremap <space>gw :Gwrite<CR><CR>
+" nnoremap <space>gl :silent! Glog<CR>:bot copen<CR>
+" nnoremap <space>gp :Ggrep<Space>
+" nnoremap <space>gm :Gmove<Space>
+" nnoremap <space>gb :Git branch<Space>
+" nnoremap <space>go :Git checkout<Space>
+" nnoremap <space>gps :Dispatch! git push<CR>
+" nnoremap <space>gpl :Dispatch! git pull<CR>
+
+
+
+
+""" Formatter
+
+" auto format on save
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost *.js,*.ts, FormatWrite
+augroup END
+
+command! Format execute 'lua vim.lsp.buf.formatting()'
 
 
 
 
 """ TREE view
 
-nnoremap <C-m> :NvimTreeToggle<CR>
+nnoremap <C-m>m :NvimTreeToggle<CR>
 " nnoremap <leader>n :NvimTreeFindFile<CR>
 "
 let g:nvim_tree_disable_default_keybindings = 1 " to disable default mappings
@@ -420,26 +459,27 @@ let g:nvim_tree_icons = {
 
 
 
-" treesitter folding
-" set foldmethod=expr
-" set foldexpr=nvim_treesitter#foldexpr()
+""" TERMINAL
+
+" Maps ESC to exit terminal's insert mode
+if has('nvim')
+    tnoremap <Esc> <C-\><C-n>
+    tnoremap <leader>q  <C-\><C-n>
+    tnoremap <C-m>q  <C-\><C-n>
+endif
 
 
+" open a new horizontal split with a terminal
+" nnoremap <C-\>S :new +terminal<CR>
+" tnoremap <C-\>S <C-\><C-n>:new +terminal<CR>
+nnoremap <C-m>T :new +terminal<CR>
+tnoremap <C-m>T <C-\><C-n>:new +terminal<CR>
 
-""" Formatter
-
-" auto format on save
-augroup FormatAutogroup
-  autocmd!
-  autocmd BufWritePost *.js,*.ts, FormatWrite
-augroup END
-
-
-command! Format execute 'lua vim.lsp.buf.formatting()'
-
-
-
-
+" open a new vertical split with a terminal
+" nnoremap <C-\>s :vnew +terminal<CR>
+" tnoremap <C-\>s <C-\><C-n>:vnew +terminal<cr>
+nnoremap <C-m>t :vnew +terminal<CR>
+tnoremap <C-m>t <C-\><C-n>:vnew +terminal<cr>
 
 
 augroup startup
@@ -473,6 +513,8 @@ augroup END
 "   (ps -o comm= $PPID | grep nvim > /dev/null) && vmux-send :cd "$@"
 " }
 " export cd
+
+
 
 :lua require('init')
 
