@@ -170,6 +170,9 @@ map gZ :set nospell<CR>
 
 """ WINDOWS
 
+" automatically equalize splits when resized
+autocmd VimResized * wincmd =
+
 set splitbelow
 set splitright
 
@@ -211,6 +214,14 @@ nnoremap <C-m>n :bn<CR>
 nnoremap <C-m>p :bp<CR>
 nnoremap <C-m>x :Bdelete<CR>
 " noremap <C-q> :bdelete<CR>
+
+
+
+
+" make dot work over visual line selections
+" enablea a simple form of dot repetition over visual line selections.
+" only simple operations that start from the beginning of a line be dot repeated.
+xnoremap . :norm.<CR>
 
 
 
