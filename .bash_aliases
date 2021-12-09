@@ -44,6 +44,8 @@ alias nconfig='sudo vim /etc/nixos/configuration.nix'
 alias nre='sudo nixos-rebuild switch'
 alias nup='sudo nixos-rebuild switch --upgrade'
 
+alias newnix='nix-shell -p "builtins.storePath /nix/store/f6iisy5i007yxaygdxg0pwdbpvpn794i-nix-2.4pre-rc1"'
+
 alias neofetch='neofetch --ascii_distro nixos_old --color_blocks off'
 alias icat='kitty +kitten icat --place=40x40@132x0'
 alias feh='feh --scale-down'
@@ -59,7 +61,7 @@ alias grit='/usr/bin/grit'
 
 alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +kitten icat --align left'
 alias awkplotu='awk -f .scripts/plot.awk'
-alias hledgerplot="sed \"s/.*|| *//\" | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' ' | sed 's/|/ /g'"
+alias hledgerplot="sed 's/.*|| *//' | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' ' | sed 's/|/ /g'"
 
 
 function calx {
@@ -100,3 +102,4 @@ function grepcolor {
 }
 
 
+export PATH="$PATH:/home/nan/.scripts"

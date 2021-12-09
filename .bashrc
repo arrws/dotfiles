@@ -70,4 +70,9 @@ if command -v fzf-share >/dev/null; then
   source "$(fzf-share)/completion.bash"
 fi
 
+
+# Created by `pipx` on 2021-09-04 11:11:06
 export PATH="$PATH:/home/nan/.local/bin"
+
+
+export PATH="$PATH:/home/nan/.scripts"

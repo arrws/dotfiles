@@ -28,6 +28,7 @@ import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.Loggers
 import XMonad.Util.EZConfig
 import XMonad.Util.Scratchpad
+import XMonad.Util.WorkspaceCompare
 
 -- Hooks
 import XMonad.Hooks.ManageDocks
@@ -95,11 +96,11 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 
     -- workspaces management
-    , ((modMask                 , xK_q      ), sendMessage $ Toggle NBFULL)         -- go fullscreen
+    --, ((modMask                 , xK_q      ), sendMessage $ Toggle NBFULL)         -- go fullscreen
     , ((modMask                 , xK_space  ), sendMessage NextLayout)              -- rotate through the available layout algorithms
     , ((modMask .|. shiftMask   , xK_space  ), setLayout $ XMonad.layoutHook conf)  -- reset current workspace layout to default
-    , ((modMask                 , xK_Tab    ), moveTo Next NonEmptyWS)              -- move to next workspace
-    , ((modMask .|. shiftMask   , xK_Tab    ), moveTo Prev NonEmptyWS)              -- move to previous workspace
+    , ((modMask                 , xK_Tab    ), doTo Next NonEmptyWS getSortByIndex (windows . W.view))              -- move to next workspace
+    , ((modMask .|. shiftMask   , xK_Tab    ), doTo Prev NonEmptyWS getSortByIndex (windows . W.view))              -- move to previous workspace
 
     -- focusing windows
     , ((modMask,                  xK_o      ), windows W.focusMaster)               -- focus master window
@@ -127,11 +128,11 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
                                 \ else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")  -- restart xmonad
 
     ] ++
-    [ ((modMask                 , k         ), windows $ W.greedyView i)                 -- switch to k-th workspace
+    [ ((modMask                 , k         ), windows $ W.view i)                 -- switch to k-th workspace
                                             | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
     ] ++
     [ ((modMask .|. shiftMask   , k         ), (windows $ W.shift i)                     -- move window to the k-th workspace
-                                            >> (windows $ W.greedyView i))
+                                            >> (windows $ W.view i))
                                             | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
     ]
 
@@ -139,19 +140,11 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- mouse buttons for floating windows
 my_mouse_bindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
 my_mouse_bindings (XConfig {XMonad.modMask = modMask}) = M.fromList []
--- my_mouse_bindings (XConfig {XMonad.modMask = modMask}) = M.fromList
---     [ ((modMask,    button1 ), \w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster)     -- set the window to floating mode and move by dragging
---     , ((modMask,    button2 ), windows . (W.shiftMaster .) . W.focusWindow)                     -- raise the window to the top of the stack
---     , ((modMask,    button3 ), \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster)   -- set the window to floating mode and resize by dragging
---     -- you may also bind events to the mouse scroll wheel (button4 and button5)
---     , ((modMask,    button4 ), withFocused $ windows . W.sink)                                  -- push window back into tiling
---     ]
 
-my_layout_hook = mkToggle (single NBFULL) $ my_maximize ||| my_vertical ||| my_horizontal -- ||| my_spiral
+my_layout_hook = mkToggle (single NBFULL) $ my_fullscreen ||| my_vertical ||| my_horizontal -- ||| my_spiral
                 where
                     -- my_spiral       = renamed [Replace "Sprl"] $ my_gaps $ spiral (6/7)
-                    -- my_fullscreen   = renamed [Replace "Full"] $ avoidStruts $ noBorders $ Full
-                    my_maximize     = renamed [Replace "Maxi"] $ my_gaps $ Full
+                    my_fullscreen   = renamed [Replace "Full"] $ avoidStruts $ noBorders $ Full
                     my_vertical     = renamed [Replace "Vert"] $ my_gaps $ Tall 1 (3/100) (1/2)
                     my_horizontal   = renamed [Replace "Horz"] $ my_gaps $ Mirror $ Tall 1 (3/100) (1/2)
                     my_gaps layout  = let x = 3 in avoidStruts $ spacing x $ gaps [(U,x+20),(D,x),(R,x),(L,x)] layout
@@ -165,9 +158,8 @@ my_manage_hook = composeAll
     , className =? "Firefox"  --> viewShift (my_workspaces !! 2)
     -- , className =? "Google-chrome"  --> doShift (my_workspaces !! 1)
     -- , className =? "Google-chrome"  --> viewShift (my_workspaces !! 1)
-    , isFullscreen --> (doF W.focusDown <+> doFullFloat)
     , manageHook defaultConfig ]
-    where viewShift = doF . liftM2 (.) W.greedyView W.shift
+    where viewShift = doF . liftM2 (.) W.view W.shift
 
 
 my_modmask = mod1Mask -- use ALT key
@@ -201,7 +193,6 @@ main = do
             , normalBorderColor = "#000000"
             , focusedBorderColor= "#666666"
 
-            , handleEventHook   = fullscreenEventHook
             , manageHook        = manageDocks <+> my_manage_hook    -- manageHook defaultConfig
             , layoutHook        = avoidStruts $ my_layout_hook      -- layoutHook defaultConfig
             , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc        -- load xmobar

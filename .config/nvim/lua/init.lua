@@ -101,7 +101,7 @@ require'lspconfig'.tsserver.setup{
 require'lspconfig'.gopls.setup{
   capabilities = capabilities, -- advertise cmp capabilities
 }
-require'lspconfig'.hls.setup{
+require'lspconfig'.rust_analyzer.setup{
   capabilities = capabilities, -- advertise cmp capabilities
 }
 -- require'lspconfig'.pyls.setup{
