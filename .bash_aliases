@@ -7,6 +7,9 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 
 export EXA_COLORS='ur=33:uw=33:ux=33:ue=33:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:xa=0:uu=0:un=31:gu=0:gn=31:da=36:sn=32:sb=32:lc=0:hd=30;47;01'
 
+function help { rg "$*" ~/codex }
+# help='cat codex/* | grep'
+
 alias vial='appimage-run /home/nan/Downloads/Vial-v0.4.1-x86_64.AppImage'
 
 alias ls='exa'

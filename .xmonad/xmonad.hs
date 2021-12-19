@@ -35,7 +35,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.Place
-import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.EwmhDesktops hiding (fullscreenEventHook)
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.FadeInactive
@@ -51,7 +51,7 @@ import XMonad.Layout.LayoutHints
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.Gaps
--- import XMonad.Layout.Fullscreen
+import XMonad.Layout.Fullscreen
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Renamed
@@ -141,7 +141,7 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 my_mouse_bindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
 my_mouse_bindings (XConfig {XMonad.modMask = modMask}) = M.fromList []
 
-my_layout_hook = mkToggle (single NBFULL) $ my_fullscreen ||| my_vertical ||| my_horizontal -- ||| my_spiral
+my_layout_hook = my_fullscreen ||| my_vertical ||| my_horizontal -- ||| my_spiral
                 where
                     -- my_spiral       = renamed [Replace "Sprl"] $ my_gaps $ spiral (6/7)
                     my_fullscreen   = renamed [Replace "Full"] $ avoidStruts $ noBorders $ Full
@@ -158,6 +158,7 @@ my_manage_hook = composeAll
     , className =? "Firefox"  --> viewShift (my_workspaces !! 2)
     -- , className =? "Google-chrome"  --> doShift (my_workspaces !! 1)
     -- , className =? "Google-chrome"  --> viewShift (my_workspaces !! 1)
+    , fullscreenManageHook
     , manageHook defaultConfig ]
     where viewShift = doF . liftM2 (.) W.view W.shift
 
@@ -167,11 +168,11 @@ my_terminal = "kitty" -- "xterm -bg black -fg white" -- "urxvt"
 
 my_xmobarPP xmproc = xmobarPP {
     ppCurrent           = xmobarColor "green" "" . wrapBrackets
-    , ppVisible         = xmobarColor "green" "" . wrapBrackets
-    , ppHidden          = xmobarColor "yellow" "" . addSpace
+    , ppVisible         = xmobarColor "yellow" "" . wrapBrackets
+    , ppHidden          = xmobarColor "grey" "" . wrapBrackets
     , ppHiddenNoWindows = xmobarColor "grey" "" . addSpace
     , ppOutput          = hPutStrLn xmproc
-    , ppTitle           = xmobarColor "#afffff" "" . shorten 50
+    , ppTitle           = xmobarColor "#77ffff" "" . shorten 80
     , ppSep             = "  "  -- space between WSs and title
     , ppWsSep           = ""    -- space inbetween WSs
     , ppLayout          = xmobarColor "orange" ""
@@ -193,6 +194,7 @@ main = do
             , normalBorderColor = "#000000"
             , focusedBorderColor= "#666666"
 
+	    , handleEventHook   = fullscreenEventHook
             , manageHook        = manageDocks <+> my_manage_hook    -- manageHook defaultConfig
             , layoutHook        = avoidStruts $ my_layout_hook      -- layoutHook defaultConfig
             , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc        -- load xmobar

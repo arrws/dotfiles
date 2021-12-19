@@ -1,8 +1,10 @@
 { nixpkgs ? import <nixpkgs> {} }:
 
+
 let
-  inherit (nixpkgs) pkgs;
-  inherit (pkgs) nodePackages;
+  # inherit (nixpkgs) pkgs;
+  # Rolling updates, not deterministic.
+  pkgs = import (fetchTarball("channel:nixpkgs-unstable")) {};
 
 in
 pkgs.stdenv.mkDerivation {
@@ -10,11 +12,12 @@ pkgs.stdenv.mkDerivation {
   shellHook = ''echo -e "\n... loaded Rust env!"'';
 
   buildInputs = [
-    nixpkgs.rustc
-    nixpkgs.cargo
-    nixpkgs.rustfmt
-    nixpkgs.rustPackages.clippy
+    pkgs.rustc
+    pkgs.cargo
+    pkgs.rustfmt
+    pkgs.rustPackages.clippy
   ];
 
 }
+
 
