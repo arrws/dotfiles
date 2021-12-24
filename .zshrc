@@ -58,3 +58,5 @@ rationalise-dot() {
 zle -N rationalise-dot
 bindkey . rationalise-dot
 
+
+# bindkey '^H' backward-kill-word

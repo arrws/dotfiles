@@ -67,6 +67,8 @@ alias awkplotu='awk -f .scripts/plot.awk'
 alias hledgerplot="sed 's/.*|| *//' | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' ' | sed 's/|/ /g'"
 
 
+alias errorme='xclip -o | xargs -0 echo -e'
+
 function calx {
     cal -wym --color=always $@ | perl -p -E '
        sub col { "\033\[38;5;$_[0]m$1\033\[0m" }

@@ -63,26 +63,34 @@ require'lualine'.setup {
 --------  Language Server Protocol (LSP)
 
 local nvim_lsp = require('lspconfig')
-local on_attach = function(_client, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  local opts = { noremap=true, silent=true }
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gh', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gH', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+local on_attach = function(_, bufnr)
+    local function buf_set_keymap(...)
+    vim.api.nvim_buf_set_keymap(bufnr, ...)
+end
+local function buf_set_option(...)
+    vim.api.nvim_buf_set_option(bufnr, ...)
+end
+
+vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+local opts = { noremap=true, silent=true }
+vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gh', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gj', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gk', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>r', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+-- vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
 
 -- call :DocumentSymbols to show all the symbols in the current buffer
@@ -95,22 +103,14 @@ local on_attach = function(_client, bufnr)
 end
 
 -- Enable the following language servers
-require'lspconfig'.tsserver.setup{
-  capabilities = capabilities, -- advertise cmp capabilities
-}
-require'lspconfig'.gopls.setup{
-  capabilities = capabilities, -- advertise cmp capabilities
-}
-require'lspconfig'.rust_analyzer.setup{
-  capabilities = capabilities, -- advertise cmp capabilities
-}
--- require'lspconfig'.pyls.setup{
---   capabilities = capabilities, -- advertise cmp capabilities
--- }
-
-local servers = { 'hls', 'gopls', 'tsserver' }
+local servers = { 'hls', 'pylsp', 'rls' }
 for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup { on_attach = on_attach }
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach,
+        flags = {
+          debounce_text_changes = 150,
+        }
+    }
 end
 
 
@@ -120,8 +120,6 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
   },
-}
-require'nvim-treesitter.configs'.setup {
   indent = {
     enable = true
   }
@@ -248,6 +246,21 @@ tabnine:setup({
 -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+-- require'lspconfig'.tsserver.setup{
+--   capabilities = capabilities, -- advertise cmp capabilities
+-- }
+-- require'lspconfig'.gopls.setup{
+--   capabilities = capabilities, -- advertise cmp capabilities
+-- }
+require'lspconfig'.hls.setup{
+  capabilities = capabilities, -- advertise cmp capabilities
+}
+require'lspconfig'.pylsp.setup{
+  capabilities = capabilities, -- advertise cmp capabilities
+}
+require'lspconfig'.rls.setup{
+  capabilities = capabilities, -- advertise cmp capabilities
+}
 
 
 -------- auto pairs
@@ -273,25 +286,85 @@ require("indent_blankline").setup {
 
 -------- Tree View
 
-local tree_cb = require'nvim-tree.config'.nvim_tree_callback
-vim.g.nvim_tree_bindings = {
-    { key = "<CR>",          cb = tree_cb("edit") },
-    { key = "o",             cb = tree_cb("edit") },
-    { key = "<C-Cr>",     cb = tree_cb("cd") },
-    { key = "<C-BS>",     cb = tree_cb("dir_up") },
-    { key = "<C-m>s",     cb = tree_cb("vsplit") },
-    { key = "<C-m>S",     cb = tree_cb("split") },
-    -- { key = "<C-t>",         cb = tree_cb("tabnew") },
-    { key = "<BS>",          cb = tree_cb("close_node") },
-    { key = "z",             cb = tree_cb("toggle_ignored") },
-    { key = ".",             cb = tree_cb("toggle_dotfiles") },
-    { key = "R",             cb = tree_cb("refresh") },
-    { key = "c",             cb = tree_cb("create") },
-    { key = "D",             cb = tree_cb("remove") },
-    { key = "r",             cb = tree_cb("rename") },
-    { key = "d",             cb = tree_cb("cut") },
-    { key = "y",             cb = tree_cb("copy") },
-    { key = "p",             cb = tree_cb("paste") },
-    { key = "q",             cb = tree_cb("close") },
+require'nvim-tree'.setup {
+  disable_netrw       = true,
+  hijack_netrw        = true,
+  open_on_setup       = false,
+  ignore_ft_on_setup  = {},
+  auto_close          = false,
+  open_on_tab         = false,
+  hijack_cursor       = false,
+  update_cwd          = false,
+  update_to_buf_dir   = {
+    enable = true,
+    auto_open = true,
+  },
+  diagnostics = {
+    enable = false,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    }
+  },
+  update_focused_file = {
+    enable      = false,
+    update_cwd  = false,
+    ignore_list = {}
+  },
+  system_open = {
+    cmd  = nil,
+    args = {}
+  },
+  filters = {
+    dotfiles = false,
+    custom = {}
+  },
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 500,
+  },
+  view = {
+    width = 30,
+    height = 30,
+    hide_root_folder = false,
+    side = 'left',
+    auto_resize = false,
+    mappings = {
+      custom_only = false,
+      list = {}
+    },
+    number = false,
+    relativenumber = false,
+    signcolumn = "yes"
+  },
+  trash = {
+    cmd = "trash",
+    require_confirm = true
+  }
 }
+
+-- local tree_cb = require'nvim-tree.config'.nvim_tree_callback
+-- vim.g.nvim_tree_bindings = {
+--     { key = "<CR>",          cb = tree_cb("edit") },
+--     { key = "o",             cb = tree_cb("edit") },
+--     { key = "<C-Cr>",     cb = tree_cb("cd") },
+--     { key = "<C-BS>",     cb = tree_cb("dir_up") },
+--     { key = "<C-m>s",     cb = tree_cb("vsplit") },
+--     { key = "<C-m>S",     cb = tree_cb("split") },
+--     -- { key = "<C-t>",         cb = tree_cb("tabnew") },
+--     { key = "<BS>",          cb = tree_cb("close_node") },
+--     { key = "z",             cb = tree_cb("toggle_ignored") },
+--     { key = ".",             cb = tree_cb("toggle_dotfiles") },
+--     { key = "R",             cb = tree_cb("refresh") },
+--     { key = "c",             cb = tree_cb("create") },
+--     { key = "D",             cb = tree_cb("remove") },
+--     { key = "r",             cb = tree_cb("rename") },
+--     { key = "d",             cb = tree_cb("cut") },
+--     { key = "y",             cb = tree_cb("copy") },
+--     { key = "p",             cb = tree_cb("paste") },
+--     { key = "q",             cb = tree_cb("close") },
+-- }
 
