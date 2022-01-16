@@ -80,6 +80,7 @@
     rsync
     feh
     mpv
+    ffmpeg
     mpd
     mpc_cli
     mupdf
@@ -112,6 +113,7 @@
     cmus
     moc
     ncmpcpp
+    xprintidle-ng
 
     linuxPackages.cpupower
     linuxPackages.turbostat
@@ -171,6 +173,16 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
+
+  # Enable OpenVPN
+  services.openvpn.servers = {
+  	hansonVPN = { config = "config /home/nan/.openvpn/config.ovpn"; };
+  };
+
+
+
+
+
   programs.adb.enable = true;
   programs.light.enable = true;
   
@@ -217,7 +229,8 @@ exit 0
 
   # Enable sound.
   sound.enable = true;
-  # hardware.bluetooth.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
   # hardware.brightnessctl.enable = true;
@@ -257,7 +270,9 @@ exit 0
 		enable = true;
 		systemCronJobs = [
 			"*/10 * * * *    nan   /home/nan/.scripts/warn_bat.sh"
-			 # "*/5 * * * *      root    date >> /tmp/cron.log"
+			"*/20 * * * *    nan   /home/nan/.scripts/warn_eyes.sh"
+			"*/1  * * * *    nan   /home/nan/.scripts/idle_track.sh"
+			 # "*/ * * * *      root    date >> /tmp/cron.log"
 		];
 	};
 

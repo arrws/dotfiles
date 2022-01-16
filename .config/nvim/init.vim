@@ -9,7 +9,7 @@ call plug#begin('~/.config/nvim/bundle')
 Plug 'hoob3rt/lualine.nvim'                                 " lua statusline
 Plug 'kyazdani42/nvim-tree.lua'                             " file explorer
 
-Plug 'neovim/nvim-lspconfig'                                " for LSP help
+Plug 'neovim/nvim-lspconfig'                                " LSP help installing servers
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " LSP based syntax highlighting
 Plug 'sbdchd/neoformat'                                     " auto formateer
 
