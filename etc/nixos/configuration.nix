@@ -12,12 +12,12 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-    }))
-  ];
-
+  # for neovim unstable
+  # nixpkgs.overlays = [
+  #   (import (builtins.fetchTarball {
+  #     url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+  #   }))
+  # ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -39,7 +39,7 @@
   };
 
 
-   fonts = {
+  fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
     fonts = with pkgs; [
@@ -55,102 +55,128 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget
-    file
-    fzf
-    ripgrep
-    curl
+
     vim
-    vifm
-    #nnn
-    #neovim
-    neovim-nightly
-    ncdu
-    neofetch
-    dmenu
-    git
-    unzip
-    #google-chrome
+    # neovim
+    # neovim-nightly
+  
+    (pkgs.wrapNeovim pkgs.neovim-unwrapped {
+    configure.packages.plugins.start = with pkgs.vimPlugins; [
+      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
+    ];
+  })
+
+    hledger
+    patdiff
+
+    # google-chrome
     chromium
     firefox
-    #rxvt_unicode
+    curl
+    wget
+    git
+
+    ### TERMINAL
     bash
     zsh
+    kitty
+    tmux
     htop
+    fzf
+    ripgrep
+    unzip
+    neofetch
+    dmenu
+    cmatrix
+
+    ### FILE MANAGEMENT
+    exa
+    tree
+    vifm
+    # nnn
+    ncdu
     rsync
+    borgbackup
+
+    ### IMAGES
     feh
+    imagemagick
+    gnome3.librsvg
+    mupdf
+
+    ### AUDIO/VIDEO
     mpv
     ffmpeg
-    mpd
     mpc_cli
-    mupdf
-    tmux
-    xosd
-    xclip
-    #lm_sensors
-    acpi
-    powertop
-    undervolt
-    ncmpcpp
-    imagemagick
-    #scrot
-    sc-im
-    hledger
-    xorg.xev
-    xcalib
-    kitty
-    acpid
-    tree
-    rsyslog
-    pmutils
-    gnome3.librsvg
-    cmatrix
-    sqlite
-    borgbackup
-    patdiff
-    redshift
-    exa
+    mpd
     cmus
     moc
     ncmpcpp
+
+    ### UTILS
+    redshift
+    file
+    scrot
+    xcalib
+    xclip
+    xorg.xev
+    xosd
     xprintidle-ng
 
+    ### SYSTEM
+    acpid
+    rsyslog
+    pmutils
+    # lm_sensors
+    acpi
+    powertop
+    undervolt
     linuxPackages.cpupower
     linuxPackages.turbostat
 
-    gcc
-    go
-    gopls
-
-    nodejs
-    nodePackages.typescript
-    nodePackages.typescript-language-server
-    nodePackages.json
-    #nodePackages.npm
+    ### PROGRAMMING
+    gnumake
+    sqlite
  
+    ### HASKELL
     haskellPackages.xmobar
     haskellPackages.haskell-language-server
-
     (haskellPackages.ghcWithPackages (self: [
       self.random
       self.Glob
     ]))
 
+    ### C/C++
+    gcc
+
+    ### GO
+    # go
+    # gopls
+
+    ### TYPESCRIPT
+    # nodejs
+    # nodePackages.typescript
+    # nodePackages.typescript-language-server
+    # nodePackages.json
+    # nodePackages.npm
+
+    ### RUST
     rustc
     cargo
+    rls
 
-    gnumake
+    ### PYTHON
     python3
-    python38Packages.python-language-server
-    python38Packages.numpy
-    python38Packages.pandas
-    python38Packages.matplotlib
-    #python38Packages.jupyter
-    #python38Packages.tensorflow
-    #python38Packages.pytorch
-    #python38Packages.Keras
-    #python38Packages.scikitlearn
-    #python38Packages.seaborn
+    # python38Packages.python-language-server
+    # python38Packages.numpy
+    # python38Packages.pandas
+    # python38Packages.matplotlib
+    # python38Packages.jupyter
+    # python38Packages.tensorflow
+    # python38Packages.pytorch
+    # python38Packages.Keras
+    # python38Packages.scikitlearn
+    # python38Packages.seaborn
   ];
 
 
@@ -173,14 +199,10 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-
   # Enable OpenVPN
   services.openvpn.servers = {
   	hansonVPN = { config = "config /home/nan/.openvpn/config.ovpn"; };
   };
-
-
-
 
 
   programs.adb.enable = true;
@@ -240,7 +262,6 @@ exit 0
     enable = true;
     layout = "us";
     xkbOptions = "eurosign:e";
-
     videoDrivers = ["modesetting"];
     useGlamor = true;
     windowManager.xmonad.enable = true;

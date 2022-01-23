@@ -8,6 +8,6 @@ export TEXT="
 
 for i in {0..5}
 do
-    osd_cat -f -*-helvetica-*-r-*-*-32-*-*-*-*-*-*-* -A center -p middle -c cyan -d 2 <<< $TEXT >& /home/nan/osd.log
+    osd_cat -f -*-helvetica-*-r-*-*-32-*-*-*-*-*-*-* -A center -p middle -c cyan -d 2 <<< $TEXT >& /home/nan/.osd.log
     sleep 1
 done

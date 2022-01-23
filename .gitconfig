@@ -29,3 +29,5 @@
 
   upstream = !git push -u origin HEAD
 
+[diff]
+	external = /home/nan/.scripts/git_wrapper.sh

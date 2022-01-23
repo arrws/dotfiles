@@ -17,5 +17,5 @@ echo $MyRedshift > $MyFile
 
 osd_cat -f -*-helvetica-*-r-*-*-32-*-*-*-*-*-*-* -A center -p middle -c red -d 1 <<< "
 $MyRedshift redshift
-" >& /home/nan/osd.log
+" >& /home/nan/.osd.log
 

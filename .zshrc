@@ -19,11 +19,6 @@ setopt prompt_subst
 PROMPT='%F{240}%~ $(git_branch_name)%(?.%F{green}>.%F{red}>) %f'
 
 
-
-bindkey -s "jk" '\e'
-bindkey "^n" up-line-or-history
-bindkey "^b" down-line-or-history
-
 export CLICOLOR=1
 export COLORTERM="truecolor"
 

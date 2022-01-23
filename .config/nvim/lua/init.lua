@@ -1,32 +1,9 @@
--- require('neogit').setup{}
-
 require("colorizer").setup()
 
 --- HOP
 require("hop").setup({}) -- keys = 'etovxqpdygfblzhckisuran', term_seq_bias = 0.5 }
 
---------  ToggleMouse
-
--- disable mouse mode and indentlines for easier paste
-ToggleMouse = function()
-	if vim.o.mouse == "a" then
-		vim.cmd([[IndentBlanklineDisable]])
-		vim.wo.signcolumn = "no"
-		vim.o.mouse = "v"
-		vim.wo.number = false
-		print("Mouse disabled")
-	else
-		vim.cmd([[IndentBlanklineEnable]])
-		vim.wo.signcolumn = "yes"
-		vim.o.mouse = "a"
-		vim.wo.number = true
-		print("Mouse enabled")
-	end
-end
--- vim.api.nvim_set_keymap('n', '<F10>', '<cmd>lua ToggleMouse()<cr>', { noremap = true })
-
 -------- LuaLine
-
 require("lualine").setup({
 	options = {
 		icons_enabled = false,
@@ -56,57 +33,43 @@ require("lualine").setup({
 })
 
 --------  Language Server Protocol (LSP)
-
+require("lspfuzzy").setup({})
 local nvim_lsp = require("lspconfig")
-
 local on_attach = function(_, bufnr)
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
-	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
-	end
-
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-	local opts = { noremap = true, silent = true }
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gh", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gj", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gk", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+	-- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+	local opts = { noremap = true, silent = false }
+	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>k', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>d", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>i", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', "<leader>o", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>l", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>r", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-
-	-- call :DocumentSymbols to show all the symbols in the current buffer
-	-- call :WorkspaceSymbols to show all the symbols in the workspace, you can optionally pass the query as argument to the command
-	-- call :IncomingCalls to show the incoming calls
-	-- call :OutgoingCalls to show the outgoing calls
-	-- call :CodeActions to show the list of available code actions
-	-- call :RangeCodeActions to show the list of available code actions in the visual selection
+	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>z', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>c', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+	-- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>]d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 end
+
+-- nvim-cmp supports additional completion capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 -- Enable the following language servers
 local servers = { "hls", "pylsp", "rls" }
 for _, lsp in ipairs(servers) do
 	nvim_lsp[lsp].setup({
 		on_attach = on_attach,
+	    capabilities = capabilities, -- advertise cmp capabilities
 		flags = {
 			debounce_text_changes = 150,
 		},
 	})
 end
 
-require("lspfuzzy").setup({})
+
+
+--------  Treesitter
 
 require("nvim-treesitter.configs").setup({
 	highlight = {
@@ -116,6 +79,7 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 	},
 })
+
 
 --------  Git Signs
 
@@ -130,23 +94,16 @@ require("gitsigns").setup({
 	numhl = false, --- highlight num column text
 	linehl = false,
 	keymaps = {
-		-- Default keymap options
 		noremap = true,
 		buffer = true,
-
-		["n [c"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'" },
-		["n ]c"] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'" },
-
-		["n ghp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-		["n ghr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-		["n ghR"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-		["n ghb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-		["n ghs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-		["n ghu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-
-		-- -- Text objects
-		-- ['o ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>',
-		-- ['x ih'] = ':<C-U>lua require"gitsigns".text_object()<CR>'
+		["n <leader>n"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'" },
+		["n <leader>N"] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'" },
+		["n <leader>e"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+		["n <leader>u"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+		["n <leader>U"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+		["n <leader>b"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
+		["n <leader>w"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+		["n <leader>q"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
 	},
 	watch_index = {
 		interval = 1000,
@@ -158,7 +115,6 @@ require("gitsigns").setup({
 
 -------- COMPE completion
 
--- nvim-cmp setup
 local has_words_before = function()
 	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
 		return false
@@ -209,24 +165,7 @@ tabnine:setup({
 	sort = true,
 })
 
--- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
--- require'lspconfig'.tsserver.setup{
---   capabilities = capabilities, -- advertise cmp capabilities
--- }
--- require'lspconfig'.gopls.setup{
---   capabilities = capabilities, -- advertise cmp capabilities
--- }
-require("lspconfig").hls.setup({
-	capabilities = capabilities, -- advertise cmp capabilities
-})
-require("lspconfig").pylsp.setup({
-	capabilities = capabilities, -- advertise cmp capabilities
-})
-require("lspconfig").rls.setup({
-	capabilities = capabilities, -- advertise cmp capabilities
-})
+
 
 -------- auto pairs
 -- require('nvim-autopairs').setup()
@@ -298,7 +237,26 @@ require("nvim-tree").setup({
 		auto_resize = false,
 		mappings = {
 			custom_only = false,
-			list = {},
+			list = {
+                { key = "<CR>",          action = "edit" },
+                { key = "o",             action = "edit" },
+                { key = "<C-CR>",        action = "cd" },
+                { key = "<C-BS>",        action = "dir_up" },
+                { key = "<C-s>l",        action = "vsplit" },
+                { key = "<C-s>j",        action = "split" },
+                -- { key = "<C-t>",         action = "tabnew" },
+                { key = "<BS>",          action = "close_node" },
+                { key = "z",             action = "toggle_ignored" },
+                { key = ".",             action = "toggle_dotfiles" },
+                { key = "R",             action = "refresh" },
+                { key = "c",             action = "create" },
+                { key = "D",             action = "remove" },
+                { key = "r",             action = "rename" },
+                { key = "d",             action = "cut" },
+                { key = "y",             action = "copy" },
+                { key = "p",             action = "paste" },
+                { key = "q",             action = "close" },
+		    },
 		},
 		number = false,
 		relativenumber = false,
@@ -310,24 +268,3 @@ require("nvim-tree").setup({
 	},
 })
 
--- local tree_cb = require'nvim-tree.config'.nvim_tree_callback
--- vim.g.nvim_tree_bindings = {
---     { key = "<CR>",          cb = tree_cb("edit") },
---     { key = "o",             cb = tree_cb("edit") },
---     { key = "<C-Cr>",     cb = tree_cb("cd") },
---     { key = "<C-BS>",     cb = tree_cb("dir_up") },
---     { key = "<C-m>s",     cb = tree_cb("vsplit") },
---     { key = "<C-m>S",     cb = tree_cb("split") },
---     -- { key = "<C-t>",         cb = tree_cb("tabnew") },
---     { key = "<BS>",          cb = tree_cb("close_node") },
---     { key = "z",             cb = tree_cb("toggle_ignored") },
---     { key = ".",             cb = tree_cb("toggle_dotfiles") },
---     { key = "R",             cb = tree_cb("refresh") },
---     { key = "c",             cb = tree_cb("create") },
---     { key = "D",             cb = tree_cb("remove") },
---     { key = "r",             cb = tree_cb("rename") },
---     { key = "d",             cb = tree_cb("cut") },
---     { key = "y",             cb = tree_cb("copy") },
---     { key = "p",             cb = tree_cb("paste") },
---     { key = "q",             cb = tree_cb("close") },
--- }

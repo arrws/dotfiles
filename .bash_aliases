@@ -1,4 +1,39 @@
-set -o vi
+set -o emacs
+# disable freezing of term ^S ^Q
+stty start ""
+stty stop ""
+# hacks to remap term shortcuts
+stty kill "^U"
+stty werase "^Q"
+
+
+### SHELL PROMPT
+
+function exit_code_color {
+    if [[ $? -eq 0 ]]; then
+        echo -e '\e[32m'
+    else
+        echo -e '\e[31m'
+    fi
+}
+
+# Find and set branch name var if in git repository.
+function git_branch_name {
+    exit_color="$(exit_code_color)"
+    branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
+    if [[ $branch != "" ]]; then
+        # echo '[%F{245}'$branch'%F{240}] ' # zsh
+        echo -ne ' [\e[38;5;245m'$branch'\e[38;5;240m]'
+    fi
+    echo "$exit_color"
+}
+
+# PROMPT='%F{240}%~ $(git_branch_name)%(?.%F{green}>.%F{red}>) %f' # zsh
+PS1='\[\e[38;5;240m\]\w$(git_branch_name) > \e[m'
+
+
+### EXPORTS
+
 export EDITOR=nvim
 export VISUAL=nvim
 
@@ -7,9 +42,8 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 
 export EXA_COLORS='ur=33:uw=33:ux=33:ue=33:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:xa=0:uu=0:un=31:gu=0:gn=31:da=36:sn=32:sb=32:lc=0:hd=30;47;01'
 
-function help { rg "$*" ~/codex }
-# help='cat codex/* | grep'
 
+### ALIASES
 alias vial='appimage-run /home/nan/Downloads/Vial-v0.4.1-x86_64.AppImage'
 
 alias ls='exa'
@@ -34,14 +68,14 @@ alias cclear='printf "\033c"' # actually clear text from the terminal
 
 alias top='htop'
 alias r='vifm .'
-alias v='nvim'
-alias vv='nvim $(fzf)'
+alias v='nvim -u ~/.config/nvim/init.vim'
+alias vv='nvim $(fzf) -u .config/nvim/init.vim'
 
-alias vconfig='nvim ~/.config/nvim/init.vim'
-alias vscheme='nvim ~/.config/nvim/colors/mscheme.vim'
-alias vlua='nvim ~/.config/nvim/lua/init.lua'
-alias vbash='nvim ~/.bash_aliases'
-alias vmonad='nvim ~/.xmonad/xmonad.hs'
+alias vconfig='nvim ~/.config/nvim/init.vim -u ~/.config/nvim/init.vim'
+alias vscheme='nvim ~/.config/nvim/colors/mscheme.vim -u ~/.config/nvim/init.vim'
+alias vlua='nvim ~/.config/nvim/lua/init.lua -u ~/.config/nvim/init.vim'
+alias vbash='nvim ~/.bash_aliases -u ~/.config/nvim/init.vim'
+alias vmonad='nvim ~/.xmonad/xmonad.hs -u ~/.config/nvim/init.vim'
 
 alias nconfig='sudo vim /etc/nixos/configuration.nix'
 alias nre='sudo nixos-rebuild switch'
@@ -66,9 +100,13 @@ alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +ki
 alias awkplotu='awk -f .scripts/plot.awk'
 alias hledgerplot="sed 's/.*|| *//' | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' ' | sed 's/|/ /g'"
 
-
 alias pretty_error='xclip -o | xargs -0 echo -e'
 alias pretty_csv='sed "s/\"//g"| column -t -s,'
+
+
+function help {
+    rg "$*" ~/codex
+}
 
 function calx {
     cal -wym --color=always $@ | perl -p -E '
@@ -78,7 +116,6 @@ function calx {
        /y|er/ && s/^(.+)$/col 12/ge;
        /Mo Tu/ && s/^(.+)$/col 6/ge'
 }
-
 
 # Colored output in man pages
 function man {
@@ -106,6 +143,5 @@ alias colors='for i in {0..255}; do printf "\x1b[38;5;${i}m ███  $i  ${col
 function grepcolor {
     printf "\x1b[38;5;$1m ███  $1  ${colorarr[$i+1]}  \\\e[38;5;$1m ... \\\x1b[0m\n"
 }
-
 
 export PATH="$PATH:/home/nan/.scripts:/home/nan/.cargo/bin"
