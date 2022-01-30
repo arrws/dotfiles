@@ -9,6 +9,8 @@ end
 
 require('packer').startup(function()
     use 'wbthomason/packer.nvim'
+    use 'nvim-lua/plenary.nvim'
+    use 'lewis6991/impatient.nvim'
 
     use 'hoob3rt/lualine.nvim'                -- lua statusline
     use 'kyazdani42/nvim-tree.lua'            -- file explorer
@@ -57,6 +59,9 @@ require('packer').startup(function()
         require('packer').sync()
     end
 end)
+
+
+require('impatient')
 
 
 -- Helpers
@@ -118,10 +123,10 @@ for _, plugin in pairs(disabled_built_ins) do
 end
 
 
-require('core')
-require('plugin.fzf')
-require('plugin.ide')
-require('plugin.tree')
-require('plugin.text')
-require('plugin.misc')
+require('core') -- 0ms
+require('plugin.fzf') -- 17ms
+require('plugin.ide') -- 12ms
+require('plugin.tree') -- 18ms
+require('plugin.text') -- 3ms
+require('plugin.misc') -- 8ms
 

@@ -31,27 +31,6 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-# colored prompt
-if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48 (ISO/IEC-6429)
-    PS1='\[\033[01;33m\]\u\[\033[00;36m\] \w\[\033[00;34m\] \$\[\033[00m\] '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
-# Alias definitions.
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -64,15 +43,32 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+### SHELL PROMPT
+function exit_code_color {
+    if [[ $? -eq 0 ]]; then
+        echo -e '\e[32m'
+    else
+        echo -e '\e[31m'
+    fi
+}
+
+# Find and set branch name var if in git repository.
+function git_branch_name {
+    exit_color="$(exit_code_color)"
+    branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
+    if [[ $branch != "" ]]; then
+        echo -ne ' [\e[38;5;245m'$branch'\e[38;5;240m]'
+    fi
+    echo "$exit_color"
+}
+
+PS1='\[\e[38;5;240m\]\w$(git_branch_name) > \e[m'
+
+
 if command -v fzf-share >/dev/null; then
   source "$(fzf-share)/key-bindings.bash"
   source "$(fzf-share)/completion.bash"
 fi
-
-
-# Created by `pipx` on 2021-09-04 11:11:06
-export PATH="$PATH:/home/nan/.local/bin"
-export PATH="$PATH:/home/nan/.scripts"
 
 source ~/.bash_aliases

@@ -8,13 +8,11 @@ paths=(
 ".xmobarrc"
 ".xmonad/xmonad.hs"
 
+".zshrc"
 ".bashrc"
 ".bash_aliases"
 
 ".config/kitty/kitty.conf"
-
-".config/fish/config.fish"
-".config/fish/functions/"
 
 ".config/nvim/init.vim"
 ".config/nvim/lua/"

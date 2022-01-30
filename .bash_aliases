@@ -7,30 +7,6 @@ stty kill "^U"
 stty werase "^Q"
 
 
-### SHELL PROMPT
-function exit_code_color {
-    if [[ $? -eq 0 ]]; then
-        echo -e '\e[32m'
-    else
-        echo -e '\e[31m'
-    fi
-}
-
-# Find and set branch name var if in git repository.
-function git_branch_name {
-    exit_color="$(exit_code_color)"
-    branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
-    if [[ $branch != "" ]]; then
-        # echo '[%F{245}'$branch'%F{240}] ' # zsh
-        echo -ne ' [\e[38;5;245m'$branch'\e[38;5;240m]'
-    fi
-    echo "$exit_color"
-}
-
-# PROMPT='%F{240}%~ $(git_branch_name)%(?.%F{green}>.%F{red}>) %f' # zsh
-PS1='\[\e[38;5;240m\]\w$(git_branch_name) > \e[m\]'
-
-
 ### EXPORTS
 
 export EDITOR=nvim
@@ -103,6 +79,7 @@ alias pretty_error='xclip -o | xargs -0 echo -e'
 alias pretty_csv='sed "s/\"//g"| column -t -s,'
 
 alias colors='~/.scripts/colors.sh'
+
 
 function help {
     rg "$*" ~/codex
