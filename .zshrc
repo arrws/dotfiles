@@ -21,6 +21,13 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*' menu yes select
 
 
+bindkey '^Q' backward-kill-word
+bindkey '^W' forward-word
+bindkey '^B' backward-word
+# bindkey "^0"   beginning-of-line
+# bindkey "^4"   end-of-line
+
+
 # Colors
 RED='%F{red}'
 GREEN='%F{green}'

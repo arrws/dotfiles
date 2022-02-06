@@ -43,13 +43,13 @@ vim.cmd('colorscheme mscheme')
 
 -- MY BINDINGS
 
-vim.g.mapleader = ";"
+vim.g.mapleader = ""
 vim.cmd('set timeout timeoutlen=1000 ttimeoutlen=10')
 
 -- noremap('<leader>a :source ~/.config/nvim/colors/mscheme.vim<cr>
-noremap('<leader>q', ':q!<cr>')
-nnoremap('<leader>w', ':w<cr>')
-inoremap('<leader>w', '<C-c>:w<cr>')
+-- noremap('<leader>q', ':q!<cr>')
+-- nnoremap('<leader>w', ':w<cr>')
+-- inoremap('<leader>w', '<C-c>:w<cr>')
 noremap('\\q', ':q!<cr>')
 nnoremap('\\w', ':w<cr>')
 inoremap('\\w', '<C-c>:w<cr>')
@@ -222,57 +222,57 @@ vim.opt.inccommand='nosplit' -- live visualization of substitutions
 
 
 
--- TERMINAL
-
--- Maps ESC to exit terminal's insert mode
-vim.cmd([[
-if has('nvim')
-    tnoremap('<Esc> <C-\><C-n>
-    tnoremap('<leader>q  <C-\><C-n>
-    tnoremap('<C-m>q  <C-\><C-n>
-endif
-]])
-
--- open a new horizontal split with a terminal
-nnoremap('<C-t>j', ':new +terminal<CR>')
-tnoremap('<C-t>j', '<C-\\><C-n>:new +terminal<CR>')
-
--- open a new vertical split with a terminal
-nnoremap('<C-t>l', ':vnew +terminal<CR>')
-tnoremap('<C-t>l', '<C-\\><C-n>:vnew +terminal<cr>')
-
-vim.cmd([[
-augroup startup
-	autocmd!
-	" avoid nesting by adding a buffer to the existing vim session (credit justinmk)
-	autocmd VimEnter * if !empty($NVIM_LISTEN_ADDRESS) && $NVIM_LISTEN_ADDRESS !=# v:servername
-		\ |let g:r=jobstart(['nc', '-U', $NVIM_LISTEN_ADDRESS],{'rpc':v:true})
-		\ |let g:f=fnameescape(expand('%:p'))
-		\ |noau bwipe
-		\ |call rpcrequest(g:r, "nvim_command", "edit ".g:f)
-		\ |call rpcrequest(g:r, "nvim_command", "call lib#SetNumberDisplay()")
-		\ |qa
-		\ |endif
-augroup END
-
-augroup neovim_terminal
-    autocmd!
-    " Enter Terminal-mode (insert) automatically
-    autocmd TermOpen * startinsert
-    " Disables number lines on terminal buffers
-    autocmd TermOpen * :set nonumber norelativenumber
-    " remap('Escape to leave terminal mode
-    autocmd TermOpen * tnoremap('<buffer> <Esc> <c-\><c-n>
-augroup END
-]])
-
--- When in terminal mode, when I change directory (cd), I would like vim to also change its working directory (:cd). You can do so by adding this in your .zshrc or .bashrc:
--- #!/usr/bin/sh
--- function cd() {
---   builtin cd "$@";
---   # if the parent process is nvim, do a vim cd
---   (ps -o comm= $PPID | grep nvim > /dev/null) && vmux-send :cd "$@"
--- }
--- export cd
-
+-- -- TERMINAL
+-- 
+-- -- Maps ESC to exit terminal's insert mode
+-- vim.cmd([[
+-- if has('nvim')
+--     tnoremap('<Esc> <C-\><C-n>
+--     tnoremap('<leader>q  <C-\><C-n>
+--     tnoremap('<C-m>q  <C-\><C-n>
+-- endif
+-- ]])
+-- 
+-- -- open a new horizontal split with a terminal
+-- nnoremap('<C-t>j', ':new +terminal<CR>')
+-- tnoremap('<C-t>j', '<C-\\><C-n>:new +terminal<CR>')
+-- 
+-- -- open a new vertical split with a terminal
+-- nnoremap('<C-t>l', ':vnew +terminal<CR>')
+-- tnoremap('<C-t>l', '<C-\\><C-n>:vnew +terminal<cr>')
+-- 
+-- vim.cmd([[
+-- augroup startup
+-- 	autocmd!
+-- 	" avoid nesting by adding a buffer to the existing vim session (credit justinmk)
+-- 	autocmd VimEnter * if !empty($NVIM_LISTEN_ADDRESS) && $NVIM_LISTEN_ADDRESS !=# v:servername
+-- 		\ |let g:r=jobstart(['nc', '-U', $NVIM_LISTEN_ADDRESS],{'rpc':v:true})
+-- 		\ |let g:f=fnameescape(expand('%:p'))
+-- 		\ |noau bwipe
+-- 		\ |call rpcrequest(g:r, "nvim_command", "edit ".g:f)
+-- 		\ |call rpcrequest(g:r, "nvim_command", "call lib#SetNumberDisplay()")
+-- 		\ |qa
+-- 		\ |endif
+-- augroup END
+-- 
+-- augroup neovim_terminal
+--     autocmd!
+--     " Enter Terminal-mode (insert) automatically
+--     autocmd TermOpen * startinsert
+--     " Disables number lines on terminal buffers
+--     autocmd TermOpen * :set nonumber norelativenumber
+--     " remap('Escape to leave terminal mode
+--     autocmd TermOpen * tnoremap('<buffer> <Esc> <c-\><c-n>
+-- augroup END
+-- ]])
+-- 
+-- -- When in terminal mode, when I change directory (cd), I would like vim to also change its working directory (:cd). You can do so by adding this in your .zshrc or .bashrc:
+-- -- #!/usr/bin/sh
+-- -- function cd() {
+-- --   builtin cd "$@";
+-- --   # if the parent process is nvim, do a vim cd
+-- --   (ps -o comm= $PPID | grep nvim > /dev/null) && vmux-send :cd "$@"
+-- -- }
+-- -- export cd
+-- 
 
