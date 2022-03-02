@@ -49,12 +49,12 @@ alias v='nvim'
 alias vv='nvim $(fzf)'
 
 # configs
-alias config_v='nvim ~/.config/nvim/lua/init.lua'
-alias config_b='nvim ~/.bash_aliases'
-alias config_z='nvim ~/.zshrc'
-alias config_m='nvim ~/.xmonad/xmonad.hs'
-alias config_k='nvim ~/.config/kitty/kitty.conf'
-alias config_n='sudo nvim /etc/nixos/configuration.nix'
+alias config_vim='nvim ~/.config/nvim/lua/init.lua'
+alias config_bash='nvim ~/.bash_aliases'
+alias config_zsh='nvim ~/.zshrc'
+alias config_xmonad='nvim ~/.xmonad/xmonad.hs'
+alias config_kitty='nvim ~/.config/kitty/kitty.conf'
+alias config_nixos='sudo nvim /etc/nixos/configuration.nix'
 
 # nix
 alias nre='sudo nixos-rebuild switch'

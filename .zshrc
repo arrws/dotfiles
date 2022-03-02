@@ -3,6 +3,7 @@
 setopt prompt_subst
 setopt autocd autopushd
 
+
 export CLICOLOR=1
 export COLORTERM="truecolor"
 
@@ -18,7 +19,8 @@ setopt share_history
 # tab completion
 autoload -Uz compinit && compinit
 
-zstyle ':completion:*' menu yes select
+# autocomplete tab show options doubletab fill
+zstyle ':completion:*' menu no select
 
 
 bindkey '^Q' backward-kill-word
