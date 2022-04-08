@@ -5,8 +5,8 @@ local nvim_lsp = require("lspconfig")
 local on_attach = function(_, bufnr)
     -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     local opts = { noremap = true, silent = false }
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>d", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>h', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>r", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>i", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', "<C-f>o", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
@@ -59,6 +59,7 @@ cmp.setup({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         }),
+        ['<CR>'] = cmp.mapping.confirm({ select = true })
     },
     sources = {
         { name = "nvim_lsp" },
@@ -135,7 +136,7 @@ require("gitsigns").setup({
         ["n <leader>n"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'" },
         ["n <leader>N"] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'" },
         ["n <leader>e"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-        ["n <leader>u"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+        ["n <c-f>u"]    = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
         ["n <leader>U"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
         ["n <leader>b"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
         ["n <leader>w"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',

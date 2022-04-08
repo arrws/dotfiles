@@ -4,20 +4,20 @@
 nnoremap('<C-m>', ':NvimTreeToggle<CR>')
 
 vim.g.nvim_tree_show_icons = {
-    git= 0,
+    git= 1,
     folders= 1,
-    files= 0,
+    files= 1,
 }
 
 vim.g.nvim_tree_icons = {
-    default='',
-    symlink='~',
+    default="",
+    symlink="~",
     git={
         unstaged="×",
         staged="➜",
         unmerged="",
-        renamed="",
-        untracked=""
+        renamed="×",
+        untracked="×"
     },
     folder={
         default="◼",

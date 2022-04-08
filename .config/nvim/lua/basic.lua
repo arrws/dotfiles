@@ -78,7 +78,6 @@ set.undofile = true            -- save undo history
 set.diffopt:append('vertical')
 
 
-
 vim.cmd('colorscheme mscheme')
 
 

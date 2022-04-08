@@ -3,7 +3,6 @@
 setopt prompt_subst
 setopt autocd autopushd
 
-
 export CLICOLOR=1
 export COLORTERM="truecolor"
 
