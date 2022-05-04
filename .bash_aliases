@@ -25,7 +25,7 @@ export DISABLE_SUDO_PROMPT=1
 alias vial='appimage-run /home/nan/Downloads/Vial-v0.5-x86_64.AppImage'
 
 # ls to exa
-alias ls='exa'
+alias l='exa'
 alias ll='exa -l --links'
 alias la='exa -l --links -a'
 alias latree='exa -l --links -a --tree --level=3'
@@ -37,17 +37,12 @@ alias cp='cp -Riv'
 alias mv='mv -iv'
 alias rm='rm -riv'
 alias mkdir='mkdir -p'
-md() { mkdir -p "$@" && builtin cd "$1"; }
-cl() { builtin cd "$1" && ls; }
-cll() { builtin cd "$1" && ls -l; }
-
 alias ..='cd ..'
 alias cd..='cd ..'
 alias cclear='printf "\033c"' # actually clear text from the terminal
 
 # alias top='htop'
 alias r='vifm .'
-# alias v='/home/andreea/nvim.appimage'
 alias v='nvim'
 
 # apps
@@ -63,6 +58,7 @@ alias ghc='ghc -dynamic -no-keep-hi-files -no-keep-o-files -o o'
 # git
 alias gs='git status'
 alias gd='git diff'
+alias gl='git log'
 
 # kubernetes
 alias k='kubectl'
@@ -106,15 +102,6 @@ function man {
     LESS_TERMCAP_so=$'\e[01;44;33m' \
     LESS_TERMCAP_us=$'\e[01;32m' \
     command man "$@"
-}
-
-function tmx {
-  name=$1
-  if tmux list-sessions | grep -q "^${name}:"; then
-    tmux attach -t "${name}"
-  else
-    tmux new-session -s "${name}"
-  fi
 }
 
 export PATH="$PATH:/home/nan/.scripts:/home/nan/.cargo/bin"

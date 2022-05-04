@@ -3,6 +3,7 @@
 setopt prompt_subst
 setopt autocd autopushd
 
+
 export CLICOLOR=1
 export COLORTERM="truecolor"
 
@@ -19,7 +20,7 @@ setopt share_history
 autoload -Uz compinit && compinit
 
 # autocomplete tab show options doubletab fill
-zstyle ':completion:*' menu no select
+zstyle ':completion:*' menu yes select
 
 
 bindkey '^Q' backward-kill-word
@@ -59,7 +60,6 @@ PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) %f"
 RPROMPT="$G2%D{%H:%M:%S}"
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 if [ -n "${commands[fzf-share]}" ]; then
     source "$(fzf-share)/key-bindings.zsh"
     source "$(fzf-share)/completion.zsh"
@@ -70,3 +70,7 @@ source ~/.bash_aliases
 
 export PATH="$PATH:/home/nan/.scripts"
 
+export TERM=xterm-256color
+
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh

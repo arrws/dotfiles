@@ -104,18 +104,18 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- focusing windows
     , ((modMask,                  xK_o      ), windows W.focusMaster)               -- focus master window
-    , ((modMask,                  xK_j      ), windows W.focusDown)                 -- focus next window
-    , ((modMask,                  xK_k      ), windows W.focusUp)                   -- focus previous window
+    , ((modMask,                  xK_d      ), windows W.focusDown)                 -- focus next window
+    , ((modMask,                  xK_s      ), windows W.focusUp)                   -- focus previous window
 
     -- moving windows
     , ((modMask .|. shiftMask   , xK_o      ), windows W.swapMaster)                -- swap focused window with the master window
-    , ((modMask .|. shiftMask   , xK_j      ), windows W.swapDown)                  -- swap focused window with the next window
-    , ((modMask .|. shiftMask   , xK_k      ), windows W.swapUp)                    -- swap focused window with the previous window
+    , ((modMask .|. shiftMask   , xK_d      ), windows W.swapDown)                  -- swap focused window with the next window
+    , ((modMask .|. shiftMask   , xK_s      ), windows W.swapUp)                    -- swap focused window with the previous window
 
     -- resizing the master/slave ratio
-    , ((modMask                 , xK_h      ), sendMessage Shrink)                  -- shrink the master area
-    , ((modMask                 , xK_l      ), sendMessage Expand)                  -- expand the master area
-    , ((modMask                 , xK_n      ), refresh)                             -- reset window size
+    , ((modMask                 , xK_a      ), sendMessage Shrink)                  -- shrink the master area
+    , ((modMask                 , xK_f      ), sendMessage Expand)                  -- expand the master area
+    , ((modMask                 , xK_c      ), refresh)                             -- reset window size
 
     -- -- increase or decrease number of windows in the master area
     -- , ((modMask                 , xK_comma  ), sendMessage (IncMasterN 1))          -- increment the number of windows in the master area
@@ -164,7 +164,7 @@ my_manage_hook = composeAll
 
 
 my_modmask = mod1Mask -- use ALT key
-my_terminal = "kitty" -- "xterm -bg black -fg white" -- "urxvt"
+my_terminal = "xterm -bg black -fg white -fa Inconsolata -fs 11 zsh"
 
 my_xmobarPP xmproc = xmobarPP {
     ppCurrent           = xmobarColor "green" "" . wrapBrackets

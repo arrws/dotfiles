@@ -133,8 +133,8 @@ require("gitsigns").setup({
     keymaps = {
         noremap = true,
         buffer = true,
-        ["n <leader>n"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'" },
-        ["n <leader>N"] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'" },
+        ["n <c-f>n"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'" },
+        ["n <c-f>N"] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'" },
         ["n <leader>e"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
         ["n <c-f>u"]    = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
         ["n <leader>U"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
