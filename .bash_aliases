@@ -18,9 +18,11 @@ export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
 
 export EXA_COLORS='ur=33:uw=33:ux=33:ue=33:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:xa=0:uu=0:un=31:gu=0:gn=31:da=36:sn=32:sb=32:lc=0:hd=30;47;01'
 
+# via-keyboard needs this
+export DISABLE_SUDO_PROMPT=1
 
 ### ALIASES
-alias vial='appimage-run /home/nan/Downloads/Vial-v0.4.1-x86_64.AppImage'
+alias vial='appimage-run /home/nan/Downloads/Vial-v0.5-x86_64.AppImage'
 
 # ls to exa
 alias ls='exa'
@@ -38,27 +40,15 @@ alias mkdir='mkdir -p'
 md() { mkdir -p "$@" && builtin cd "$1"; }
 cl() { builtin cd "$1" && ls; }
 cll() { builtin cd "$1" && ls -l; }
+
 alias ..='cd ..'
 alias cd..='cd ..'
 alias cclear='printf "\033c"' # actually clear text from the terminal
 
-alias top='htop'
+# alias top='htop'
 alias r='vifm .'
-alias v='/home/andreea/nvim.appimage'
-#alias v='nvim'
-
-# configs
-alias config_v='nvim ~/.config/nvim/lua/init.lua'
-alias config_b='nvim ~/.bash_aliases'
-alias config_z='nvim ~/.zshrc'
-alias config_m='nvim ~/.xmonad/xmonad.hs'
-alias config_k='nvim ~/.config/kitty/kitty.conf'
-alias config_n='sudo nvim /etc/nixos/configuration.nix'
-
-# nix
-alias nre='sudo nixos-rebuild switch'
-alias nup='sudo nixos-rebuild switch --upgrade'
-alias newnix='nix-shell -p "builtins.storePath /nix/store/f6iisy5i007yxaygdxg0pwdbpvpn794i-nix-2.4pre-rc1"'
+# alias v='/home/andreea/nvim.appimage'
+alias v='nvim'
 
 # apps
 alias neofetch='neofetch --ascii_distro nixos_old --color_blocks off'
@@ -73,13 +63,13 @@ alias ghc='ghc -dynamic -no-keep-hi-files -no-keep-o-files -o o'
 # git
 alias gs='git status'
 alias gd='git diff'
-alias gl='git diff'
 
 # kubernetes
 alias k='kubectl'
 alias kd='kubectl describe pod'
 alias kp='kubectl get pods'
 alias kl='kubectl logs'
+
 
 alias pretty_error='xclip -o | xargs -0 echo -e'
 alias pretty_csv='sed "s/\"//g"| column -t -s,'
@@ -88,9 +78,8 @@ function pretty {
 }
 
 
-alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +kitten icat --align left'
-alias awkplotu='awk -f .scripts/plot.awk'
 alias hledgerplot="sed 's/.*|| *//' | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' ' | sed 's/|/ /g'"
+alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +kitten icat --align left'
 alias colors='~/.scripts/colors.sh'
 
 

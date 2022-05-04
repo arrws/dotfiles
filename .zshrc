@@ -47,7 +47,14 @@ function git_branch_name() {
     fi
 }
 
+# ### if non-zero, prints last exit code
+# colored_exit_code() {
+#   echo "%(?..${nl}%F{8}exit %F{1}%?)%f"
+# }
+
+
 # Config for prompt. PS1 synonym.
+# PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) $(colored_exit_code) %f"
 PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) %f"
 RPROMPT="$G2%D{%H:%M:%S}"
 

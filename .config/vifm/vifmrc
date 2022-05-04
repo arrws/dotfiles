@@ -254,7 +254,7 @@ nnoremap cc cw<c-u>
 nnoremap A cw
 
 " Open console in current directory
-nnoremap ,t :!xterm &<cr>
+nnoremap \t :!xterm &<cr>
 
 " Open editor to edit vifmrc and apply settings after returning to vifm
 nnoremap ,c :write | edit $MYVIFMRC | restart<cr>
@@ -277,11 +277,11 @@ nnoremap <f8> :delete<cr>
 
 " My Stuff
 nnoremap \q ZZ<Esc>
-nnoremap \n ZZ<Esc>
 nnoremap o <Nop>
 nnoremap K <Nop>
 nnoremap J jjjj
 nnoremap K kkkk
+nnoremap zz za
 
 " command! FZFlocate :set noquickview | :execute 'goto "'.system('locate $HOME | fzf --height 10 2>/dev/tty ').'"%IU' | redraw
 " nnoremap <c-g> :FZFlocate<cr>
