@@ -42,32 +42,27 @@ vim.cmd('colorscheme mscheme')
 
 
 -- MY BINDINGS
-
-vim.g.mapleader = ""
+vim.g.mapleader = "\\"
 vim.cmd('set timeout timeoutlen=1000 ttimeoutlen=10')
 
 -- noremap('<leader>a :source ~/.config/nvim/colors/mscheme.vim<cr>
 -- noremap('<leader>q', ':q!<cr>')
 -- nnoremap('<leader>w', ':w<cr>')
 -- inoremap('<leader>w', '<C-c>:w<cr>')
-noremap('\\q', ':q!<cr>')
-nnoremap('\\w', ':w<cr>')
-inoremap('\\w', '<C-c>:w<cr>')
 noremap('<C-q>', ':q!<cr>')
 nnoremap('<C-w>', ':w<cr>')
 inoremap('<C-w>', '<C-c>:w<cr>')
-nnoremap('<space>w', ':w<cr>')
+
 imap('jk', '<esc>')
 
 vim.cmd([[
 no J }
 no K {
 ]])
--- no H ^
--- no L $
 
 -- Redo with U instead of Ctrl+R
 nnoremap('U', '<C-R>')
+nnoremap('<C-R>', 'Nup')
 
 
 -- arrow keys to move lines
@@ -81,9 +76,10 @@ nnoremap('<down>', 'ddp')
 nmap('go', 'o<ESC>k')
 nmap('gO', 'O<ESC>j')
 
--- spellcheck
-map('gz', ':setlocal spell! spelllang=en_us,es<CR>')
-map('gZ', ':set nospell<CR>')
+
+-- -- spellcheck
+-- map('gz', ':setlocal spell! spelllang=en_us,es<CR>')
+-- map('gZ', ':set nospell<CR>')
 
 
 -- make vim remember last cursor position
@@ -109,12 +105,12 @@ xnoremap('.', ':norm.<CR>')
 nnoremap('<SPACE>', '<Nop>')
 
 -- disable these
--- map('<C-e>', '<Nop> -- scroll the window downwards one line.
--- map('<C-y>', '<Nop> -- scroll the window upwards one line.
--- map('<C-u>', '<Nop> -- move your cursor upward half a screen.
--- map('<C-d>', '<Nop> -- move your cursordownward half a screen.
+map('<C-e>', '<Nop>') -- scroll the window downwards one line.
+map('<C-y>', '<Nop>') -- scroll the window upwards one line.
 map('<C-b>', '<Nop>')  -- moves screen up one page, cursor to last line
 map('<C-f>', '<Nop>')  -- moves screen down one page, cursor to first line
+-- map('<C-u>', '<Nop>') -- move your cursor upward half a screen.
+-- map('<C-d>', '<Nop>') -- move your cursordownward half a screen.
 
 
 -- TABS - don't use tabs
@@ -126,12 +122,6 @@ map('<C-f>', '<Nop>')  -- moves screen down one page, cursor to first line
 -- nnoremap('<leader>1 1gt')
 -- nnoremap('<leader>2 2gt')
 -- nnoremap('<leader>3 3gt')
--- nnoremap('<leader>4 4gt')
--- nnoremap('<leader>5 5gt')
--- nnoremap('<leader>6 6gt')
--- nnoremap('<leader>7 7gt')
--- nnoremap('<leader>8 8gt')
--- nnoremap('<leader>9 9gt')
 -- nnoremap('<leader>0', ':tablast<CR>')
 
 
@@ -149,17 +139,17 @@ nnoremap('<C-k>', '<C-w>k')
 nnoremap('<C-l>', '<C-w>l')
 nnoremap('<C-h>', '<C-w>h')
 
-nnoremap('<C-s>j', '<C-w>s')
-nnoremap('<C-s>l', '<C-w>v')
--- nnoremap('<C-x>', '<C-w>q')
+nnoremap('<C-e>j', '<C-w>s')
+nnoremap('<C-e>l', '<C-w>v')
+-- -- nnoremap('<C-x>', '<C-w>q')
 
-nnoremap('<C-w>r', '<C-w>r')      -- rotate the windows
-nnoremap('<C-w>e', '<C-w>x')      -- exchange with next window
-nnoremap('<C-w>=', '<C-w>=')      -- reset all windows
-nnoremap('<C-w>l', ':vertical resize +5<CR>')
-nnoremap('<C-w>h', ':vertical resize -5<CR>')
-nnoremap('<C-w>j', ':resize +5<CR>')
-nnoremap('<C-w>k', ':resize -5<CR>')
+-- nnoremap('<C-?>r', '<C-w>r')      -- rotate the windows
+-- nnoremap('<C-?>e', '<C-w>x')      -- exchange with next window
+-- nnoremap('<C-?>=', '<C-w>=')      -- reset all windows
+-- nnoremap('<C-?>l', ':vertical resize +5<CR>')
+-- nnoremap('<C-?>h', ':vertical resize -5<CR>')
+-- nnoremap('<C-?>j', ':resize +5<CR>')
+-- nnoremap('<C-?>k', ':resize -5<CR>')
 
 
 
@@ -169,9 +159,6 @@ nnoremap('<C-n>', ':bn<CR>')
 nnoremap('<C-p>', ':bp<CR>')
 nnoremap('<C-x>', ':Bdelete<CR>')
 -- noremap('<C-q>', ':bdelete<CR>')
-
-
-
 
 
 
@@ -211,68 +198,67 @@ augroup end
 
 -- SEARCHING
 
-vim.opt.hlsearch = true 	    -- highligh matched search terms
+vim.opt.hlsearch = true 	   -- highligh matched search terms
 vim.opt.incsearch = true       -- start searching as you type letters
 vim.opt.ignorecase = true      -- make searches case sensitive
 vim.opt.smartcase = true       -- will search case sensitive if uppercase present, needs ignorecase set
 
-noremap('<BS>', ':noh<CR>')   -- clear search highlight
+noremap('<BS>', ':noh<CR>')    -- clear search highlight
 
-vim.opt.inccommand='nosplit' -- live visualization of substitutions
+vim.opt.inccommand='nosplit'   -- live visualization of substitutions
 
 
 
--- -- TERMINAL
--- 
--- -- Maps ESC to exit terminal's insert mode
--- vim.cmd([[
--- if has('nvim')
---     tnoremap('<Esc> <C-\><C-n>
---     tnoremap('<leader>q  <C-\><C-n>
---     tnoremap('<C-m>q  <C-\><C-n>
--- endif
--- ]])
--- 
--- -- open a new horizontal split with a terminal
--- nnoremap('<C-t>j', ':new +terminal<CR>')
--- tnoremap('<C-t>j', '<C-\\><C-n>:new +terminal<CR>')
--- 
--- -- open a new vertical split with a terminal
--- nnoremap('<C-t>l', ':vnew +terminal<CR>')
--- tnoremap('<C-t>l', '<C-\\><C-n>:vnew +terminal<cr>')
--- 
--- vim.cmd([[
--- augroup startup
--- 	autocmd!
--- 	" avoid nesting by adding a buffer to the existing vim session (credit justinmk)
--- 	autocmd VimEnter * if !empty($NVIM_LISTEN_ADDRESS) && $NVIM_LISTEN_ADDRESS !=# v:servername
--- 		\ |let g:r=jobstart(['nc', '-U', $NVIM_LISTEN_ADDRESS],{'rpc':v:true})
--- 		\ |let g:f=fnameescape(expand('%:p'))
--- 		\ |noau bwipe
--- 		\ |call rpcrequest(g:r, "nvim_command", "edit ".g:f)
--- 		\ |call rpcrequest(g:r, "nvim_command", "call lib#SetNumberDisplay()")
--- 		\ |qa
--- 		\ |endif
--- augroup END
--- 
--- augroup neovim_terminal
---     autocmd!
---     " Enter Terminal-mode (insert) automatically
---     autocmd TermOpen * startinsert
---     " Disables number lines on terminal buffers
---     autocmd TermOpen * :set nonumber norelativenumber
---     " remap('Escape to leave terminal mode
---     autocmd TermOpen * tnoremap('<buffer> <Esc> <c-\><c-n>
--- augroup END
--- ]])
--- 
--- -- When in terminal mode, when I change directory (cd), I would like vim to also change its working directory (:cd). You can do so by adding this in your .zshrc or .bashrc:
--- -- #!/usr/bin/sh
--- -- function cd() {
--- --   builtin cd "$@";
--- --   # if the parent process is nvim, do a vim cd
--- --   (ps -o comm= $PPID | grep nvim > /dev/null) && vmux-send :cd "$@"
--- -- }
--- -- export cd
--- 
+-- TERMINAL
+
+-- Maps ESC to exit terminal's insert mode
+vim.cmd([[
+if has('nvim')
+    tnoremap  <Esc> <C-\><C-n>
+    tnoremap  <C-e>e <C-\><C-n>
+endif
+]])
+
+-- open a new horizontal split with a terminal
+nnoremap('<C-e>tj', ':new +terminal<CR>')
+tnoremap('<C-e>tj', '<C-\\><C-n>:new +terminal<CR>')
+
+-- open a new vertical split with a terminal
+nnoremap('<C-e>tl', ':vnew +terminal<CR>')
+tnoremap('<C-e>tl', '<C-\\><C-n>:vnew +terminal<cr>')
+
+vim.cmd([[
+augroup startup
+	autocmd!
+	" avoid nesting by adding a buffer to the existing vim session (credit justinmk)
+	autocmd VimEnter * if !empty($NVIM_LISTEN_ADDRESS) && $NVIM_LISTEN_ADDRESS !=# v:servername
+		\ |let g:r=jobstart(['nc', '-U', $NVIM_LISTEN_ADDRESS],{'rpc':v:true})
+		\ |let g:f=fnameescape(expand('%:p'))
+		\ |noau bwipe
+		\ |call rpcrequest(g:r, "nvim_command", "edit ".g:f)
+		\ |call rpcrequest(g:r, "nvim_command", "call lib#SetNumberDisplay()")
+		\ |qa
+		\ |endif
+augroup END
+
+augroup neovim_terminal
+    autocmd!
+    " Enter Terminal-mode (insert) automatically
+    autocmd TermOpen * startinsert
+    " Disables number lines on terminal buffers
+    autocmd TermOpen * :set nonumber norelativenumber
+    " remap('Escape to leave terminal mode
+    autocmd TermOpen * tnoremap('<buffer> <Esc> <c-\><c-n>
+augroup END
+]])
+
+-- When in terminal mode, when I change directory (cd), I would like vim to also change its working directory (:cd). You can do so by adding this in your .zshrc or .bashrc:
+-- #!/usr/bin/sh
+-- function cd() {
+--   builtin cd "$@";
+--   # if the parent process is nvim, do a vim cd
+--   (ps -o comm= $PPID | grep nvim > /dev/null) && vmux-send :cd "$@"
+-- }
+-- export cd
+
 

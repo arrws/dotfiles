@@ -60,17 +60,75 @@ PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) %f"
 RPROMPT="$G2%D{%H:%M:%S}"
 
 
+# fzf config
 if [ -n "${commands[fzf-share]}" ]; then
     source "$(fzf-share)/key-bindings.zsh"
     source "$(fzf-share)/completion.zsh"
 fi
 
 
-source ~/.bash_aliases
-
+export TERM=xterm-256color
 export PATH="$PATH:/home/nan/.scripts"
 
-export TERM=xterm-256color
 
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
+### bash aliases
+source ~/.bash_aliases
+
+### fish abbreviations
+
+# declare a list of expandable aliases to fill up later
+typeset -a ealiases
+ealiases=()
+
+# write a function for adding an alias to the list mentioned above
+function abbrev-alias() {
+    alias $1
+    ealiases+=(${1%%\=*})
+}
+
+# expand any aliases in the current line buffer
+function expand-ealias() {
+    if [[ $LBUFFER =~ "\<(${(j:|:)ealiases})\$" ]]; then
+        zle _expand_alias
+        zle expand-word
+    fi
+    zle magic-space
+}
+zle -N expand-ealias
+
+# Bind the space key to the expand-alias function above, so that space will expand any expandable aliases
+bindkey ' '             expand-ealias
+bindkey '^ '            magic-space     # control-space to bypass completion
+bindkey -M isearch " "  magic-space     # normal space during searches
+
+# A function for expanding any aliases before accepting the line as is and executing the entered command
+expand-alias-and-accept-line() {
+    expand-ealias
+    zle .backward-delete-char
+    zle .accept-line
+}
+zle -N accept-line expand-alias-and-accept-line
+
+### abbreviations
+
+# git
+abbrev-alias gs='git status'
+abbrev-alias gd='git diff'
+abbrev-alias gl='git log'
+
+# kubernetes
+abbrev-alias k='kubectl'
+abbrev-alias kgp='kubectl get pods'
+abbrev-alias kdp='kubectl describe pod'
+abbrev-alias kl='kubectl logs'
+
+# nix
+abbrev-alias nup='sudo nixos-rebuild switch --upgrade'
+abbrev-alias nre='sudo nixos-rebuild switch'
+
+abbrev-alias wifi='nmcli device wifi list'
+
+
+# kubectl autocomplete
+# source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+# echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell

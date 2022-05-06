@@ -164,7 +164,8 @@ my_manage_hook = composeAll
 
 
 my_modmask = mod1Mask -- use ALT key
-my_terminal = "xterm -bg black -fg white -fa Inconsolata -fs 11 zsh"
+my_terminal = "kitty"
+-- my_terminal = "xterm -bg black -fg white -fa Inconsolata -fs 11 zsh"
 
 my_xmobarPP xmproc = xmobarPP {
     ppCurrent           = xmobarColor "green" "" . wrapBrackets

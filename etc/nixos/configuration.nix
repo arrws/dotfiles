@@ -4,20 +4,20 @@
 
 { config, pkgs, ... }:
 
-{
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+let
+  unstableTarball = fetchTarball
+    "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz";
+in {
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
-  # for neovim unstable
-  # nixpkgs.overlays = [
-  #   (import (builtins.fetchTarball {
-  #     url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
-  #   }))
-  # ];
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    unstable = import unstableTarball { config = config.nixpkgs.config; };
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -34,20 +34,17 @@
   # Select internationalisation properties.
   console.font = "Lat2-Terminus16";
   console.keyMap = "us";
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-  };
-
+  i18n = { defaultLocale = "en_US.UTF-8"; };
 
   fonts = {
     fontDir.enable = true;
     enableGhostscriptFonts = true;
-    fonts = with pkgs; [
-      source-code-pro
-      # terminus_font
-    ];
+    fonts = with pkgs;
+      [
+        source-code-pro
+        # terminus_font
+      ];
   };
-
 
   # Set your time zone.
   time.timeZone = "Europe/London";
@@ -57,14 +54,12 @@
   environment.systemPackages = with pkgs; [
 
     vim
-    # neovim
-    # neovim-nightly
-  
+    unstable.neovim
+
     (pkgs.wrapNeovim pkgs.neovim-unwrapped {
-    configure.packages.plugins.start = with pkgs.vimPlugins; [
-      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
-    ];
-  })
+      configure.packages.plugins.start = with pkgs.vimPlugins;
+        [ (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars)) ];
+    })
 
     hledger
     patdiff
@@ -84,10 +79,14 @@
     htop
     fzf
     ripgrep
+    fd
+    fdupes
     unzip
     neofetch
     dmenu
     cmatrix
+    bc
+    transmission
 
     ### FILE MANAGEMENT
     exa
@@ -137,14 +136,12 @@
     ### PROGRAMMING
     gnumake
     sqlite
- 
+    nixfmt
+
     ### HASKELL
     haskellPackages.xmobar
     haskellPackages.haskell-language-server
-    (haskellPackages.ghcWithPackages (self: [
-      self.random
-      self.Glob
-    ]))
+    (haskellPackages.ghcWithPackages (self: [ self.random self.Glob ]))
 
     ### C/C++
     gcc
@@ -179,7 +176,6 @@
     # python38Packages.seaborn
   ];
 
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -201,32 +197,31 @@
 
   # Enable OpenVPN
   services.openvpn.servers = {
-  	hansonVPN = { config = "config /home/nan/.openvpn/config.ovpn"; };
+    hansonVPN = { config = "config /home/nan/.openvpn/config.ovpn"; };
   };
-
 
   programs.adb.enable = true;
   programs.light.enable = true;
-  
+
   environment.etc = {
     "pm/power.d/80undervolt" = {
       text = ''
-case "$1" in
-true) # powersaving on
-	cpupower frequency-set -u 2100MHz
-	undervolt --core -90 --cache -90
-	;;
-false) # powersaving off
-	cpupower frequency-set -u 3400MHz
-	undervolt --core -90 --cache -90
-	;;
-*)
-	exit 254
-	;;
-esac
+        case "$1" in
+        true) # powersaving on
+        	cpupower frequency-set -u 2100MHz
+        	undervolt --core -90 --cache -90
+        	;;
+        false) # powersaving off
+        	cpupower frequency-set -u 3400MHz
+        	undervolt --core -90 --cache -90
+        	;;
+        *)
+        	exit 254
+        	;;
+        esac
 
-exit 0
-      '';
+        exit 0
+              '';
       mode = "0755";
     };
   };
@@ -262,7 +257,7 @@ exit 0
     enable = true;
     layout = "us";
     xkbOptions = "eurosign:e";
-    videoDrivers = ["modesetting"];
+    videoDrivers = [ "modesetting" ];
     useGlamor = true;
     windowManager.xmonad.enable = true;
     windowManager.xmonad.enableContribAndExtras = true;
@@ -271,31 +266,31 @@ exit 0
     # deviceSection = ''
     #	Option "TearFree" "true"
     #'';
-    
+
     displayManager = {
-	autoLogin.enable = true;
-	autoLogin.user = "nan";
-        sessionCommands = ''
-            # xscreensaver -no-splash &
-            setxkbmap -option ctrl:nocaps us
-	    feh --bg-fill ~/.skynet.png
-            '';
+      autoLogin.enable = true;
+      autoLogin.user = "nan";
+      sessionCommands = ''
+                    # xscreensaver -no-splash &
+                    setxkbmap -option ctrl:nocaps us
+        	    feh --bg-fill ~/.skynet.png
+                    '';
     };
     autorun = true;
 
     # synaptics.enable = true;
     libinput.enable = true;
-    };
+  };
 
-	services.cron = {
-		enable = true;
-		systemCronJobs = [
-			"*/10 * * * *    nan   /home/nan/.scripts/warn_bat.sh"
-			"*/20 * * * *    nan   /home/nan/.scripts/warn_eyes.sh"
-			"*/1  * * * *    nan   /home/nan/.scripts/idle_track.sh"
-			 # "*/ * * * *      root    date >> /tmp/cron.log"
-		];
-	};
+  services.cron = {
+    enable = true;
+    systemCronJobs = [
+      "*/10 * * * *    nan   /home/nan/.scripts/warn_bat.sh"
+      "*/20 * * * *    nan   /home/nan/.scripts/warn_eyes.sh"
+      "*/1  * * * *    nan   /home/nan/.scripts/idle_track.sh"
+      # "*/ * * * *      root    date >> /tmp/cron.log"
+    ];
+  };
 
   # visual compositor
   # services.compton.enable = false; # change that
@@ -308,7 +303,8 @@ exit 0
     isNormalUser = true;
     shell = pkgs.zsh;
     home = "/home/nan";
-    extraGroups = [ "wheel" "networkmanager" "video" ]; # Enable ‘sudo’ for the user.
+    extraGroups =
+      [ "wheel" "networkmanager" "video" ]; # Enable ‘sudo’ for the user.
   };
 
   programs.zsh.enable = true;
@@ -323,5 +319,4 @@ exit 0
   # should.
   system.stateVersion = "20.09"; # Did you read the comment?
 }
-
 

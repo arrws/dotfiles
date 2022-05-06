@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 export DISPLAY=:0.0
 
-MyFile=/home/nan/.scripts/current_redshift
+MyFile=/home/nan/.scripts/current_redshift.temp
 
 # for resetting the redshift
 [[ $1 -eq 0 ]] && rm $MyFile

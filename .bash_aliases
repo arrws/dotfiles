@@ -55,20 +55,11 @@ alias ncm='ncmpcpp -b ~/.config/ncmpcpp/bindings'
 alias p='python3'
 alias ghc='ghc -dynamic -no-keep-hi-files -no-keep-o-files -o o'
 
-# git
-alias gs='git status'
-alias gd='git diff'
-alias gl='git log'
-
-# kubernetes
-alias k='kubectl'
-alias kd='kubectl describe pod'
-alias kp='kubectl get pods'
-alias kl='kubectl logs'
 
 
 alias pretty_error='xclip -o | xargs -0 echo -e'
 alias pretty_csv='sed "s/\"//g"| column -t -s,'
+
 function pretty {
     poetry run black "$1" && poetry run isort "$1" && poetry run flake8 "$1";
 }
