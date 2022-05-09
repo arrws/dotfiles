@@ -37,11 +37,12 @@ alias cp='cp -Riv'
 alias mv='mv -iv'
 alias rm='rm -riv'
 alias mkdir='mkdir -p'
+d() { builtin cd "$1" && exa; }
 alias ..='cd ..'
 alias cd..='cd ..'
+
 alias cclear='printf "\033c"' # actually clear text from the terminal
 
-# alias top='htop'
 alias r='vifm .'
 alias v='nvim'
 
