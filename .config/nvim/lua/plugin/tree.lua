@@ -65,7 +65,7 @@ require("nvim-tree").setup({
                 {key = "D", action = "remove"}, {key = "r", action = "rename"},
                 {key = "d", action = "cut"}, {key = "y", action = "copy"},
                 {key = "p", action = "paste"}, {key = "q", action = "close"},
-                {key = "<C-e>", action = "close"},
+                {key = "<C-e>m", action = "close"},
             }
         },
         number = false,

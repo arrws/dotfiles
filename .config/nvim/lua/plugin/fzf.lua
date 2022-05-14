@@ -95,7 +95,7 @@ nnoremap('<C-f>h',
          "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>") -- Lists LSP document symbols in the current workspace
 -- nnoremap('<C-f>fs', "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>")  -- Dynamically Lists LSP for all workspace symbols
 nnoremap('<C-f>k', "<cmd>lua require('telescope.builtin').lsp_references()<cr>") -- Lists LSP references for word under the cursor
-nnoremap('<C-f>j',
+nnoremap('<C-f>a',
          "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>") -- Lists any LSP actions for the word under the cursor, trigger with <cr>
 nnoremap('<C-f>d', "<cmd>lua require('telescope.builtin').diagnostics()<cr>") -- Lists Diagnostics for all open buffers or a specific buffer. Use option bufnr=0 for current buffer.
 -- nnoremap('<C-f>ft', "<cmd>lua require('telescope.builtin').treesitter()<cr>")       -- Lists Function names, variables, from Treesitter!

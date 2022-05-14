@@ -16,7 +16,7 @@ local on_attach = function(_, bufnr)
                                 "<cmd>lua vim.lsp.buf.signature_help()<CR>",
                                 opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>d',
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>D',
                                 '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
                                 opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>c', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
