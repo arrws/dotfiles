@@ -60,13 +60,6 @@ PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) %f"
 RPROMPT="$G2%D{%H:%M:%S}"
 
 
-# fzf config
-if [ -n "${commands[fzf-share]}" ]; then
-    source "$(fzf-share)/key-bindings.zsh"
-    source "$(fzf-share)/completion.zsh"
-fi
-
-
 export TERM=xterm-256color
 export PATH="$PATH:/home/nan/.scripts"
 
@@ -118,7 +111,10 @@ abbrev-alias gl='git log'
 
 # kubernetes
 abbrev-alias k='kubectl'
+abbrev-alias kg='kubectl get'
 abbrev-alias kgp='kubectl get pods'
+abbrev-alias kgpg='kubectl get pods | grep'
+abbrev-alias kd='kubectl describe'
 abbrev-alias kdp='kubectl describe pod'
 abbrev-alias kl='kubectl logs'
 
@@ -126,9 +122,7 @@ abbrev-alias kl='kubectl logs'
 abbrev-alias nup='sudo nixos-rebuild switch --upgrade'
 abbrev-alias nre='sudo nixos-rebuild switch'
 
-abbrev-alias wifi='nmcli device wifi list'
-
 
 # kubectl autocomplete
-# source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
 # echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell

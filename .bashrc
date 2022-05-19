@@ -65,10 +65,4 @@ function git_branch_name {
 
 PS1='\[\e[38;5;240m\]\w$(git_branch_name) > \e[m'
 
-
-if command -v fzf-share >/dev/null; then
-  source "$(fzf-share)/key-bindings.bash"
-  source "$(fzf-share)/completion.bash"
-fi
-
 source ~/.bash_aliases

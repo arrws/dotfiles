@@ -25,6 +25,9 @@ paths=(
 ".config/mpv/input.conf"
 ".config/mpd/mpd.conf"
 
+".fzf/completion.*"
+".fzf/key-bindings.*"
+
 ".Xdefaults"
 ".tmux.conf"
 ".gitconfig"
