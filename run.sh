@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # "/etc/nixos/configuration.nix"
 
@@ -9,6 +9,7 @@ paths=(
 ".xmonad/xmonad.hs"
 
 ".zshrc"
+".zoxide"
 ".bashrc"
 ".bash_aliases"
 

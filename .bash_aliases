@@ -15,6 +15,7 @@ export VISUAL=nvim
 if command -v fzf &>/dev/null; then
     export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs --vimgrep --glob=\!.git'
     export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
+    # run fzf-share for path to default files
     if [[ "${0}" == "bash" ]]; then
         source ~/.fzf/key-bindings.bash
         source ~/.fzf/completion.bash
@@ -31,7 +32,7 @@ export DISABLE_SUDO_PROMPT=1
 alias vial='appimage-run /home/nan/Downloads/Vial-v0.5-x86_64.AppImage'
 
 
-# ls to EXA
+# ls -> exa
 if command -v exa &> /dev/null; then
     export EXA_COLORS='ur=33:uw=33:ux=33:ue=33:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:xa=0:uu=0:un=31:gu=0:gn=31:da=36:sn=32:sb=32:lc=0:hd=30;47;01'
     alias l='exa'
@@ -40,6 +41,12 @@ if command -v exa &> /dev/null; then
     alias latree='exa -l --links -a --tree --level=3'
     alias lasize='exa -l --links -a --sort=size'
     alias lamodified='exa -l --links -a --sort=modified'
+fi
+
+# cat -> bat
+if command -v bat &>/dev/null; then
+    alias cat='bat -p --paging=never'
+    alias bat='bat --style=numbers,changes,rule'
 fi
 
 # core

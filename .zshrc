@@ -67,6 +67,7 @@ export PATH="$PATH:/home/nan/.scripts"
 ### bash aliases
 source ~/.bash_aliases
 
+
 ### fish abbreviations
 
 # declare a list of expandable aliases to fill up later
@@ -108,14 +109,22 @@ zle -N accept-line expand-alias-and-accept-line
 abbrev-alias gs='git status'
 abbrev-alias gd='git diff'
 abbrev-alias gl='git log'
+abbrev-alias gsp='git stash pop'
+abbrev-alias gsl='git stash list'
+abbrev-alias ga='git add'
+abbrev-alias gc='git commit'
+abbrev-alias gp='git push'
+abbrev-alias gpf='git push --force'
 
 # kubernetes
 abbrev-alias k='kubectl'
 abbrev-alias kg='kubectl get'
 abbrev-alias kgp='kubectl get pods'
-abbrev-alias kgpg='kubectl get pods | grep'
+abbrev-alias kgd='kubectl get deployments'
+abbrev-alias kgpg='kubectl get pods | rg'
 abbrev-alias kd='kubectl describe'
 abbrev-alias kdp='kubectl describe pod'
+abbrev-alias kdd='kubectl describe deployment'
 abbrev-alias kl='kubectl logs'
 
 # nix
@@ -124,5 +133,7 @@ abbrev-alias nre='sudo nixos-rebuild switch'
 
 
 # kubectl autocomplete
-source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
-# echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # add autocomplete permanently to your zsh shell
+source <(kubectl completion zsh)
+
+# zoxide setup
+source .zoxide
