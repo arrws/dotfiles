@@ -17,9 +17,11 @@ if command -v fzf &>/dev/null; then
     export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
     # run fzf-share for path to default files
     if [[ "${0}" == "bash" ]]; then
+        # source ~/.fzf.bash
         source ~/.fzf/key-bindings.bash
         source ~/.fzf/completion.bash
     else
+        # source ~/.fzf.zsh
         source ~/.fzf/key-bindings.zsh
         source ~/.fzf/completion.zsh
     fi
@@ -61,10 +63,11 @@ alias cd..='cd ..'
 alias cclear='printf "\033c"' # actually clear text from the terminal
 
 alias r='vifm .'
-alias v='nvim'
+#alias v='nvim'
+alias v='~/nvim.appimage'
 
 # apps
-alias neofetch='neofetch --ascii_distro nixos_old --color_blocks off'
+# alias neofetch='neofetch --ascii_distro nixos_old --color_blocks off'
 alias icat='kitty +kitten icat --place=40x40@132x0'
 alias feh='feh --scale-down'
 alias mupdf='mupdf-x11'
@@ -87,9 +90,8 @@ alias hledgerplot="sed 's/.*|| *//' | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- |
 alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +kitten icat --align left'
 alias colors='~/.scripts/colors.sh'
 
-# help='cat /home/andreea/Desktop/help | grep'
 function help {
-    rg "$*" ~/codex
+    rg "$*" -N ~/codex ~/help ~/Desktop/help
 }
 
 function calx {

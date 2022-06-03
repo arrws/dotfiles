@@ -136,4 +136,5 @@ abbrev-alias nre='sudo nixos-rebuild switch'
 source <(kubectl completion zsh)
 
 # zoxide setup
-source .zoxide
+source ~/.zoxide
+

@@ -57,7 +57,6 @@ import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Renamed
 
 
-
 my_keys_bindings :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
@@ -99,8 +98,8 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     --, ((modMask                 , xK_q      ), sendMessage $ Toggle NBFULL)         -- go fullscreen
     , ((modMask                 , xK_space  ), sendMessage NextLayout)              -- rotate through the available layout algorithms
     , ((modMask .|. shiftMask   , xK_space  ), setLayout $ XMonad.layoutHook conf)  -- reset current workspace layout to default
-    , ((modMask                 , xK_Tab    ), doTo Next NonEmptyWS getSortByIndex (windows . W.view))              -- move to next workspace
-    , ((modMask .|. shiftMask   , xK_Tab    ), doTo Prev NonEmptyWS getSortByIndex (windows . W.view))              -- move to previous workspace
+    , ((modMask                 , xK_Tab    ), doTo Next (Not emptyWS) getSortByIndex (windows . W.view))              -- move to next workspace
+    , ((modMask .|. shiftMask   , xK_Tab    ), doTo Prev (Not emptyWS) getSortByIndex (windows . W.view))              -- move to previous workspace
 
     -- focusing windows
     , ((modMask,                  xK_o      ), windows W.focusMaster)               -- focus master window
@@ -149,7 +148,6 @@ my_layout_hook = my_fullscreen ||| my_vertical ||| my_horizontal -- ||| my_spira
                     my_horizontal   = renamed [Replace "Horz"] $ my_gaps $ Mirror $ Tall 1 (3/100) (1/2)
                     my_gaps layout  = let x = 3 in avoidStruts $ spacing x $ gaps [(U,x+20),(D,x),(R,x),(L,x)] layout
 
-
 my_workspaces :: [WorkspaceId]
 my_workspaces = ["λ", "main", "web"] ++ (map show [4 .. 9 :: Int])
 
@@ -159,7 +157,7 @@ my_manage_hook = composeAll
     -- , className =? "Google-chrome"  --> doShift (my_workspaces !! 1)
     -- , className =? "Google-chrome"  --> viewShift (my_workspaces !! 1)
     , fullscreenManageHook
-    , manageHook defaultConfig ]
+    , manageHook def ]
     where viewShift = doF . liftM2 (.) W.view W.shift
 
 
@@ -167,24 +165,28 @@ my_modmask = mod1Mask -- use ALT key
 my_terminal = "kitty"
 -- my_terminal = "xterm -bg black -fg white -fa Inconsolata -fs 11 zsh"
 
-my_xmobarPP xmproc = xmobarPP {
+-- my_xmobarPP xmproc = xmobarPP {
+my_xmobarPP xmproc0 xmproc1 = xmobarPP {
     ppCurrent           = xmobarColor "green" "" . wrapBrackets
     , ppVisible         = xmobarColor "yellow" "" . wrapBrackets
     , ppHidden          = xmobarColor "grey" "" . wrapBrackets
     , ppHiddenNoWindows = xmobarColor "grey" "" . addSpace
-    , ppOutput          = hPutStrLn xmproc
     , ppTitle           = xmobarColor "#77ffff" "" . shorten 80
     , ppSep             = "  "  -- space between WSs and title
     , ppWsSep           = ""    -- space inbetween WSs
     , ppLayout          = xmobarColor "orange" ""
+    -- , ppOutput          = hPutStrLn xmproc
+    , ppOutput          = (\x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x)
     }
     where
         addSpace = (\x -> " " ++ x)
         wrapBrackets = wrap " [" "]"
 
 main = do
-        xmproc <- spawnPipe "xmobar"
-        xmonad $ defaultConfig
+        -- xmproc <- spawnPipe "xmobar"
+        xmproc0 <- spawnPipe "xmobar -x 0"
+        xmproc1 <- spawnPipe "xmobar -x 1"
+        xmonad $ def
             { terminal          = my_terminal
             , modMask           = my_modmask
             , workspaces        = my_workspaces
@@ -194,11 +196,10 @@ main = do
             , clickJustFocuses  = True
             , normalBorderColor = "#000000"
             , focusedBorderColor= "#666666"
-
-	    , handleEventHook   = fullscreenEventHook
+	        , handleEventHook   = fullscreenEventHook
             , manageHook        = manageDocks <+> my_manage_hook    -- manageHook defaultConfig
             , layoutHook        = avoidStruts $ my_layout_hook      -- layoutHook defaultConfig
-            , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc        -- load xmobar
+            -- , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc        -- load xmobar
+            , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc0 xmproc1        -- load xmobar
             }
-
 
