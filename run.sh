@@ -13,6 +13,9 @@ paths=(
 ".bashrc"
 ".bash_aliases"
 
+".fzf/completion.*"
+".fzf/key-bindings.*"
+
 ".config/kitty/kitty.conf"
 
 ".config/nvim/init.vim"
@@ -21,19 +24,16 @@ paths=(
 
 ".config/vifm/vifmrc"
 ".config/vifm/colors/Default.vifm"
+".config/neofetch/config.conf"
 
-".config/feh/keys"
-".config/mpv/input.conf"
-".config/mpd/mpd.conf"
-
-".fzf/completion.*"
-".fzf/key-bindings.*"
-
-".Xdefaults"
-".tmux.conf"
-".gitconfig"
-".ghc/ghci.conf"
-".borg.backup"
+# ".config/feh/keys"
+# ".config/mpv/input.conf"
+# ".config/mpd/mpd.conf"
+# ".Xdefaults"
+# ".tmux.conf"
+# ".gitconfig"
+# ".ghc/ghci.conf"
+# ".borg.backup"
 # ".skynet.png"
 )
 

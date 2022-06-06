@@ -63,8 +63,12 @@ alias cd..='cd ..'
 alias cclear='printf "\033c"' # actually clear text from the terminal
 
 alias r='vifm .'
-#alias v='nvim'
-alias v='~/nvim.appimage'
+
+if test -f "~/nvim.appimage"; then
+    alias v='~/nvim.appimage'
+else
+    alias v='nvim'
+fi
 
 # apps
 # alias neofetch='neofetch --ascii_distro nixos_old --color_blocks off'

@@ -115,6 +115,7 @@ abbrev-alias ga='git add'
 abbrev-alias gc='git commit'
 abbrev-alias gp='git push'
 abbrev-alias gpf='git push --force'
+abbrev-alias gr='git reset'
 
 # kubernetes
 abbrev-alias k='kubectl'
