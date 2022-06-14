@@ -63,6 +63,8 @@ require('packer').startup(function()
     use 'terrortylor/nvim-comment' -- bindings to comment stuff out
     use 'ntpeters/vim-better-whitespace' -- for trailling whitespace
 
+
+    use 'ledger/vim-ledger'
     -- Automatically set up your configuration after cloning packer.nvim
     if packer_bootstrap then require('packer').sync() end
 end)
