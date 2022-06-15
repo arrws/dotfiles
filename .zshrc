@@ -134,8 +134,7 @@ abbrev-alias nre='sudo nixos-rebuild switch'
 
 
 # kubectl autocomplete
-source <(kubectl completion zsh)
+command -v kubectl &> /dev/null && source <(kubectl completion zsh)
 
 # zoxide setup
-source ~/.zoxide
-
+command -v zoxide &> /dev/null && source ~/.zoxide

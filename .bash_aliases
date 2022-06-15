@@ -12,19 +12,15 @@ export VISUAL=nvim
 
 
 # FZF
-if command -v fzf &>/dev/null; then
-    export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs --vimgrep --glob=\!.git'
-    export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
-    # run fzf-share for path to default files
-    if [[ "${0}" == "bash" ]]; then
-        # source ~/.fzf.bash
-        source ~/.fzf/key-bindings.bash
-        source ~/.fzf/completion.bash
-    else
-        # source ~/.fzf.zsh
-        source ~/.fzf/key-bindings.zsh
-        source ~/.fzf/completion.zsh
-    fi
+export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs --vimgrep --glob=\!.git'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
+MYSHELL=`echo $SHELL | grep -o '[^/]*$'`
+if command -v fzf-share &>/dev/null; then
+    source "$(fzf-share)/key-bindings.$MYSHELL"
+    source "$(fzf-share)/completion.$MYSHELL"
+else
+    # git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+    [ -f ~/.fzf.$MYSHELL ] && source ~/.fzf.$MYSHELL
 fi
 
 
@@ -64,7 +60,7 @@ alias cclear='printf "\033c"' # actually clear text from the terminal
 
 alias r='vifm .'
 
-if test -f "~/nvim.appimage"; then
+if test -f ~/nvim.appimage; then
     alias v='~/nvim.appimage'
 else
     alias v='nvim'
@@ -79,6 +75,8 @@ alias ncm='ncmpcpp -b ~/.config/ncmpcpp/bindings'
 alias p='python3'
 alias ghc='ghc -dynamic -no-keep-hi-files -no-keep-o-files -o o'
 
+# ocaml
+command -v opam &> /dev/null && eval $(opam env)
 if command -v patdiff &> /dev/null; then
     alias diff='patdiff'
 fi

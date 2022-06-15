@@ -13,9 +13,6 @@ paths=(
 ".bashrc"
 ".bash_aliases"
 
-".fzf/completion.*"
-".fzf/key-bindings.*"
-
 ".config/kitty/kitty.conf"
 
 ".config/nvim/init.vim"
