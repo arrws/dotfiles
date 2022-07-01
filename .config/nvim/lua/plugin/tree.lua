@@ -1,43 +1,53 @@
 ------ Tree View
 nnoremap('<C-e>m', ':NvimTreeToggle<CR>')
 
-vim.g.nvim_tree_show_icons = {git = 1, folders = 1, files = 1}
-
-vim.g.nvim_tree_icons = {
-    default = "",
-    symlink = "~",
-    git = {
-        unstaged = "×",
-        staged = "➜",
-        unmerged = "",
-        renamed = "×",
-        untracked = "×"
-    },
-    folder = {
-        default = "◼",
-        open = "┌",
-        empty = "-",
-        empty_open = "-",
-        symlink = "~"
-    }
-}
-
 require("nvim-tree").setup({
     disable_netrw = true,
     hijack_netrw = true,
     open_on_setup = false,
     ignore_ft_on_setup = {},
-    -- auto_close = false,
     open_on_tab = false,
     hijack_cursor = false,
     update_cwd = true,
-    -- update_to_buf_dir = {
-    --     enable = true,
-    --     auto_open = true,
-    -- },
     diagnostics = {
         enable = false,
-        icons = {hint = "", info = "I", warning = "W", error = "E"}
+        icons = {hint = "H", info = "I", warning = "W", error = "E"}
+    },
+    renderer = {
+        icons = {
+            webdev_colors = true,
+            git_placement = "before",
+            padding = " ",
+            symlink_arrow = " ➛ ",
+            show = {
+                git = true,
+                folder = true,
+                folder_arrow = false,
+                file = true
+            },
+            glyphs = {
+                default = "",
+                symlink = "~",
+                git = {
+                    unstaged = "×",
+                    staged = "➜",
+                    unmerged = "",
+                    renamed = "×",
+                    untracked = "×"
+                },
+                folder = {
+                    default = "◼",
+                    open = "┌",
+                    empty = "-",
+                    empty_open = "-",
+                    symlink = "~"
+                }
+            }
+        },
+        indent_markers = {
+            enable = true,
+            icons = {corner = "└ ", edge = "│ ", item = "│ ", none = "  "}
+        }
     },
     update_focused_file = {enable = true, update_cwd = true, ignore_list = {}},
     system_open = {cmd = nil, args = {}},
@@ -65,7 +75,7 @@ require("nvim-tree").setup({
                 {key = "D", action = "remove"}, {key = "r", action = "rename"},
                 {key = "d", action = "cut"}, {key = "y", action = "copy"},
                 {key = "p", action = "paste"}, {key = "q", action = "close"},
-                {key = "<C-e>m", action = "close"},
+                {key = "<C-e>m", action = "close"}
             }
         },
         number = false,

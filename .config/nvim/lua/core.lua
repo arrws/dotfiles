@@ -44,7 +44,6 @@ vim.cmd('colorscheme mscheme')
 -- MY BINDINGS
 vim.g.mapleader = "\\"
 vim.cmd('set timeout timeoutlen=1000 ttimeoutlen=10')
-
 -- noremap('<leader>a :source ~/.config/nvim/colors/mscheme.vim<cr>
 noremap('<leader>q', ':q!<cr>')
 nnoremap('<leader>w', ':w<cr>')

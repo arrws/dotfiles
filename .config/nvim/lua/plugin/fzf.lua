@@ -65,7 +65,7 @@ require('telescope').setup {
 
 -- load extension after setup to get fzf loaded and working with telescope
 require('telescope').load_extension('fzf')
-require('telescope').load_extension('live_grep_raw')
+require('telescope').load_extension('live_grep_args')
 
 -- FILES
 nnoremap('<C-f>f', "<cmd>lua require('telescope.builtin').find_files()<cr>") -- live fd (respects .gitignore)

@@ -58,7 +58,7 @@ require('packer').startup(function()
     -- text
     use 'junegunn/vim-easy-align' -- alligning text
     use 'lukas-reineke/indent-blankline.nvim' -- display thin vertical lines at each indentation level
-    use 'ur4ltz/surround.nvim' -- smart bindings to change surrounding elements
+    use 'kylechui/nvim-surround' -- smart bindings to change surrounding elements
     use 'windwp/nvim-autopairs' -- auto-complete parenthesis and other brackets
     use 'terrortylor/nvim-comment' -- bindings to comment stuff out
     use 'ntpeters/vim-better-whitespace' -- for trailling whitespace
