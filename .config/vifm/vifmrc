@@ -277,11 +277,12 @@ nnoremap <f8> :delete<cr>
 
 " My Stuff
 nnoremap \q ZZ<Esc>
-nnoremap o <Nop>
 nnoremap K <Nop>
 nnoremap J jjjj
 nnoremap K kkkk
 nnoremap zz za
+nnoremap t tj
+nnoremap o gg<cr>
 
 " command! FZFlocate :set noquickview | :execute 'goto "'.system('locate $HOME | fzf --height 10 2>/dev/tty ').'"%IU' | redraw
 " nnoremap <c-g> :FZFlocate<cr>
