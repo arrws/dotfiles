@@ -7,4 +7,4 @@ PercentBright=$(($MyBright*100/$MaxBright))
 
 osd_cat -f -*-helvetica-*-r-*-*-32-*-*-*-*-*-*-* -A center -p middle -c yellow -d 1 <<< "
 $PercentBright% brightness
-" >& /home/nan/osd.log
+" >& /home/nan/.osd.log
