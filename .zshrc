@@ -106,15 +106,13 @@ zle -N accept-line expand-alias-and-accept-line
 ### abbreviations
 
 # git
+abbrev-alias g='git'
 abbrev-alias gs='git status'
 abbrev-alias gd='git diff'
 abbrev-alias gl='git log'
-abbrev-alias gsp='git stash pop'
-abbrev-alias gsl='git stash list'
 abbrev-alias ga='git add'
 abbrev-alias gc='git commit'
-abbrev-alias gp='git push'
-abbrev-alias gpf='git push --force'
+abbrev-alias gp='git pull'
 abbrev-alias gr='git reset'
 
 # kubernetes
@@ -122,11 +120,11 @@ abbrev-alias k='kubectl'
 abbrev-alias kg='kubectl get'
 abbrev-alias kgp='kubectl get pods'
 abbrev-alias kgd='kubectl get deployments'
-abbrev-alias kgpg='kubectl get pods | rg'
 abbrev-alias kd='kubectl describe'
 abbrev-alias kdp='kubectl describe pod'
 abbrev-alias kdd='kubectl describe deployment'
 abbrev-alias kl='kubectl logs'
+abbrev-alias kgpr='kubectl get pods | rg'
 
 # nix
 abbrev-alias nup='sudo nixos-rebuild switch --upgrade'
