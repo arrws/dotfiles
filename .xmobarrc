@@ -30,4 +30,3 @@ Config {
         , alignSep = "}{"
         , template = "%StdinReader% }{  %cpu%   %memory%   %wlp2s0%  %battery%   <fc=#ee9a00>%date%</fc> "
     }
-

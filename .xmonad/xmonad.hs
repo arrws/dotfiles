@@ -161,7 +161,8 @@ my_manage_hook = composeAll
     where viewShift = doF . liftM2 (.) W.view W.shift
 
 
-my_modmask = mod1Mask -- use ALT key
+-- my_modmask = mod1Mask -- use ALT key
+my_modmask = mod4Mask -- use Windows key
 my_terminal = "kitty"
 -- my_terminal = "xterm -bg black -fg white -fa Inconsolata -fs 11 zsh"
 
@@ -202,4 +203,3 @@ main = do
             -- , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc        -- load xmobar
             , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc0 xmproc1        -- load xmobar
             }
-

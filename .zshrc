@@ -3,18 +3,23 @@
 setopt prompt_subst
 setopt autocd autopushd
 
-
 export CLICOLOR=1
 export COLORTERM="truecolor"
 
-# History
+# command history
 export HISTSIZE=1000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
-setopt share_history
 
+setopt share_history
+setopt append_history
+setopt inc_append_history
+
+# auto correction
+setopt correct
+setopt correct_all
 
 # tab completion
 autoload -Uz compinit && compinit
