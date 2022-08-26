@@ -140,12 +140,12 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 my_mouse_bindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
 my_mouse_bindings (XConfig {XMonad.modMask = modMask}) = M.fromList []
 
-my_layout_hook = my_fullscreen ||| my_vertical ||| my_horizontal -- ||| my_spiral
+my_layout_hook = my_fullscreen ||| my_vertical -- ||| my_horizontal -- ||| my_spiral
                 where
                     -- my_spiral       = renamed [Replace "Sprl"] $ my_gaps $ spiral (6/7)
                     my_fullscreen   = renamed [Replace "Full"] $ avoidStruts $ noBorders $ Full
                     my_vertical     = renamed [Replace "Vert"] $ my_gaps $ Tall 1 (3/100) (1/2)
-                    my_horizontal   = renamed [Replace "Horz"] $ my_gaps $ Mirror $ Tall 1 (3/100) (1/2)
+                    -- my_horizontal   = renamed [Replace "Horz"] $ my_gaps $ Mirror $ Tall 1 (3/100) (1/2)
                     my_gaps layout  = let x = 3 in avoidStruts $ spacing x $ gaps [(U,x+20),(D,x),(R,x),(L,x)] layout
 
 my_workspaces :: [WorkspaceId]

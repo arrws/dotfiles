@@ -13,8 +13,7 @@ require('telescope').setup {
             }
         },
         vimgrep_arguments = {
-            "rg", "--color=never", "--no-heading", "--with-filename",
-            "--line-number", "--column", "--smart-case"
+            "rg", "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case"
             -- "--trim" -- remove indentation
         },
         prompt_prefix = " > ",
@@ -25,11 +24,7 @@ require('telescope').setup {
         sorting_strategy = "ascending",
         layout_strategy = "horizontal",
         layout_config = {
-            horizontal = {
-                prompt_position = "top",
-                preview_width = 0.55,
-                results_width = 0.8
-            },
+            horizontal = {prompt_position = "top", preview_width = 0.55, results_width = 0.8},
             vertical = {mirror = false},
             width = 0.87,
             height = 0.80,
@@ -70,8 +65,7 @@ require('telescope').load_extension('live_grep_args')
 -- FILES
 nnoremap('<C-f>f', "<cmd>lua require('telescope.builtin').find_files()<cr>") -- live fd (respects .gitignore)
 -- nnoremap('<C-f>g', "<cmd>lua require('telescope.builtin').live_grep()<cr>")
-nnoremap('<C-f>g',
-         "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw()<cr>") -- live rg (accepts args)
+nnoremap('<C-f>g', "<cmd>lua require('telescope').extensions.live_grep_raw.live_grep_raw()<cr>") -- live rg (accepts args)
 -- nnoremap('<C-f>x', "<cmd>lua require('telescope.builtin').grep_string()<cr>") -- live rip grep on string under cursor
 -- nnoremap('<C-f>y', "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>") -- Live fuzzy search inside of the currently open buffer
 
@@ -91,12 +85,10 @@ nnoremap('<C-f>z', "<cmd>lua require('telescope.builtin').spell_suggest()<cr>") 
 
 -- LSP
 -- nnoremap('<C-f>', "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>")           -- Lists LSP document symbols in the current buffer
-nnoremap('<C-f>h',
-         "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>") -- Lists LSP document symbols in the current workspace
+nnoremap('<C-f>h', "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>") -- Lists LSP document symbols in the current workspace
 -- nnoremap('<C-f>fs', "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>")  -- Dynamically Lists LSP for all workspace symbols
 nnoremap('<C-f>k', "<cmd>lua require('telescope.builtin').lsp_references()<cr>") -- Lists LSP references for word under the cursor
-nnoremap('<C-f>a',
-         "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>") -- Lists any LSP actions for the word under the cursor, trigger with <cr>
+nnoremap('<C-f>a', "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>") -- Lists any LSP actions for the word under the cursor, trigger with <cr>
 nnoremap('<C-f>d', "<cmd>lua require('telescope.builtin').diagnostics()<cr>") -- Lists Diagnostics for all open buffers or a specific buffer. Use option bufnr=0 for current buffer.
 -- nnoremap('<C-f>ft', "<cmd>lua require('telescope.builtin').treesitter()<cr>")       -- Lists Function names, variables, from Treesitter!
 

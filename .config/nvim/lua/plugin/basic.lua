@@ -44,7 +44,4 @@ require("nvim-autopairs").setup({
 })
 
 -- Indent Lines
-require("indent_blankline").setup({
-    char = "│",
-    buftype_exclude = {"terminal", "help", "NvimTree"}
-})
+require("indent_blankline").setup({char = "│", buftype_exclude = {"terminal", "help", "NvimTree"}})

@@ -1,45 +1,41 @@
-
 vim.cmd([[
 filetype plugin indent on
 ]])
 
-vim.opt.syntax='on'
+vim.opt.syntax = 'on'
 
-vim.opt.mouse='a'             -- enable mouse mode
+vim.opt.mouse = 'a' -- enable mouse mode
 
-vim.opt.hidden = true              -- do not save when swithing buffers -> work with multiple files easier
+vim.opt.hidden = true -- do not save when swithing buffers -> work with multiple files easier
 vim.opt.backup = false
 vim.opt.swapfile = false
-vim.opt.history=1000        -- status line commands history
-vim.opt.showcmd = true            -- show in status line the command you're typing
-vim.opt.laststatus=2        -- status line
-vim.opt.cmdheight=1         -- height status line
-vim.opt.wildmenu = true           -- status line menu
-vim.opt.wildmode='full'
-vim.opt.wildoptions='tagfile'
+vim.opt.history = 1000 -- status line commands history
+vim.opt.showcmd = true -- show in status line the command you're typing
+vim.opt.laststatus = 2 -- status line
+vim.opt.cmdheight = 1 -- height status line
+vim.opt.wildmenu = true -- status line menu
+vim.opt.wildmode = 'full'
+vim.opt.wildoptions = 'tagfile'
 
-vim.opt.number = true              -- or relativenumber
-vim.opt.numberwidth=1       -- number column width
-vim.opt.ruler  = true              -- show current column in status bar right corner
+vim.opt.number = true -- or relativenumber
+vim.opt.numberwidth = 1 -- number column width
+vim.opt.ruler = true -- show current column in status bar right corner
 -- set signcolumn=number	-- merge sign and numbers gutter golumns
---" set signcolumn=yes:1  --" always show sign column
-vim.opt.signcolumn='auto:1'   -- sign column
-vim.opt.foldcolumn='0'        -- fold column width
-vim.opt.fillchars='vert:│'   -- vertical bar delimiter
+-- set signcolumn=yes:1     -- always show sign column
+vim.opt.signcolumn = 'auto:1' -- sign column
+vim.opt.foldcolumn = '0' -- fold column width
+vim.opt.fillchars = 'vert:│' -- vertical bar delimiter
 
-vim.opt.cursorline = true          -- highlight current line
-vim.opt.showmatch = true           -- show matching braces
+vim.opt.cursorline = true -- highlight current line
+vim.opt.showmatch = true -- show matching braces
 
-vim.opt.undofile = true            -- save undo history
+vim.opt.undofile = true -- save undo history
 
 vim.opt.diffopt:append('vertical')
-
-
 
 --- When running macros and regexes on a large file, lazy redraw tells neovim/vim not to draw the screen, which greatly speeds it up, upto 6-7x faster
 vim.opt.lazyredraw = true
 vim.cmd('colorscheme mscheme')
-
 
 -- MY BINDINGS
 vim.g.mapleader = "\\"
@@ -63,23 +59,15 @@ no K {
 nnoremap('U', '<C-R>')
 nnoremap('<C-R>', 'Nup')
 
-
 -- arrow keys to move lines
 nnoremap('<up>', 'ddkP')
 vnoremap('<up>', ':m \'<-2<CR>gv=gv')
 vnoremap('<down>', ':m \'>+1<CR>gv=gv')
 nnoremap('<down>', 'ddp')
 
-
 -- add newline without insert
 nmap('go', 'o<ESC>k')
 nmap('gO', 'O<ESC>j')
-
-
--- -- spellcheck
--- map('gz', ':setlocal spell! spelllang=en_us,es<CR>')
--- map('gZ', ':set nospell<CR>')
-
 
 -- make vim remember last cursor position
 vim.cmd([[
@@ -88,15 +76,10 @@ if has("autocmd")
 endif
 ]])
 
-
-
-
 -- make dot work over visual line selections
 -- enablea a simple form of dot repetition over visual line selections.
 -- only simple operations that start from the beginning of a line be dot repeated.
 xnoremap('.', ':norm.<CR>')
-
-
 
 -- MOVEMENT
 
@@ -106,11 +89,10 @@ nnoremap('<SPACE>', '<Nop>')
 -- disable these
 map('<C-e>', '<Nop>') -- scroll the window downwards one line.
 map('<C-y>', '<Nop>') -- scroll the window upwards one line.
-map('<C-b>', '<Nop>')  -- moves screen up one page, cursor to last line
-map('<C-f>', '<Nop>')  -- moves screen down one page, cursor to first line
+map('<C-b>', '<Nop>') -- moves screen up one page, cursor to last line
+map('<C-f>', '<Nop>') -- moves screen down one page, cursor to first line
 -- map('<C-u>', '<Nop>') -- move your cursor upward half a screen.
 -- map('<C-d>', '<Nop>') -- move your cursordownward half a screen.
-
 
 -- TABS - don't use tabs
 -- nnoremap('<C-\>t', ':tabnew +terminal<CR>')
@@ -122,8 +104,6 @@ map('<C-f>', '<Nop>')  -- moves screen down one page, cursor to first line
 -- nnoremap('<leader>2 2gt')
 -- nnoremap('<leader>3 3gt')
 -- nnoremap('<leader>0', ':tablast<CR>')
-
-
 
 -- WINDOWS
 
@@ -150,8 +130,6 @@ nnoremap('<C-e>l', '<C-w>v')
 -- nnoremap('<C-?>j', ':resize +5<CR>')
 -- nnoremap('<C-?>k', ':resize -5<CR>')
 
-
-
 -- BUFFERS
 
 nnoremap('<C-n>', ':bn<CR>')
@@ -159,28 +137,24 @@ nnoremap('<C-p>', ':bp<CR>')
 nnoremap('<C-x>', ':Bdelete<CR>')
 -- noremap('<C-q>', ':bdelete<CR>')
 
-
-
 -- SPACING
 
-vim.opt.expandtab = true      -- TAB is expanded into spaces
-vim.opt.shiftwidth=4   -- num space characters for indent
-vim.opt.tabstop=4      -- num space characters for TAB key
-vim.opt.softtabstop=4
+vim.opt.expandtab = true -- TAB is expanded into spaces
+vim.opt.shiftwidth = 4 -- num space characters for indent
+vim.opt.tabstop = 4 -- num space characters for TAB key
+vim.opt.softtabstop = 4
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.breakindent = true
-vim.opt.backspace='indent,eol,start' -- change backspace to behave more intuitively
-vim.opt.backspace='2'
-vim.opt.linespace=0
-
+vim.opt.backspace = 'indent,eol,start' -- change backspace to behave more intuitively
+vim.opt.backspace = '2'
+vim.opt.linespace = 0
 
 -- normal tabbing with TAB key
 -- nnoremap('<TAB> >>')
 -- nnoremap('<S-TAB>', '<<')
 -- vnoremap('<TAB> >gv')
 -- vnoremap('<S-TAB>', '<gv')
-
 
 -- yank until the end of line
 nnoremap('Y', 'y$')
@@ -193,20 +167,16 @@ augroup YankHighlight
 augroup end
 ]])
 
-
-
 -- SEARCHING
 
-vim.opt.hlsearch = true 	   -- highligh matched search terms
-vim.opt.incsearch = true       -- start searching as you type letters
-vim.opt.ignorecase = true      -- make searches case sensitive
-vim.opt.smartcase = true       -- will search case sensitive if uppercase present, needs ignorecase set
+vim.opt.hlsearch = true -- highligh matched search terms
+vim.opt.incsearch = true -- start searching as you type letters
+vim.opt.ignorecase = true -- make searches case sensitive
+vim.opt.smartcase = true -- will search case sensitive if uppercase present, needs ignorecase set
 
-noremap('<BS>', ':noh<CR>')    -- clear search highlight
+noremap('<BS>', ':noh<CR>') -- clear search highlight
 
-vim.opt.inccommand='nosplit'   -- live visualization of substitutions
-
-
+vim.opt.inccommand = 'nosplit' -- live visualization of substitutions
 
 -- TERMINAL
 
@@ -259,5 +229,4 @@ augroup END
 --   (ps -o comm= $PPID | grep nvim > /dev/null) && vmux-send :cd "$@"
 -- }
 -- export cd
-
 

@@ -9,45 +9,22 @@ require("nvim-tree").setup({
     open_on_tab = false,
     hijack_cursor = false,
     update_cwd = true,
-    diagnostics = {
-        enable = false,
-        icons = {hint = "H", info = "I", warning = "W", error = "E"}
-    },
+    diagnostics = {enable = false, icons = {hint = "H", info = "I", warning = "W", error = "E"}},
     renderer = {
         icons = {
             webdev_colors = true,
             git_placement = "before",
             padding = " ",
             symlink_arrow = " ➛ ",
-            show = {
-                git = true,
-                folder = true,
-                folder_arrow = false,
-                file = true
-            },
+            show = {git = true, folder = true, folder_arrow = false, file = true},
             glyphs = {
                 default = "",
                 symlink = "~",
-                git = {
-                    unstaged = "×",
-                    staged = "➜",
-                    unmerged = "",
-                    renamed = "×",
-                    untracked = "×"
-                },
-                folder = {
-                    default = "◼",
-                    open = "┌",
-                    empty = "-",
-                    empty_open = "-",
-                    symlink = "~"
-                }
+                git = {unstaged = "×", staged = "➜", unmerged = "", renamed = "×", untracked = "×"},
+                folder = {default = "◼", open = "┌", empty = "-", empty_open = "-", symlink = "~"}
             }
         },
-        indent_markers = {
-            enable = true,
-            icons = {corner = "└ ", edge = "│ ", item = "│ ", none = "  "}
-        }
+        indent_markers = {enable = true, icons = {corner = "└ ", edge = "│ ", item = "│ ", none = "  "}}
     },
     update_focused_file = {enable = true, update_cwd = true, ignore_list = {}},
     system_open = {cmd = nil, args = {}},
@@ -62,19 +39,13 @@ require("nvim-tree").setup({
         mappings = {
             custom_only = false,
             list = {
-                {key = "<CR>", action = "edit"}, {key = "o", action = "edit"},
-                {key = "<C-CR>", action = "cd"},
-                {key = "<C-BS>", action = "dir_up"},
-                {key = "<C-s>l", action = "vsplit"},
-                {key = "<C-s>j", action = "split"},
+                {key = "<CR>", action = "edit"}, {key = "o", action = "edit"}, {key = "<C-CR>", action = "cd"},
+                {key = "<C-BS>", action = "dir_up"}, {key = "<C-s>l", action = "vsplit"}, {key = "<C-s>j", action = "split"},
                 -- { key = "<C-t>",         action = "tabnew" },
-                {key = "<BS>", action = "close_node"},
-                {key = "z", action = "toggle_ignored"},
-                {key = ".", action = "toggle_dotfiles"},
-                {key = "R", action = "refresh"}, {key = "c", action = "create"},
-                {key = "D", action = "remove"}, {key = "r", action = "rename"},
-                {key = "d", action = "cut"}, {key = "y", action = "copy"},
-                {key = "p", action = "paste"}, {key = "q", action = "close"},
+                {key = "<BS>", action = "close_node"}, {key = "z", action = "toggle_ignored"},
+                {key = ".", action = "toggle_dotfiles"}, {key = "R", action = "refresh"}, {key = "c", action = "create"},
+                {key = "D", action = "remove"}, {key = "r", action = "rename"}, {key = "d", action = "cut"},
+                {key = "y", action = "copy"}, {key = "p", action = "paste"}, {key = "q", action = "close"},
                 {key = "<C-e>m", action = "close"}
             }
         },

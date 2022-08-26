@@ -3,22 +3,14 @@ local nvim_lsp = require("lspconfig")
 local on_attach = function(_, bufnr)
     -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     local opts = {noremap = true, silent = false}
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>h',
-                                '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>",
-                                "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>h', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>r", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>i",
-                                "<cmd>lua vim.lsp.buf.implementation()<CR>",
-                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>i", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', "<C-f>o", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>j",
-                                "<cmd>lua vim.lsp.buf.signature_help()<CR>",
-                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>j", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>D',
-                                '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
-                                opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>D', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>c', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>]d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
@@ -29,7 +21,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 -- Enable the following language servers
-local servers = {"hls", "pyright", "rust_analyzer", "rls", "rnix"}
+local servers = {"hls", "pyright", "rust_analyzer", "rnix"}
 for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup({
         on_attach = on_attach,
@@ -38,52 +30,28 @@ for _, lsp in ipairs(servers) do
     })
 end
 
------- COMPE completion
-
-local has_words_before = function()
-    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-        return false
-    end
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and
-               vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col,
-                                                                          col)
-                   :match("%s") == nil
-end
-
-local feedkey = function(key)
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true),
-                          "n", true)
-end
-
+------ CMP completion
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 cmp.setup({
+    -- mapping = cmp.mapping.preset.insert {
     mapping = {
-        ["<Tab>"] = cmp.mapping.select_next_item({
-            behavior = cmp.SelectBehavior.Insert
-        }),
-        ["<S-Tab>"] = cmp.mapping.select_prev_item({
-            behavior = cmp.SelectBehavior.Insert
-        }),
-        ["<Esc>"] = cmp.mapping({
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close()
-        }),
-        ['<CR>'] = cmp.mapping.confirm({select = true})
+        ["<C-j>"] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Insert}),
+        ["<C-k>"] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Insert}),
+        -- ["<Esc>"] = cmp.mapping({
+        --     i = cmp.mapping.abort(),
+        --     c = cmp.mapping.close()
+        -- }),
+        ['<C-p>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-n>'] = cmp.mapping.scroll_docs(4),
+        ['<Esc>'] = cmp.mapping.abort(),
+        ['<Tab>'] = cmp.mapping.confirm({select = true})
     },
-    sources = {
-        {name = "nvim_lsp"}, {name = "cmp_tabnine"}, {name = "treesitter"},
-        {name = "spell"}, {name = "path"}
-    },
+    sources = {{name = "nvim_lsp"}, {name = "cmp_tabnine"}, {name = "treesitter"}, {name = "spell"}, {name = "path"}},
     formatting = { -- to show completion source
         format = function(entry, vim_item)
             -- set a name for each source
-            vim_item.menu = ({
-                nvim_lsp = "[LSP]",
-                cmp_tabnine = "[Tabnine]",
-                treesitter = "[Treesitter]"
-            })[entry.source.name]
+            vim_item.menu = ({nvim_lsp = "[LSP]", cmp_tabnine = "[Tabnine]", treesitter = "[Treesitter]"})[entry.source.name]
             return vim_item
         end
     }
@@ -96,10 +64,7 @@ tabnine:setup({max_lines = 1000, max_num_results = 10, sort = true})
 
 ------ Treesitter
 
-require("nvim-treesitter.configs").setup({
-    highlight = {enable = true},
-    indent = {enable = true}
-})
+require("nvim-treesitter.configs").setup({highlight = {enable = true}, indent = {enable = true}})
 
 ------ NeoFormatter
 
@@ -126,8 +91,8 @@ require("nvim-surround").setup({
         delete = "ds",
         change = "cs"
     },
-    delimiters = {
-        pairs = {
+    surrounds = {
+        surorunds = {
             ["("] = {"( ", " )"},
             [")"] = {"(", ")"},
             ["{"] = {"{ ", " }"},
@@ -136,11 +101,6 @@ require("nvim-surround").setup({
             [">"] = {"<", ">"},
             ["["] = {"[ ", " ]"},
             ["]"] = {"[", "]"}
-        },
-        separators = {
-            ["'"] = {"'", "'"},
-            ['"'] = {'"', '"'},
-            ["`"] = {"`", "`"}
         },
         HTML = {
             ["t"] = true -- Use "t" for HTML-style mappings
