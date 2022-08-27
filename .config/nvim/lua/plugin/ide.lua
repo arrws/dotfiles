@@ -6,11 +6,14 @@ local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>h', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>r", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>i", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>i", "<cmd>lua vim.lsp.buf.implementation()<CR>",
+                                opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', "<C-f>o", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>j", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>j", "<cmd>lua vim.lsp.buf.signature_help()<CR>",
+                                opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>D', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>D',
+                                '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>c', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>]d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
@@ -31,27 +34,32 @@ for _, lsp in ipairs(servers) do
 end
 
 ------ CMP completion
-local luasnip = require("luasnip")
 local cmp = require("cmp")
 cmp.setup({
-    -- mapping = cmp.mapping.preset.insert {
-    mapping = {
-        ["<C-j>"] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Insert}),
-        ["<C-k>"] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Insert}),
-        -- ["<Esc>"] = cmp.mapping({
-        --     i = cmp.mapping.abort(),
-        --     c = cmp.mapping.close()
-        -- }),
-        ['<C-p>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-n>'] = cmp.mapping.scroll_docs(4),
-        ['<Esc>'] = cmp.mapping.abort(),
-        ['<Tab>'] = cmp.mapping.confirm({select = true})
+    snippet = {
+        -- REQUIRED - you must specify a snippet engine
+        expand = function(args) vim.fn["vsnip#anonymous"](args.body) end
     },
-    sources = {{name = "nvim_lsp"}, {name = "cmp_tabnine"}, {name = "treesitter"}, {name = "spell"}, {name = "path"}},
+    mapping = {
+        ['<Tab>'] = cmp.mapping.select_next_item(),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        -- ['<Esc>'] = cmp.mapping.abort(),
+        ['<CR>'] = cmp.mapping.confirm({select = true})
+    },
+    sources = cmp.config.sources({
+        {name = "cmp_tabnine"}, {name = "nvim_lsp"}, {name = "vsnip"}, {name = "buffer"},
+        {name = "spell"}, {name = "path"}
+    }),
     formatting = { -- to show completion source
         format = function(entry, vim_item)
             -- set a name for each source
-            vim_item.menu = ({nvim_lsp = "[LSP]", cmp_tabnine = "[Tabnine]", treesitter = "[Treesitter]"})[entry.source.name]
+            vim_item.menu = ({
+                cmp_tabnine = "[AI]",
+                nvim_lsp = "[LSP]",
+                buffer = "[BUF]",
+                path = "[PATH]"
+            })[entry.source.name]
             return vim_item
         end
     }
@@ -60,7 +68,7 @@ cmp.setup({
 ------ Tabnine
 
 local tabnine = require("cmp_tabnine.config")
-tabnine:setup({max_lines = 1000, max_num_results = 10, sort = true})
+tabnine:setup({max_lines = 100, max_num_results = 5, sort = true})
 
 ------ Treesitter
 

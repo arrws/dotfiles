@@ -221,12 +221,3 @@ augroup neovim_terminal
 augroup END
 ]])
 
--- When in terminal mode, when I change directory (cd), I would like vim to also change its working directory (:cd). You can do so by adding this in your .zshrc or .bashrc:
--- #!/usr/bin/sh
--- function cd() {
---   builtin cd "$@";
---   # if the parent process is nvim, do a vim cd
---   (ps -o comm= $PPID | grep nvim > /dev/null) && vmux-send :cd "$@"
--- }
--- export cd
-

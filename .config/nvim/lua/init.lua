@@ -11,64 +11,50 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 require('packer').startup(function()
     use 'wbthomason/packer.nvim'
-    use 'nvim-lua/plenary.nvim'
-    use 'lewis6991/impatient.nvim'
+    use 'nvim-lua/plenary.nvim' -- requiered
 
-    use 'hoob3rt/lualine.nvim' -- lua statusline
-    use 'kyazdani42/nvim-tree.lua' -- file explorer
-    use 'phaazon/hop.nvim' -- better easy-motion
+    use 'hoob3rt/lualine.nvim'
+    use 'kyazdani42/nvim-tree.lua'
+    use 'phaazon/hop.nvim'
 
-    -- FZF
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = {'nvim-telescope/telescope-live-grep-raw.nvim', 'nvim-lua/plenary.nvim'}
-    }
-
+    -- fzf
+    use 'nvim-telescope/telescope-live-grep-args.nvim' -- requiered
+    use 'nvim-telescope/telescope.nvim'
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
 
-    -- IDE stuff
-    use 'neovim/nvim-lspconfig' -- LSP help installing servers
-    use {
-        'nvim-treesitter/nvim-treesitter', -- LSP based syntax highlighting
-        run = ':TSUpdate'
-    }
-    use {
-        'lewis6991/gitsigns.nvim', -- git signs for vertical bar
-        requires = 'nvim-lua/plenary.nvim'
-    }
-    use 'sbdchd/neoformat' -- LSP formatter
+    --- LSP
+    use 'neovim/nvim-lspconfig'
+    use 'sbdchd/neoformat'
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
     -- autocomplete
-    use 'hrsh7th/nvim-cmp' -- LSP autocomplete
+    use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
-    use 'ray-x/cmp-treesitter'
-    use 'L3MON4D3/LuaSnip' -- requiered Snippets plugin
-    use {
-        'tzachar/cmp-tabnine', -- ML autocomplete
-        run = './install.sh'
-    }
+    use 'hrsh7th/cmp-vsnip' -- requiered
+    use 'hrsh7th/vim-vsnip'
+    use {'tzachar/cmp-tabnine', run = './install.sh'}
 
     -- utils
-    use 'tpope/vim-repeat' -- enable . repeat for plugins
-    use 'bronson/vim-visual-star-search' -- visual select with *
-    use 'famiu/bufdelete.nvim' -- close buffers without closing windows with :Bdelete
-    use 'norcalli/nvim-colorizer.lua' -- highlight colors
+    use 'tpope/vim-repeat'                      -- enable . repeat for plugins
+    use 'bronson/vim-visual-star-search'        -- visual select with *
+    use 'famiu/bufdelete.nvim'                  -- close buffers without closing windows with :Bdelete
+    use 'terrortylor/nvim-comment'              -- bindings to comment stuff out
+    use 'lewis6991/gitsigns.nvim'               -- git line status on the vertical bar
+    use 'norcalli/nvim-colorizer.lua'           -- highlight colors
+    use 'ledger/vim-ledger'
 
     -- text
-    use 'junegunn/vim-easy-align' -- alligning text
-    use 'lukas-reineke/indent-blankline.nvim' -- display thin vertical lines at each indentation level
-    use 'kylechui/nvim-surround' -- smart bindings to change surrounding elements
-    use 'windwp/nvim-autopairs' -- auto-complete parenthesis and other brackets
-    use 'terrortylor/nvim-comment' -- bindings to comment stuff out
-    use 'ntpeters/vim-better-whitespace' -- for trailling whitespace
+    use 'junegunn/vim-easy-align'               -- alligning text
+    use 'lukas-reineke/indent-blankline.nvim'   -- display thin vertical lines at each indentation level
+    use 'kylechui/nvim-surround'                -- smart bindings to change surrounding elements
+    use 'windwp/nvim-autopairs'                 -- auto-complete parenthesis and other brackets
+    use 'ntpeters/vim-better-whitespace'        -- for trailling whitespace
 
-    use 'ledger/vim-ledger'
     -- Automatically set up your configuration after cloning packer.nvim
     if packer_bootstrap then require('packer').sync() end
 end)
-
--- require('impatient')
 
 -- Helpers
 function nnoremap(shortcut, command) vim.api.nvim_set_keymap('n', shortcut, command, {noremap = true, silent = true}) end

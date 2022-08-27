@@ -13,7 +13,8 @@ require('telescope').setup {
             }
         },
         vimgrep_arguments = {
-            "rg", "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case"
+            "rg", "--color=never", "--no-heading", "--with-filename", "--line-number", "--column",
+            "--smart-case"
             -- "--trim" -- remove indentation
         },
         prompt_prefix = " > ",
