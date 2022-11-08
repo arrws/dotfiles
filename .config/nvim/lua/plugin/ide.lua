@@ -5,10 +5,10 @@ local on_attach = function(_, bufnr)
     local opts = {noremap = true, silent = false}
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>h', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>r", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>r", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>i", "<cmd>lua vim.lsp.buf.implementation()<CR>",
                                 opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', "<C-f>o", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', "<C-f>c", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-f>j", "<cmd>lua vim.lsp.buf.signature_help()<CR>",
                                 opts)
     -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-f>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
@@ -43,8 +43,7 @@ cmp.setup({
     mapping = {
         ['<Tab>'] = cmp.mapping.select_next_item(),
         ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-        ['<C-e>'] = cmp.mapping.abort(),
-        -- ['<Esc>'] = cmp.mapping.abort(),
+        ['<Esc>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm({select = true})
     },
     sources = cmp.config.sources({

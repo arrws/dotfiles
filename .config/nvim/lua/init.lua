@@ -15,7 +15,7 @@ require('packer').startup(function()
 
     use 'hoob3rt/lualine.nvim'
     use 'kyazdani42/nvim-tree.lua'
-    use 'phaazon/hop.nvim'
+    use 'ggandor/leap.nvim'
 
     -- fzf
     use 'nvim-telescope/telescope-live-grep-args.nvim' -- requiered
@@ -37,11 +37,11 @@ require('packer').startup(function()
     use {'tzachar/cmp-tabnine', run = './install.sh'}
 
     -- utils
+    use 'lewis6991/gitsigns.nvim'               -- git line status on the vertical bar
     use 'tpope/vim-repeat'                      -- enable . repeat for plugins
     use 'bronson/vim-visual-star-search'        -- visual select with *
     use 'famiu/bufdelete.nvim'                  -- close buffers without closing windows with :Bdelete
     use 'terrortylor/nvim-comment'              -- bindings to comment stuff out
-    use 'lewis6991/gitsigns.nvim'               -- git line status on the vertical bar
     use 'norcalli/nvim-colorizer.lua'           -- highlight colors
     use 'ledger/vim-ledger'
 

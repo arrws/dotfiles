@@ -32,20 +32,20 @@ require("gitsigns").setup({
     keymaps = {
         noremap = true,
         buffer = true,
-        ["n <C-e>n"] = {
+        ["n <C-g>n"] = {
             expr = true,
             "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"
         },
-        ["n <C-e>p"] = {
+        ["n <C-g>p"] = {
             expr = true,
             "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"
         },
-        ["n <C-e>o"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-        ["n <C-e>u"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-        ["n <C-e>U"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-        ["n <C-e>b"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-        ["n <C-e>s"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-        ["n <C-e>S"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>'
+        ["n <C-g>o"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+        ["n <C-g>u"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+        ["n <C-g>U"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+        ["n <C-g>b"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
+        ["n <C-g>s"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+        ["n <C-g>S"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>'
     },
     watch_gitdir = {interval = 1000},
     sign_priority = 6,

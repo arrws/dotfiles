@@ -282,7 +282,8 @@ nnoremap J jjjj
 nnoremap K kkkk
 nnoremap zz za
 nnoremap t tj
-nnoremap o gg<cr>
+nnoremap <c-o> gg<cr>
+nnoremap o <cr>
 
 " command! FZFlocate :set noquickview | :execute 'goto "'.system('locate $HOME | fzf --height 10 2>/dev/tty ').'"%IU' | redraw
 " nnoremap <c-g> :FZFlocate<cr>

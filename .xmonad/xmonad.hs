@@ -121,7 +121,7 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- , ((modMask                 , xK_period ), sendMessage (IncMasterN (-1)))       -- deincrement the number of windows in the master area
 
     -- quit, or restart
-    , ((modMask .|. shiftMask   , xK_Escape ), io (exitWith ExitSuccess))               -- quit xmonad
+    , ((modMask .|. shiftMask   , xK_Escape ), io exitSuccess)               -- quit xmonad
     , ((modMask                 , xK_Escape ), spawn "if type xmonad; \
                                 \ then xmonad --recompile && xmonad --restart; \
                                 \ else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")  -- restart xmonad
@@ -143,13 +143,13 @@ my_mouse_bindings (XConfig {XMonad.modMask = modMask}) = M.fromList []
 my_layout_hook = my_fullscreen ||| my_vertical -- ||| my_horizontal -- ||| my_spiral
                 where
                     -- my_spiral       = renamed [Replace "Sprl"] $ my_gaps $ spiral (6/7)
-                    my_fullscreen   = renamed [Replace "Full"] $ avoidStruts $ noBorders $ Full
+                    my_fullscreen   = renamed [Replace "Full"] $ avoidStruts $ noBorders Full
                     my_vertical     = renamed [Replace "Vert"] $ my_gaps $ Tall 1 (3/100) (1/2)
                     -- my_horizontal   = renamed [Replace "Horz"] $ my_gaps $ Mirror $ Tall 1 (3/100) (1/2)
                     my_gaps layout  = let x = 3 in avoidStruts $ spacing x $ gaps [(U,x+20),(D,x),(R,x),(L,x)] layout
 
 my_workspaces :: [WorkspaceId]
-my_workspaces = ["λ", "main", "web"] ++ (map show [4 .. 9 :: Int])
+my_workspaces = ["λ", "Σ", "Ψ", "Γ"]
 
 my_manage_hook = composeAll
     [ className =? "Firefox"  --> doShift (my_workspaces !! 2)
@@ -177,10 +177,10 @@ my_xmobarPP xmproc0 xmproc1 = xmobarPP {
     , ppWsSep           = ""    -- space inbetween WSs
     , ppLayout          = xmobarColor "orange" ""
     -- , ppOutput          = hPutStrLn xmproc
-    , ppOutput          = (\x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x)
+    , ppOutput          = \x -> hPutStrLn xmproc0 x >> hPutStrLn xmproc1 x
     }
     where
-        addSpace = (\x -> " " ++ x)
+        addSpace = (" " ++)
         wrapBrackets = wrap " [" "]"
 
 main = do
@@ -199,7 +199,7 @@ main = do
             , focusedBorderColor= "#666666"
 	        , handleEventHook   = fullscreenEventHook
             , manageHook        = manageDocks <+> my_manage_hook    -- manageHook defaultConfig
-            , layoutHook        = avoidStruts $ my_layout_hook      -- layoutHook defaultConfig
+            , layoutHook        = avoidStruts my_layout_hook      -- layoutHook defaultConfig
             -- , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc        -- load xmobar
             , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc0 xmproc1        -- load xmobar
             }

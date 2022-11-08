@@ -9,10 +9,12 @@ vim.opt.mouse = 'a' -- enable mouse mode
 vim.opt.hidden = true -- do not save when swithing buffers -> work with multiple files easier
 vim.opt.backup = false
 vim.opt.swapfile = false
+
 vim.opt.history = 1000 -- status line commands history
 vim.opt.showcmd = true -- show in status line the command you're typing
 vim.opt.laststatus = 2 -- status line
 vim.opt.cmdheight = 1 -- height status line
+
 vim.opt.wildmenu = true -- status line menu
 vim.opt.wildmode = 'full'
 vim.opt.wildoptions = 'tagfile'
@@ -35,10 +37,12 @@ vim.opt.diffopt:append('vertical')
 
 --- When running macros and regexes on a large file, lazy redraw tells neovim/vim not to draw the screen, which greatly speeds it up, upto 6-7x faster
 vim.opt.lazyredraw = true
+
 vim.cmd('colorscheme mscheme')
 
 -- MY BINDINGS
-vim.g.mapleader = "\\"
+nnoremap(';', '<Nop>')
+vim.g.mapleader = ";" -- "\\"
 vim.cmd('set timeout timeoutlen=1000 ttimeoutlen=10')
 -- noremap('<leader>a :source ~/.config/nvim/colors/mscheme.vim<cr>
 noremap('<leader>q', ':q!<cr>')
@@ -89,8 +93,8 @@ nnoremap('<SPACE>', '<Nop>')
 -- disable these
 map('<C-e>', '<Nop>') -- scroll the window downwards one line.
 map('<C-y>', '<Nop>') -- scroll the window upwards one line.
-map('<C-b>', '<Nop>') -- moves screen up one page, cursor to last line
-map('<C-f>', '<Nop>') -- moves screen down one page, cursor to first line
+-- map('<C-b>', '<Nop>') -- moves screen up one page, cursor to last line
+-- map('<C-f>', '<Nop>') -- moves screen down one page, cursor to first line
 -- map('<C-u>', '<Nop>') -- move your cursor upward half a screen.
 -- map('<C-d>', '<Nop>') -- move your cursordownward half a screen.
 
@@ -118,8 +122,8 @@ nnoremap('<C-k>', '<C-w>k')
 nnoremap('<C-l>', '<C-w>l')
 nnoremap('<C-h>', '<C-w>h')
 
-nnoremap('<C-e>j', '<C-w>s')
-nnoremap('<C-e>l', '<C-w>v')
+nnoremap('<leader>j', '<C-w>s')
+nnoremap('<leader>l', '<C-w>v')
 -- -- nnoremap('<C-x>', '<C-w>q')
 
 -- nnoremap('<C-?>r', '<C-w>r')      -- rotate the windows
@@ -184,17 +188,16 @@ vim.opt.inccommand = 'nosplit' -- live visualization of substitutions
 vim.cmd([[
 if has('nvim')
     tnoremap  <Esc> <C-\><C-n>
-    tnoremap  <C-e>e <C-\><C-n>
 endif
-]])
+]]) -- tnoremap  <C-e>e <C-\><C-n>
 
 -- open a new horizontal split with a terminal
-nnoremap('<C-e>tj', ':new +terminal<CR>')
-tnoremap('<C-e>tj', '<C-\\><C-n>:new +terminal<CR>')
+nnoremap('<leader>T', ':new +terminal<CR>')
+tnoremap('<leader>T', '<C-\\><C-n>:new +terminal<CR>')
 
 -- open a new vertical split with a terminal
-nnoremap('<C-e>tl', ':vnew +terminal<CR>')
-tnoremap('<C-e>tl', '<C-\\><C-n>:vnew +terminal<cr>')
+nnoremap('<leader>t', ':vnew +terminal<CR>')
+tnoremap('<leader>t', '<C-\\><C-n>:vnew +terminal<cr>')
 
 vim.cmd([[
 augroup startup
