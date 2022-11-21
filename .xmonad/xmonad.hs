@@ -62,8 +62,8 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launching and killing programs
     [ ((modMask                 , xK_Return ), spawn $ XMonad.terminal conf)      -- launch default terminal
-    , ((modMask                 , xK_p      ), spawn "./.scripts/dmenu.sh")       -- launch dmenu command search
-    , ((modMask .|. shiftMask   , xK_p      ), spawn "./.scripts/dmusic.sh")      -- launch dmenu music search
+    , ((modMask                 , xK_f      ), spawn "./.scripts/dmenu.sh")       -- launch dmenu command search
+    , ((modMask .|. shiftMask   , xK_f      ), spawn "./.scripts/dmusic.sh")      -- launch dmenu music search
     , ((modMask                 , xK_x      ), kill)                              -- close the focused window
 
     -- volume control
@@ -112,9 +112,9 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask   , xK_s      ), windows W.swapUp)                    -- swap focused window with the previous window
 
     -- resizing the master/slave ratio
-    , ((modMask                 , xK_a      ), sendMessage Shrink)                  -- shrink the master area
-    , ((modMask                 , xK_f      ), sendMessage Expand)                  -- expand the master area
-    , ((modMask                 , xK_c      ), refresh)                             -- reset window size
+    -- , ((modMask                 , xK_a      ), sendMessage Shrink)                  -- shrink the master area
+    -- , ((modMask                 , xK_f      ), sendMessage Expand)                  -- expand the master area
+    -- , ((modMask                 , xK_c      ), refresh)                             -- reset window size
 
     -- -- increase or decrease number of windows in the master area
     -- , ((modMask                 , xK_comma  ), sendMessage (IncMasterN 1))          -- increment the number of windows in the master area

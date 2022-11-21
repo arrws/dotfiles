@@ -23,14 +23,18 @@ paths=(
 ".config/vifm/colors/Default.vifm"
 ".config/neofetch/config.conf"
 
-# ".config/feh/keys"
-# ".config/mpv/input.conf"
-# ".config/mpd/mpd.conf"
+".config/feh/keys"
+".config/mpv/input.conf"
+".config/mpd/mpd.conf"
+".config/ncmpcpp/config"
+".config/ncmpcpp/bindings"
+
 # ".Xdefaults"
 # ".tmux.conf"
 # ".gitconfig"
 # ".ghc/ghci.conf"
 # ".borg.backup"
+
 # ".skynet.png"
 )
 

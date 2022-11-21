@@ -1,5 +1,6 @@
 ------ Tree View
-nnoremap('<C-e>m', ':NvimTreeToggle<CR>')
+
+nnoremap('<C-m>', ':NvimTreeToggle<CR>')
 
 require("nvim-tree").setup({
     disable_netrw = true,
@@ -58,7 +59,6 @@ require("nvim-tree").setup({
                 {key = "<C-BS>", action = "dir_up"},
                 {key = "<leader>l", action = "vsplit"},
                 {key = "<leader>j", action = "split"},
-                -- { key = "<C-t>",         action = "tabnew" },
                 {key = "<BS>", action = "close_node"},
                 {key = "z", action = "toggle_ignored"},
                 {key = ".", action = "toggle_dotfiles"},
@@ -70,7 +70,8 @@ require("nvim-tree").setup({
                 {key = "y", action = "copy"},
                 {key = "p", action = "paste"},
                 {key = "q", action = "close"},
-                {key = "<leader>m", action = "close"}
+                {key = "x", action = "close"},
+                {key = "<C-m>", action = "close"}
             }
         },
         number = false,

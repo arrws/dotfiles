@@ -34,12 +34,14 @@ alias vial='appimage-run /home/nan/Downloads/Vial-v0.5-x86_64.AppImage'
 if command -v exa &> /dev/null; then
     export EXA_COLORS='ur=33:uw=33:ux=33:ue=33:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:xa=0:uu=0:un=31:gu=0:gn=31:da=36:sn=32:sb=32:lc=0:hd=30;47;01'
     alias l='exa'
+    alias ls='exa'
     alias ll='exa -l --links'
     alias la='exa -l --links -a'
     alias latree='exa -l --links -a --tree --level=3'
     alias lasize='exa -l --links -a --sort=size'
     alias lamodified='exa -l --links -a --sort=modified'
 fi
+
 
 # cat -> bat
 if command -v bat &>/dev/null; then
