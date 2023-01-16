@@ -22,18 +22,19 @@ require("nvim-tree").setup({
                 default = "",
                 symlink = "~",
                 git = {
-                    unstaged = "x",
+                    unstaged = "",
                     staged = "",
                     unmerged = "",
-                    renamed = "x",
-                    untracked = "?"
+                    renamed = "*",
+                    untracked = "*"
                 },
                 folder = {
                     default = "◼",
                     open = "┌",
                     empty = "-",
                     empty_open = "-",
-                    symlink = "~"
+                    symlink = "~",
+                    symlink_open = "~",
                 }
             }
         },

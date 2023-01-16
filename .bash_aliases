@@ -24,11 +24,6 @@ else
 fi
 
 
-# via-keyboard needs this
-export DISABLE_SUDO_PROMPT=1
-# vial
-alias vial='appimage-run /home/nan/Downloads/Vial-v0.5-x86_64.AppImage'
-
 
 # ls -> exa
 if command -v exa &> /dev/null; then
@@ -49,6 +44,7 @@ if command -v bat &>/dev/null; then
     alias bat='bat --style=numbers,changes,rule'
 fi
 
+
 # core
 alias cp='cp -Riv'
 alias mv='mv -iv'
@@ -57,10 +53,7 @@ alias mkdir='mkdir -p'
 d() { builtin cd "$1" && exa; }
 alias ..='cd ..'
 alias cd..='cd ..'
-
 alias cclear='printf "\033c"' # actually clear text from the terminal
-
-alias r='vifm .'
 
 if test -f ~/nvim.appimage; then
     alias v='~/nvim.appimage'
@@ -69,11 +62,11 @@ else
 fi
 
 # apps
-# alias neofetch='neofetch --ascii_distro nixos_old --color_blocks off'
 alias icat='kitty +kitten icat --place=40x40@132x0'
 alias feh='feh --scale-down'
 alias mupdf='mupdf-x11'
-alias ncm='ncmpcpp -b ~/.config/ncmpcpp/bindings'
+alias r='vifm .'
+alias n='ncmpcpp'
 alias p='python3'
 alias ghc='ghc -dynamic -no-keep-hi-files -no-keep-o-files -o o'
 
@@ -92,10 +85,14 @@ function pretty {
 
 alias hledgerplot="sed 's/.*|| *//' | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' ' | sed 's/|/ /g'"
 alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +kitten icat --align left'
-alias colors='~/.scripts/colors.sh'
+
+# via-keyboard needs this
+export DISABLE_SUDO_PROMPT=1
+# vial
+alias vial='appimage-run /home/nan/Downloads/Vial-v0.5-x86_64.AppImage'
 
 function help {
-    rg "$*" -N ~/codex ~/help ~/Desktop/help
+    curl cheat.sh/"$1"
 }
 
 function calx {

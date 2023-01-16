@@ -17,9 +17,9 @@ setopt share_history
 setopt append_history
 setopt inc_append_history
 
-# auto correction
-setopt correct
-setopt correct_all
+# # auto correction
+# setopt correct
+# setopt correct_all
 
 # tab completion
 autoload -Uz compinit && compinit
@@ -100,6 +100,9 @@ bindkey ' '             expand-ealias
 bindkey '^ '            magic-space     # control-space to bypass completion
 bindkey -M isearch " "  magic-space     # normal space during searches
 
+
+bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
+
 # A function for expanding any aliases before accepting the line as is and executing the entered command
 expand-alias-and-accept-line() {
     expand-ealias
@@ -113,11 +116,11 @@ zle -N accept-line expand-alias-and-accept-line
 # git
 abbrev-alias g='git'
 abbrev-alias gs='git status'
+abbrev-alias gst='git stash'
 abbrev-alias gd='git diff'
 abbrev-alias gl='git log'
 abbrev-alias ga='git add'
 abbrev-alias gc='git commit'
-abbrev-alias gp='git pull'
 abbrev-alias gr='git reset'
 
 # kubernetes

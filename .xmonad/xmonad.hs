@@ -62,8 +62,8 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launching and killing programs
     [ ((modMask                 , xK_Return ), spawn $ XMonad.terminal conf)      -- launch default terminal
-    , ((modMask                 , xK_f      ), spawn "./.scripts/dmenu.sh")       -- launch dmenu command search
-    , ((modMask .|. shiftMask   , xK_f      ), spawn "./.scripts/dmusic.sh")      -- launch dmenu music search
+    , ((modMask                 , xK_g      ), spawn "./.scripts/dmenu.sh")       -- launch dmenu command search
+    , ((modMask .|. shiftMask   , xK_g      ), spawn "./.scripts/dmusic.sh")      -- launch dmenu music search
     , ((modMask                 , xK_x      ), kill)                              -- close the focused window
 
     -- volume control
@@ -112,13 +112,8 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask   , xK_s      ), windows W.swapUp)                    -- swap focused window with the previous window
 
     -- resizing the master/slave ratio
-    -- , ((modMask                 , xK_a      ), sendMessage Shrink)                  -- shrink the master area
-    -- , ((modMask                 , xK_f      ), sendMessage Expand)                  -- expand the master area
-    -- , ((modMask                 , xK_c      ), refresh)                             -- reset window size
-
-    -- -- increase or decrease number of windows in the master area
-    -- , ((modMask                 , xK_comma  ), sendMessage (IncMasterN 1))          -- increment the number of windows in the master area
-    -- , ((modMask                 , xK_period ), sendMessage (IncMasterN (-1)))       -- deincrement the number of windows in the master area
+    , ((modMask                 , xK_a      ), sendMessage Shrink)                  -- shrink the master area
+    , ((modMask                 , xK_f      ), sendMessage Expand)                  -- expand the master area
 
     -- quit, or restart
     , ((modMask .|. shiftMask   , xK_Escape ), io exitSuccess)               -- quit xmonad
@@ -142,27 +137,18 @@ my_mouse_bindings (XConfig {XMonad.modMask = modMask}) = M.fromList []
 
 my_layout_hook = my_fullscreen ||| my_vertical -- ||| my_horizontal -- ||| my_spiral
                 where
-                    -- my_spiral       = renamed [Replace "Sprl"] $ my_gaps $ spiral (6/7)
                     my_fullscreen   = renamed [Replace "Full"] $ avoidStruts $ noBorders Full
                     my_vertical     = renamed [Replace "Vert"] $ my_gaps $ Tall 1 (3/100) (1/2)
                     -- my_horizontal   = renamed [Replace "Horz"] $ my_gaps $ Mirror $ Tall 1 (3/100) (1/2)
+                    -- my_spiral       = renamed [Replace "Sprl"] $ my_gaps $ spiral (6/7)
                     my_gaps layout  = let x = 3 in avoidStruts $ spacing x $ gaps [(U,x+20),(D,x),(R,x),(L,x)] layout
 
 my_workspaces :: [WorkspaceId]
 my_workspaces = ["λ", "Σ", "Ψ", "Γ"]
 
-my_manage_hook = composeAll
-    [ className =? "Firefox"  --> doShift (my_workspaces !! 2)
-    , className =? "Firefox"  --> viewShift (my_workspaces !! 2)
-    -- , className =? "Google-chrome"  --> doShift (my_workspaces !! 1)
-    -- , className =? "Google-chrome"  --> viewShift (my_workspaces !! 1)
-    , fullscreenManageHook
-    , manageHook def ]
-    where viewShift = doF . liftM2 (.) W.view W.shift
 
-
--- my_modmask = mod1Mask -- use ALT key
 my_modmask = mod4Mask -- use Windows key
+-- my_modmask = mod1Mask -- use ALT key
 my_terminal = "kitty"
 -- my_terminal = "xterm -bg black -fg white -fa Inconsolata -fs 11 zsh"
 
@@ -198,7 +184,7 @@ main = do
             , normalBorderColor = "#000000"
             , focusedBorderColor= "#666666"
 	        , handleEventHook   = fullscreenEventHook
-            , manageHook        = manageDocks <+> my_manage_hook    -- manageHook defaultConfig
+            , manageHook        = manageDocks -- manageHook defaultConfig
             , layoutHook        = avoidStruts my_layout_hook      -- layoutHook defaultConfig
             -- , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc        -- load xmobar
             , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc0 xmproc1        -- load xmobar

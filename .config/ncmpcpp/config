@@ -314,7 +314,8 @@
 ##   available.
 ##
 
-song_columns_list_format = (10f)[green]{g} (15)[white]{a} (30)[white]{t|f:Title} (15)[cyan]{b} (1)[white]{f} (5f)[magenta]{l}
+# song_columns_list_format = (10f)[green]{g} (15)[white]{a} (30)[white]{t|f:Title} (15)[cyan]{b} (1)[white]{f} (5f)[magenta]{l}
+song_columns_list_format = (15)[white]{a} (30)[white]{t|f:Title} (15)[cyan]{b} (1)[white]{f} (5f)[magenta]{l}
 
 
 ##### various settings #####
@@ -420,7 +421,7 @@ header_visibility = no
 #
 #generate_win32_compatible_filenames = yes
 #
-#allow_for_physical_item_deletion = no
+allow_for_physical_item_deletion = yes
 #
 ##
 ## Note: If you set this variable, ncmpcpp will try to get info from last.fm in

@@ -17,6 +17,10 @@ def_key "g"
 def_key "G"
     move_end
 
+#def_key "o"
+#    dummy
+def_key "o"
+    play_item
 
 def_key "."
     show_lyrics
