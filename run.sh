@@ -7,6 +7,7 @@ paths=(
 
 ".xmobarrc"
 ".xmonad/xmonad.hs"
+".xmodmaprc"
 
 ".zshrc"
 ".zoxide"

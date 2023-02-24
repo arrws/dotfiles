@@ -147,8 +147,8 @@ my_workspaces :: [WorkspaceId]
 my_workspaces = ["λ", "Σ", "Ψ", "Γ"]
 
 
-my_modmask = mod4Mask -- use Windows key
--- my_modmask = mod1Mask -- use ALT key
+-- my_modmask = mod4Mask -- use Windows key
+my_modmask = mod1Mask -- use ALT key
 my_terminal = "kitty"
 -- my_terminal = "xterm -bg black -fg white -fa Inconsolata -fs 11 zsh"
 
