@@ -57,8 +57,8 @@ import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Renamed
 
 
-my_keys_bindings :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+myKeysBindings :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launching and killing programs
     [ ((modMask                 , xK_Return ), spawn $ XMonad.terminal conf)      -- launch default terminal
@@ -116,44 +116,43 @@ my_keys_bindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                 , xK_f      ), sendMessage Expand)                  -- expand the master area
 
     -- quit, or restart
-    , ((modMask .|. shiftMask   , xK_Escape ), io exitSuccess)               -- quit xmonad
+    , ((modMask .|. shiftMask   , xK_Escape ), io exitSuccess)                      -- quit xmonad
     , ((modMask                 , xK_Escape ), spawn "if type xmonad; \
                                 \ then xmonad --recompile && xmonad --restart; \
                                 \ else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")  -- restart xmonad
 
     ] ++
-    [ ((modMask                 , k         ), windows $ W.view i)                 -- switch to k-th workspace
+    [ ((modMask                 , k         ), windows $ W.view i)                          -- switch to k-th workspace
                                             | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
     ] ++
-    [ ((modMask .|. shiftMask   , k         ), (windows $ W.shift i)                     -- move window to the k-th workspace
-                                            >> (windows $ W.view i))
+    [ ((modMask .|. shiftMask   , k         ), windows ( W.shift i) >> windows ( W.view i)) -- move window to the k-th workspace
                                             | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
     ]
 
 
 -- mouse buttons for floating windows
-my_mouse_bindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
-my_mouse_bindings (XConfig {XMonad.modMask = modMask}) = M.fromList []
+myMouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
+myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList []
 
-my_layout_hook = my_fullscreen ||| my_vertical -- ||| my_horizontal -- ||| my_spiral
+myLayoutHook = myFullscreen ||| myVertical -- ||| myHorizontal -- ||| mySpiral
                 where
-                    my_fullscreen   = renamed [Replace "Full"] $ avoidStruts $ noBorders Full
-                    my_vertical     = renamed [Replace "Vert"] $ my_gaps $ Tall 1 (3/100) (1/2)
-                    -- my_horizontal   = renamed [Replace "Horz"] $ my_gaps $ Mirror $ Tall 1 (3/100) (1/2)
-                    -- my_spiral       = renamed [Replace "Sprl"] $ my_gaps $ spiral (6/7)
-                    my_gaps layout  = let x = 3 in avoidStruts $ spacing x $ gaps [(U,x+20),(D,x),(R,x),(L,x)] layout
+                    myFullscreen   = renamed [Replace "Full"] $ avoidStruts $ noBorders Full
+                    myVertical     = renamed [Replace "Vert"] $ myGaps $ Tall 1 (3/100) (1/2)
+                    -- myHorizontal   = renamed [Replace "Horz"] $ myGaps $ Mirror $ Tall 1 (3/100) (1/2)
+                    -- mySpiral       = renamed [Replace "Sprl"] $ myGaps $ spiral (6/7)
+                    myGaps layout  = let x = 3 in avoidStruts $ spacing x $ gaps [(U,x+20),(D,x),(R,x),(L,x)] layout
 
-my_workspaces :: [WorkspaceId]
-my_workspaces = ["λ", "Σ", "Ψ", "Γ"]
+myWorkspaces :: [WorkspaceId]
+myWorkspaces = ["λ", "Σ", "Ψ", "Γ"]
 
 
--- my_modmask = mod4Mask -- use Windows key
-my_modmask = mod1Mask -- use ALT key
-my_terminal = "kitty"
--- my_terminal = "xterm -bg black -fg white -fa Inconsolata -fs 11 zsh"
+-- myModmask = mod4Mask -- use Windows key
+myModmask = mod1Mask -- use ALT key
+myTerminal = "kitty"
+-- myTerminal = "xterm -bg black -fg white -fa Inconsolata -fs 11 zsh"
 
--- my_xmobarPP xmproc = xmobarPP {
-my_xmobarPP xmproc0 xmproc1 = xmobarPP {
+-- myXmobarPP xmproc = xmobarPP {
+myXmobarPP xmproc0 xmproc1 = xmobarPP {
     ppCurrent           = xmobarColor "green" "" . wrapBrackets
     , ppVisible         = xmobarColor "yellow" "" . wrapBrackets
     , ppHidden          = xmobarColor "grey" "" . wrapBrackets
@@ -174,18 +173,18 @@ main = do
         xmproc0 <- spawnPipe "xmobar -x 0"
         xmproc1 <- spawnPipe "xmobar -x 1"
         xmonad $ def
-            { terminal          = my_terminal
-            , modMask           = my_modmask
-            , workspaces        = my_workspaces
-            , keys              = my_keys_bindings
-            , mouseBindings     = my_mouse_bindings
+            { terminal          = myTerminal
+            , modMask           = myModmask
+            , workspaces        = myWorkspaces
+            , keys              = myKeysBindings
+            , mouseBindings     = myMouseBindings
             , focusFollowsMouse = True
             , clickJustFocuses  = True
             , normalBorderColor = "#000000"
             , focusedBorderColor= "#666666"
-	        , handleEventHook   = fullscreenEventHook
+            , handleEventHook   = fullscreenEventHook
             , manageHook        = manageDocks -- manageHook defaultConfig
-            , layoutHook        = avoidStruts my_layout_hook      -- layoutHook defaultConfig
-            -- , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc        -- load xmobar
-            , logHook           = dynamicLogWithPP $ my_xmobarPP xmproc0 xmproc1        -- load xmobar
+            , layoutHook        = avoidStruts myLayoutHook      -- layoutHook defaultConfig
+            -- , logHook           = dynamicLogWithPP $ myXmobarPP xmproc        -- load xmobar
+            , logHook           = dynamicLogWithPP $ myXmobarPP xmproc0 xmproc1        -- load xmobar
             }

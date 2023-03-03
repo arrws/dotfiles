@@ -22,6 +22,12 @@ require('packer').startup(function()
     use 'neovim/nvim-lspconfig'
     use 'sbdchd/neoformat'
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use({ -- nicer diagnostics text
+      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      config = function()
+        require("lsp_lines").setup()
+      end,
+    })
 
     -- autocomplete
     use 'hrsh7th/nvim-cmp'
@@ -31,6 +37,10 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-vsnip' -- requiered
     use 'hrsh7th/vim-vsnip'
     use {'tzachar/cmp-tabnine', run = './install.sh'}
+
+    
+    use 'simrat39/rust-tools.nvim'
+    -- use 'mfussenegger/nvim-dap'                 -- debugging
 
     -- others
     use 'hoob3rt/lualine.nvim'
@@ -44,7 +54,8 @@ require('packer').startup(function()
     use 'echasnovski/mini.comment'              -- bindings to comment stuff out
     use 'echasnovski/mini.align'                -- alligning text
     use 'echasnovski/mini.pairs'                -- auto-complete parenthesis
-    use 'echasnovski/mini.trailspace'           -- for trailling whitespace use 'echasnovski/mini.surround'             -- change surrounding elements
+    use 'echasnovski/mini.trailspace'           -- for trailling whitespace
+    use 'echasnovski/mini.surround'             -- change surrounding elements
 
     use 'norcalli/nvim-colorizer.lua'           -- highlight colors
     use 'ledger/vim-ledger'

@@ -17,7 +17,7 @@ end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- Enable the following language servers
 local servers = {"hls", "pyright", "rust_analyzer", "rnix"}
@@ -29,6 +29,35 @@ for _, lsp in ipairs(servers) do
     })
 end
 
+
+
+vim.diagnostic.config({
+    virtual_lines = false,   -- fancy hints
+    -- virtual_lines = { only_current_line = true },
+    virtual_text = true,   -- inline hints
+})
+require("lsp_lines").setup()
+
+------ Rust
+
+local rt = require("rust-tools")
+rt.setup({
+    server = {
+        on_attach = function(_, bufnr)
+            -- Hover actions
+            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+            -- Code action groups
+            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+        end,
+    },
+    inlay_hints = {
+        -- automatically set inlay hints (type hints)
+        auto = true,
+        -- Only show inlay hints for the current line
+        only_current_line = false,
+    },
+})
+rt.inlay_hints.enable()
 
 ------ CMP completion
 
