@@ -18,7 +18,7 @@ paths=(
 
 ".config/nvim/init.vim"
 ".config/nvim/lua/"
-".config/nvim/colors/mscheme.vim"
+".config/nvim/colors/"
 
 ".config/vifm/vifmrc"
 ".config/vifm/colors/Default.vifm"

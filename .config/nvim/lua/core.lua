@@ -32,17 +32,6 @@ vim.opt.showmatch = true      -- show matching braces
 
 vim.opt.undofile = true       -- save undo history
 
--- -- text wrapping
--- vim.opt.tw = 80
--- vim.opt.formatoptions = 'tca'
--- vim.cmd([[
--- augroup WrapLineInTeXFile
---     autocmd!
---     autocmd FileType md setlocal wrap
--- augroup END
--- ]])
-
-
 vim.opt.diffopt:append('vertical')
 
 -- when running macros and regexes on a large file, lazy redraw tells neovim/vim not to draw the screen, which greatly speeds it up, upto 6-7x faster
@@ -51,9 +40,9 @@ vim.opt.lazyredraw = true
 
 ------ SPACING
 
-vim.opt.expandtab = true -- TAB is expanded into spaces
-vim.opt.shiftwidth = 4 -- num space characters for indent
-vim.opt.tabstop = 4 -- num space characters for TAB key
+vim.opt.expandtab = true               -- TAB is expanded into spaces
+vim.opt.shiftwidth = 4                 -- num space characters for indent
+vim.opt.tabstop = 4                    -- num space characters for TAB key
 vim.opt.softtabstop = 4
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -65,7 +54,11 @@ vim.opt.linespace = 0
 
 ------ MY BINDINGS
 
-vim.cmd('colorscheme mscheme')
+vim.opt.termguicolors = true
+vim.opt.background = 'dark'
+vim.g.colors_name = 'xtheme'
+vim.cmd('colorscheme xtheme')
+
 
 -- leader
 nnoremap(';', '<Nop>')
@@ -91,15 +84,14 @@ noremap('K', '{')
 nnoremap('U', '<C-R>')
 nnoremap('<C-R>', 'Nup')
 
--- arrow keys to move lines
-nnoremap('<up>', 'ddkP')
-vnoremap('<up>', ':m \'<-2<CR>gv=gv')
-vnoremap('<down>', ':m \'>+1<CR>gv=gv')
-nnoremap('<down>', 'ddp')
 
 -- add newline without insert
-nmap('go', 'o<ESC>k')
-nmap('gO', 'O<ESC>j')
+nmap('go', 'o<ESC>k', { desc = 'Put empty line above' })
+nmap('gO', 'O<ESC>j', { desc = 'Put empty line below' })
+
+-- Copy/paste with system clipboard
+nmap('gy', '"+y', { desc = 'Copy to system clipboard' })
+nmap('gp', '"+p', { desc = 'Paste from system clipboard' })
 
 -- make vim remember last cursor position
 vim.cmd([[
@@ -112,7 +104,6 @@ endif
 -- enablea a simple form of dot repetition over visual line selections.
 -- only simple operations that start from the beginning of a line be dot repeated.
 xnoremap('.', ':norm.<CR>')
-
 
 -- yank until the end of line
 nnoremap('Y', 'y$')
@@ -180,6 +171,13 @@ vim.opt.smartcase = true    -- will search case sensitive if uppercase present, 
 
 noremap('<BS>', ':noh<CR>') -- clear search highlight
 vim.opt.inccommand = 'nosplit' -- live visualization of substitutions
+
+-- Search inside visual selection. `silent = false` makes effect immediately.
+xmap('g/', '<esc>/\\%V', { silent = false, desc = 'Search inside visual selection' })
+
+-- Search visually selected text (slightly better than builtins in Neovim>=0.8)
+xmap('*', [[y/\V<C-R>=escape(@", '/\')<CR><CR>]])
+xmap('#', [[y?\V<C-R>=escape(@", '?\')<CR><CR>]])
 
 
 ------ TERMINAL

@@ -1,6 +1,7 @@
 ------ Tree View
 
-nnoremap('<C-m>', ':NvimTreeToggle<CR>')
+nnoremap('<leader>n', ':NvimTreeToggle<CR>')
+nnoremap('<leader>m', ':lua MiniMap.toggle()<CR>')
 
 require("nvim-tree").setup({
     disable_netrw = true,
@@ -15,7 +16,7 @@ require("nvim-tree").setup({
         icons = {
             webdev_colors = true,
             git_placement = "before",
-            padding = " ",
+            padding = "",
             symlink_arrow = " > ",
             show = {git = true, folder = true, folder_arrow = false, file = true},
             glyphs = {
@@ -23,16 +24,16 @@ require("nvim-tree").setup({
                 symlink = "~",
                 git = {
                     unstaged = "",
-                    staged = "",
+                    staged = "*",
                     unmerged = "",
                     renamed = "*",
                     untracked = "*"
                 },
                 folder = {
-                    default = "◼",
-                    open = "┌",
-                    empty = "-",
-                    empty_open = "-",
+                    default = "◼ ",
+                    open = "┌ ",
+                    empty = "□ ",
+                    empty_open = "□ ",
                     symlink = "~",
                     symlink_open = "~",
                 }
@@ -48,7 +49,7 @@ require("nvim-tree").setup({
     filters = {dotfiles = false, custom = {}},
     git = {enable = true, ignore = true, timeout = 500},
     view = {
-        width = 30,
+        width = 25,
         hide_root_folder = false,
         side = "left",
         mappings = {
