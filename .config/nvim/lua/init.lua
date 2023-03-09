@@ -1,4 +1,4 @@
-vim.opt.shell = "/run/current-system/sw/bin/zsh"
+vim.opt.shell = "/bin/zsh"
 -- vim.opt.shell = "/bin/bash" -- for speed in case of using other shells
 
 -- bootstrap function
@@ -16,7 +16,7 @@ require('packer').startup(function()
     -- fzf
     use 'nvim-telescope/telescope-live-grep-args.nvim' -- requiered
     use 'nvim-telescope/telescope.nvim'
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 
     --- LSP
     use 'neovim/nvim-lspconfig'

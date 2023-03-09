@@ -98,8 +98,8 @@ myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     --, ((modMask                 , xK_q      ), sendMessage $ Toggle NBFULL)         -- go fullscreen
     , ((modMask                 , xK_space  ), sendMessage NextLayout)              -- rotate through the available layout algorithms
     , ((modMask .|. shiftMask   , xK_space  ), setLayout $ XMonad.layoutHook conf)  -- reset current workspace layout to default
-    , ((modMask                 , xK_Tab    ), doTo Next (Not emptyWS) getSortByIndex (windows . W.view))              -- move to next workspace
-    , ((modMask .|. shiftMask   , xK_Tab    ), doTo Prev (Not emptyWS) getSortByIndex (windows . W.view))              -- move to previous workspace
+    , ((modMask                 , xK_Tab    ), doTo Next NonEmptyWS getSortByIndex (windows . W.view))              -- move to next workspace
+    , ((modMask .|. shiftMask   , xK_Tab    ), doTo Prev NonEmptyWS getSortByIndex (windows . W.view))              -- move to previous workspace
 
     -- focusing windows
     , ((modMask,                  xK_o      ), windows W.focusMaster)               -- focus master window

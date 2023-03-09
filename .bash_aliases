@@ -19,8 +19,8 @@ if command -v fzf-share &>/dev/null; then
     source "$(fzf-share)/key-bindings.$MYSHELL"
     source "$(fzf-share)/completion.$MYSHELL"
 else
-    # git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
     [ -f ~/.fzf.$MYSHELL ] && source ~/.fzf.$MYSHELL
+    # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
 
 
@@ -40,6 +40,7 @@ fi
 
 # cat -> bat
 if command -v bat &>/dev/null; then
+    export BAT_THEME='xtheme'
     alias cat='bat -p --paging=never'
     alias bat='bat --style=numbers,changes,rule'
 fi
@@ -53,7 +54,7 @@ alias mkdir='mkdir -p'
 d() { builtin cd "$1" && exa; }
 alias ..='cd ..'
 alias cd..='cd ..'
-alias cclear='printf "\033c"' # actually clear text from the terminal
+alias cl='printf "\033c"' # actually clear text from the terminal
 
 if test -f ~/nvim.appimage; then
     alias v='~/nvim.appimage'
@@ -115,4 +116,4 @@ function man {
     command man "$@"
 }
 
-export PATH="$PATH:/home/nan/.scripts:/home/nan/.cargo/bin"
+export PATH="$PATH:$HOME/.scripts:$HOME/.cargo/bin"

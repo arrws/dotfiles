@@ -7,10 +7,9 @@ paths=(
 
 ".xmobarrc"
 ".xmonad/xmonad.hs"
-".xmodmaprc"
+# ".xmodmaprc"
 
 ".zshrc"
-".zoxide"
 ".bashrc"
 ".bash_aliases"
 
@@ -19,6 +18,7 @@ paths=(
 ".config/nvim/init.vim"
 ".config/nvim/lua/"
 ".config/nvim/colors/"
+".config/bat/themes/"
 
 ".config/vifm/vifmrc"
 ".config/vifm/colors/Default.vifm"
@@ -32,7 +32,7 @@ paths=(
 
 # ".Xdefaults"
 # ".tmux.conf"
-# ".gitconfig"
+".gitconfig"
 # ".ghc/ghci.conf"
 # ".borg.backup"
 
