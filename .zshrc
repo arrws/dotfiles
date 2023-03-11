@@ -1,3 +1,4 @@
+### ZSH CONFIG
 
 # Enable substitution in the prompt.
 setopt prompt_subst
@@ -27,13 +28,31 @@ autoload -Uz compinit && compinit
 # autocomplete tab show options doubletab fill
 zstyle ':completion:*' menu yes select
 
-
 bindkey '^Q' backward-kill-word
 bindkey '^W' forward-word
 bindkey '^B' backward-word
 # bindkey "^0"   beginning-of-line
 # bindkey "^4"   end-of-line
 
+
+### TERMINAL OPTIONS
+
+set -o emacs
+
+# check shortcuts: stty -a
+# disable freezing of term ^S ^Q
+stty start ""
+stty stop ""
+# make ctrl-q backward kill word in bash
+stty werase "^Q"
+
+export EDITOR=nvim
+export VISUAL=nvim
+
+export TERM=xterm-256color
+
+
+### PROMPT SETUP
 
 # Colors
 RED='%F{red}'
@@ -53,11 +72,10 @@ function git_branch_name() {
     fi
 }
 
-# ### if non-zero, prints last exit code
+# # if non-zero, prints last exit code
 # colored_exit_code() {
 #   echo "%(?..${nl}%F{8}exit %F{1}%?)%f"
 # }
-
 
 # Config for prompt. PS1 synonym.
 # PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) $(colored_exit_code) %f"
@@ -65,15 +83,7 @@ PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) %f"
 RPROMPT="$G2%D{%H:%M:%S}"
 
 
-export TERM=xterm-256color
-export PATH="$PATH:/home/nan/.scripts"
-
-
-### bash aliases
-source ~/.bash_aliases
-
-
-### fish abbreviations
+### FISH ABBREVIATIONS
 
 # declare a list of expandable aliases to fill up later
 typeset -a ealiases
@@ -100,9 +110,6 @@ bindkey ' '             expand-ealias
 bindkey '^ '            magic-space     # control-space to bypass completion
 bindkey -M isearch " "  magic-space     # normal space during searches
 
-
-bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
-
 # A function for expanding any aliases before accepting the line as is and executing the entered command
 expand-alias-and-accept-line() {
     expand-ealias
@@ -111,7 +118,7 @@ expand-alias-and-accept-line() {
 }
 zle -N accept-line expand-alias-and-accept-line
 
-### abbreviations
+### ABBREVIATIONS
 
 # git
 abbrev-alias g='git'
@@ -139,8 +146,108 @@ abbrev-alias nup='sudo nixos-rebuild switch --upgrade'
 abbrev-alias nre='sudo nixos-rebuild switch'
 
 
+### ALIASES
+
+# ls -> exa
+if command -v exa &> /dev/null; then
+    export EXA_COLORS='ur=33:uw=33:ux=33:ue=33:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:xa=0:uu=0:un=31:gu=0:gn=31:da=36:sn=32:sb=32:lc=0:hd=30;47;01'
+    alias l='exa'
+    alias ls='exa'
+    alias ll='exa -l --links'
+    alias la='exa -l --links -a'
+    alias latree='exa -l --links -a --tree --level=3'
+    alias lasize='exa -l --links -a --sort=size'
+    alias lamodified='exa -l --links -a --sort=modified'
+fi
+
+# cat -> bat
+if command -v bat &>/dev/null; then
+    export BAT_THEME='xtheme'
+    alias cat='bat -p --paging=never'
+    alias bat='bat --style=numbers,changes,rule'
+fi
+
+# core
+alias cp='cp -Riv'
+alias mv='mv -iv'
+alias rm='rm -riv'
+alias mkdir='mkdir -p'
+d() { builtin cd "$1" && exa; }
+alias ..='cd ..'
+alias cd..='cd ..'
+alias cl='printf "\033c"' # actually clear text from the terminal
+
+# neovim
+if test -f ~/nvim.appimage; then
+    alias v='~/nvim.appimage'
+else
+    alias v='nvim'
+fi
+
+# apps
+alias icat='kitty +kitten icat --place=40x40@132x0'
+alias feh='feh --scale-down'
+alias mupdf='mupdf-x11'
+alias r='vifm .'
+alias n='ncmpcpp'
+alias p='python3'
+alias ghc='ghc -dynamic -no-keep-hi-files -no-keep-o-files -o o'
+
+alias hledgerplot="sed 's/.*|| *//' | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' ' | sed 's/|/ /g'"
+alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +kitten icat --align left'
+
+
+# FZF
+export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs --vimgrep --glob=\!.git'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
+if command -v fzf-share &>/dev/null; then
+    source "$(fzf-share)/key-bindings.zsh"
+    source "$(fzf-share)/completion.zsh"
+else
+    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fi
+
+
+# help
+bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
+function help {
+    curl cheat.sh/"$1"
+}
+
+# colored calendar
+function calx {
+    cal -wym --color=always $@ | perl -p -E '
+       sub col { "\033\[38;5;$_[0]m$1\033\[0m" }
+       s/^(.\d)/col 241/ge;
+       s/   \K( [2-9]|\d\d) /col(241).q( )/ge;
+       /y|er/ && s/^(.+)$/col 12/ge;
+       /Mo Tu/ && s/^(.+)$/col 6/ge'
+}
+
+# Colored output in man pages
+function man {
+    LESS_TERMCAP_md=$'\e[38;5;219m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
+}
+
+
 # kubectl autocomplete
 command -v kubectl &> /dev/null && source <(kubectl completion zsh)
 
-# zoxide setup
-command -v zoxide &> /dev/null && source ~/.zoxide
+alias pretty_error='xclip -o | xargs -0 echo -e'
+alias pretty_csv='sed "s/\"//g"| column -t -s,'
+function pretty {
+    poetry run black "$1" && poetry run isort "$1" && poetry run flake8 "$1";
+}
+
+# vial
+export DISABLE_SUDO_PROMPT=1 # via-keyboard needs this
+alias vial='appimage-run /home/nan/Downloads/Vial-v0.5-x86_64.AppImage'
+
+
+export PATH="$PATH:$HOME/.bin:$HOME/.cargo/bin"

@@ -3,40 +3,32 @@
 # "/etc/nixos/configuration.nix"
 
 paths=(
-".scripts"
+".bin"
+
+".zshrc"
+".config/kitty/kitty.conf"
+
+".config/nvim/colors/"
+".config/nvim/init.vim"
+".config/nvim/lua/"
+
+".config/bat/themes/xtheme.tmTheme"
+".config/vifm/colors/xtheme.vifm"
+".config/vifm/vifmrc"
+
+".config/feh/keys"
+".config/mpd/mpd.conf"
+".config/mpv/input.conf"
+".config/ncmpcpp/bindings"
+".config/ncmpcpp/config"
+".config/neofetch/config.conf"
 
 ".xmobarrc"
 ".xmonad/xmonad.hs"
 # ".xmodmaprc"
 
-".zshrc"
-".bashrc"
-".bash_aliases"
-
-".config/kitty/kitty.conf"
-
-".config/nvim/init.vim"
-".config/nvim/lua/"
-".config/nvim/colors/"
-".config/bat/themes/"
-
-".config/vifm/vifmrc"
-".config/vifm/colors/Default.vifm"
-".config/neofetch/config.conf"
-
-".config/feh/keys"
-".config/mpv/input.conf"
-".config/mpd/mpd.conf"
-".config/ncmpcpp/config"
-".config/ncmpcpp/bindings"
-
-# ".Xdefaults"
-# ".tmux.conf"
 ".gitconfig"
-# ".ghc/ghci.conf"
-# ".borg.backup"
-
-# ".skynet.png"
+".skynet.png"
 )
 
 for item in "${paths[@]}"; do

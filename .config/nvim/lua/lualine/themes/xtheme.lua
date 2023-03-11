@@ -9,7 +9,7 @@ local colors = {
     red      = "#ff5f5f",
 }
 
-local mtheme = {
+return {
     visual = {
         a = { fg = colors.black,    bg = colors.yellow,     },
         b = { fg = colors.white,    bg = colors.darkgray    },
@@ -37,6 +37,3 @@ local mtheme = {
         b = { fg = colors.white,    bg = colors.darkgray    },
     },
 }
-
-return mtheme
-

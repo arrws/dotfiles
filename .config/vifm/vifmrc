@@ -27,7 +27,7 @@ set incsearch
 " If you would like to run an executable file when you press return on the file name set this.
 set norunexec
 
-colorscheme Default
+colorscheme xtheme
 
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M

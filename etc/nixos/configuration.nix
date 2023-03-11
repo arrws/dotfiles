@@ -12,12 +12,9 @@ in {
     ./hardware-configuration.nix
   ];
 
+  services.tailscale.enable = true;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    unstable = import unstableTarball { config = config.nixpkgs.config; };
-  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -26,6 +23,7 @@ in {
   networking.networkmanager.enable = true;
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.firewall.checkReversePath = "loose"; # Tailscale wants this
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -48,37 +46,52 @@ in {
 
   # Set your time zone.
   time.timeZone = "Europe/London";
+  # time.timeZone = "Asia/Hong_Kong";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+
   environment.systemPackages = with pkgs; [
-
-    vim
-    unstable.neovim
-
-    (pkgs.wrapNeovim pkgs.neovim-unwrapped {
-      configure.packages.plugins.start = with pkgs.vimPlugins;
-        [ (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars)) ];
+    (pkgs.perlPackages.buildPerlPackage {
+      pname = "Audio-FLAC-Header";
+      version = "2.4";
+      src = pkgs.fetchurl {
+        url =
+          "mirror://cpan/authors/id/D/DA/DANIEL/Audio-FLAC-Header-2.4.tar.gz";
+        sha256 =
+          "fba5911d6c22d81506565cd9a1438e8605420ff7986cf03d1a12d006a4070543";
+      };
+      meta = {
+        description = "Interface to FLAC header metadata";
+        license = with pkgs.lib.licenses; [ artistic1 gpl1Plus ];
+      };
     })
 
-    hledger
-    patdiff
+    vim
+    neovim
 
+    ### INTERNET
     # google-chrome
     chromium
     firefox
     curl
     wget
     git
+    mullvad
+    tailscale
 
     ### TERMINAL
     bash
     zsh
     kitty
+    man-pages
     tmux
     htop
     fzf
+    delta
     ripgrep
+    bat
+    sd
     fd
     fdupes
     unzip
@@ -87,6 +100,8 @@ in {
     cmatrix
     bc
     transmission
+    transmission-gtk
+    hledger
 
     ### FILE MANAGEMENT
     exa
@@ -100,7 +115,7 @@ in {
     ### IMAGES
     feh
     imagemagick
-    gnome3.librsvg
+    librsvg
     mupdf
 
     ### AUDIO/VIDEO
@@ -111,6 +126,7 @@ in {
     cmus
     moc
     ncmpcpp
+    exiftool
 
     ### UTILS
     redshift
@@ -119,6 +135,7 @@ in {
     xcalib
     xclip
     xorg.xev
+    xorg.xmodmap
     xosd
     xprintidle-ng
 
@@ -141,7 +158,6 @@ in {
     ### HASKELL
     haskellPackages.xmobar
     haskellPackages.haskell-language-server
-    (haskellPackages.ghcWithPackages (self: [ self.random self.Glob ]))
 
     ### C/C++
     gcc
@@ -154,26 +170,25 @@ in {
     # nodejs
     # nodePackages.typescript
     # nodePackages.typescript-language-server
-    # nodePackages.json
-    # nodePackages.npm
 
     ### RUST
     rustc
     cargo
-    rls
+    rust-analyzer
 
     ### PYTHON
-    python3
-    # python38Packages.python-language-server
-    # python38Packages.numpy
-    # python38Packages.pandas
-    # python38Packages.matplotlib
-    # python38Packages.jupyter
-    # python38Packages.tensorflow
-    # python38Packages.pytorch
-    # python38Packages.Keras
-    # python38Packages.scikitlearn
-    # python38Packages.seaborn
+    python310
+    python-language-server
+    # python310Packages.websockets
+    # python310Packages.numpy
+    # python310Packages.pandas
+    # python310Packages.jupyter
+    # python310Packages.tensorflow
+    # python310Packages.pytorch
+    # python310Packages.Keras
+    # python310Packages.scikitlearn
+    # python310Packages.matplotlib
+    # python310Packages.seaborn
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -183,8 +198,9 @@ in {
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
+  # Enable SSH
   # services.openssh.enable = true;
+  services.sshd.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -192,13 +208,9 @@ in {
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable OpenVPN
-  services.openvpn.servers = {
-    hansonVPN = { config = "config /home/nan/.openvpn/config.ovpn"; };
-  };
+  # Enable VPN
+  # services.tailscale.enable = true;
+  services.mullvad-vpn.enable = true;
 
   programs.adb.enable = true;
   programs.light.enable = true;
@@ -221,28 +233,16 @@ in {
         esac
 
         exit 0
-              '';
+      '';
       mode = "0755";
     };
   };
 
   services.acpid.enable = true;
-  # services.acpid.lidEventCommands = ''
-  #   export USER=nan
-  #   export XAUTHORITY=/home/nan/.Xauthority
-  #   export PATH=/run/current-system/sw/bin/
-  #   export DISPLAY=':0'
-  #   LID_STATE=$(awk '{ print $2 }' /proc/acpi/button/lid/LID/state)
-  #   if [ $LID_STATE = 'closed' ]; then
-  #       slimlock 2>> /tmp/slimlock.log
-  #   fi
-  # '';
   services.acpid.acEventCommands = ''
     export PATH=/run/wrappers/bin:/run/current-system/sw/bin:$PATH
     pm-powersave
   '';
-
-  services.sshd.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -252,20 +252,20 @@ in {
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
   # hardware.brightnessctl.enable = true;
 
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [ intel-media-driver vaapiIntel ];
+  };
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
     layout = "us";
     xkbOptions = "eurosign:e";
     videoDrivers = [ "modesetting" ];
-    useGlamor = true;
     windowManager.xmonad.enable = true;
     windowManager.xmonad.enableContribAndExtras = true;
-    # windowManager.xmonad.extraPackages = self: [self.xmonadContrib ];
-
-    # deviceSection = ''
-    #	Option "TearFree" "true"
-    #'';
+    # windowManager.openbox.enable = true;
 
     displayManager = {
       autoLogin.enable = true;
@@ -274,7 +274,7 @@ in {
                     # xscreensaver -no-splash &
                     setxkbmap -option ctrl:nocaps us
         	    feh --bg-fill ~/.skynet.png
-                    '';
+      '';
     };
     autorun = true;
 
@@ -285,18 +285,10 @@ in {
   services.cron = {
     enable = true;
     systemCronJobs = [
-      "*/10 * * * *    nan   /home/nan/.scripts/warn_bat.sh"
-      "*/20 * * * *    nan   /home/nan/.scripts/warn_eyes.sh"
-      "*/1  * * * *    nan   /home/nan/.scripts/idle_track.sh"
-      # "*/ * * * *      root    date >> /tmp/cron.log"
+      "*/10 * * * *    nan   /home/nan/.bin/warn_bat.sh"
+      "*/20 * * * *    nan   /home/nan/.bin/warn_eyes.sh"
     ];
   };
-
-  # visual compositor
-  # services.compton.enable = false; # change that
-  # services.compton.fade = false;
-  # services.compton.shadow = false;
-  # # services.compton.inactiveOpacity = "0.8";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nan = {
@@ -309,9 +301,6 @@ in {
 
   programs.zsh.enable = true;
   programs.zsh.promptInit = "";
-  # users.extraUsers.USER = {
-  #   shell = pkgs.zsh;
-  # };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
@@ -319,4 +308,3 @@ in {
   # should.
   system.stateVersion = "20.09"; # Did you read the comment?
 }
-

@@ -1,6 +1,6 @@
 # dotfiles
 
-sudo apt install curl cmake rsync git
+sudo apt install curl gcc make rsync git
 
 kitty:
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
@@ -22,7 +22,7 @@ fzf (don't add to dotfiles):
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
-nvim needs cmake for fzf
+nvim needs gcc make for fzf
 
 :TSInstall rust python markdown bash lua nix proto
 

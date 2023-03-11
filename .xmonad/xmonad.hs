@@ -62,24 +62,24 @@ myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launching and killing programs
     [ ((modMask                 , xK_Return ), spawn $ XMonad.terminal conf)      -- launch default terminal
-    , ((modMask                 , xK_g      ), spawn "./.scripts/dmenu.sh")       -- launch dmenu command search
-    , ((modMask .|. shiftMask   , xK_g      ), spawn "./.scripts/dmusic.sh")      -- launch dmenu music search
+    , ((modMask                 , xK_g      ), spawn "./.bin/dmenu.sh")       -- launch dmenu command search
+    , ((modMask .|. shiftMask   , xK_g      ), spawn "./.bin/dmusic.sh")      -- launch dmenu music search
     , ((modMask                 , xK_x      ), kill)                              -- close the focused window
 
     -- volume control
-    , ((0                       , 0x1008ff11), spawn "amixer -q sset Master 5%- && ./.scripts/info_volume.sh")
-    , ((0                       , 0x1008ff13), spawn "amixer -q sset Master 5%+ && ./.scripts/info_volume.sh")
-    , ((0                       , 0x1008ff12), spawn "amixer set Master toggle && ./.scripts/info_volume.sh")
+    , ((0                       , 0x1008ff11), spawn "amixer -q sset Master 5%- && ./.bin/info_volume.sh")
+    , ((0                       , 0x1008ff13), spawn "amixer -q sset Master 5%+ && ./.bin/info_volume.sh")
+    , ((0                       , 0x1008ff12), spawn "amixer set Master toggle && ./.bin/info_volume.sh")
 
     -- brightness control
-    , ((0                       , 0x1008ff02), spawn "light -A -r 50 && ./.scripts/info_brightness.sh")
-    , ((0                       , 0x1008ff03), spawn "light -U -r 50 && ./.scripts/info_brightness.sh")
+    , ((0                       , 0x1008ff02), spawn "light -A -r 50 && ./.bin/info_brightness.sh")
+    , ((0                       , 0x1008ff03), spawn "light -U -r 50 && ./.bin/info_brightness.sh")
     , ((0                       , 0x1008ff81), spawn "xcalib -invert -alter")           -- invert colors
 
     --- redshift control
-    , ((modMask                 , 0x1008ff02), spawn "./.scripts/info_redshift.sh -500")
-    , ((modMask                 , 0x1008ff03), spawn "./.scripts/info_redshift.sh 500")
-    , ((modMask                 , 0x1008ff81), spawn "./.scripts/info_redshift.sh 0")     -- reset redshift
+    , ((modMask                 , 0x1008ff02), spawn "./.bin/info_redshift.sh -500")
+    , ((modMask                 , 0x1008ff03), spawn "./.bin/info_redshift.sh 500")
+    , ((modMask                 , 0x1008ff81), spawn "./.bin/info_redshift.sh 0")     -- reset redshift
 
     -- screenshots
     , ((modMask                 , xK_Print  ), spawn "sleep 0.2; scrot `date +%s`.png -s -z -e 'mv $f ~/screenshots'")
@@ -98,8 +98,8 @@ myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     --, ((modMask                 , xK_q      ), sendMessage $ Toggle NBFULL)         -- go fullscreen
     , ((modMask                 , xK_space  ), sendMessage NextLayout)              -- rotate through the available layout algorithms
     , ((modMask .|. shiftMask   , xK_space  ), setLayout $ XMonad.layoutHook conf)  -- reset current workspace layout to default
-    , ((modMask                 , xK_Tab    ), doTo Next NonEmptyWS getSortByIndex (windows . W.view))              -- move to next workspace
-    , ((modMask .|. shiftMask   , xK_Tab    ), doTo Prev NonEmptyWS getSortByIndex (windows . W.view))              -- move to previous workspace
+    , ((modMask                 , xK_Tab    ), doTo Next (Not emptyWS) getSortByIndex (windows . W.view))              -- move to next workspace
+    , ((modMask .|. shiftMask   , xK_Tab    ), doTo Prev (Not emptyWS) getSortByIndex (windows . W.view))              -- move to previous workspace
 
     -- focusing windows
     , ((modMask,                  xK_o      ), windows W.focusMaster)               -- focus master window
@@ -153,7 +153,7 @@ myTerminal = "kitty"
 
 -- myXmobarPP xmproc = xmobarPP {
 myXmobarPP xmproc0 xmproc1 = xmobarPP {
-    ppCurrent           = xmobarColor "green" "" . wrapBrackets
+    ppCurrent           = xmobarColor "#00DD00" "" . wrapBrackets
     , ppVisible         = xmobarColor "yellow" "" . wrapBrackets
     , ppHidden          = xmobarColor "grey" "" . wrapBrackets
     , ppHiddenNoWindows = xmobarColor "grey" "" . addSpace
