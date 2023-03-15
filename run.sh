@@ -3,7 +3,7 @@
 # "/etc/nixos/configuration.nix"
 
 paths=(
-".bin"
+".bin/*.sh"
 
 ".zshrc"
 ".config/kitty/kitty.conf"
@@ -29,7 +29,7 @@ paths=(
 ".xmonad/xmonad.hs"
 # ".xmodmaprc"
 
-".gitconfig"
+# ".gitconfig"
 ".skynet.png"
 )
 

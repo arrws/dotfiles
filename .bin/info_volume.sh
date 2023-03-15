@@ -9,9 +9,9 @@ echo ${MyMute:1:-1}
 if [[ ${MyMute:1:-1} == "off" ]]; then
     osd_cat -f -*-helvetica-*-r-*-*-32-*-*-*-*-*-*-* -A center -p middle -c green -d 1 <<< "
     $PercentVolume% volume [MUTED]
-    " >& /home/nan/.osd.log
+    " >& $HOME/.bin/.osd.log
 else
     osd_cat -f -*-helvetica-*-r-*-*-32-*-*-*-*-*-*-* -A center -p middle -c green -d 1 <<< "
     $PercentVolume% volume
-    " >& /home/nan/.osd.log
+    " >& $HOME/.bin/.osd.log
 fi

@@ -9,4 +9,4 @@ else
 	xrandr --output HDMI-1 --off
 fi
 
-/run/current-system/sw/bin/feh --no-fehbg --bg-max /home/nan/.skynet.png
+feh --no-fehbg --bg-max $HOME/.bin/.skynet.png
