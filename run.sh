@@ -13,6 +13,8 @@ paths=(
 ".config/nvim/lua/"
 
 ".config/bat/themes/xtheme.tmTheme"
+".config/bat/config"
+
 ".config/vifm/colors/xtheme.vifm"
 ".config/vifm/vifmrc"
 

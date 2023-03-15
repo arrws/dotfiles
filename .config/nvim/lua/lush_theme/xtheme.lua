@@ -58,33 +58,36 @@ local theme = lush(function(injected_functions)
         -- ---- Buildin Groups
  
         -- default group
-        Normal              { fg=t.white.da(20) , bg=t.black  },  -- normal text
-        NormalFloat         { fg=t.white.da(20) , bg=t.black  },  -- Normal text in floating windows.
-        NormalNC            { fg=t.white.da(20) , bg=t.black  },  -- normal text in non-current windows
+        Normal              { fg=t.white.da(20) , bg=t.black    },  -- normal text
+        NormalNC            { fg=t.white.da(20) , bg=t.black    },  -- normal text in non-current windows
+
+        -- floating windows
+        NormalFloat         { fg=t.white.da(20) , bg=t.black    },  -- Normal text in floating windows.
+        FloatBorder         { fg=t.black.li(40)                 },
  
         -- Cursor Highlighting
-        Cursor              { fg=t.white.da(20) },   -- char under the cursor
-        lCursor             { Cursor            },   -- the char under the cursor when language-mappin
-        CursorIM            { Cursor            },   -- like Cursor, but used when in IME mode CursorIM
-        CursorLine          { bg=t.black.li(10) },   -- Screen-column at the cursor, when cursorcolumn is set .
-        CursorColumn        { CursorLine        },   -- Screen-line at the cursor  , when cursorline is set.  Low-priority if foreground (ctermfg OR guifg) is not set .
-        TermCursor          { fg=t.black.li(20) },   -- cursor in a focused terminal
-        TermCursorNC        { TermCursor        },   -- cursor in an unfocused terminal
-        Directory           {                   },   -- directory names (and other special names in listings)
+        Cursor              { fg=t.white.da(20)     },   -- char under the cursor
+        lCursor             { Cursor                },   -- the char under the cursor when language-mappin
+        CursorIM            { Cursor                },   -- like Cursor, but used when in IME mode CursorIM
+        CursorLine          { bg=t.black.li(10)     },   -- Screen-column at the cursor, when cursorcolumn is set .
+        CursorColumn        { CursorLine            },   -- Screen-line at the cursor  , when cursorline is set.  Low-priority if foreground (ctermfg OR guifg) is not set .
+        TermCursor          { fg=t.black.li(25)     },   -- cursor in a focused terminal
+        TermCursorNC        { TermCursor            },   -- cursor in an unfocused terminal
+        Directory           {                       },   -- directory names (and other special names in listings)
 
         -- Conditional Line/Column Highlighting
-        Conceal             {                    },  -- placeholder characters substituted for concealed text (see 'conceallevel')
-        CursorLineNr        { fg=t.yellow.li(20) },  -- Like LineNr when 'cursorline' or 'relativenumber' is set for  the cursor line.
-        LineNr              { fg=t.white.da(60)  },  -- Line number for  :number and commands, and when 'number'or 'relativenumber' option is set.
-        QuickFixLine        { bg=t.white.da(60)  },  -- Current quickfix item in the quickfix window. Combined with l-CursorLine when the cursor is there.
-        Visual              { bg=t.white.da(80)  },  -- Visual mode selection
-        VisualNOS           { Visual             },  -- Visual mode selection when vim is  Not Owning the Selection .
-        ColorColumn         {                    },  -- columns color
-        SignColumn          { fg=t.white.da(40)  },  -- column where signs are displayed
-        Folded              {                    },  -- line used for closed folds
-        FoldColumn          {                    },  -- foldcolumn
-        VertSplit           { fg=t.black         },  -- column separating vertically split windows
-        Title               {                    },  -- titles for output from :set all   :autocmd etc.
+        Conceal             {                       },  -- placeholder characters substituted for concealed text (see 'conceallevel')
+        CursorLineNr        { fg=t.yellow.li(20)    },  -- Like LineNr when 'cursorline' or 'relativenumber' is set for  the cursor line.
+        LineNr              { fg=t.white.da(60)     },  -- Line number for  :number and commands, and when 'number'or 'relativenumber' option is set.
+        QuickFixLine        { bg=t.white.da(60)     },  -- Current quickfix item in the quickfix window. Combined with l-CursorLine when the cursor is there.
+        Visual              { bg=t.white.da(80)     },  -- Visual mode selection
+        VisualNOS           { Visual                },  -- Visual mode selection when vim is  Not Owning the Selection .
+        ColorColumn         {                       },  -- columns color
+        SignColumn          { fg=t.white.da(35)     },  -- column where signs are displayed
+        Folded              {                       },  -- line used for closed folds
+        FoldColumn          {                       },  -- foldcolumn
+        VertSplit           { fg=t.black            },  -- column separating vertically split windows
+        Title               {                       },  -- titles for output from :set all   :autocmd etc.
 
 
         -- Searching
@@ -101,24 +104,32 @@ local theme = lush(function(injected_functions)
         StatusLineTermNC    { StatusLineNC                          },
 
         -- autocomplete popup menu
-        PMenu               { StatusLine        },  -- Popup menu: normal item.
-        PMenuSel            { WildMenu          },  -- Popup menu: selected item.
-        PMenuSbar           { StatusLine        },  -- Popup menu: scrollbar.
-        PMenuThumb          { StatusLine        },  -- Popup menu: Thumb of the scrollbar.
+        PMenu               { StatusLine            },  -- Popup menu: normal item.
+        PMenuSel            { WildMenu              },  -- Popup menu: selected item.
+        PMenuSbar           { StatusLine            },  -- Popup menu: scrollbar.
+        PMenuThumb          { StatusLine            },  -- Popup menu: Thumb of the scrollbar.
 
         -- tabs selection menu
-        TabLine             { fg=t.white.da(40) },  -- inactive tab text
-        TabLineFill         {                   },  -- empty tab line color
-        TabLineSel          { WildMenu          },  -- active tab text
+        TabLine             { fg=t.white.da(40)     },  -- inactive tab text
+        TabLineFill         {                       },  -- empty tab line color
+        TabLineSel          { WildMenu              },  -- active tab text
 
 
         -- ---- Hop
-        MiniJump2dSpot      {fg=t.cyan          },
+        MiniJump2dSpot      {fg=t.cyan              },
+
 
         -- ---- MiniMap
-        MiniMapNormal       { fg=t.black.li(40) },  -- basic highlight of whole window.
-        MiniMapSymbolLine   { MiniMapNormal     },  -- scrollbar part representing current line.
-        MiniMapSymbolView   { MiniMapNormal     },  -- scrollbar part representing current view.
+        MiniMapNormal       { fg=t.black.li(40)     },  -- basic highlight of whole window.
+        MiniMapSymbolLine   { MiniMapNormal         },  -- scrollbar part representing current line.
+        MiniMapSymbolView   { MiniMapNormal         },  -- scrollbar part representing current view.
+
+
+        -- ---- Telescope
+        TelescopeBorder     { FloatBorder               },
+        TelescopeNormal     { Normal                    },
+        TelescopeMatching   { fg=t.matches , gui=t.bo   },
+        TelescopeSelection  { fg=t.selection            },
 
 
         -- ---- Nvim Tree View
@@ -141,12 +152,12 @@ local theme = lush(function(injected_functions)
         NvimTreeOpenedFolderIcon    { NvimTreeFolderIcon            },
 
         NvimTreeRootFolder          { fg=t.black.li(60)             },
-        NvimTreeFolderName          { fg=t.blue.li(40) , gui=t.it   },
+        NvimTreeFolderName          { fg=t.green.li(40) , gui=t.it  },
         NvimTreeEmptyFolderName     { NvimTreeFolderName            },
         NvimTreeOpenedFolderName    { NvimTreeFolderName            },
 
         NvimTreeSpecialFile         { Normal                        },
-        NvimTreeExecFile            { fg=t.green.li(50)             },
+        NvimTreeExecFile            { fg=t.blue.li(50)              },
         NvimTreeImageFile           { fg=t.black.li(50)             },
         NvimTreeSymlink             { fg=t.yellow.li(50)            },
         NvimTreeBookmark            { fg=t.red.li(60)               },
@@ -154,39 +165,37 @@ local theme = lush(function(injected_functions)
 
 
         -- Messages
-        ErrorMsg                    { fg=t.red , bg=t.black },   -- error messages on the command line
-        WarningMsg                  { fg=t.yellow           },   -- warning messages
-        InfoMsg                     { fg=t.blue             },   -- 'showmode' message (e.g., INSERT)
-        HintMsg                     { fg=t.white            },   -- error messages on the command line
-        ModeMsg                     { InfoMsg               },   -- 'showmode' message (e.g., INSERT)
-        Question                    {  InfoMsg              },   -- hit enter prompt and yes/no questions
-        MsgArea                     { Normal                },   -- Area for messages and cmdline
-        MsgSeparator                { Normal                },   -- Separator for scrolled messages, `msgsep` flag of 'display
+        ErrorMsg                    { fg=t.red.li(20)               },   -- error messages on the command line
+        WarningMsg                  { fg=t.yellow.de(40).li(20)     },   -- warning messages
+        InfoMsg                     { fg=t.blue.de(40).li(20)       },   -- 'showmode' message (e.g., INSERT)
+        HintMsg                     { fg=t.blue.de(70).li(20)       },   -- error messages on the command line
+        ModeMsg                     { Normal                        },   -- 'showmode' message (e.g., INSERT)
+        Question                    { Normal                        },   -- hit enter prompt and yes/no questions
+        MsgArea                     { Normal                        },   -- Area for messages and cmdline
+        MsgSeparator                { Normal                        },   -- Separator for scrolled messages, `msgsep` flag of 'display
 
-        -- See :h diagnostic-highlights
-        DiagnosticError             { ErrorMsg              },   -- base highlight group. Other Diagnostic highlights link to this by default
-        DiagnosticWarn              { WarningMsg            },   -- base highlight group. Other Diagnostic highlights link to this by default
-        DiagnosticInfo              { InfoMsg               },   -- base highlight group. Other Diagnostic highlights link to this by default
-        DiagnosticHint              { HintMsg               },   -- base highlight group. Other Diagnostic highlights link to this by default
+        -- base highlight group. Other Diagnostic highlights link to this by default. See :h diagnostic-highlights 
+        DiagnosticError             { ErrorMsg                      },
+        DiagnosticWarn              { WarningMsg                    },
+        DiagnosticInfo              { InfoMsg                       },
+        DiagnosticHint              { HintMsg                       },
 
-        NvimTreeLspDiagnosticsError       { DiagnosticError },
-        NvimTreeLspDiagnosticsHint        { DiagnosticHint  },
-        NvimTreeLspDiagnosticsInformation { DiagnosticInfo  },
-        NvimTreeLspDiagnosticsWarning     { DiagnosticWarn  },
+        NvimTreeLspDiagnosticsError       { DiagnosticError         },
+        NvimTreeLspDiagnosticsHint        { DiagnosticHint          },
+        NvimTreeLspDiagnosticsInformation { DiagnosticInfo          },
+        NvimTreeLspDiagnosticsWarning     { DiagnosticWarn          },
 
+        -- Git Signs
+        GitSignsAdd                 { fg=t.green                    },
+        GitSignsChange              { fg=t.yellow                   },
+        GitSignsDelete              { fg=t.red                      },
+        GitSignsStagedAdd           { fg=t.green.de(40).li(20)      },
+        GitSignsStagedChange        { fg=t.red.li(20)               },
+        GitSignsStagedDelete        { fg=t.yellow.de(40).li(20)     },
+        GitSignsUntracked           { fg=t.blue.de(80).li(20)       },
 
-
-
-        -- ---- Git Signs
-        GitSignsAdd                 { fg=t.green            },
-        GitSignsChange              { fg=t.yellow           },
-        GitSignsDelete              { fg=t.red              },
-        GitSignsStagedAdd           { fg=t.green.de(50)     },
-        GitSignsStagedChange        { fg=t.yellow.de(50)    },
-        GitSignsStagedDelete        { fg=t.red.de(50)       },
-        GitSignsUntracked           { fg=t.blue.de(50)      },
-
-
+        -- Inlay Hints
+        InlayHints                  { fg=t.green.de(70).li(20)      },
 
 
 
@@ -199,44 +208,44 @@ local theme = lush(function(injected_functions)
         Whitespace         { fg=hsl(0,0,20)                 },
 
         -- Literals
-        Constant           { fg=hsl(300,100,85)             },   -- any other constant
-        Character          { fg=hsl(290,100,85)             },   -- char constant: c, \n
-        String             { fg=hsl(280,100,85)             },   -- string constant: this is a string
-        Number             { fg=hsl(250,100,85)             },   -- number constant: 234, 0xff
-        Float              { fg=hsl(230,100,85)             },   -- floating point constant: 2.3e10
-        Boolean            { fg=hsl(210,100,85)             },   -- boolean constant: TRUE, false
+        Constant           { fg=hsl(300,90,85)              },   -- any other constant
+        Character          { fg=hsl(295,90,85)              },   -- char constant: c, \n
+        String             { fg=hsl(290,90,85)              },   -- string constant: this is a string
+        Number             { fg=hsl(270,90,85)              },   -- number constant: 234, 0xff
+        Float              { fg=hsl(265,90,85)              },   -- floating point constant: 2.3e10
+        Boolean            { fg=hsl(260,90,85)              },   -- boolean constant: TRUE, false
 
         -- Identifiers
-        Identifier         { fg=hsl(120,100,95)             },   -- any variable name
-        Function           { fg=hsl(60,100,80)              },   -- function name (also: methods for classes)
+        Identifier         { fg=hsl(0,0,80)                 },   -- any variable name
+        Function           { fg=hsl(60,90,80)               },   -- function name (also: methods for classes)
 
         -- Syntax
-        Statement          { fg=hsl(0,100,70)               },   -- statements
-        Conditional        { fg=hsl(5,100,70)               },   -- if, then, else, endif, switch, etc.
-        Repeat             { fg=hsl(10,100,70)              },   -- for, do, while, etc.
-        Label              { fg=hsl(20,30,80)               },   -- case, default, etc.
+        Statement          { fg=hsl(10,90,75)               },   -- statements
+        Conditional        { fg=hsl(15,90,75)               },   -- if, then, else, endif, switch, etc.
+        Repeat             { fg=hsl(20,90,75)               },   -- for, do, while, etc.
+        Label              { fg=hsl(0,0,100)                },   -- case, default, etc.
         Operator           { fg=hsl(0,0,100)                },   -- sizeof, +, * etc.
-        Keyword            { fg=hsl(25,100,60)              },   -- any other keyword
-        Exception          { fg=hsl(350,100,65) , gui=t.it  },   -- try, catch, throw
+        Keyword            { fg=hsl(210,100,80)             },   -- any other keyword
+        Exception          { fg=hsl(200,100,70) , gui=t.it  },   -- try, catch, throw
         Noise              { fg=hsl(0,0,80)                 },
 
         -- Semantics
-        StorageClass       { fg=hsl(80,100,70)              },   -- static, register, volatile, etc.
-        Type               { fg=hsl(100,100,70)             },   -- int, long, char, etc.
-        Structure          { fg=hsl(120,100,70)             },   -- struct, union, enum, etc.
-        Typedef            { fg=hsl(140,100,70)             },   -- A typedef
+        StorageClass       { fg=hsl(105,60,70)              },   -- static, register, volatile, etc.
+        Type               { fg=hsl(115,60,70)              },   -- int, long, char, etc.
+        Structure          { fg=hsl(125,60,70)              },   -- struct, union, enum, etc.
+        Typedef            { fg=hsl(135,60,70)              },   -- A typedef
 
         -- Meta Text
-        PreProc            { fg=hsl(220,100,70)             },   -- Preprocessor generic ??? functoin params in typescript
-        Include            { fg=hsl(210,100,70)             },   -- preprocessor #include
-        Define             { fg=hsl(200,100,70)             },   -- preprocessor #define
-        Macro              { fg=hsl(190,100,70) , gui=t.it  },   -- same as Define
-        PreCondit          { fg=hsl(180,100,70) , gui=t.it  },   -- preprocessor #if, #else, #endif, etc.
+        PreProc            { fg=hsl(235,90,80)              },   -- Preprocessor generic ??? functoin params in typescript
+        Include            { fg=hsl(230,90,80)              },   -- preprocessor #include
+        Define             { fg=hsl(225,90,80)              },   -- preprocessor #define
+        Macro              { fg=hsl(185,100,80) , gui=t.it  },   -- same as Define
+        PreCondit          { fg=hsl(180,100,80) , gui=t.it  },   -- preprocessor #if, #else, #endif, etc.
 
         -- Edge Cases
-        Special            { fg=hsl(280,100,85)             },   -- any special symbol
-        SpecialChar        { fg=hsl(260,100,85)             },   -- special char in a constant
-        SpecialKey         { fg=hsl(240,100,85)             },   -- special char in a constant
+        Special            { fg=hsl(30,80,80)               },   -- any special symbol
+        SpecialChar        { fg=hsl(290,90,85)              },   -- special char in a constant
+        SpecialKey         { fg=hsl(165,80,80)              },   -- special char in a constant
         SpecialComment     { fg=hsl(0,0,60) , gui=t.bo      },   -- special things inside a comment
         Tag                { fg=hsl(330,100,80)             },   -- you can use CTRL-] on this
         Delimiter          { fg=hsl(0,0,100)                },   -- char that needs attention
@@ -254,51 +263,51 @@ local theme = lush(function(injected_functions)
 
 
         -- TreeSitter
-        sym"@boolean"               { Boolean      },
-        sym"@character"             { Character    },
-        sym"@character.special"     { SpecialChar  },
-        sym"@comment"               { Comment      },
-        sym"@conditional"           { Conditional  },
-        sym"@constant"              { Constant     },
-        sym"@constant.builtin"      { Special      },
-        sym"@constant.macro"        { Define       },
-        sym"@constructor"           { Special      },
-        sym"@debug"                 { Debug        },
-        sym"@define"                { Define       },
-        sym"@exception"             { Exception    },
-        sym"@field"                 { Identifier   },
-        sym"@float"                 { Float        },
-        sym"@function"              { Function     },
-        sym"@function.builtin"      { Special      },
-        sym"@function.macro"        { Macro        },
-        sym"@include"               { Include      },
-        sym"@keyword"               { Keyword      },
-        sym"@label"                 { Label        },
-        sym"@macro"                 { Macro        },
-        sym"@method"                { Function     },
-        sym"@namespace"             { Identifier   },
-        sym"@number"                { Number       },
-        sym"@operator"              { Operator     },
-        sym"@parameter"             { Identifier   },
-        sym"@preproc"               { PreProc      },
-        sym"@property"              { Identifier   },
-        sym"@punctuation"           { Delimiter    },
-        sym"@repeat"                { Repeat       },
-        sym"@storageclass"          { StorageClass },
-        sym"@string"                { String       },
-        sym"@string.escape"         { SpecialChar  },
-        sym"@string.special"        { SpecialChar  },
-        sym"@structure"             { Structure    },
-        sym"@tag"                   { Tag          },
-        sym"@text.literal"          { Comment      },
-        sym"@text.reference"        { Identifier   },
-        sym"@text.title"            { Title        },
-        sym"@text.todo"             { Todo         },
-        sym"@text.underline"        { Underlined   },
-        sym"@text.uri"              { Underlined   },
-        sym"@type"                  { Type         },
-        sym"@type.definition"       { Typedef      },
-        sym"@variable"              { Identifier   },
+        sym"@boolean"               { Boolean       },
+        sym"@character"             { Character     },
+        sym"@character.special"     { SpecialChar   },
+        sym"@comment"               { Comment       },
+        sym"@conditional"           { Conditional   },
+        sym"@constant"              { Constant      },
+        sym"@constant.builtin"      { Special       },
+        sym"@constant.macro"        { Define        },
+        sym"@constructor"           { Special       },
+        sym"@debug"                 { Debug         },
+        sym"@define"                { Define        },
+        sym"@exception"             { Exception     },
+        sym"@field"                 { Identifier    },
+        sym"@float"                 { Float         },
+        sym"@function"              { Function      },
+        sym"@function.builtin"      { Special       },
+        sym"@function.macro"        { Macro         },
+        sym"@include"               { Include       },
+        sym"@keyword"               { Keyword       },
+        sym"@label"                 { Label         },
+        sym"@macro"                 { Macro         },
+        sym"@method"                { Function      },
+        sym"@namespace"             { Identifier    },
+        sym"@number"                { Number        },
+        sym"@operator"              { Operator      },
+        sym"@parameter"             { Identifier    },
+        sym"@preproc"               { PreProc       },
+        sym"@property"              { Identifier    },
+        sym"@punctuation"           { Delimiter     },
+        sym"@repeat"                { Repeat        },
+        sym"@storageclass"          { StorageClass  },
+        sym"@string"                { String        },
+        sym"@string.escape"         { SpecialChar   },
+        sym"@string.special"        { SpecialChar   },
+        sym"@structure"             { Structure     },
+        sym"@tag"                   { Tag           },
+        sym"@text.literal"          { Comment       },
+        sym"@text.reference"        { Identifier    },
+        sym"@text.title"            { Title         },
+        sym"@text.todo"             { Todo          },
+        sym"@text.underline"        { Underlined    },
+        sym"@text.uri"              { Underlined    },
+        sym"@type"                  { Type          },
+        sym"@type.definition"       { Typedef       },
+        sym"@variable"              { Identifier    },
 
     }
 end)

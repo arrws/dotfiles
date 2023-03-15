@@ -162,9 +162,7 @@ fi
 
 # cat -> bat
 if command -v bat &>/dev/null; then
-    export BAT_THEME='xtheme'
     alias cat='bat -p --paging=never'
-    alias bat='bat --style=numbers,changes,rule'
 fi
 
 # core

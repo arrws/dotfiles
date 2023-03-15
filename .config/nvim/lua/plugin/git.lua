@@ -45,8 +45,8 @@ require("gitsigns").setup({
         ["n <C-f>u"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
         ["n <C-f>U"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
         ["n <C-f>B"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-        ["n <C-f>s"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-        ["n <C-f>S"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>'
+        -- ["n <C-f>s"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+        -- ["n <C-f>S"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>'
     },
     watch_gitdir = {interval = 1000},
     sign_priority = 6,

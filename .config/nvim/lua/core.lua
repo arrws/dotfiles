@@ -79,7 +79,6 @@ noremap('J', '}')
 noremap('K', '{')
 
 
-
 -- redo with U instead of Ctrl+R
 nnoremap('U', '<C-R>')
 nnoremap('<C-R>', 'Nup')

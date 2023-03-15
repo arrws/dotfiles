@@ -1,5 +1,4 @@
 vim.opt.shell = "/bin/zsh"
--- vim.opt.shell = "/bin/bash" -- for speed in case of using other shells
 
 -- bootstrap function
 local fn = vim.fn
@@ -15,6 +14,7 @@ require('packer').startup(function()
 
     -- fzf
     use 'nvim-telescope/telescope-live-grep-args.nvim' -- requiered
+    use 'nvim-telescope/telescope-ui-select.nvim'
     use 'nvim-telescope/telescope.nvim'
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
@@ -22,13 +22,8 @@ require('packer').startup(function()
     use 'neovim/nvim-lspconfig'
     use 'sbdchd/neoformat'
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    use({ -- nicer diagnostics text
-      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-      config = function()
-        require("lsp_lines").setup()
-      end,
-    })
-
+    use 'lvimuser/lsp-inlayhints.nvim'
+    
     -- autocomplete
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
@@ -37,18 +32,14 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-vsnip' -- requiered
     use 'hrsh7th/vim-vsnip'
     use {'tzachar/cmp-tabnine', run = './install.sh'}
-
     
-    use 'simrat39/rust-tools.nvim'
-    -- use 'mfussenegger/nvim-dap'                 -- debugging
-
-    -- others
+    -- gui
     use 'hoob3rt/lualine.nvim'
     use 'kyazdani42/nvim-tree.lua'
-
     use 'lewis6991/gitsigns.nvim'               -- git line status on the vertical bar
     use 'lukas-reineke/indent-blankline.nvim'   -- display thin vertical lines at each indentation level
 
+    -- core 
     use 'echasnovski/mini.jump'                 -- better f/t jumping
     use 'echasnovski/mini.jump2d'               -- easy motion like hopping
     use 'echasnovski/mini.map'                  -- vscode like minimap
@@ -57,10 +48,10 @@ require('packer').startup(function()
     use 'echasnovski/mini.move'                 -- arrow keys to move visual selection or current line
     use 'echasnovski/mini.align'                -- alligning text
     use 'echasnovski/mini.pairs'                -- auto-complete parenthesis
-    use 'echasnovski/mini.bracketed'            -- go forword/backward with square brackets
     use 'echasnovski/mini.trailspace'           -- for trailling whitespace
     use 'echasnovski/mini.surround'             -- change surrounding elements
 
+    -- theme
     use 'rktjmp/lush.nvim'
     use '~/.config/nvim/lua/lush_theme'
 

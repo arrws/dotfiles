@@ -3,7 +3,7 @@
 require("lualine").setup({
     options = {
         icons_enabled = false,
-        theme = "mtheme",
+        theme = "xtheme",
         component_separators = {"|", "|"},
         section_separators = {"", ""}, -- {'', ''},
         disabled_filetypes = {}

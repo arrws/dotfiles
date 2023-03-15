@@ -15,23 +15,6 @@ require('mini.jump').setup({
     }
 })
 
-require('mini.bracketed').setup({
-  buffer     = { suffix = 'b', options = {} },
-  file       = { suffix = 'f', options = {} },
-  comment    = { suffix = 'c', options = {} },
-  conflict   = { suffix = '', options = {} },
-  diagnostic = { suffix = 'd', options = {} },
-  indent     = { suffix = '', options = {} },
-  jump       = { suffix = '', options = {} },
-  location   = { suffix = '', options = {} },
-  oldfile    = { suffix = 'o', options = {} },
-  quickfix   = { suffix = 'q', options = {} },
-  treesitter = { suffix = 't', options = {} },
-  undo       = { suffix = '', options = {} },
-  window     = { suffix = '', options = {} },
-  yank       = { suffix = '', options = {} },
-})
-
 require('mini.jump2d').setup({
       -- Characters used for labels of jump spots (in supplied order)
       labels = 'abcdefghijklmnopqrstuvwxyz',
