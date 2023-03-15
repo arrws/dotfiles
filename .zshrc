@@ -28,23 +28,21 @@ autoload -Uz compinit && compinit
 # autocomplete tab show options doubletab fill
 zstyle ':completion:*' menu yes select
 
-bindkey '^Q' backward-kill-word
+# movement (avoid alt)
 bindkey '^W' forward-word
 bindkey '^B' backward-word
-# bindkey "^0"   beginning-of-line
-# bindkey "^4"   end-of-line
+
+# hack for kitty ctrl-backspace
+bindkey '^Q' backward-kill-word
 
 
 ### TERMINAL OPTIONS
 
 set -o emacs
 
-# check shortcuts: stty -a
 # disable freezing of term ^S ^Q
 stty start ""
 stty stop ""
-# make ctrl-q backward kill word in bash
-stty werase "^Q"
 
 export EDITOR=nvim
 export VISUAL=nvim
@@ -117,6 +115,7 @@ expand-alias-and-accept-line() {
     zle .accept-line
 }
 zle -N accept-line expand-alias-and-accept-line
+
 
 ### ABBREVIATIONS
 
@@ -208,9 +207,7 @@ fi
 
 # help
 bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
-function help {
-    curl cheat.sh/"$1"
-}
+function help { curl cheat.sh/$1 }
 
 # colored calendar
 function calx {

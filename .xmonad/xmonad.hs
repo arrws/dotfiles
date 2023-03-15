@@ -61,25 +61,25 @@ myKeysBindings :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launching and killing programs
-    [ ((modMask                 , xK_Return ), spawn $ XMonad.terminal conf)      -- launch default terminal
-    , ((modMask                 , xK_g      ), spawn "./.bin/dmenu.sh")       -- launch dmenu command search
-    , ((modMask .|. shiftMask   , xK_g      ), spawn "./.bin/dmusic.sh")      -- launch dmenu music search
-    , ((modMask                 , xK_x      ), kill)                              -- close the focused window
+    [ ((modMask                 , xK_Return ), spawn $ XMonad.terminal conf)    -- launch default terminal
+    , ((modMask                 , xK_g      ), spawn ".bin/dmenu.sh")           -- launch dmenu command search
+    , ((modMask .|. shiftMask   , xK_g      ), spawn ".bin/dmusic.sh")          -- launch dmenu music search
+    , ((modMask                 , xK_x      ), kill)                            -- close the focused window
 
     -- volume control
-    , ((0                       , 0x1008ff11), spawn "amixer -q sset Master 5%- && ./.bin/info_volume.sh")
-    , ((0                       , 0x1008ff13), spawn "amixer -q sset Master 5%+ && ./.bin/info_volume.sh")
-    , ((0                       , 0x1008ff12), spawn "amixer set Master toggle && ./.bin/info_volume.sh")
+    , ((0                       , 0x1008ff11), spawn "amixer -q sset Master 5%- && .bin/info_volume.sh")
+    , ((0                       , 0x1008ff13), spawn "amixer -q sset Master 5%+ && .bin/info_volume.sh")
+    , ((0                       , 0x1008ff12), spawn "amixer set Master toggle && .bin/info_volume.sh")
 
     -- brightness control
-    , ((0                       , 0x1008ff02), spawn "light -A -r 50 && ./.bin/info_brightness.sh")
-    , ((0                       , 0x1008ff03), spawn "light -U -r 50 && ./.bin/info_brightness.sh")
-    , ((0                       , 0x1008ff81), spawn "xcalib -invert -alter")           -- invert colors
+    , ((0                       , 0x1008ff02), spawn "light -A -r 50 && .bin/info_brightness.sh")
+    , ((0                       , 0x1008ff03), spawn "light -U -r 50 && .bin/info_brightness.sh")
+    , ((0                       , 0x1008ff81), spawn "xcalib -invert -alter")       -- invert colors
 
     --- redshift control
-    , ((modMask                 , 0x1008ff02), spawn "./.bin/info_redshift.sh -500")
-    , ((modMask                 , 0x1008ff03), spawn "./.bin/info_redshift.sh 500")
-    , ((modMask                 , 0x1008ff81), spawn "./.bin/info_redshift.sh 0")     -- reset redshift
+    , ((modMask                 , 0x1008ff02), spawn ".bin/info_redshift.sh -500")
+    , ((modMask                 , 0x1008ff03), spawn ".bin/info_redshift.sh 500")
+    , ((modMask                 , 0x1008ff81), spawn ".bin/info_redshift.sh 0")     -- reset redshift
 
     -- screenshots
     , ((modMask                 , xK_Print  ), spawn "sleep 0.2; scrot `date +%s`.png -s -z -e 'mv $f ~/screenshots'")
@@ -98,13 +98,13 @@ myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     --, ((modMask                 , xK_q      ), sendMessage $ Toggle NBFULL)         -- go fullscreen
     , ((modMask                 , xK_space  ), sendMessage NextLayout)              -- rotate through the available layout algorithms
     , ((modMask .|. shiftMask   , xK_space  ), setLayout $ XMonad.layoutHook conf)  -- reset current workspace layout to default
-    , ((modMask                 , xK_Tab    ), doTo Next (Not emptyWS) getSortByIndex (windows . W.view))              -- move to next workspace
-    , ((modMask .|. shiftMask   , xK_Tab    ), doTo Prev (Not emptyWS) getSortByIndex (windows . W.view))              -- move to previous workspace
+    , ((modMask                 , xK_Tab    ), doTo Next (Not emptyWS) getSortByIndex (windows . W.view))   -- move to next workspace
+    , ((modMask .|. shiftMask   , xK_Tab    ), doTo Prev (Not emptyWS) getSortByIndex (windows . W.view))   -- move to previous workspace
 
     -- focusing windows
-    , ((modMask,                  xK_o      ), windows W.focusMaster)               -- focus master window
-    , ((modMask,                  xK_d      ), windows W.focusDown)                 -- focus next window
-    , ((modMask,                  xK_s      ), windows W.focusUp)                   -- focus previous window
+    , ((modMask                 , xK_o      ), windows W.focusMaster)               -- focus master window
+    , ((modMask                 , xK_d      ), windows W.focusDown)                 -- focus next window
+    , ((modMask                 , xK_s      ), windows W.focusUp)                   -- focus previous window
 
     -- moving windows
     , ((modMask .|. shiftMask   , xK_o      ), windows W.swapMaster)                -- swap focused window with the master window
@@ -119,7 +119,7 @@ myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask   , xK_Escape ), io exitSuccess)                      -- quit xmonad
     , ((modMask                 , xK_Escape ), spawn "if type xmonad; \
                                 \ then xmonad --recompile && xmonad --restart; \
-                                \ else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")  -- restart xmonad
+                                \ else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")      -- restart xmonad
 
     ] ++
     [ ((modMask                 , k         ), windows $ W.view i)                          -- switch to k-th workspace
@@ -149,7 +149,6 @@ myWorkspaces = ["λ", "Σ", "Ψ", "Γ"]
 -- myModmask = mod4Mask -- use Windows key
 myModmask = mod1Mask -- use ALT key
 myTerminal = "kitty"
--- myTerminal = "xterm -bg black -fg white -fa Inconsolata -fs 11 zsh"
 
 -- myXmobarPP xmproc = xmobarPP {
 myXmobarPP xmproc0 xmproc1 = xmobarPP {
