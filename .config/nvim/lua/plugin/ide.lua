@@ -18,7 +18,6 @@ require('mini.jump').setup({
 require('mini.jump2d').setup({
       -- Characters used for labels of jump spots (in supplied order)
       labels = 'abcdefghijklmnopqrstuvwxyz',
-
       -- Which lines are used for computing spots
       allowed_lines = {
         blank = true, -- Blank line (not sent to spotter even if `true`)
@@ -27,11 +26,14 @@ require('mini.jump2d').setup({
         cursor_after = true, -- Lines after cursor line
         fold = true, -- Start of fold (not sent to spotter even if `true`)
       },
-
       -- Which windows from current tabpage are used for visible lines
       allowed_windows = {
         current = true,
         not_current = true,
+      },
+      -- Module mappings. Use `''` (empty string) to disable one.
+      mappings = {
+        start_jumping = 't',
       },
     }
 )

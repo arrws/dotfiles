@@ -95,38 +95,37 @@ myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 
     -- workspaces management
-    --, ((modMask                 , xK_q      ), sendMessage $ Toggle NBFULL)         -- go fullscreen
     , ((modMask                 , xK_space  ), sendMessage NextLayout)              -- rotate through the available layout algorithms
     , ((modMask .|. shiftMask   , xK_space  ), setLayout $ XMonad.layoutHook conf)  -- reset current workspace layout to default
     , ((modMask                 , xK_Tab    ), doTo Next (Not emptyWS) getSortByIndex (windows . W.view))   -- move to next workspace
     , ((modMask .|. shiftMask   , xK_Tab    ), doTo Prev (Not emptyWS) getSortByIndex (windows . W.view))   -- move to previous workspace
 
     -- focusing windows
-    , ((modMask                 , xK_o      ), windows W.focusMaster)               -- focus master window
+    , ((modMask                 , xK_r      ), windows W.focusMaster)               -- focus master window
     , ((modMask                 , xK_d      ), windows W.focusDown)                 -- focus next window
     , ((modMask                 , xK_s      ), windows W.focusUp)                   -- focus previous window
 
     -- moving windows
-    , ((modMask .|. shiftMask   , xK_o      ), windows W.swapMaster)                -- swap focused window with the master window
+    , ((modMask .|. shiftMask   , xK_r      ), windows W.swapMaster)                -- swap focused window with the master window
     , ((modMask .|. shiftMask   , xK_d      ), windows W.swapDown)                  -- swap focused window with the next window
     , ((modMask .|. shiftMask   , xK_s      ), windows W.swapUp)                    -- swap focused window with the previous window
 
     -- resizing the master/slave ratio
-    , ((modMask                 , xK_a      ), sendMessage Shrink)                  -- shrink the master area
-    , ((modMask                 , xK_f      ), sendMessage Expand)                  -- expand the master area
+    , ((modMask .|. shiftMask   , xK_minus  ), sendMessage Shrink)                  -- shrink the master area
+    , ((modMask .|. shiftMask   , xK_equal  ), sendMessage Expand)                  -- expand the master area
 
     -- quit, or restart
     , ((modMask .|. shiftMask   , xK_Escape ), io exitSuccess)                      -- quit xmonad
     , ((modMask                 , xK_Escape ), spawn "if type xmonad; \
                                 \ then xmonad --recompile && xmonad --restart; \
-                                \ else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")      -- restart xmonad
+                                \ else xmessage xmonad not in \\$PATH: \"$PATH\"; fi")  -- restart xmonad
 
     ] ++
-    [ ((modMask                 , k         ), windows $ W.view i)                          -- switch to k-th workspace
-                                            | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+    [ ((modMask                 , k ), windows $ W.view i)                          -- switch to k-th workspace
+                                    | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_5]
     ] ++
-    [ ((modMask .|. shiftMask   , k         ), windows ( W.shift i) >> windows ( W.view i)) -- move window to the k-th workspace
-                                            | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+    [ ((modMask .|. shiftMask   , k ), windows ( W.shift i) >> windows ( W.view i)) -- move window to the k-th workspace
+                                    | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_5]
     ]
 
 
@@ -143,8 +142,7 @@ myLayoutHook = myFullscreen ||| myVertical -- ||| myHorizontal -- ||| mySpiral
                     myGaps layout  = let x = 3 in avoidStruts $ spacing x $ gaps [(U,x+20),(D,x),(R,x),(L,x)] layout
 
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = ["λ", "Σ", "Ψ", "Γ"]
-
+myWorkspaces = ["λ", "Σ", "Ψ", "Γ", "Ω"]
 
 -- myModmask = mod4Mask -- use Windows key
 myModmask = mod1Mask -- use ALT key

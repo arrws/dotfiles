@@ -117,6 +117,7 @@ local theme = lush(function(injected_functions)
 
         -- ---- Hop
         MiniJump2dSpot      {fg=t.cyan              },
+        MiniJump            {fg=t.cyan , gui=t.bo   },
 
 
         -- ---- MiniMap

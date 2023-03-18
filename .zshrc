@@ -28,10 +28,6 @@ autoload -Uz compinit && compinit
 # autocomplete tab show options doubletab fill
 zstyle ':completion:*' menu yes select
 
-# movement (avoid alt)
-bindkey '^W' forward-word
-bindkey '^B' backward-word
-
 # hack for kitty ctrl-backspace
 bindkey '^Q' backward-kill-word
 
@@ -195,8 +191,9 @@ alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +ki
 
 
 # FZF
+
 export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs --vimgrep --glob=\!.git'
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --bind=ctrl-j:accept,ctrl-k:kill-line'
 if command -v fzf-share &>/dev/null; then
     source "$(fzf-share)/key-bindings.zsh"
     source "$(fzf-share)/completion.zsh"
@@ -207,6 +204,7 @@ fi
 
 # help
 bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
+# bindkey -s '^h' 'rg -NI . ~/codex/help | less^M'
 function help { curl cheat.sh/$1 }
 
 # colored calendar
