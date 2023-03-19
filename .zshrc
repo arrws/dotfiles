@@ -204,7 +204,7 @@ fi
 
 # help
 bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
-# bindkey -s '^h' 'rg -NI . ~/codex/help | less^M'
+alias helpvim='bat ~/codex/vim*'
 function help { curl cheat.sh/$1 }
 
 # colored calendar

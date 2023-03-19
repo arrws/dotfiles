@@ -87,7 +87,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 
 ------ CMP completion
-vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+vim.opt.completeopt = {'menu', 'menuone', 'noinsert'}
 
 local cmp = require("cmp")
 cmp.setup({
@@ -96,13 +96,13 @@ cmp.setup({
         expand = function(args) vim.fn["vsnip#anonymous"](args.body) end
     },
     mapping = {
+        ['<CR>'] = cmp.mapping.confirm({select = true}),
+        ['<C-j>'] = cmp.mapping.confirm({select = true}),
         ['<Tab>'] = cmp.mapping.select_next_item(),
         ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-        ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i','c'}),
-        ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i','c'}),
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
         ['<leader>q'] = cmp.mapping.abort(),
-        ['<Esc>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({select = true})
     },
     sources = cmp.config.sources({
         {name = "cmp_tabnine"}, {name = "nvim_lsp"}, {name = "vsnip"},

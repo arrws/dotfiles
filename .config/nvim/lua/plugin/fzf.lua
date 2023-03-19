@@ -9,9 +9,20 @@ telescope.setup {
             i = {
                 ["<esc>"] = actions.close,
                 ["<leader>q"] = actions.close,
-                ["<leader>x"] = actions.close,
+
+                ["<CR>"] = actions.select_default,
+                ["<C-j>"] = actions.select_default,
                 ["<leader>l"] = actions.file_vsplit,
                 ["<leader>j"] = actions.file_split,
+
+                ["<C-n>"] = actions.move_selection_next,
+                ["<C-p>"] = actions.move_selection_previous,
+
+                ["<C-m>"] = actions.toggle_selection + actions.move_selection_worse,
+                ["<C-q>"] = actions.send_selected_to_qflist,
+
+                ["<C-u>"] = actions.preview_scrolling_up,
+                ["<C-d>"] = actions.preview_scrolling_down,
             },
         },
         vimgrep_arguments = {

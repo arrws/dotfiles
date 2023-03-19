@@ -1,4 +1,5 @@
-vim.opt.shell = "/bin/zsh"
+-- vim.opt.shell = "/bin/zsh"
+vim.opt.shell = "/run/current-system/sw/bin/zsh"
 
 -- bootstrap function
 local fn = vim.fn
