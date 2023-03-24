@@ -33,6 +33,7 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-vsnip' -- requiered
     use 'hrsh7th/vim-vsnip'
     use {'tzachar/cmp-tabnine', run = './install.sh'}
+    use 'github/copilot.vim'
     
     -- gui
     use 'hoob3rt/lualine.nvim'
@@ -60,6 +61,8 @@ require('packer').startup(function()
     if packer_bootstrap then require('packer').sync() end
 end)
 
+vim.g.copilot_no_tab_map = true
+vim.api.nvim_set_keymap("i", "<tab>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 
 -- Helpers
 function nnoremap(shortcut, command) vim.api.nvim_set_keymap('n', shortcut, command, {noremap = true, silent = true}) end

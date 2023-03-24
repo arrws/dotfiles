@@ -119,11 +119,10 @@ zle -N accept-line expand-alias-and-accept-line
 abbrev-alias g='git'
 abbrev-alias gs='git status'
 abbrev-alias gst='git stash'
+abbrev-alias gc='git checkout'
 abbrev-alias gd='git diff'
 abbrev-alias gl='git log'
-abbrev-alias ga='git add'
-abbrev-alias gc='git commit'
-abbrev-alias gr='git reset'
+abbrev-alias ga='git add .'
 
 # kubernetes
 abbrev-alias k='kubectl'
@@ -191,8 +190,8 @@ alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +ki
 
 
 # FZF
-
 export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs --vimgrep --glob=\!.git'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --bind=ctrl-j:accept,ctrl-k:kill-line'
 if command -v fzf-share &>/dev/null; then
     source "$(fzf-share)/key-bindings.zsh"

@@ -1,12 +1,11 @@
 #!/bin/sh
+MONITOR=`xrandr | rg -o "^.* connected" | rg -v "eDP-1" | sd " connected" ""`
 
-#xrandr --output DP-2 --auto --mode 2560x1440 --rotate right --right-of eDP-1 --output HDMI-1 --auto --mode 3840x2160 --left-of eDP-1
-
-if xrandr | grep -q 'HDMI-1 connected'; then
-	xrandr --output HDMI-1 --auto --mode 3840x2160 --above eDP-1
+if ! test -z $MONITOR ; then
+    echo "Setting monitor: $MONITOR"
+	xrandr --output $MONITOR --auto --mode 3840x2160 --above eDP-1
+    # xrandr --output $MONITOR --auto --mode 3840x2160 --rotate right --right-of eDP-1
 	xrandr --output eDP-1 --pos 960x2160
-else
-	xrandr --output HDMI-1 --off
 fi
 
 feh --no-fehbg --bg-max $HOME/.bin/.skynet.png
