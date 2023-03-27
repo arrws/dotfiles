@@ -138,6 +138,7 @@ abbrev-alias kgpr='kubectl get pods | rg'
 # nix
 abbrev-alias nup='sudo nixos-rebuild switch --upgrade'
 abbrev-alias nre='sudo nixos-rebuild switch'
+abbrev-alias nx='nix-shell'
 
 
 ### ALIASES

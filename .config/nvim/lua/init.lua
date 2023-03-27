@@ -61,9 +61,6 @@ require('packer').startup(function()
     if packer_bootstrap then require('packer').sync() end
 end)
 
-vim.g.copilot_no_tab_map = true
-vim.api.nvim_set_keymap("i", "<tab>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
-
 -- Helpers
 function nnoremap(shortcut, command) vim.api.nvim_set_keymap('n', shortcut, command, {noremap = true, silent = true}) end
 function vnoremap(shortcut, command) vim.api.nvim_set_keymap('v', shortcut, command, {noremap = true, silent = true}) end

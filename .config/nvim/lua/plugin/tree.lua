@@ -44,7 +44,7 @@ require("nvim-tree").setup({
     on_attach = M.on_attach,
     disable_netrw = true,
     ignore_ft_on_setup = {},
-    sync_root_with_cwd = false,
+    sync_root_with_cwd = true,
     view = {
         width = 25,
         hide_root_folder = false,
@@ -99,7 +99,7 @@ require("nvim-tree").setup({
     update_focused_file = {enable = true, update_root = false, ignore_list = {}},
     system_open = {cmd = nil, args = {}},
     filters = {
-        dotfiles = true,
+        dotfiles = false,
         gitfiles = false,
         no_buffer = false,
         custom = {},
