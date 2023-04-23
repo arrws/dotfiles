@@ -114,6 +114,10 @@ local theme = lush(function(injected_functions)
         TabLineFill         {                       },  -- empty tab line color
         TabLineSel          { WildMenu              },  -- active tab text
 
+        -- ---- OpenAI GPT
+        AIIndicator         { fg=t.cyan             },  -- group to color the indicator text
+        AIHighlight         { fg=t.matches          },  -- group to color the text being processed
+
 
         -- ---- Hop
         MiniJump2dSpot      {fg=t.cyan              },
@@ -196,7 +200,7 @@ local theme = lush(function(injected_functions)
         GitSignsUntracked           { fg=t.blue.de(80).li(20)       },
 
         -- Inlay Hints
-        InlayHints                  { fg=t.green.de(70).li(20)      },
+        InlayHints                  { fg=t.green.de(90).da(40)      },
 
 
 

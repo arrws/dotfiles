@@ -86,6 +86,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 
+
+------  Github Copilot
+vim.g.copilot_no_tab_map = true
+vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+
+------  OpenAI GPT
+local gpt = require('gpt')
+gpt.setup({ api_key = os.getenv("OPENAI_API_KEY") })
+local opts = { silent = true, noremap = true }
+vim.keymap.set('v', '<C-g>r', gpt.replace, {         silent = true,  noremap = true, desc = "[G]pt [R]ewrite" })
+vim.keymap.set('v', '<C-g>p', gpt.visual_prompt, {   silent = false, noremap = true, desc = "[G]pt [P]rompt"  })
+vim.keymap.set('n', '<C-g>p', gpt.prompt, {          silent = true,  noremap = true, desc = "[G]pt [P]rompt"  })
+vim.keymap.set('n', '<C-g>c', gpt.cancel, {          silent = true,  noremap = true, desc = "[G]pt [C]ancel"  })
+vim.keymap.set('i', '<C-g>p', gpt.prompt, {          silent = true,  noremap = true, desc = "[G]pt [P]rompt"  })
+
+
+
 ------ CMP completion
 vim.opt.completeopt = {'menu', 'menuone', 'noinsert'}
 
@@ -105,32 +122,26 @@ cmp.setup({
         ['<leader>q'] = cmp.mapping.abort(),
     },
     sources = cmp.config.sources({
-        {name = "cmp_tabnine"}, {name = "nvim_lsp"}, {name = "vsnip"},
-        {name = "buffer"}, {name = "spell"}, {name = "path"}
+        {name = "nvim_lsp"}, 
+        {name = "vsnip"},
+        {name = "buffer"}, 
+        {name = "path"},
+        {name = "spell"} 
     }),
     formatting = { -- to show completion source
         format = function(entry, vim_item)
             -- set a name for each source
             vim_item.menu = ({
-                cmp_tabnine = "[TAB]",
                 nvim_lsp = "[LSP]",
                 buffer = "[BUF]",
-                path = "[PATH]"
+                path = "[PATH]",
+                spell = "[SPELL]"
             })[entry.source.name]
             return vim_item
         end
     }
 })
 
-
-
-------  Github Copilot
-vim.g.copilot_no_tab_map = true
-vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
-
-------  Tabnine
-tabnine = require("cmp_tabnine.config")
-tabnine:setup({max_lines = 100, max_num_results = 5, sort = true})
 
 
 ------ Treesitter

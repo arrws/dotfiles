@@ -43,8 +43,7 @@ end
 require("nvim-tree").setup({
     on_attach = M.on_attach,
     disable_netrw = true,
-    ignore_ft_on_setup = {},
-    sync_root_with_cwd = true,
+    sync_root_with_cwd = false,
     view = {
         width = 25,
         hide_root_folder = false,
@@ -73,11 +72,11 @@ require("nvim-tree").setup({
                 bookmark = "●",
                 modified = "m",
                 git = {
-                    unstaged = "★",
+                    unstaged = "*",
                     staged = "✓",
-                    unmerged = "",
+                    unmerged = "-",
                     renamed = "➜",
-                    untracked = "*",
+                    untracked = "`",
                     deleted = "✗",
                     ignored = "◌"
                 },
@@ -100,7 +99,6 @@ require("nvim-tree").setup({
     system_open = {cmd = nil, args = {}},
     filters = {
         dotfiles = false,
-        gitfiles = false,
         no_buffer = false,
         custom = {},
         exclude = {}

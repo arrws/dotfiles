@@ -18,8 +18,8 @@ telescope.setup {
                 ["<C-n>"] = actions.move_selection_next,
                 ["<C-p>"] = actions.move_selection_previous,
 
-                ["<C-m>"] = actions.toggle_selection + actions.move_selection_worse,
-                ["<C-q>"] = actions.send_selected_to_qflist,
+                ["<leader>m"] = actions.toggle_selection + actions.move_selection_worse,
+                ["<leader>q"] = actions.send_selected_to_qflist,
 
                 ["<C-u>"] = actions.preview_scrolling_up,
                 ["<C-d>"] = actions.preview_scrolling_down,

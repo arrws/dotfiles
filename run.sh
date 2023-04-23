@@ -6,6 +6,7 @@ paths=(
 ".bin/*.sh"
 
 ".zshrc"
+".profile"
 ".config/kitty/kitty.conf"
 
 ".config/nvim/colors/"

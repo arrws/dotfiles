@@ -82,17 +82,16 @@ myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                 , 0x1008ff81), spawn ".bin/info_redshift.sh 0")     -- reset redshift
 
     -- screenshots
-    , ((modMask                 , xK_Print  ), spawn "sleep 0.2; scrot `date +%s`.png -s -z -e 'mv $f ~/screenshots'")
-    , ((0                       , xK_Print  ), spawn "scrot `date +%s`.png -z -e 'mv $f ~/screenshots'")
+    , ((modMask                 , xK_Print  ), spawn "sleep 0.2; scrot `date +'%Y-%m-%d-%H%M%S%N`.png -s -z -e 'mv $f ~/screenshots/$f'")
+    , ((0                       , xK_Print  ), spawn "scrot `date +'%Y-%m-%d-%H%M%S%N`.png -z -e 'mv $f ~/screenshots/$f'")
 
-    -- music control
-    , ((modMask                 , xK_Up     ), spawn "mpc random")
-    , ((modMask                 , xK_Down   ), spawn "mpc toggle")
-    , ((modMask                 , xK_Left   ), spawn "mpc prev")
-    , ((modMask                 , xK_Right  ), spawn "mpc next")
-    , ((modMask .|. shiftMask   , xK_Right  ), spawn "mpc seek +2%")
-    , ((modMask .|. shiftMask   , xK_Left   ), spawn "mpc seek -2%")
-
+    -- -- music control
+    -- , ((modMask                 , xK_Up     ), spawn "mpc random")
+    -- , ((modMask                 , xK_Down   ), spawn "mpc toggle")
+    -- , ((modMask                 , xK_Left   ), spawn "mpc prev")
+    -- , ((modMask                 , xK_Right  ), spawn "mpc next")
+    -- , ((modMask .|. shiftMask   , xK_Right  ), spawn "mpc seek +2%")
+    -- , ((modMask .|. shiftMask   , xK_Left   ), spawn "mpc seek -2%")
 
     -- workspaces management
     , ((modMask                 , xK_space  ), sendMessage NextLayout)              -- rotate through the available layout algorithms

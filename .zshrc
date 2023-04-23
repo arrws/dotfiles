@@ -26,7 +26,9 @@ setopt inc_append_history
 autoload -Uz compinit && compinit
 
 # autocomplete tab show options doubletab fill
-zstyle ':completion:*' menu yes select
+zmodload zsh/complist
+zstyle ':completion:*' menu yes no-select interactive
+bindkey '^N' menu-select
 
 # hack for kitty ctrl-backspace
 bindkey '^Q' backward-kill-word
@@ -122,7 +124,7 @@ abbrev-alias gst='git stash'
 abbrev-alias gc='git checkout'
 abbrev-alias gd='git diff'
 abbrev-alias gl='git log'
-abbrev-alias ga='git add .'
+abbrev-alias ga='git add'
 
 # kubernetes
 abbrev-alias k='kubectl'
@@ -242,5 +244,6 @@ function pretty {
 export DISABLE_SUDO_PROMPT=1 # via-keyboard needs this
 alias vial='appimage-run /home/nan/Downloads/Vial-v0.5-x86_64.AppImage'
 
+source ~/.openai_key
 
 export PATH="$PATH:$HOME/.bin:$HOME/.cargo/bin"

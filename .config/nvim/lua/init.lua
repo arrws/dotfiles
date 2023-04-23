@@ -1,6 +1,3 @@
--- vim.opt.shell = "/bin/zsh"
-vim.opt.shell = "/run/current-system/sw/bin/zsh"
-
 -- bootstrap function
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -32,12 +29,13 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-vsnip' -- requiered
     use 'hrsh7th/vim-vsnip'
-    use {'tzachar/cmp-tabnine', run = './install.sh'}
+
     use 'github/copilot.vim'
+    use 'thmsmlr/gpt.nvim'
     
     -- gui
     use 'hoob3rt/lualine.nvim'
-    use 'kyazdani42/nvim-tree.lua'
+    use 'kyazdani42/nvim-tree.lua'              -- sidebar file explorer
     use 'lewis6991/gitsigns.nvim'               -- git line status on the vertical bar
     use 'lukas-reineke/indent-blankline.nvim'   -- display thin vertical lines at each indentation level
 
