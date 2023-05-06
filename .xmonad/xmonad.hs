@@ -82,8 +82,8 @@ myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                 , 0x1008ff81), spawn ".bin/info_redshift.sh 0")     -- reset redshift
 
     -- screenshots
-    , ((modMask                 , xK_Print  ), spawn "sleep 0.2; scrot `date +'%Y-%m-%d-%H%M%S%N`.png -s -z -e 'mv $f ~/screenshots/$f'")
-    , ((0                       , xK_Print  ), spawn "scrot `date +'%Y-%m-%d-%H%M%S%N`.png -z -e 'mv $f ~/screenshots/$f'")
+    , ((modMask                 , xK_Print  ), spawn "sleep 0.2; scrot `date +'%Y-%m-%d-%H%M%S%N'`.png -s -z -e 'mv $f ~/screenshots/$f'")
+    , ((0                       , xK_Print  ), spawn "scrot `date +'%Y-%m-%d-%H%M%S%N'`.png -z -e 'mv $f ~/screenshots/$f'")
 
     -- -- music control
     -- , ((modMask                 , xK_Up     ), spawn "mpc random")
