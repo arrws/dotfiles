@@ -110,8 +110,8 @@ myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask   , xK_s      ), windows W.swapUp)                    -- swap focused window with the previous window
 
     -- resizing the master/slave ratio
-    , ((modMask .|. shiftMask   , xK_minus  ), sendMessage Shrink)                  -- shrink the master area
-    , ((modMask .|. shiftMask   , xK_equal  ), sendMessage Expand)                  -- expand the master area
+    , ((modMask                 , xK_minus  ), sendMessage Shrink)                  -- shrink the master area
+    , ((modMask                 , xK_equal  ), sendMessage Expand)                  -- expand the master area
 
     -- quit, or restart
     , ((modMask .|. shiftMask   , xK_Escape ), io exitSuccess)                      -- quit xmonad
