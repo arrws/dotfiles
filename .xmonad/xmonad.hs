@@ -62,8 +62,8 @@ myKeysBindings conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- launching and killing programs
     [ ((modMask                 , xK_Return ), spawn $ XMonad.terminal conf)    -- launch default terminal
-    , ((modMask                 , xK_g      ), spawn ".bin/dmenu.sh")           -- launch dmenu command search
-    , ((modMask .|. shiftMask   , xK_g      ), spawn ".bin/dmusic.sh")          -- launch dmenu music search
+    , ((modMask                 , xK_p      ), spawn ".bin/dmenu.sh")           -- launch dmenu command search
+    , ((modMask .|. shiftMask   , xK_p      ), spawn ".bin/dmusic.sh")          -- launch dmenu music search
     , ((modMask                 , xK_x      ), kill)                            -- close the focused window
 
     -- volume control
@@ -143,8 +143,8 @@ myLayoutHook = myFullscreen ||| myVertical -- ||| myHorizontal -- ||| mySpiral
 myWorkspaces :: [WorkspaceId]
 myWorkspaces = ["λ", "Σ", "Ψ", "Γ", "Ω"]
 
--- myModmask = mod4Mask -- use Windows key
-myModmask = mod1Mask -- use ALT key
+myModmask = mod4Mask -- use Windows key
+-- myModmask = mod1Mask -- use ALT key
 myTerminal = "kitty"
 
 -- myXmobarPP xmproc = xmobarPP {

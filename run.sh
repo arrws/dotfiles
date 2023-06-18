@@ -30,6 +30,8 @@ paths=(
 ".xmonad/xmonad.hs"
 # ".xmodmaprc"
 
+".fonts/*.ttf"
+
 # ".gitconfig"
 ".skynet.png"
 )
