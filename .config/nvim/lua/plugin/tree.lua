@@ -46,12 +46,12 @@ require("nvim-tree").setup({
     sync_root_with_cwd = false,
     view = {
         width = 25,
-        hide_root_folder = false,
+        -- hide_root_folder = false,
         side = "left",
         number = false,
         relativenumber = false,
         signcolumn = "yes",
-        mappings = {custom_only = true}
+        -- mappings = {custom_only = true}
     },
     renderer = {
         icons = {

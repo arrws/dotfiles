@@ -23,6 +23,7 @@ telescope.setup {
 
                 ["<C-u>"] = actions.preview_scrolling_up,
                 ["<C-d>"] = actions.preview_scrolling_down,
+                ["<C-x>"] = actions.delete_buffer,
             },
         },
         vimgrep_arguments = {
@@ -55,21 +56,20 @@ telescope.load_extension("ui-select")
 local builtin = require('telescope.builtin')
 
 -- FILES
-vim.keymap.set('n', '<C-f>f', builtin.find_files, {})
-vim.keymap.set('n', '<C-f>g', telescope.extensions.live_grep_args.live_grep_raw, {}) -- live rg (accepts args)
+vim.keymap.set('n', '<C-f>f', builtin.find_files, {desc= "find files"})
+vim.keymap.set('n', '<C-f>F', builtin.oldfiles, {desc= "find old files"})
+vim.keymap.set('n', '<C-f>g', telescope.extensions.live_grep_args.live_grep_raw, {desc= "grep"}) -- live rg (accepts args)
 
 -- VIM
-vim.keymap.set('n', '<C-f>b', builtin.buffers, {})
-vim.keymap.set('n', '<C-f>q', builtin.quickfix, {})
-vim.keymap.set('n', '<C-f>e', builtin.oldfiles, {})
-vim.keymap.set('n', '<C-f>m', builtin.marks, {})
-vim.keymap.set('n', '<C-f>y', builtin.registers, {})
-vim.keymap.set('n', '<C-f>z', builtin.spell_suggest, {})
-vim.keymap.set('n', '<C-f>c', builtin.commands, {})
+vim.keymap.set('n', '<C-f>b', builtin.buffers, {desc= "buffers"})
+vim.keymap.set('n', '<C-f>q', builtin.quickfix, {desc= "quickfix"})
+vim.keymap.set('n', '<C-f>m', builtin.marks, {desc= "marks"})
+vim.keymap.set('n', '<C-f>y', builtin.registers, {desc= "registers"})
+vim.keymap.set('n', '<C-f>z', builtin.spell_suggest, {desc= "spell_suggest"})
+vim.keymap.set('n', '<C-f>c', builtin.commands, {desc= "commands"})
 
 -- LSP
-vim.keymap.set('n', '<C-f>w', builtin.lsp_document_symbols, {})     -- LSP document symbols in the current buffer
-vim.keymap.set('n', '<C-f>W', builtin.lsp_workspace_symbols, {})    -- LSP document symbols in the current workspace
-vim.keymap.set('n', '<C-f>k', builtin.lsp_references, {})           -- LSP references for word under the cursor
--- vim.keymap.set('n', '<C-f>d', builtin.diagnostics, {})              -- Diagnostics for all open buffers or a specific buffer. Use option bufnr=0 for current buffer.
-vim.keymap.set('n', '<C-f>t', builtin.treesitter, {})               -- Function names, variables, from Treesitter!
+vim.keymap.set('n', '<C-f>w', builtin.lsp_document_symbols, {desc= "doc symbols"})     -- LSP document symbols in the current buffer
+vim.keymap.set('n', '<C-f>W', builtin.lsp_workspace_symbols, {desc= "ws symbols"})    -- LSP document symbols in the current workspace
+vim.keymap.set('n', '<C-f>D', builtin.diagnostics, {desc= "all diagnostics"})              -- Diagnostics for all open buffers or a specific buffer. Use option bufnr=0 for current buffer.
+-- vim.keymap.set('n', '<C-f>t', builtin.treesitter, {desc= "treesitter symbols"})               -- Function names, variables, from Treesitter!

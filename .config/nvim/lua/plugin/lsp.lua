@@ -1,14 +1,13 @@
 ------ Language Server Protocol (LSP)
 
 local on_attach = function(client, bufnr)
-    local bufopts = { noremap=true, silent=false, buffer=bufnr }
-    -- vim.keymap.set('n', '<C-f> ', vim.lsp.buf.implementation, bufopts)
-    -- vim.keymap.set('n', '<C-f> ', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', '<C-f>h', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', '<C-f>R', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<C-f>a', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', '<C-f>d', '<cmd>lua vim.diagnostic.open_float(nil, { border=\'rounded\', source=false })<CR>', bufopts)
+    -- vim.keymap.set('n', '<C-f> ', vim.lsp.buf.implementation, { noremap=true, silent=false, buffer=bufnr, desc= "go to implementation"  })
+    -- vim.keymap.set('n', '<C-f> ', vim.lsp.buf.declaration, { noremap=true, silent=false, buffer=bufnr, desc= "go to declaration"  })
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.definition, { noremap=true, silent=false, buffer=bufnr, desc= "go to definition" })
+    vim.keymap.set('n', '<C-f>h', vim.lsp.buf.hover, { noremap=true, silent=false, buffer=bufnr, desc= "hover info" })
+    vim.keymap.set('n', '<C-f>R', vim.lsp.buf.rename, { noremap=true, silent=false, buffer=bufnr, desc= "rename" })
+    vim.keymap.set('n', '<C-f>a', vim.lsp.buf.code_action, { noremap=true, silent=false, buffer=bufnr, desc= "line diagnostics" })
+    vim.keymap.set('n', '<C-f>d', '<cmd>lua vim.diagnostic.open_float(nil, { border=\'rounded\', source=false })<CR>', { noremap=true, silent=false, buffer=bufnr, desc= "line diagnostics"})
 end
 
 
@@ -87,19 +86,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 
 
-------  Github Copilot
-vim.g.copilot_no_tab_map = true
-vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+-- ------  Github Copilot
+-- vim.g.copilot_no_tab_map = true
+-- vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 
-------  OpenAI GPT
-local gpt = require('gpt')
-gpt.setup({ api_key = os.getenv("OPENAI_API_KEY") })
-local opts = { silent = true, noremap = true }
-vim.keymap.set('v', '<C-g>r', gpt.replace, {         silent = true,  noremap = true, desc = "[G]pt [R]ewrite" })
-vim.keymap.set('v', '<C-g>p', gpt.visual_prompt, {   silent = false, noremap = true, desc = "[G]pt [P]rompt"  })
-vim.keymap.set('n', '<C-g>p', gpt.prompt, {          silent = true,  noremap = true, desc = "[G]pt [P]rompt"  })
-vim.keymap.set('n', '<C-g>c', gpt.cancel, {          silent = true,  noremap = true, desc = "[G]pt [C]ancel"  })
-vim.keymap.set('i', '<C-g>p', gpt.prompt, {          silent = true,  noremap = true, desc = "[G]pt [P]rompt"  })
+-- ------  Codeium
+vim.keymap.set('i', '<C-l>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+vim.keymap.set('i', '<C-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+vim.keymap.set('i', '<C-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+vim.keymap.set('i', '<C-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
 
 
 

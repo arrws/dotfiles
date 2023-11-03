@@ -1,55 +1,50 @@
 ------ Git Signs
 
-require("gitsigns").setup({
+require("gitsigns").setup {
     signs = {
-        add = {hl = "GitSignsAdd", text = "+", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn"},
-        change = {
-            hl = "GitSignsChange",
-            text = "~",
-            numhl = "GitSignsChangeNr",
-            linehl = "GitSignsChangeLn"
-        },
-        delete = {
-            hl = "GitSignsDelete",
-            text = "_",
-            numhl = "GitSignsDeleteNr",
-            linehl = "GitSignsDeleteLn"
-        },
-        topdelete = {
-            hl = "GitSignsDelete",
-            text = "‾",
-            numhl = "GitSignsDeleteNr",
-            linehl = "GitSignsDeleteLn"
-        },
-        changedelete = {
-            hl = "GitSignsChange",
-            text = "-",
-            numhl = "GitSignsChangeNr",
-            linehl = "GitSignsChangeLn"
-        }
+        add          = { text = '+' },
+        change       = { text = '-' },
+        delete       = { text = '_' },
+        topdelete    = { text = '‾' },
+        changedelete = { text = '~' },
+        untracked    = { text = '|' },
     },
-    numhl = false, --- highlight num column text
-    linehl = false,
-    keymaps = {
-        noremap = true,
-        buffer = true,
-        ["n <C-f>n"] = {
-            expr = true,
-            "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'"
-        },
-        ["n <C-f>p"] = {
-            expr = true,
-            "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'"
-        },
-        -- ["n <C-f>o"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-        ["n <C-f>u"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-        ["n <C-f>U"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-        ["n <C-f>B"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-        ["n <C-f>o"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-        ["n <C-f>O"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>'
+    signcolumn = true,
+    numhl      = false,
+    linehl     = false,
+    word_diff  = false,
+    watch_gitdir = {
+        follow_files = true
     },
-    watch_gitdir = {interval = 1000},
+    attach_to_untracked = true,
+    current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+    current_line_blame_opts = {
+        virt_text = true,
+        virt_text_pos = 'eol',
+        delay = 1000,
+        ignore_whitespace = false,
+    },
+    current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
     sign_priority = 6,
-    update_debounce = 100,
-    status_formatter = nil -- Use default
-})
+
+    on_attach = function(bufnr)
+        local gs = package.loaded.gitsigns
+
+        -- Navigation
+        vim.keymap.set('n', '<C-f>n', gs.next_hunk, { buffer=bufnr, desc="next hunk" });
+        vim.keymap.set('n', '<C-f>N', gs.prev_hunk, { buffer=bufnr, desc="prev hunk" });
+
+        -- Actions
+        vim.keymap.set('n', '<C-f>hp', gs.preview_hunk, { buffer=bufnr, desc="preview hunk" });
+        vim.keymap.set('n', '<C-f>o', gs.stage_hunk, { buffer=bufnr, desc="stage hunk" });
+        vim.keymap.set('n', '<C-f>O', gs.undo_stage_hunk, { buffer=bufnr, desc="undo stage hunk" });
+        vim.keymap.set('n', '<C-f>hb', gs.stage_buffer, { buffer=bufnr, desc="stage buffer" });
+        vim.keymap.set('n', '<C-f>u', gs.reset_hunk, { buffer=bufnr, desc="reset hunk" });
+
+        vim.keymap.set('n', '<C-f>hb', function() gs.blame_line{full=true} end, { buffer=bufnr, desc="blame line" });
+
+        vim.keymap.set('n', '<C-f>hd', gs.diffthis) 
+        vim.keymap.set('n', '<C-f>hD', function() gs.diffthis('~') end, { buffer=bufnr, desc="diffthis" });
+
+    end
+}

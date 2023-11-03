@@ -38,7 +38,7 @@ require('mini.jump2d').setup({
 }
 )
 
-minimap = require('mini.move').setup({
+require('mini.move').setup({
     mappings = {
         -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
         left = '<left>',
@@ -88,7 +88,32 @@ minimap.setup({
     },
 })
 
-require("indent_blankline").setup({
-    char = "│",
-    buftype_exclude = {"terminal", "help", "NvimTree"}
+require("ibl").setup({
+  indent = {
+    char = "▎",
+    tab_char = "▎",
+    highlight = { "IndentBlanklineChar" },
+  },
+  whitespace = {
+    remove_blankline_trail = true,
+    highlight = { "IndentBlanklineSpaceChar" },
+  },
+  scope = {
+    enabled = false,
+    char = "▎",
+    show_start = false,
+    show_end = false,
+    highlight = { "IndentBlanklineContextChar" },
+  },
+  exclude = {
+    filetypes = {
+      "FTerm",
+      "Terminal",
+      "help",
+      "packer",
+      "NvimTree",
+      "conf",
+      "alpha",
+    },
+  },
 })

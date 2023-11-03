@@ -21,6 +21,7 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.networkmanager.enable = true;
+  systemd.services.NetworkManager-wait-online.enable = false;
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.firewall.checkReversePath = "loose"; # Tailscale wants this
@@ -45,30 +46,38 @@ in {
   };
 
   # Set your time zone.
-  time.timeZone = "Europe/London";
-  # time.timeZone = "Asia/Hong_Kong";
+  # time.timeZone = "Europe/London";
+  time.timeZone = "Asia/Hong_Kong";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
+  # mgavrilescu 2023-05-12: necesar pt mounting iphone
+  services.usbmuxd = {
+    enable = true;
+    #package = pkgs.usbmuxd2;
+  };
+
   environment.systemPackages = with pkgs; [
-    (pkgs.perlPackages.buildPerlPackage {
-      pname = "Audio-FLAC-Header";
-      version = "2.4";
-      src = pkgs.fetchurl {
-        url =
-          "mirror://cpan/authors/id/D/DA/DANIEL/Audio-FLAC-Header-2.4.tar.gz";
-        sha256 =
-          "fba5911d6c22d81506565cd9a1438e8605420ff7986cf03d1a12d006a4070543";
-      };
-      meta = {
-        description = "Interface to FLAC header metadata";
-        license = with pkgs.lib.licenses; [ artistic1 gpl1Plus ];
-      };
-    })
+    # (pkgs.perlPackages.buildPerlPackage {
+    #   pname = "Audio-FLAC-Header";
+    #   version = "2.4";
+    #   src = pkgs.fetchurl {
+    #     url =
+    #       "mirror://cpan/authors/id/D/DA/DANIEL/Audio-FLAC-Header-2.4.tar.gz";
+    #     sha256 =
+    #       "fba5911d6c22d81506565cd9a1438e8605420ff7986cf03d1a12d006a4070543";
+    #   };
+    #   meta = {
+    #     description = "Interface to FLAC header metadata";
+    #     license = with pkgs.lib.licenses; [ artistic1 gpl1Plus ];
+    #   };
+    # })
 
     vim
     neovim
+    emacs29
+    ledger
 
     ### INTERNET
     # google-chrome
@@ -79,6 +88,7 @@ in {
     git
     mullvad
     tailscale
+    cifs-utils
 
     ### TERMINAL
     bash
@@ -104,13 +114,14 @@ in {
     hledger
 
     ### FILE MANAGEMENT
-    exa
+    lsd
     tree
     vifm
-    # nnn
     ncdu
     rsync
     borgbackup
+
+    onlyoffice-bin
 
     ### IMAGES
     feh
@@ -150,6 +161,10 @@ in {
     linuxPackages.cpupower
     linuxPackages.turbostat
 
+    ### MGV
+    freerdp
+    (factorio.override { versionsJson = "/etc/nixos/factorio-versions.json"; })
+
     ### PROGRAMMING
     gnumake
     sqlite
@@ -178,17 +193,13 @@ in {
 
     ### PYTHON
     python310
-    python-language-server
-    # python310Packages.websockets
+    python310Packages.python-lsp-server
+    python310Packages.openai
     # python310Packages.numpy
     # python310Packages.pandas
     # python310Packages.jupyter
-    # python310Packages.tensorflow
     # python310Packages.pytorch
-    # python310Packages.Keras
     # python310Packages.scikitlearn
-    # python310Packages.matplotlib
-    # python310Packages.seaborn
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

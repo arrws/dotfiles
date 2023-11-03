@@ -114,11 +114,6 @@ local theme = lush(function(injected_functions)
         TabLineFill         {                       },  -- empty tab line color
         TabLineSel          { WildMenu              },  -- active tab text
 
-        -- ---- OpenAI GPT
-        AIIndicator         { fg=t.cyan             },  -- group to color the indicator text
-        AIHighlight         { fg=t.matches          },  -- group to color the text being processed
-
-
         -- ---- Hop
         MiniJump2dSpot      {fg=t.cyan              },
         MiniJump            {fg=t.cyan , gui=t.bo   },
@@ -190,14 +185,31 @@ local theme = lush(function(injected_functions)
         NvimTreeLspDiagnosticsInformation { DiagnosticInfo          },
         NvimTreeLspDiagnosticsWarning     { DiagnosticWarn          },
 
+        
+        -- Ident Blankline
+        IndentBlanklineChar         { fg=t.black.li(20)             },
+        IndentBlanklineSpaceChar    { fg=t.black.li(20)             },
+        IndentBlanklineContextChar  { fg=t.black.li(20)             },
+
         -- Git Signs
+
         GitSignsAdd                 { fg=t.green                    },
         GitSignsChange              { fg=t.yellow                   },
         GitSignsDelete              { fg=t.red                      },
-        GitSignsStagedAdd           { fg=t.green.de(40).li(20)      },
-        GitSignsStagedChange        { fg=t.red.li(20)               },
-        GitSignsStagedDelete        { fg=t.yellow.de(40).li(20)     },
         GitSignsUntracked           { fg=t.blue.de(80).li(20)       },
+        GitSignsCurrentLineBlame    { fg=t.blue.de(90).da(40)       },
+
+        GitSignsAddLine             { GitSignsAdd                   },
+        GitSignsChangeLine          { GitSignsChange                },
+
+        GitSignsAddPreview          { fg=t.green.de(40).li(20)      },
+        GitSignsChangePreview       { fg=t.yellow.de(40).li(20)     },
+        GitSignsDeletePreview       { fg=t.red.li(20)               },
+        
+        GitSignsAddInline           { GitSignsAdd                   },
+        GitSignsChangeInline        { GitSignsChange                },
+        GitSignsDeleteInline        { GitSignsDelete                },
+
 
         -- Inlay Hints
         InlayHints                  { fg=t.green.de(90).da(40)      },

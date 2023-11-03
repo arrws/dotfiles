@@ -9,6 +9,7 @@ end
 require('packer').startup(function()
     use 'wbthomason/packer.nvim'
     use 'nvim-lua/plenary.nvim' -- requiered
+    use 'folke/which-key.nvim'
 
     -- fzf
     use 'nvim-telescope/telescope-live-grep-args.nvim' -- requiered
@@ -30,8 +31,8 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-vsnip' -- requiered
     use 'hrsh7th/vim-vsnip'
 
-    use 'github/copilot.vim'
-    use 'thmsmlr/gpt.nvim'
+    use 'Exafunction/codeium.vim'
+    -- use 'github/copilot.vim'
     
     -- gui
     use 'hoob3rt/lualine.nvim'
@@ -58,6 +59,9 @@ require('packer').startup(function()
     -- Automatically set up your configuration after cloning packer.nvim
     if packer_bootstrap then require('packer').sync() end
 end)
+
+require("which-key").setup()
+require("which-key").register(mappings, opts)
 
 -- Helpers
 function nnoremap(shortcut, command) vim.api.nvim_set_keymap('n', shortcut, command, {noremap = true, silent = true}) end
