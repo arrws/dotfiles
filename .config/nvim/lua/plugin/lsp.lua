@@ -90,11 +90,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- vim.g.copilot_no_tab_map = true
 -- vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 
--- ------  Codeium
-vim.keymap.set('i', '<C-l>', function () return vim.fn['codeium#Accept']() end, { expr = true })
-vim.keymap.set('i', '<C-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-vim.keymap.set('i', '<C-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-vim.keymap.set('i', '<C-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+-- -- ------  Codeium
+-- vim.keymap.set('i', '<C-l>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+-- vim.keymap.set('i', '<C-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+-- vim.keymap.set('i', '<C-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+-- vim.keymap.set('i', '<C-x>', function() return vim.fn['codeium#Clear']() end, { expr = true })
 
 
 
@@ -117,11 +117,11 @@ cmp.setup({
         ['<leader>q'] = cmp.mapping.abort(),
     },
     sources = cmp.config.sources({
-        {name = "nvim_lsp"}, 
+        {name = "nvim_lsp"},
         {name = "vsnip"},
-        {name = "buffer"}, 
-        {name = "path"},
-        {name = "spell"} 
+        {name = "buffer"},
+        -- {name = "path"},
+        {name = "spell"}
     }),
     formatting = { -- to show completion source
         format = function(entry, vim_item)
@@ -129,7 +129,7 @@ cmp.setup({
             vim_item.menu = ({
                 nvim_lsp = "[LSP]",
                 buffer = "[BUF]",
-                path = "[PATH]",
+                -- path = "[PATH]",
                 spell = "[SPELL]"
             })[entry.source.name]
             return vim_item

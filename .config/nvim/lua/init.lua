@@ -1,64 +1,73 @@
 -- bootstrap function
 local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-    packer_bootstrap = fn.system({
-        'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path
+
+local function bootstrap_pckr()
+  local pckr_path = vim.fn.stdpath("data") .. "/pckr/pckr.nvim"
+
+  if not vim.loop.fs_stat(pckr_path) then
+    vim.fn.system({
+      'git',
+      'clone',
+      "--filter=blob:none",
+      'https://github.com/lewis6991/pckr.nvim',
+      pckr_path
     })
+  end
+
+  vim.opt.rtp:prepend(pckr_path)
 end
-require('packer').startup(function()
-    use 'wbthomason/packer.nvim'
-    use 'nvim-lua/plenary.nvim' -- requiered
-    use 'folke/which-key.nvim'
+
+bootstrap_pckr()
+
+require('pckr').add{
+    'nvim-lua/plenary.nvim'; -- requiered
+    'folke/which-key.nvim';
 
     -- fzf
-    use 'nvim-telescope/telescope-live-grep-args.nvim' -- requiered
-    use 'nvim-telescope/telescope-ui-select.nvim'
-    use 'nvim-telescope/telescope.nvim'
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    'nvim-telescope/telescope-live-grep-args.nvim'; -- requiered
+    'nvim-telescope/telescope-ui-select.nvim';
+    'nvim-telescope/telescope.nvim';
+    {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' };
 
     --- LSP
-    use 'neovim/nvim-lspconfig'
-    use 'sbdchd/neoformat'
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    use 'lvimuser/lsp-inlayhints.nvim'
-    
-    -- autocomplete
-    use 'hrsh7th/nvim-cmp'
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-path'
-    use 'hrsh7th/cmp-vsnip' -- requiered
-    use 'hrsh7th/vim-vsnip'
+    'neovim/nvim-lspconfig';
+    'sbdchd/neoformat';
+    {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'};
+    'lvimuser/lsp-inlayhints.nvim';
 
-    use 'Exafunction/codeium.vim'
-    -- use 'github/copilot.vim'
+    -- -- autocomplete
+    'hrsh7th/nvim-cmp';
+    'hrsh7th/cmp-nvim-lsp';
+    'hrsh7th/cmp-buffer';
+    'hrsh7th/cmp-path';
+    'hrsh7th/cmp-vsnip'; -- requiered
+    'hrsh7th/vim-vsnip';
+
+    -- 'Exafunction/codeium.vim'
+    -- 'github/copilot.vim'
     
     -- gui
-    use 'hoob3rt/lualine.nvim'
-    use 'kyazdani42/nvim-tree.lua'              -- sidebar file explorer
-    use 'lewis6991/gitsigns.nvim'               -- git line status on the vertical bar
-    use 'lukas-reineke/indent-blankline.nvim'   -- display thin vertical lines at each indentation level
+    'hoob3rt/lualine.nvim';
+    'kyazdani42/nvim-tree.lua';              -- sidebar file explorer
+    'lewis6991/gitsigns.nvim';               -- git line status on the vertical bar
+    'lukas-reineke/indent-blankline.nvim';   -- display thin vertical lines at each indentation level
 
     -- core 
-    use 'echasnovski/mini.jump'                 -- better f/t jumping
-    use 'echasnovski/mini.jump2d'               -- easy motion like hopping
-    use 'echasnovski/mini.map'                  -- vscode like minimap
-    use 'echasnovski/mini.bufremove'            -- close buffers without closing windows
-    use 'echasnovski/mini.comment'              -- bindings to comment stuff out
-    use 'echasnovski/mini.move'                 -- arrow keys to move visual selection or current line
-    use 'echasnovski/mini.align'                -- alligning text
-    use 'echasnovski/mini.pairs'                -- auto-complete parenthesis
-    use 'echasnovski/mini.trailspace'           -- for trailling whitespace
-    use 'echasnovski/mini.surround'             -- change surrounding elements
+    'echasnovski/mini.jump';                 -- better f/t jumping
+    'echasnovski/mini.jump2d';               -- easy motion like hopping
+    'echasnovski/mini.map';                  -- vscode like minimap
+    'echasnovski/mini.bufremove';            -- close buffers without closing windows
+    'echasnovski/mini.comment';              -- bindings to comment stuff out
+    'echasnovski/mini.move';                 -- arrow keys to move visual selection or current line
+    'echasnovski/mini.align';                -- alligning text
+    'echasnovski/mini.pairs';                -- auto-complete parenthesis
+    'echasnovski/mini.trailspace';           -- for trailling whitespace
+    'echasnovski/mini.surround';             -- change surrounding elements
 
     -- theme
-    use 'rktjmp/lush.nvim'
-    use '~/.config/nvim/lua/lush_theme'
-
-    -- Automatically set up your configuration after cloning packer.nvim
-    if packer_bootstrap then require('packer').sync() end
-end)
+    'rktjmp/lush.nvim';
+    '~/.config/nvim/lua/lush_theme';
+}
 
 require("which-key").setup()
 require("which-key").register(mappings, opts)
