@@ -327,5 +327,6 @@ local theme = lush(function(injected_functions)
         sym"@variable"              { Identifier    },
 
     }
+
 end)
 return theme

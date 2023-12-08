@@ -1,4 +1,3 @@
-
 local colors = {
     black    = "#000000",
     darkgray = "#303030",
