@@ -1,6 +1,9 @@
 return {
 
-    { "folke/which-key.nvim" },
+    { 
+        "folke/which-key.nvim",
+        lazy = true
+    },
 
     {
         "rktjmp/lush.nvim",

@@ -2,6 +2,7 @@ return {
 
     {
         "nvim-treesitter/nvim-treesitter",
+        event = { "BufReadPost", "BufNewFile" },
         opts = {
             highlight = { enable = true },
             indent = { enable = true },
@@ -10,6 +11,7 @@ return {
 
     {
         "sbdchd/neoformat",
+        event = { "BufReadPost", "BufNewFile" },
 
         init = function ()
             vim.g.neoformat_basic_format_align = 1  -- enable alignment
@@ -21,6 +23,7 @@ return {
 
     {
         "neovim/nvim-lspconfig",
+        event = { "BufReadPre", "BufNewFile" },
 
         config = function ()
 
@@ -68,6 +71,7 @@ return {
 
     {
         "lvimuser/lsp-inlayhints.nvim",
+        event = { "BufReadPre", "BufNewFile" },
 
         config = function ()
             vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
