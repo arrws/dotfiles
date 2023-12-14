@@ -15,6 +15,7 @@ paths=(
 
 ".config/bat/themes/xtheme.tmTheme"
 ".config/bat/config"
+".config/lsd/config.yaml"
 
 ".config/vifm/colors/xtheme.vifm"
 ".config/vifm/vifmrc"
@@ -24,16 +25,17 @@ paths=(
 ".config/mpv/input.conf"
 ".config/ncmpcpp/bindings"
 ".config/ncmpcpp/config"
+
 ".config/neofetch/config.conf"
 
 ".xmobarrc"
 ".xmonad/xmonad.hs"
 # ".xmodmaprc"
 
-".fonts/*.ttf"
+# ".fonts/*.ttf"
 
 # ".gitconfig"
-".skynet.png"
+# ".skynet.png"
 )
 
 for item in "${paths[@]}"; do
