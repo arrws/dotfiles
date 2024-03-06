@@ -76,7 +76,7 @@ function git_branch_name() {
 # Config for prompt. PS1 synonym.
 # PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) $(colored_exit_code) %f"
 PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) %f"
-RPROMPT="$G2%D{%H:%M:%S}"
+# RPROMPT="$G2%D{%H:%M:%S}"
 
 
 ### FISH ABBREVIATIONS
@@ -238,7 +238,5 @@ function pretty {
 # vial
 export DISABLE_SUDO_PROMPT=1 # via-keyboard needs this
 alias vial='appimage-run /home/nan/Downloads/Vial-v0.5-x86_64.AppImage'
-
-source ~/.openai_key
 
 export PATH="$PATH:$HOME/.bin:$HOME/.cargo/bin"
