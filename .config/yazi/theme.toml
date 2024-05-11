@@ -4,20 +4,9 @@
 
 # vim:fileencoding=utf-8:foldmethod=marker
 
-# : Flavor {{{
 
 [flavor]
 use = ""
-
-    # black    = "#000000",
-    # darkgray = "#303030",
-    # white    = "#ffffff",
-    # whiteish = "#dadada",
-    # green    = "#99df87 ",
-    # blue     = "#36a3d9",
-    # red      = "#ff5f5f",
-
-# : }}}
 
 # : Manager {{{
 
@@ -39,8 +28,8 @@ marker_marked   = { fg = "lightcyan",   bg = "lightcyan" }
 marker_selected = { fg = "lightyellow", bg = "lightyellow" }
 
 # Tab
-tab_active   = { reversed = true }
-tab_inactive = {}
+tab_active   = { fg = "#dadada", bg = "#202020" } # whiteish
+tab_inactive = { fg = "#888888" }
 tab_width    = 1
 
 # Count
@@ -50,7 +39,7 @@ count_selected = { fg = "white", bg = "yellow" }
 
 # Border
 border_symbol = "▎"
-border_style  = { fg = "#444444", bold = true }
+border_style  = { fg = "#444444", bold = true } # border gray
 
 # Highlighting
 syntect_theme = ""
@@ -98,9 +87,9 @@ inactive = {}
 # : Input {{{
 
 [input]
-border   = { fg = "blue" }
-title    = {}
-value    = {}
+border   = { fg = "#444444" } # border gray
+title    = { bold = true }
+value    = {fg = "#dadada"}
 selected = { reversed = true }
 
 # : }}}
@@ -109,7 +98,7 @@ selected = { reversed = true }
 # : Completion {{{
 
 [completion]
-border   = { fg = "blue" }
+border   = { fg = "#444444" } # border gray
 active   = { reversed = true }
 inactive = {}
 
@@ -124,9 +113,9 @@ icon_command = ""
 # : Tasks {{{
 
 [tasks]
-border  = { fg = "blue" }
+border   = { fg = "#444444" } # border gray
 title   = {}
-hovered = { fg = "magenta", underline = true }
+hovered = { fg = "lightmagenta" }
 
 # : }}}
 

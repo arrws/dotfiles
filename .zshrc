@@ -156,8 +156,11 @@ function cl { builtin cd "$1" && ls; }
 alias ..='cd ..'
 alias cd..='cd ..'
 
+alias icat='kitty +kitten icat --place=40x40@132x0'
+alias p='python3'
+
 # yazi shell wrapper to change current dir
-function y() {
+function r() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
@@ -171,10 +174,6 @@ function y() {
 if command -v nvim &>/dev/null; then
     alias v='nvim'
 fi
-
-alias icat='kitty +kitten icat --place=40x40@132x0'
-alias r='vifm .'
-alias p='python3'
 
 
 # FZF

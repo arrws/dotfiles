@@ -17,7 +17,7 @@ brew install \
     curl \
     git-delta \
     neovim \
-    vifm \
+    yazi \
     htop \
     jq \
     procs \
@@ -29,7 +29,7 @@ brew install \
     ledger \
     cmatrix
 
-bat cache --build1
+bat cache --build
 
 # in neovim
 :TSInstall rust python markdown bash lua nix proto yaml ledger
