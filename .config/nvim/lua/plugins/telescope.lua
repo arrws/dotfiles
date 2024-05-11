@@ -32,21 +32,28 @@ return {
             local builtin = require('telescope.builtin')
             local live_grep_args = require("telescope").load_extension "live_grep_args"
 
+            -- file pickers
             vim.keymap.set('n', '<C-f>f', builtin.find_files,           {desc= "find files"})
-            vim.keymap.set('n', '<C-f>F', builtin.oldfiles,             {desc= "find old files"})
-            vim.keymap.set('n', '<C-f>g', live_grep_args.live_grep_raw, {desc= "grep"}) -- live rg (accepts args)
+            vim.keymap.set('n', '<C-f>F', builtin.git_files,            {desc= "find files respect .gitignore"})
 
-            vim.keymap.set('n', '<C-f>b', builtin.buffers,              {desc= "buffers"})
-            vim.keymap.set('n', '<C-f>q', builtin.quickfix,             {desc= "quickfix"})
-            vim.keymap.set('n', '<C-f>m', builtin.marks,                {desc= "marks"})
-            vim.keymap.set('n', '<C-f>y', builtin.registers,            {desc= "registers"})
-            vim.keymap.set('n', '<C-f>z', builtin.spell_suggest,        {desc= "spell_suggest"})
+            vim.keymap.set('n', '<C-f>g', live_grep_args.live_grep_raw, {desc= "live rip grep"}) -- live ripgrep (accepts args)
+            vim.keymap.set('n', '<C-f>G', builtin.resume,               {desc= "resume"})
             vim.keymap.set('n', '<C-f>c', builtin.commands,             {desc= "commands"})
 
+            vim.keymap.set('n', '<C-f>b', builtin.buffers,              {desc= "buffers"})
+            vim.keymap.set('n', '<C-f>B', builtin.oldfiles,             {desc= "old files"})
+
+            vim.keymap.set('n', '<C-f>q', builtin.quickfix,             {desc= "quickfix"})
+            vim.keymap.set('n', '<C-f>m', builtin.marks,                {desc= "marks"})
+            vim.keymap.set('n', '<C-f>h', builtin.marks,                {desc= "marks"})
+            vim.keymap.set('n', '<C-f>y', builtin.registers,            {desc= "registers"})
+            vim.keymap.set('n', '<C-f>z', builtin.spell_suggest,        {desc= "spell_suggest"})
+
+            -- lsp pickers
             vim.keymap.set('n', '<C-f>w', builtin.lsp_document_symbols, {desc= "doc symbols"})      -- LSP document symbols in the current buffer
             vim.keymap.set('n', '<C-f>W', builtin.lsp_workspace_symbols,{desc= "ws symbols"})       -- LSP document symbols in the current workspace
-            vim.keymap.set('n', '<C-f>D', builtin.diagnostics,          {desc= "all diagnostics"})  -- Diagnostics for all open buffers or a specific buffer. Use option bufnr=0 for current buffer.
-            -- vim.keymap.set('n', '<C-f>t', builtin.treesitter,           {desc= "treesitter symbols"})   -- Function names, variables, from Treesitter!
+            vim.keymap.set('n', '<C-f>D', builtin.diagnostics,          {desc= "all diagnostics"})  -- Diagnostics for all open buffers or specific buffer. Use bufnr=0 for current buffer.
+            vim.keymap.set('n', '<C-f>t', builtin.treesitter,           {desc= "treesitter symbols"})   -- Function names, variables, from Treesitter!
         end,
 
         opts = function()

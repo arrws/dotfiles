@@ -1,41 +1,20 @@
 #!/usr/bin/env bash
 
-# "/etc/nixos/configuration.nix"
-
 paths=(
-".bin/*.sh"
+".bin/"
 
 ".zshrc"
-".profile"
-".config/kitty/kitty.conf"
+".gitconfig"
 
-".config/nvim/colors/"
-".config/nvim/init.vim"
-".config/nvim/lua/"
+".config/kitty/"
+".config/bat/"
+".config/lsd/"
 
-".config/bat/themes/xtheme.tmTheme"
-".config/bat/config"
-".config/lsd/config.yaml"
+".config/nvim/"
+".config/yazi/*.toml"
+".config/neofetch/"
 
-".config/vifm/colors/xtheme.vifm"
-".config/vifm/vifmrc"
-
-".config/feh/keys"
-".config/mpd/mpd.conf"
-".config/mpv/input.conf"
-".config/ncmpcpp/bindings"
-".config/ncmpcpp/config"
-
-".config/neofetch/config.conf"
-
-".xmobarrc"
-".xmonad/xmonad.hs"
-# ".xmodmaprc"
-
-# ".fonts/*.ttf"
-
-# ".gitconfig"
-# ".skynet.png"
+".skynet.png"
 )
 
 for item in "${paths[@]}"; do
@@ -53,7 +32,7 @@ echo ""
 
 if [[ "$ok" == "B" ]]; then
     GITPWD=$(pwd)
-    cd $HOME && rsync -avR ${args} $GITPWD && cd $GITPWD
+    cd $HOME && rsync -avR --del ${args} $GITPWD && cd $GITPWD
     echo "DONE"
 elif [[ "$ok" == "C" ]]; then
     echo "to copy to local run:"

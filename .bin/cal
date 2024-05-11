@@ -1,0 +1,8 @@
+#!/bin/sh
+# Colored yearly calendar
+/opt/homebrew/opt/util-linux/bin/cal -wym $@ | perl -p -E '
+   sub col { "\033\[38;5;$_[0]m$1\033\[0m" }
+   s/^(.\d)/col 241/ge;
+   s/   \K( [2-9]|\d\d) /col(241).q( )/ge;
+   /y|er/ && s/^(.+)$/col 12/ge;
+   /Mo Tu/ && s/^(.+)$/col 6/ge'

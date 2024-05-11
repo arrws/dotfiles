@@ -17,6 +17,16 @@
 [interactive]
     diffFilter = delta --features=xtheme
 
+[delta]
+    navigate = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+
 [delta "xtheme"]
     line-numbers=true
     line-numbers-left-format="{nm:>2}:"

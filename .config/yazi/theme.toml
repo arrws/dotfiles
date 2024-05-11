@@ -1,0 +1,209 @@
+# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
+# If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
+"$schema" = "https://yazi-rs.github.io/schemas/theme.json"
+
+# vim:fileencoding=utf-8:foldmethod=marker
+
+# : Flavor {{{
+
+[flavor]
+use = ""
+
+    # black    = "#000000",
+    # darkgray = "#303030",
+    # white    = "#ffffff",
+    # whiteish = "#dadada",
+    # green    = "#99df87 ",
+    # blue     = "#36a3d9",
+    # red      = "#ff5f5f",
+
+# : }}}
+
+# : Manager {{{
+
+[manager]
+cwd = { fg = "#999999" }
+
+# Hovered
+hovered         = { reversed = true }
+preview_hovered = { underline = true }
+
+# Find
+find_keyword  = { fg = "black", bg = "yellow", bold = true }
+find_position = { bg = "reset", italic = true }
+
+# Marker
+marker_copied   = { fg = "lightgreen",  bg = "lightgreen" }
+marker_cut      = { fg = "lightred",    bg = "lightred" }
+marker_marked   = { fg = "lightcyan",   bg = "lightcyan" }
+marker_selected = { fg = "lightyellow", bg = "lightyellow" }
+
+# Tab
+tab_active   = { reversed = true }
+tab_inactive = {}
+tab_width    = 1
+
+# Count
+count_copied   = { fg = "white", bg = "green" }
+count_cut      = { fg = "white", bg = "red" }
+count_selected = { fg = "white", bg = "yellow" }
+
+# Border
+border_symbol = "▎"
+border_style  = { fg = "#444444", bold = true }
+
+# Highlighting
+syntect_theme = ""
+
+# : }}}
+
+
+# : Status {{{
+
+[status]
+separator_open  = "█"
+separator_close = "█"
+separator_style = { fg = "gray", bg = "gray" }
+
+# Mode
+mode_normal = { bg = "#36a3d9", fg = 'black', bold = false } # blue
+mode_select = { bg = "#ff5f5f", bold = false } # red
+mode_unset  = { bg = "#ff5f5f", bold = false } # red
+
+# Progress
+progress_label  = { bold = true }
+progress_normal = { fg = "#36a3d9", bg = "black" } # blue
+progress_error  = { fg = "red", bg = "black" }
+
+# Permissions
+permissions_t = { fg = "green" }
+permissions_r = { fg = "yellow" }
+permissions_w = { fg = "red" }
+permissions_x = { fg = "cyan" }
+permissions_s = { fg = "darkgray" }
+
+# : }}}
+
+
+# : Select {{{
+
+[select]
+border   = { fg = "blue" }
+active   = { fg = "magenta", bold = true }
+inactive = {}
+
+# : }}}
+
+
+# : Input {{{
+
+[input]
+border   = { fg = "blue" }
+title    = {}
+value    = {}
+selected = { reversed = true }
+
+# : }}}
+
+
+# : Completion {{{
+
+[completion]
+border   = { fg = "blue" }
+active   = { reversed = true }
+inactive = {}
+
+# Icons
+icon_file    = ""
+icon_folder  = ""
+icon_command = ""
+
+# : }}}
+
+
+# : Tasks {{{
+
+[tasks]
+border  = { fg = "blue" }
+title   = {}
+hovered = { fg = "magenta", underline = true }
+
+# : }}}
+
+
+# : Which {{{
+
+[which]
+cols            = 3
+mask            = { bg = "black" }
+cand            = { fg = "#99df87", bg = "#202020"  } # green
+rest            = { }
+desc            = { fg =  "#aaaaaa", bg = "#202020"  } # like the status bar : help in vim
+separator       = " "
+separator_style = { bg = "#202020" }
+
+# : }}}
+
+
+# : Help {{{
+
+[help]
+on      = { fg = "#99df87" } # green
+run     = { fg = "#dadada" } # whiteish
+desc    = {}
+hovered = { reversed = true, bold = true }
+footer  = { fg = "black", bg = "white" }
+
+# : }}}
+
+
+# : Notify {{{
+
+[notify]
+title_info  = { fg = "green" }
+title_warn  = { fg = "yellow" }
+title_error = { fg = "red" }
+
+# Icons
+icon_info  = ""
+icon_warn  = ""
+icon_error = ""
+
+# : }}}
+
+
+# : File-specific styles {{{
+
+[filetype]
+
+rules = [
+	# Images
+	{ mime = "image/*", fg = "lightcyan" },
+	{ mime = "{audio,video}/*", fg = "lightcyan" },
+
+	# Archives
+	{ mime = "application/*zip", fg = "lightmagenta" },
+	{ mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", fg = "lightmagenta" },
+
+	# Documents
+	{ mime = "application/{pdf,doc,rtf,vnd.*}", fg = "darkgray" },
+
+	# Fallback
+    { name = "*/", fg = "#99df87" }, # green
+	{ name = "*", fg = "#dadada" }, # whiteish
+]
+
+[icon]
+
+prepend_rules = [
+	{ name = "*" , text = " " },
+	{ name = "*/", text = "◼", fg = "#666666" },
+]
+
+rules = [
+
+	{ name = "*" , text = " " },
+	{ name = "*/", text = "◼", fg = "#99df87" },
+]
+
+# : }}}

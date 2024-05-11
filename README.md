@@ -1,29 +1,37 @@
 # dotfiles
 
-sudo apt install curl gcc make rsync git
+# install brew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-kitty:
+# install kitty
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
-xmonad:
-sudo apt install xmonad libghc-xmonad-contrib-dev libghc-xmonad-dev suckless-tools
+brew install \
+    rsync \
+    git \
+    lsd \
+    bat \
+    ripgrep \
+    fd \
+    sd \
+    curl \
+    git-delta \
+    neovim \
+    vifm \
+    htop \
+    jq \
+    procs \
+    gcc \
+    make \
+    util-linux \
+    unzip \
+    neofetch \
+    ledger \
+    cmatrix
 
-rust:
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-cargo install exa fd-find ripgrep bat git-delta
+bat cache --build1
 
-rust-analyzer:
-rustup component add rust-src
-rustup component add rust-analyzer
-
-
-
-fzf (don't add to dotfiles):
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-
-nvim needs gcc make for fzf
-
-:TSInstall rust python markdown bash lua nix proto
+# in neovim
+:TSInstall rust python markdown bash lua nix proto yaml ledger
 
 

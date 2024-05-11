@@ -93,7 +93,7 @@ function abbrev-alias() {
 
 # expand any aliases in the current line buffer
 function expand-ealias() {
-    if [[ $LBUFFER =~ "\<(${(j:|:)ealiases})\$" ]]; then
+    if [[ $LBUFFER =~ "^(${(j:|:)ealiases})\$" ]]; then
         zle _expand_alias
         zle expand-word
     fi
@@ -117,6 +117,8 @@ zle -N accept-line expand-alias-and-accept-line
 
 ### ABBREVIATIONS
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # git
 abbrev-alias g='git'
 abbrev-alias gs='git status'
@@ -126,26 +128,10 @@ abbrev-alias gd='git diff'
 abbrev-alias gl='git log'
 abbrev-alias ga='git add'
 
-# kubernetes
-abbrev-alias k='kubectl'
-abbrev-alias kg='kubectl get'
-abbrev-alias kgp='kubectl get pods'
-abbrev-alias kgd='kubectl get deployments'
-abbrev-alias kd='kubectl describe'
-abbrev-alias kdp='kubectl describe pod'
-abbrev-alias kdd='kubectl describe deployment'
-abbrev-alias kl='kubectl logs'
-abbrev-alias kgpr='kubectl get pods | rg'
-
-# nix
-abbrev-alias nup='sudo nixos-rebuild switch --upgrade'
-abbrev-alias nre='sudo nixos-rebuild switch'
-abbrev-alias nx='nix-shell'
-
 
 ### ALIASES
 
-# ls -> exa
+# ls -> lsd
 if command -v lsd &> /dev/null; then
     alias l='lsd'
     alias ls='lsd'
@@ -153,50 +139,49 @@ if command -v lsd &> /dev/null; then
 fi
 
 # cat -> bat
+# run: bat cache --build
 if command -v bat &>/dev/null; then
-    alias cat='bat -p --paging=never'
+    export BAT_THEME="xtheme"
+    alias cat='bat --paging never --decorations never'
 fi
+
 
 # core
 alias cp='cp -Riv'
 alias mv='mv -iv'
 alias rm='rm -riv'
 alias mkdir='mkdir -p'
-d() { builtin cd "$1" && exa; }
+
+function cl { builtin cd "$1" && ls; }
 alias ..='cd ..'
 alias cd..='cd ..'
-alias cl='printf "\033c"' # actually clear text from the terminal
+
+# yazi shell wrapper to change current dir
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
 
 # neovim
-if test -f ~/nvim.appimage; then
-    alias v='~/nvim.appimage'
-else
+if command -v nvim &>/dev/null; then
     alias v='nvim'
 fi
 
-# apps
 alias icat='kitty +kitten icat --place=40x40@132x0'
-alias feh='feh --scale-down'
-alias mupdf='mupdf-x11'
 alias r='vifm .'
-alias n='ncmpcpp'
 alias p='python3'
-alias ghc='ghc -dynamic -no-keep-hi-files -no-keep-o-files -o o'
-
-alias hledgerplot="sed 's/.*|| *//' | awk '!(NR==1||NR==2||NR==4)' | tr -d \&- | cut -f 2- -d ' ' | sed 's/|/ /g'"
-alias awkplot='awk -f .scripts/plot.awk | rsvg-convert -f png -z 2.0 | kitty +kitten icat --align left'
 
 
 # FZF
-export FZF_DEFAULT_COMMAND='rg --files --hidden --no-ignore-vcs --vimgrep --glob=\!.git'
+export FZF_DEFAULT_COMMAND='rg --files --hidden' # --no-ignore-vcs --vimgrep --glob=\!.git'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --bind=ctrl-j:accept,ctrl-k:kill-line'
-if command -v fzf-share &>/dev/null; then
-    source "$(fzf-share)/key-bindings.zsh"
-    source "$(fzf-share)/completion.zsh"
-else
-    [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-fi
+eval "$(fzf --zsh)"
 
 
 # help
@@ -204,39 +189,7 @@ bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
 alias helpvim='bat ~/codex/vim*'
 function help { curl cheat.sh/$1 }
 
-# colored calendar
-function calx {
-    cal -wym --color=always $@ | perl -p -E '
-       sub col { "\033\[38;5;$_[0]m$1\033\[0m" }
-       s/^(.\d)/col 241/ge;
-       s/   \K( [2-9]|\d\d) /col(241).q( )/ge;
-       /y|er/ && s/^(.+)$/col 12/ge;
-       /Mo Tu/ && s/^(.+)$/col 6/ge'
-}
 
-# Colored output in man pages
-function man {
-    LESS_TERMCAP_md=$'\e[38;5;219m' \
-    LESS_TERMCAP_ue=$'\e[0m' \
-    LESS_TERMCAP_me=$'\e[0m' \
-    LESS_TERMCAP_se=$'\e[0m' \
-    LESS_TERMCAP_so=$'\e[01;44;33m' \
-    LESS_TERMCAP_us=$'\e[01;32m' \
-    command man "$@"
-}
+export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:/Users/nan/.bin"
 
-
-# kubectl autocomplete
-command -v kubectl &> /dev/null && source <(kubectl completion zsh)
-
-alias pretty_error='xclip -o | xargs -0 echo -e'
-alias pretty_csv='sed "s/\"//g"| column -t -s,'
-function pretty {
-    poetry run black "$1" && poetry run isort "$1" && poetry run flake8 "$1";
-}
-
-# vial
-export DISABLE_SUDO_PROMPT=1 # via-keyboard needs this
-alias vial='appimage-run /home/nan/Downloads/Vial-v0.5-x86_64.AppImage'
-
-export PATH="$PATH:$HOME/.bin:$HOME/.cargo/bin"

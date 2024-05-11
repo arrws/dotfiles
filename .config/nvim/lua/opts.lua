@@ -1,5 +1,6 @@
 vim.cmd([[
 filetype plugin indent on
+set nofoldenable
 ]])
 
 vim.opt.syntax = 'on'
@@ -76,7 +77,6 @@ vim.keymap.set('i', 'jk', '<esc>')
 vim.keymap.set('', 'J', '}', noremap)
 vim.keymap.set('', 'K', '{', noremap)
 
-
 -- redo with U instead of Ctrl+R
 vim.keymap.set('n', 'U', '<C-R>', noremap)
 vim.keymap.set('n', '<C-R>', 'Nup', noremap)
@@ -113,6 +113,63 @@ augroup YankHighlight
 augroup end
 ]])
 
+
+------ MARKS
+-- use only global marks - it's stupid but it works
+
+vim.keymap.set('n', 'ma', 'mA', noremap)
+vim.keymap.set('n', 'mb', 'mB', noremap)
+vim.keymap.set('n', 'mc', 'mC', noremap)
+vim.keymap.set('n', 'md', 'mD', noremap)
+vim.keymap.set('n', 'me', 'mE', noremap)
+vim.keymap.set('n', 'mf', 'mF', noremap)
+vim.keymap.set('n', 'mg', 'mG', noremap)
+vim.keymap.set('n', 'mh', 'mH', noremap)
+vim.keymap.set('n', 'mi', 'mI', noremap)
+vim.keymap.set('n', 'mj', 'mJ', noremap)
+vim.keymap.set('n', 'mk', 'mK', noremap)
+vim.keymap.set('n', 'ml', 'mL', noremap)
+vim.keymap.set('n', 'mm', 'mM', noremap)
+vim.keymap.set('n', 'mn', 'mN', noremap)
+vim.keymap.set('n', 'mo', 'mO', noremap)
+vim.keymap.set('n', 'mp', 'mP', noremap)
+vim.keymap.set('n', 'mq', 'mQ', noremap)
+vim.keymap.set('n', 'mr', 'mR', noremap)
+vim.keymap.set('n', 'ms', 'mS', noremap)
+vim.keymap.set('n', 'mt', 'mT', noremap)
+vim.keymap.set('n', 'mu', 'mU', noremap)
+vim.keymap.set('n', 'mv', 'mV', noremap)
+vim.keymap.set('n', 'mw', 'mW', noremap)
+vim.keymap.set('n', 'mx', 'mX', noremap)
+vim.keymap.set('n', 'my', 'mY', noremap)
+vim.keymap.set('n', 'mz', 'mZ', noremap)
+
+vim.keymap.set('n', '\'a', '\'A', noremap)
+vim.keymap.set('n', '\'b', '\'B', noremap)
+vim.keymap.set('n', '\'c', '\'C', noremap)
+vim.keymap.set('n', '\'d', '\'D', noremap)
+vim.keymap.set('n', '\'e', '\'E', noremap)
+vim.keymap.set('n', '\'f', '\'F', noremap)
+vim.keymap.set('n', '\'g', '\'G', noremap)
+vim.keymap.set('n', '\'h', '\'H', noremap)
+vim.keymap.set('n', '\'i', '\'I', noremap)
+vim.keymap.set('n', '\'j', '\'J', noremap)
+vim.keymap.set('n', '\'k', '\'K', noremap)
+vim.keymap.set('n', '\'l', '\'L', noremap)
+vim.keymap.set('n', '\'m', '\'M', noremap)
+vim.keymap.set('n', '\'n', '\'N', noremap)
+vim.keymap.set('n', '\'o', '\'O', noremap)
+vim.keymap.set('n', '\'p', '\'P', noremap)
+vim.keymap.set('n', '\'q', '\'Q', noremap)
+vim.keymap.set('n', '\'r', '\'R', noremap)
+vim.keymap.set('n', '\'s', '\'S', noremap)
+vim.keymap.set('n', '\'t', '\'T', noremap)
+vim.keymap.set('n', '\'u', '\'U', noremap)
+vim.keymap.set('n', '\'v', '\'V', noremap)
+vim.keymap.set('n', '\'w', '\'W', noremap)
+vim.keymap.set('n', '\'x', '\'X', noremap)
+vim.keymap.set('n', '\'y', '\'Y', noremap)
+vim.keymap.set('n', '\'z', '\'Z', noremap)
 
 
 ------ MOVEMENT

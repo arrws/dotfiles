@@ -1,0 +1,11 @@
+[ manager ]
+
+linemode = "mtime"
+show_symlink = true
+
+[plugin]
+
+#  git clone https://github.com/mgumz/yazi-plugin-bat.git ~/.config/yazi/plugins/bat.yazi
+prepend_previewers = [
+	{ mime = "text/*"    , exec = "bat" },
+]
