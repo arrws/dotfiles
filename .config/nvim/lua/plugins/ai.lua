@@ -1,4 +1,5 @@
-return {
+return {}
+-- return {
 --     {
 --         "github/copilot.vim",
 --         lazy = false,
@@ -189,4 +190,4 @@ return {
 --             )
 --         end,
 --     },
-}
+-- }

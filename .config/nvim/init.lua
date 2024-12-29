@@ -80,7 +80,7 @@ require("lazy").setup("plugins", {
         frequency = 3600,   -- check for updates every hour
     },
     change_detection = {
-        enabled = true,     -- automatically check for config file changes and reload the ui
+        enabled = false,     -- automatically check for config file changes and reload the ui
         notify = true,      -- get a notification when changes are found
     },
 })

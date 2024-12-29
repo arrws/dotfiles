@@ -1,5 +1,9 @@
 ### ZSH CONFIG
 
+export DYLD_LIBRARY_PATH=/opt/homebrew/Cellar/libssh2/1.11.0_1/lib/
+export OPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl@3/
+export CFLAGS="-Wno-incompatible-pointer-types"
+
 # Enable substitution in the prompt.
 setopt prompt_subst
 setopt autocd autopushd
@@ -8,7 +12,7 @@ export CLICOLOR=1
 export COLORTERM="truecolor"
 
 # command history
-export HISTSIZE=1000
+export HISTSIZE=5000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
 setopt hist_ignore_all_dups
@@ -33,6 +37,7 @@ bindkey '^N' menu-select
 # hack for kitty ctrl-backspace
 bindkey '^Q' backward-kill-word
 
+unsetopt autocd
 
 ### TERMINAL OPTIONS
 
@@ -156,11 +161,12 @@ function cl { builtin cd "$1" && ls; }
 alias ..='cd ..'
 alias cd..='cd ..'
 
-alias icat='kitty +kitten icat --place=40x40@132x0'
+
 alias p='python3'
 
+
 # yazi shell wrapper to change current dir
-function r() {
+function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
 	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
@@ -175,6 +181,14 @@ if command -v nvim &>/dev/null; then
     alias v='nvim'
 fi
 
+alias cube='cd /Users/nan/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/cube; v what.md'
+
+abbrev-alias config_zsh='cd /Users/nan/ ; v .zshrc'
+abbrev-alias config_vim='cd /Users/nan/.config/nvim/ ; v init.lua'
+abbrev-alias config_kitty='cd /Users/nan/.config/kitty/ ; v kitty.conf'
+abbrev-alias config_yazi='cd /Users/nan/.config/yazi/ ; v keymap.toml'
+abbrev-alias config_lsd='cd /Users/nan/.config/lsd/ ; v config.yaml'
+abbrev-alias config_bat='cd /Users/nan/.config/bat/ ; v config'
 
 # FZF
 export FZF_DEFAULT_COMMAND='rg --files --hidden' # --no-ignore-vcs --vimgrep --glob=\!.git'
@@ -182,13 +196,10 @@ export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --bind=ctrl-j:accept,ctrl-k:kill-line'
 eval "$(fzf --zsh)"
 
-
 # help
-bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
-alias helpvim='bat ~/codex/vim*'
+# bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
+# alias helpvim='bat ~/codex/vim*'
 function help { curl cheat.sh/$1 }
 
-
-export PATH="$PATH:/usr/local/bin"
-export PATH="$PATH:/Users/nan/.bin"
+export PATH="/Users/nan/.bin:$PATH:/usr/local/bin"
 

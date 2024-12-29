@@ -36,11 +36,11 @@ keymap = [
 	{ on = [ "G" ],      run = "arrow 99999999",  desc = "Move cursor to the bottom" },
 
 	# Selection
-	{ on = [ "<Space>" ], run = [ "select --state=none", "arrow 1" ], desc = "Toggle the current selection state" },
+	{ on = [ "<Space>" ], run = [ "toggle --state=none", "arrow 1" ], desc = "Toggle the current selection state" },
 	{ on = [ "v" ],       run = "visual_mode",                        desc = "Enter visual mode (selection mode)" },
 	{ on = [ "V" ],       run = "visual_mode --unset",                desc = "Enter visual mode (unset mode)" },
-	{ on = [ "<C-a>" ],   run = "select_all --state=true",            desc = "Select all files" },
-	{ on = [ "<C-r>" ],   run = "select_all --state=none",            desc = "Inverse selection of all files" },
+	{ on = [ "<C-a>" ],   run = "toggle_all --state=true",            desc = "Select all files" },
+	{ on = [ "<C-r>" ],   run = "toggle_all --state=none",            desc = "Inverse selection of all files" },
 
 	# Operation
 	{ on = [ "o" ],         run = "open",                       desc = "Open the selected files" },
@@ -64,10 +64,10 @@ keymap = [
 	{ on = [ "." ],         run = "hidden toggle",              desc = "Toggle the visibility of hidden files" },
 
     # Searching
-	{ on = [ "<C-f>" ],         run = "plugin fzf",                 desc = "Jump to a directory, or reveal a file using fzf" },
-	{ on = [ "F" ],         run = "search fd",                  desc = "Search files by name using fd" },
-	{ on = [ "G" ],         run = "search rg",                  desc = "Search files by content using ripgrep" },
-	{ on = [ "<delete>" ],     run = "search none",             desc = "Cancel the ongoing search" },
+	{ on = [ "<C-f>" ],     run = "plugin fzf",                 desc = "Jump to a directory, or reveal a file using fzf" },
+	# { on = [ "F" ],         run = "search fd",                  desc = "Search files by name using fd" },
+	# { on = [ "G" ],         run = "search rg",                  desc = "Search files by content using ripgrep" },
+	{ on = [ "<delete>" ],  run = "search none",                desc = "Cancel the ongoing search" },
 
 	# Copy
 	{ on = [ "g", "y" ], run = "copy path",             desc = "Copy the absolute path" },
@@ -122,7 +122,7 @@ keymap = [
 
 	# Goto
 	{ on = [ "g", "h" ],       run = "cd ~",             desc = "Go to the home directory" },
-	{ on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
+	# { on = [ "g", "<Space>" ], run = "cd --interactive", desc = "Go to a directory interactively" },
 
 	# Help
 	{ on = [ "~" ], run = "help", desc = "Open help" },

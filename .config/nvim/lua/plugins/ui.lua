@@ -1,22 +1,4 @@
 return {
-
-    { 
-        "folke/which-key.nvim",
-        lazy = true
-    },
-
-    {
-        "rktjmp/lush.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.opt.termguicolors = true
-            vim.opt.background = "dark"
-            -- include theme file and pass it to lush to apply
-            require "lush"(require "colors.xtheme_lush")
-        end,
-    },
-
     {
         "nvim-lualine/lualine.nvim",
         opts = {
@@ -46,5 +28,17 @@ return {
             tabline = {},
             extensions = {},
         },
+    },
+
+    {
+        "rktjmp/lush.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.opt.termguicolors = true
+            vim.opt.background = "dark"
+            -- include theme file and pass it to lush to apply
+            require "lush"(require "colors.xtheme_lush")
+        end,
     },
 }

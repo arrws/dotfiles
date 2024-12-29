@@ -1,11 +1,11 @@
 return {
-
     {
         "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPost", "BufNewFile" },
         opts = {
             highlight = { enable = true },
             indent = { enable = true },
+            ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "python", "sql", "rust", "regex", "ledger", "bash"},
         },
     },
 
@@ -22,6 +22,10 @@ return {
                     python = { "ruff_fix", "ruff_format", "yapf" },
                     nix = { "nixfmt" },
                     rust = { "rustfmt" },
+                    -- run on all filetypes
+                    ["*"] = { "codespell" },
+                    -- to on filetypes that don't have other formatters configured
+                    ["_"] = { "trim_whitespace" },
                 },
             }
         end,
@@ -112,51 +116,5 @@ return {
                 }
             end
         end,
-    },
-
-    {
-        "lvimuser/lsp-inlayhints.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-
-        config = function()
-            vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
-            vim.api.nvim_create_autocmd("LspAttach", {
-                group = "LspAttach_inlayhints",
-                callback = function(args)
-                    if not (args.data and args.data.client_id) then
-                        return
-                    end
-
-                    local bufnr = args.buf
-                    local client = vim.lsp.get_client_by_id(args.data.client_id)
-                    require("lsp-inlayhints").on_attach(client, bufnr)
-                end,
-            })
-        end,
-
-        opts = {
-            inlay_hints = {
-                parameter_hints = {
-                    show = false,
-                    prefix = "« ",
-                    separator = ", ",
-                    remove_colon_start = false,
-                    remove_colon_end = true,
-                },
-                type_hints = {
-                    -- type and other hints
-                    show = true,
-                    prefix = "» ",
-                    separator = ", ",
-                    remove_colon_start = false,
-                    remove_colon_end = false,
-                },
-                only_current_line = false,
-                highlight = "InlayHints",
-                priority = 0,
-            },
-            enabled_at_startup = true,
-            debug_mode = false,
-        },
     },
 }
