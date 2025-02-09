@@ -4,16 +4,14 @@
 
 # vim:fileencoding=utf-8:foldmethod=marker
 
-
 [flavor]
 use = ""
-
 
 [manager]
 cwd = { fg = "#999999" }
 
 # Hovered
-hovered         = { reversed = true }
+hovered         = { fg = "white", bg = "#444444" }
 preview_hovered = { underline = false }
 
 # Find

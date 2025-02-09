@@ -1,59 +1,27 @@
 return {
     {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        event = { "BufReadPost", "BufNewFile" },
-        opts = {
-            indent = {
-                char = "▎",
-                tab_char = "▎",
-                highlight = { "IndentBlanklineChar" },
-            },
-            whitespace = {
-                remove_blankline_trail = true,
-                highlight = { "IndentBlanklineSpaceChar" },
-            },
-            scope = {
-                enabled = false,
-                char = "▎",
-                show_start = false,
-                show_end = false,
-                highlight = { "IndentBlanklineContextChar" },
-            },
-            exclude = {
-                filetypes = {
-                    "FTerm",
-                    "Terminal",
-                    "help",
-                    "packer",
-                    "NvimTree",
-                    "conf",
-                    "alpha",
-                },
-            },
-        },
-    },
-
-    {
-        "chentoast/marks.nvim",
-        event = "VeryLazy",
+        -- :lua MiniDiff.toggle_overlay()
+        "echasnovski/mini.diff",
+        event = { "BufReadPre", "BufNewFile" },
+        version = false,
         config = function()
-            require("marks").setup({
-                  -- whether to map keybinds or not. default true
-                  default_mappings = false,
-                  -- which builtin marks to show. default {}
-                  builtin_marks = {  ".", "<", ">", "^" },
-                  -- whether movements cycle back to the beginning/end of buffer. default true
-                  cyclic = true,
-                  -- whether the shada file is updated after modifying uppercase marks. default false
-                  force_write_shada = false,
-                  -- how often (in ms) to redraw signs/recompute mark positions. 
-                  -- higher values will have better performance but may cause visual lag, 
-                  -- while lower values may cause performance penalties. default 150.
-                  refresh_interval = 250,
-                  mappings = {}
-              }
-            )
+            require("mini.diff").setup {
+                view = {
+                    style = "sign", -- "number"
+                    signs = { add = "+", change = ">", delete = "-" },
+                },
+                mappings = {
+                    apply = "gh", -- visual
+                    reset = "gH",
+
+                    textobject = "gh",
+
+                    goto_first = "[H",
+                    goto_prev = "[h",
+                    goto_next = "]h",
+                    goto_last = "]H",
+                },
+            }
         end,
     },
 
@@ -63,10 +31,10 @@ return {
 
     { "echasnovski/mini.pairs" },
 
-    { "echasnovski/mini.align",
+    {
+        "echasnovski/mini.align",
         config = function()
-            require("mini.align").setup({
-            })
+            require("mini.align").setup {}
         end,
     },
 
@@ -156,5 +124,4 @@ return {
             },
         },
     },
-
 }

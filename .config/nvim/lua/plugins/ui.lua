@@ -1,10 +1,53 @@
 return {
     {
+        "hat0uma/csvview.nvim",
+        config = function()
+            require("csvview").setup()
+        end,
+    },
+
+    {
+        "max397574/colortils.nvim",
+        cmd = "Colortils",
+        config = function()
+            require("colortils").setup {
+                register = "*", -- register
+                default_format = "hex", -- hex, hsl or rgb
+                color_preview = "████ %s",
+                border = "single",
+                mappings = {
+                    increment = "l",
+                    decrement = "h",
+                    increment_big = "L",
+                    decrement_big = "H",
+                    min_value = "0",
+                    max_value = "$",
+                    set_register_default_format = "g<cr>",
+                    -- set_register_choose_format = "g<cr>",
+                    replace_default_format = "<cr>",
+                    -- replace_choose_format = "g<m-cr>",
+                    quit_window = { "q", "<esc>" },
+                },
+            }
+        end,
+    },
+
+    {
+        "norcalli/nvim-colorizer.lua",
+        config = function()
+            require("colorizer").setup {
+                "*",
+                lua = { mode = "foreground" },
+            }
+        end,
+    },
+
+    {
         "nvim-lualine/lualine.nvim",
         opts = {
             options = {
                 icons_enabled = false,
-                theme = (require "colors.xtheme_line"),
+                theme = (require "xtheme.line"),
                 component_separators = { "|", "|" },
                 section_separators = { "", "" },
                 disabled_filetypes = {},
@@ -28,17 +71,5 @@ return {
             tabline = {},
             extensions = {},
         },
-    },
-
-    {
-        "rktjmp/lush.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.opt.termguicolors = true
-            vim.opt.background = "dark"
-            -- include theme file and pass it to lush to apply
-            require "lush"(require "colors.xtheme_lush")
-        end,
     },
 }

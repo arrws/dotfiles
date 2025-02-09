@@ -17,8 +17,6 @@ function F.on_attach(bufnr)
     vim.keymap.set('n', '<CR>',           api.tree.change_root_to_node,     opts('CD'))
     vim.keymap.set('n', 'o',              api.node.open.edit,               opts('Open'))
     vim.keymap.set('n', 'O',              api.node.navigate.parent_close,   opts('Close Directory'))
-    vim.keymap.set('n', 'J',              api.node.navigate.sibling.next,   opts('Next Sibling'))
-    vim.keymap.set('n', 'K',              api.node.navigate.sibling.prev,   opts('Previous Sibling'))
     vim.keymap.set('n', '<leader>l',      api.node.open.vertical,           opts('Open: Vertical Split'))
     vim.keymap.set('n', '<leader>j',      api.node.open.horizontal,         opts('Open: Horizontal Split'))
     vim.keymap.set('n', 'r',              api.fs.rename,                    opts('Rename'))
@@ -39,7 +37,7 @@ end
 
 return {
     {
-        "kyazdani42/nvim-tree.lua",
+        "nvim-tree/nvim-tree.lua",
 
         init = function()
             vim.keymap.set('n', "<leader>n", ":NvimTreeToggle<cr>")
@@ -64,7 +62,7 @@ return {
                     git_placement = "before",
                     modified_placement = "after",
                     padding = "",
-                    symlink_arrow = " ➛ ",
+                    symlink_arrow = " ➜ ",
                     show = {
                         git = true,
                         folder = true,
@@ -74,16 +72,16 @@ return {
                     glyphs = {
                         default = "",
                         symlink = "~",
-                        bookmark = "●",
+                        bookmark = ">",
                         modified = "m",
                         git = {
-                            unstaged = "*",
-                            staged = "✓",
-                            unmerged = "-",
+                            unstaged = "-",
+                            staged = "+",
+                            unmerged = "x",
                             renamed = "➜",
-                            untracked = "`",
-                            deleted = "✗",
-                            ignored = "◌",
+                            untracked = " ",
+                            deleted = " ",
+                            ignored = " ",
                         },
                         folder = {
                             default = "◼ ",

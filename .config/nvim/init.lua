@@ -37,6 +37,9 @@ for _, plugin in pairs(disabled_built_ins) do
     vim.g["loaded_" .. plugin] = 1
 end
 
+require("xtheme").load()
+vim.cmd("set termguicolors")
+
 require "opts"
 require("lazy").setup("plugins", {
     ui = {
@@ -55,32 +58,30 @@ require("lazy").setup("plugins", {
             event = " [event] ",
             ft = " [ft] ",
             init = " ",
-            import = " ",
+            import = "~ ",
             keys = " [keys] ",
             lazy = " [lazy] ",
             loaded = "●",
             not_loaded = "○",
             plugin = " [plug] ",
-            runtime = " ",
+            runtime = "NVIM",
             require = " [req] ",
             source = " ➜  ",
             start = " ➜  ",
             task = "✔ ",
             list = {
-                "●",
-                "➜",
-                "★",
-                "‒",
+                "*",
+                "-",
             },
         },
     },
     checker = {
-        enabled = false,    -- automatically check for plugin updates
-        notify = true,      -- get a notification when new updates are found
-        frequency = 3600,   -- check for updates every hour
+        enabled = false, -- automatically check for plugin updates
+        notify = true, -- get a notification when new updates are found
+        frequency = 3600, -- check for updates every hour
     },
     change_detection = {
-        enabled = false,     -- automatically check for config file changes and reload the ui
-        notify = true,      -- get a notification when changes are found
+        enabled = false, -- automatically check for config file changes and reload the ui
+        notify = true, -- get a notification when changes are found
     },
 })
