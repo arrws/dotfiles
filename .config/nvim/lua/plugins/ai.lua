@@ -7,7 +7,19 @@ return {
         },
         config = function()
             require("codecompanion").setup {
+                strategies = {
+                    chat = {
+                        adapter = "openai",
+                    },
+                    inline = {
+                        adapter = "copilot",
+                    },
+                },
                 adapters = {
+                    opts = {
+                        allow_insecure = true,
+                        proxy = "socks5://10.8.0.1:1080",
+                    },
                     openai = function()
                         return require("codecompanion.adapters").extend("openai", {
                             env = {

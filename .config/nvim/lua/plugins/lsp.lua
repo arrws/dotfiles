@@ -1,3 +1,7 @@
+set_n = function(cmd, action, desc, bufnr)
+    vim.keymap.set("n", cmd, action, { noremap = true, silent = false, bufnr=bufnr, desc = desc })
+end
+
 return {
     {
         "neovim/nvim-lspconfig",
@@ -21,38 +25,13 @@ return {
             }
 
             local on_attach = function(client, bufnr)
-                -- vim.keymap.set('n', '<C-f> ', vim.lsp.buf.implementation, { noremap=true, silent=false, buffer=bufnr, desc= "go to implementation"  })
-                -- vim.keymap.set('n', '<C-f> ', vim.lsp.buf.declaration, { noremap=true, silent=false, buffer=bufnr, desc= "go to declaration"  })
-                vim.keymap.set(
-                    "n",
-                    "<C-k>",
-                    vim.lsp.buf.definition,
-                    { noremap = true, silent = false, buffer = bufnr, desc = "go to definition" }
-                )
-                vim.keymap.set(
-                    "n",
-                    "<C-f>h",
-                    vim.lsp.buf.hover,
-                    { noremap = true, silent = false, buffer = bufnr, desc = "hover info" }
-                )
-                vim.keymap.set(
-                    "n",
-                    "<C-f>R",
-                    vim.lsp.buf.rename,
-                    { noremap = true, silent = false, buffer = bufnr, desc = "rename" }
-                )
-                vim.keymap.set(
-                    "n",
-                    "<C-f>a",
-                    vim.lsp.buf.code_action,
-                    { noremap = true, silent = false, buffer = bufnr, desc = "line diagnostics" }
-                )
-                vim.keymap.set(
-                    "n",
-                    "<C-f>d",
-                    "<cmd>lua vim.diagnostic.open_float(nil, { border='rounded', source=false })<CR>",
-                    { noremap = true, silent = false, buffer = bufnr, desc = "line diagnostics" }
-                )
+                -- set_n("<C-f> ', vim.lsp.buf.implementation, "go to implementation", bufnr)
+                -- set_n("<C-f> ", vim.lsp.buf.declaration, "go to declaration", bufnr)
+                set_n("<C-k>", vim.lsp.buf.definition, "go to definition", bufnr)
+                set_n("<C-f>h", vim.lsp.buf.hover, "hover info", bufnr)
+                set_n("<C-f>R", vim.lsp.buf.rename, "rename", bufnr)
+                set_n("<C-f>a", vim.lsp.buf.code_action, "line diagnostics", bufnr)
+                set_n("<C-f>d", "<cmd>lua vim.diagnostic.open_float(nil, { border='rounded', source=false })<CR>", "line diagnostics", bufnr)
             end
 
             -- nvim-cmp supports additional completion capabilities
