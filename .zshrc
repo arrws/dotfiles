@@ -37,7 +37,17 @@ bindkey '^N' menu-select
 # hack for kitty ctrl-backspace
 bindkey '^Q' backward-kill-word
 
+# auto cd folder
 unsetopt autocd
+
+# Ctrl+p/n for history navigation
+bindkey "^P" up-line-or-history
+bindkey "^N" down-line-or-history
+
+# Ctrl+w/b for word jumping
+bindkey "^W" forward-word
+bindkey "^B" backward-word
+
 
 ### TERMINAL OPTIONS
 
@@ -123,6 +133,7 @@ zle -N accept-line expand-alias-and-accept-line
 ### ABBREVIATIONS
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
 
 # git
 abbrev-alias g='git'

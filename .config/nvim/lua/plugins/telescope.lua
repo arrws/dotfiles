@@ -1,8 +1,9 @@
+---@diagnostic disable: undefined-global
+
 return {
     {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
-        version = false, -- telescope did only one release, so use HEAD for now
         dependencies = {
             { "nvim-lua/plenary.nvim" },
             {
@@ -28,31 +29,41 @@ return {
         },
 
         init = function()
-            local builtin = require('telescope.builtin')
+            local builtin = require "telescope.builtin"
             local live_grep_args = require("telescope").load_extension "live_grep_args"
 
+            vim.keymap.set("n", "<leader>fu", builtin.resume, { desc = "resume" })
+
             -- file pickers
-            vim.keymap.set('n', '<C-f>f', builtin.find_files,           {desc= "find files"})
-            vim.keymap.set('n', '<C-f>F', builtin.git_files,            {desc= "find files respect .gitignore"})
+            vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "files" })
+            vim.keymap.set("n", "<leader>fF", builtin.git_files, { desc = "files respecting .gitignore" })
+            vim.keymap.set("n", "<leader>fg", live_grep_args.live_grep_raw, { desc = "live rip grep" }) -- live ripgrep (accepts args)
+            vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "old files" })
 
-            vim.keymap.set('n', '<C-f>g', live_grep_args.live_grep_raw, {desc= "live rip grep"}) -- live ripgrep (accepts args)
-            vim.keymap.set('n', '<C-f>G', builtin.resume,               {desc= "resume"})
-            vim.keymap.set('n', '<C-f>c', builtin.commands,             {desc= "commands"})
-
-            vim.keymap.set('n', '<C-f>b', builtin.buffers,              {desc= "buffers"})
-            vim.keymap.set('n', '<C-f>B', builtin.oldfiles,             {desc= "old files"})
-
-            vim.keymap.set('n', '<C-f>q', builtin.quickfix,             {desc= "quickfix"})
-            vim.keymap.set('n', '<C-f>m', builtin.marks,                {desc= "marks"})
-            vim.keymap.set('n', '<C-f>h', builtin.marks,                {desc= "marks"})
-            vim.keymap.set('n', '<C-f>y', builtin.registers,            {desc= "registers"})
-            vim.keymap.set('n', '<C-f>z', builtin.spell_suggest,        {desc= "spell_suggest"})
+            -- nvim pickers
+            vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "buffers" })
+            vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "quickfix" })
+            vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "keymaps" })
+            vim.keymap.set("n", "<leader>fc", builtin.commands, { desc = "commands" })
+            vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "marks" })
+            vim.keymap.set("n", "<leader>fy", builtin.registers, { desc = "registers" })
+            vim.keymap.set("n", "<leader>fz", builtin.spell_suggest, { desc = "spell_suggest" })
+            vim.keymap.set("n", "<leader>f?", builtin.man_pages, { desc = "man_pages" })
 
             -- lsp pickers
-            vim.keymap.set('n', '<C-f>w', builtin.lsp_document_symbols, {desc= "doc symbols"})      -- LSP document symbols in the current buffer
-            vim.keymap.set('n', '<C-f>W', builtin.lsp_workspace_symbols,{desc= "ws symbols"})       -- LSP document symbols in the current workspace
-            vim.keymap.set('n', '<C-f>D', builtin.diagnostics,          {desc= "all diagnostics"})  -- Diagnostics for all open buffers or specific buffer. Use bufnr=0 for current buffer.
-            vim.keymap.set('n', '<C-f>t', builtin.treesitter,           {desc= "treesitter symbols"})   -- Function names, variables, from Treesitter!
+            vim.keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "treesitter symbols" })
+            vim.keymap.set("n", "<leader>fw", builtin.lsp_document_symbols, { desc = "buffer symbols" })
+            vim.keymap.set("n", "<leader>fi", builtin.lsp_implementations, { desc = "implementations" })
+            vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "references" })
+            vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "diagnostics"})
+
+            -- git pickers
+            vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "git status" })
+            vim.keymap.set("n", "<leader>gS", builtin.git_stash, { desc = "git stash" })
+            vim.keymap.set("n", "<leader>gc", builtin.git_bcommits, { desc = "git buffer commits" })
+            vim.keymap.set("n", "<leader>gC", builtin.git_commits, { desc = "git commits" })
+            vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "git branches" })
+
         end,
 
         opts = function()
@@ -73,7 +84,7 @@ return {
                             ["<C-n>"] = actions.move_selection_next,
                             ["<C-p>"] = actions.move_selection_previous,
 
-                            ["<leader>m"] = actions.toggle_selection + actions.move_selection_worse,
+                            ["<C-t>"] = actions.toggle_selection + actions.move_selection_worse,
                             ["<leader>q"] = actions.send_selected_to_qflist,
 
                             ["<C-u>"] = actions.preview_scrolling_up,

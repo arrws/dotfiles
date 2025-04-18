@@ -69,22 +69,18 @@ function M.load()
     hl("CursorIM",              { link = "Cursor" }) -- like Cursor, but used when in IME mode CursorIM
     -- hl("CursorLine",            { bg = c.blackish }) -- Screen-column at the cursor, when cursorcolumn is set .
     -- hl("CursorColumn",          { link = "CursorLine" }) -- Screen-line at the cursor  , when cursorline is set.  Low-priority if foreground (ctermfg OR guifg) is not set .
-    -- hl("TermCursor",            { fg = c.black }) -- cursor in a focused terminal
-    -- hl("TermCursorNC",          { link = "TermCursor" }) -- cursor in an unfocused terminal
 
     -- Tree
-    hl("Directory",                 { fg = c.whiteish }) -- directory names (and other special names in listings) - file tree
-	hl("NvimTreeRootFolder",        { fg = c.grey })
-	hl("NvimTreeFolderName",        { fg = c.whiteish, bold=true   })
-	hl("NvimTreeOpenedFolderName",  { fg = c.green, bold=true })
-	hl("NvimTreeEmptyFolderName",   { fg = c.grey })
-	hl("NvimTreeFolderIcon",        { fg = c.grey_27 })
-	hl("NvimTreeIndentMarker",      { fg = c.grey_27 })
-	hl("NvimTreeSymlink",           { fg = c.red })
-	hl("NvimTreeOpenedFile",        { fg = c.white, bold=true })
-	hl("NvimTreeExecFile",          { fg = c.grey })
-	hl("NvimTreeSpecialFile",       { fg = c.grey })
-	hl("NvimTreeImageFile",         { fg = c.grey })
+	hl("NvimTreeNormal",        { fg = c.whiteish }) -- file names
+    hl("Directory",             { fg = c.grey_2, bold=true}) -- directory names
+	hl("NvimTreeRootFolder",    { fg = c.grey_3 })
+	hl("NvimTreeSpecialFile",   { fg = c.grey_2, italic=true  })
+	hl("NvimTreeExecFile",      { link="NvimTreeSpecialFile" })
+	hl("NvimTreeImageFile",     { link="NvimTreeSpecialFile" })
+	hl("NvimTreeSymlink",       { link="NvimTreeSpecialFile" })
+	hl("NvimTreeFolderIcon",    { fg = c.grey_0 })
+	hl("NvimTreeFileIcon",      { link="NvimTreeFolderIcon" })
+    hl("NvimTreeWindowPicker",  { fg = c.green, bold=true})
 
     -- -- Conditional Line/Column highlighting
     hl("VertSplit",             { fg = c.black }) -- column separating vertically split windows
@@ -101,26 +97,26 @@ function M.load()
     -- hl("FoldColumn",            {}) -- foldcolumn
 
     -- Diff
-    hl("DiffAdd",            { fg = c.green })
-    hl("DiffChange",         { bg = c.yellow })
-    hl("DiffDelete",         { fg = c.red })
-    hl("DiffText",           { fg = c.blue })
+    hl("DiffAdd",               { fg = c.green })
+    hl("DiffChange",            { bg = c.yellow })
+    hl("DiffDelete",            { fg = c.red })
+    hl("DiffText",              { fg = c.blue })
 
-    hl("MiniDiffOverAdd",    { link = "DiffAdd" })
-    hl("MiniDiffOverDelete", { link = "DiffDelete" })
-    hl("MiniDiffOverChange", { link = "DiffChange" })
+    hl("MiniDiffOverAdd",       { link = "DiffAdd" })
+    hl("MiniDiffOverDelete",    { link = "DiffDelete" })
+    hl("MiniDiffOverChange",    { link = "DiffChange" })
 
     -- Messages
-    hl("ErrorMsg",           { fg = c.red }) -- error messages on the command line
-    hl("WarningMsg",         { fg = c.yellow }) -- warning messages
-    hl("InfoMsg",            { fg = c.blue }) -- 'showmode' message (e.g., INSERT)
-    hl("HintMsg",            { fg = c.green }) -- error messages on the command line
+    hl("ErrorMsg",              { fg = c.red }) -- error messages on the command line
+    hl("WarningMsg",            { fg = c.yellow }) -- warning messages
+    hl("InfoMsg",               { fg = c.blue }) -- 'showmode' message (e.g., INSERT)
+    hl("HintMsg",               { fg = c.green }) -- error messages on the command line
 
     -- base hl group. Other Diagnostic highlights link to this by default. See :h diagnostic-highlights
-    hl("DiagnosticError",    { link = "ErrorMsg" })
-    hl("DiagnosticWarn",     { link = "WarningMsg" })
-    hl("DiagnosticInfo",     { link = "InfoMsg" })
-    hl("DiagnosticHint",     { link = "HintMsg" })
+    hl("DiagnosticError",       { link = "ErrorMsg" })
+    hl("DiagnosticWarn",        { link = "WarningMsg" })
+    hl("DiagnosticInfo",        { link = "InfoMsg" })
+    hl("DiagnosticHint",        { link = "HintMsg" })
 
     hl("NvimTreeLspDiagnosticsError",       { link = "DiagnosticError" })
     hl("NvimTreeLspDiagnosticsHint",        { link = "DiagnosticHint" })
@@ -130,57 +126,57 @@ function M.load()
     ------ CODING
 
     -- Text
-    hl("Comment",        { fg = c.grey_46, italic = true }) -- any comment
-    hl("SpecialComment", { fg = c.grey_46, italic = true }) -- special things inside a comment
-    hl("NonText",        { fg = c.grey_74 }) -- other chars that do not really exist in the text
-    hl("EndOfBuffer",    { fg = c.grey })
-    hl("Whitespace",     { fg = c.grey_39 })
+    hl("Comment",               { fg = c.grey_1, italic = true }) -- any comment
+    hl("SpecialComment",        { fg = c.grey_1, italic = true }) -- special things inside a comment
+    hl("NonText",               { fg = c.grey_3 }) -- other chars that do not really exist in the text
+    hl("EndOfBuffer",           { fg = c.grey_3 })
+    hl("Whitespace",            { fg = c.grey_0 })
 
-    hl("InlayHints",     { fg = c.green_dark })
-    hl("LspInlayHint",   { link = "InlayHints" })
+    hl("InlayHints",            { fg = c.green_dark })
+    hl("LspInlayHint",          { link = "InlayHints" })
 
     -- Literals
-    hl("Boolean",        { fg = c.purple_200, bold = true }) -- boolean constant: TRUE, false
-    hl("Number",         { fg = c.purple_300 }) -- number constant: 234, 0xff
-    hl("Float",          { fg = c.purple_400 }) -- floating point constant: 2.3e10
-    hl("Character",      { fg = c.pink }) -- char constant: c, \n
-    hl("String",         { fg = c.pink }) -- string constant: this is a string
-    hl("Special",        { fg = c.pink_300, bold = true }) -- any special symbol
-    hl("SpecialChar",    { fg = c.pink_300, bold = true }) -- special char in a constant
-    hl("SpecialKey",     { fg = c.whiteish, bold = true }) -- special char in a constant
-    hl("Delimiter",      { fg = c.whiteish }) -- char that needs attention
+    hl("Boolean",               { fg = c.purple_1, bold = true }) -- boolean constant: TRUE, false
+    hl("Number",                { fg = c.purple_2 }) -- number constant: 234, 0xff
+    hl("Float",                 { fg = c.purple_3 }) -- floating point constant: 2.3e10
+    hl("Character",             { fg = c.pink_1 }) -- char constant: c, \n
+    hl("String",                { fg = c.pink }) -- string constant: this is a string
+    hl("Special",               { fg = c.pink_2, bold = true }) -- any special symbol
+    hl("SpecialChar",           { fg = c.pink_3, bold = true }) -- special char in a constant
+    hl("SpecialKey",            { fg = c.whiteish, bold = true }) -- special char in a constant
+    hl("Delimiter",             { fg = c.whiteish }) -- char that needs attention
 
     -- Identifiers
-    hl("Constant",       { fg = c.grey_74 }) -- any other constant
-    hl("Identifier",     { fg = c.white }) -- any variable name
-    hl("Function",       { fg = c.yellow_f }) -- function name (also: methods for classes)
+    hl("Constant",              { fg = c.grey_3 }) -- any other constant
+    hl("Identifier",            { fg = c.white }) -- any variable name
+    hl("Function",              { fg = c.yellow_3 }) -- function name (also: methods for classes)
 
     -- Syntax
-    hl("Statement",      { fg = c.green }) -- statements
-    hl("Conditional",    { fg = c.yellow_100 }) -- if, then, else, endif, switch, etc.
-    hl("Repeat",         { fg = c.yellow_100 }) -- for, do, while, etc.
-    hl("Label",          { fg = c.yellow_0 }) -- case, default, etc.
-    hl("Exception",      { fg = c.yellow_0 }) -- try, catch, throw
-    hl("Operator",       { fg = c.white, bold = true }) -- sizeof, +, * etc.
-    hl("Keyword",        { fg = c.yellow_0 }) -- any other keyword
+    hl("Statement",             { fg = c.green }) -- statements
+    hl("Conditional",           { fg = c.yellow_4 }) -- if, then, else, endif, switch, etc.
+    hl("Repeat",                { fg = c.yellow_4 }) -- for, do, while, etc.
+    hl("Label",                 { fg = c.yellow_5 }) -- case, default, etc.
+    hl("Exception",             { fg = c.yellow_5 }) -- try, catch, throw
+    hl("Operator",              { fg = c.white, bold = true }) -- sizeof, +, * etc.
+    hl("Keyword",               { fg = c.yellow_5 }) -- any other keyword
 
     -- Semantics
-    hl("StorageClass",   { fg = c.yellow_2 }) -- static, register, volatile, etc.
-    hl("Structure",      { fg = c.yellow_1 }) -- struct, union, enum, etc.
-    hl("Type",           { fg = c.yellow_100 }) -- int, long, char, etc.
-    hl("Typedef",        { fg = c.yellow_100 }) -- A typedef
+    hl("StorageClass",          { fg = c.yellow_2 }) -- static, register, volatile, etc.
+    hl("Structure",             { fg = c.yellow_1 }) -- struct, union, enum, etc.
+    hl("Type",                  { fg = c.yellow_4 }) -- int, long, char, etc.
+    hl("Typedef",               { fg = c.yellow_4 }) -- A typedef
 
     -- Meta Text
-    hl("Include",        { fg = c.red_150, italic = true }) -- preprocessor #include
-    hl("PreCondit",      { fg = c.red_150, italic = true }) -- preprocessor #if, #else, #endif, etc.
-    hl("PreProc",        { fg = c.red_150, italic = true }) -- Preprocessor generic ??? functoin params in typescript
-    hl("Define",         { fg = c.red_150, italic = true }) -- preprocessor #define
-    hl("Macro",          { fg = c.red_150, italic = true }) -- same as Define
+    hl("Include",               { fg = c.red_1, italic = true }) -- preprocessor #include
+    hl("PreCondit",             { fg = c.red_1, italic = true }) -- preprocessor #if, #else, #endif, etc.
+    hl("PreProc",               { fg = c.red_1, italic = true }) -- Preprocessor generic ??? functoin params in typescript
+    hl("Define",                { fg = c.red_1, italic = true }) -- preprocessor #define
+    hl("Macro",                 { fg = c.red_1, italic = true }) -- same as Define
 
     -- Edge Cases
-    hl("Tag",            { fg = c.white, bold = true }) -- paranthesis you can use CTRL-] on this
-    hl("Debug",          { fg = c.white, bold = true }) -- debugging statements
-    hl("SpellCap",       { fg = c.white }) -- Nvim Tree files text
+    hl("Tag",                   { fg = c.white, bold = true }) -- paranthesis you can use CTRL-] on this
+    hl("Debug",                 { fg = c.white, bold = true }) -- debugging statements
+    hl("SpellCap",              { fg = c.white }) -- Nvim Tree files text
 end
 
 return M

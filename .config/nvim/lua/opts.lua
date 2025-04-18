@@ -1,41 +1,40 @@
-vim.opt.mouse = "a" -- enable mouse mode
+---@diagnostic disable: undefined-global
 
-vim.opt.hidden = true -- do not save when swithing buffers -> work with multiple files easier
+vim.opt.mouse = "a"           -- enable mouse mode
+vim.opt.hidden = true         -- do not save when swithing buffers -> work with multiple files easier
 vim.opt.backup = false
 vim.opt.swapfile = false
 
-vim.opt.history = 1000 -- status line commands history
-vim.opt.showcmd = true -- show in status line the command you're typing
-vim.opt.laststatus = 2 -- status line
-vim.opt.cmdheight = 1 -- height status line
+vim.opt.history = 1000        -- status line commands history
+vim.opt.showcmd = true        -- show in status line the command you're typing
+vim.opt.laststatus = 2        -- status line
+vim.opt.cmdheight = 1         -- height status line
 
-vim.opt.wildmenu = true -- status line menu
+vim.opt.wildmenu = true       -- status line menu
 vim.opt.wildmode = "full"
 vim.opt.wildoptions = "tagfile"
 
-vim.opt.number = true -- or relativenumber
-vim.opt.numberwidth = 1 -- number column width
-vim.opt.ruler = true -- show current column in status bar right corner
--- set signcolumn=number	  -- merge sign and numbers gutter golumns
--- set signcolumn=yes:1       -- always show sign column
+vim.opt.number = true         -- or relativenumber
+vim.opt.numberwidth = 1       -- number column width
+vim.opt.ruler = true          -- show current column in status bar right corner
+                              -- set signcolumn=number	           -- merge sign and numbers gutter golumns
+                              -- set signcolumn=yes:1              -- always show sign column
 vim.opt.signcolumn = "auto:1" -- sign column
-vim.opt.foldcolumn = "0" -- fold column width
-vim.opt.fillchars = "vert:│" -- vertical bar delimiter
+vim.opt.foldcolumn = "0"      -- fold column width
+vim.opt.fillchars = "vert:│"  -- vertical bar delimiter
 
-vim.opt.cursorline = true -- highlight current line
-vim.opt.showmatch = true -- show matching braces
+vim.opt.cursorline = true     -- highlight current line
+vim.opt.showmatch = true      -- show matching braces
 
-vim.opt.undofile = true -- save undo history
+vim.opt.undofile = true       -- save undo history
 
 vim.opt.diffopt:append "vertical"
 
 -- when running macros and regexes on a large file, lazy redraw tells neovim/vim not to draw the screen, which greatly speeds it up, upto 6-7x faster
 vim.opt.lazyredraw = true
 
-noremap = { noremap = true }
 
------- SPACING
-
+-- spacing
 vim.opt.expandtab = true -- TAB is expanded into spaces
 vim.opt.shiftwidth = 4 -- num space characters for indent
 vim.opt.tabstop = 4 -- num space characters for TAB key
@@ -43,170 +42,17 @@ vim.opt.softtabstop = 4
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.breakindent = true
-vim.opt.backspace = "indent,eol,start" -- change backspace to behave more intuitively
-vim.opt.backspace = "2"
+vim.opt.backspace = "indent,eol,start"
 vim.opt.linespace = 0
 
------- MY BINDINGS
 
--- leader
-vim.keymap.set("n", ";", "<Nop>", noremap)
-vim.g.mapleader = ";"
-vim.cmd "set timeout timeoutlen=1000 ttimeoutlen=10"
-
-vim.keymap.set("", "<leader>q", ":q!<cr>", noremap)
-vim.keymap.set("n", "<leader>w", ":w<cr>", noremap)
-vim.keymap.set("i", "<leader>w", "<C-c>:w<cr>", noremap)
-vim.keymap.set("", "<C-q>", ":q!<cr>", noremap)
-vim.keymap.set("n", "<C-w>", ":w<cr>", noremap)
-vim.keymap.set("i", "<C-w>", "<C-c>:w<cr>", noremap)
-
-vim.keymap.set("i", "jk", "<esc>")
-
-vim.keymap.set("", "J", "}", noremap)
-vim.keymap.set("", "K", "{", noremap)
-
--- redo with U instead of Ctrl+R
-vim.keymap.set("n", "U", "<C-R>", noremap)
-vim.keymap.set("n", "<C-R>", "Nup", noremap)
-
--- add newline without insert
-vim.keymap.set("n", "go", "o<ESC>k", { desc = "Put empty line above" })
-vim.keymap.set("n", "gO", "O<ESC>j", { desc = "Put empty line below" })
-
--- Copy/paste with system clipboard
-vim.keymap.set("n", "gy", '"+y', { desc = "Copy to system clipboard" })
-vim.keymap.set("n", "gp", '"+p', { desc = "Paste from system clipboard" })
-
--- make vim remember last cursor position
-vim.cmd [[
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-]]
-
--- make dot work over visual line selections
--- enablea a simple form of dot repetition over visual line selections.
--- only simple operations that start from the beginning of a line be dot repeated.
-vim.keymap.set("x", ".", ":norm.<CR>", noremap)
-
--- yank until the end of line
-vim.keymap.set("n", "Y", "y$", noremap)
-
--- highlight on yank
-vim.cmd [[
-augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-augroup end
-]]
-
------- MARKS
--- use only global marks - it's stupid but it works
-
-vim.keymap.set("n", "ma", "mA", noremap)
-vim.keymap.set("n", "mb", "mB", noremap)
-vim.keymap.set("n", "mc", "mC", noremap)
-vim.keymap.set("n", "md", "mD", noremap)
-vim.keymap.set("n", "me", "mE", noremap)
-vim.keymap.set("n", "mf", "mF", noremap)
-vim.keymap.set("n", "mg", "mG", noremap)
-vim.keymap.set("n", "mh", "mH", noremap)
-vim.keymap.set("n", "mi", "mI", noremap)
-vim.keymap.set("n", "mj", "mJ", noremap)
-vim.keymap.set("n", "mk", "mK", noremap)
-vim.keymap.set("n", "ml", "mL", noremap)
-vim.keymap.set("n", "mm", "mM", noremap)
-vim.keymap.set("n", "mn", "mN", noremap)
-vim.keymap.set("n", "mo", "mO", noremap)
-vim.keymap.set("n", "mp", "mP", noremap)
-vim.keymap.set("n", "mq", "mQ", noremap)
-vim.keymap.set("n", "mr", "mR", noremap)
-vim.keymap.set("n", "ms", "mS", noremap)
-vim.keymap.set("n", "mt", "mT", noremap)
-vim.keymap.set("n", "mu", "mU", noremap)
-vim.keymap.set("n", "mv", "mV", noremap)
-vim.keymap.set("n", "mw", "mW", noremap)
-vim.keymap.set("n", "mx", "mX", noremap)
-vim.keymap.set("n", "my", "mY", noremap)
-vim.keymap.set("n", "mz", "mZ", noremap)
-
-vim.keymap.set("n", "'a", "'A", noremap)
-vim.keymap.set("n", "'b", "'B", noremap)
-vim.keymap.set("n", "'c", "'C", noremap)
-vim.keymap.set("n", "'d", "'D", noremap)
-vim.keymap.set("n", "'e", "'E", noremap)
-vim.keymap.set("n", "'f", "'F", noremap)
-vim.keymap.set("n", "'g", "'G", noremap)
-vim.keymap.set("n", "'h", "'H", noremap)
-vim.keymap.set("n", "'i", "'I", noremap)
-vim.keymap.set("n", "'j", "'J", noremap)
-vim.keymap.set("n", "'k", "'K", noremap)
-vim.keymap.set("n", "'l", "'L", noremap)
-vim.keymap.set("n", "'m", "'M", noremap)
-vim.keymap.set("n", "'n", "'N", noremap)
-vim.keymap.set("n", "'o", "'O", noremap)
-vim.keymap.set("n", "'p", "'P", noremap)
-vim.keymap.set("n", "'q", "'Q", noremap)
-vim.keymap.set("n", "'r", "'R", noremap)
-vim.keymap.set("n", "'s", "'S", noremap)
-vim.keymap.set("n", "'t", "'T", noremap)
-vim.keymap.set("n", "'u", "'U", noremap)
-vim.keymap.set("n", "'v", "'V", noremap)
-vim.keymap.set("n", "'w", "'W", noremap)
-vim.keymap.set("n", "'x", "'X", noremap)
-vim.keymap.set("n", "'y", "'Y", noremap)
-vim.keymap.set("n", "'z", "'Z", noremap)
-
------- MOVEMENT
-
--- disable space so that it won't move cursor
-vim.keymap.set("n", "<SPACE>", "<Nop>", noremap)
-
--- disable these
-vim.keymap.set("", "<C-e>", "<Nop>") -- scroll the window downwards one line.
-vim.keymap.set("", "<C-y>", "<Nop>") -- scroll the window upwards one line.
-vim.keymap.set("", "<C-b>", "<Nop>") -- moves screen up one page, cursor to last line
-vim.keymap.set("", "<C-f>", "<Nop>") -- moves screen down one page, cursor to first line
-
------- WINDOWS
-
--- automatically equalize splits when resized
-vim.cmd "autocmd VimResized * wincmd ="
-
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-
-vim.keymap.set("n", "<C-j>", "<C-w>j", noremap)
-vim.keymap.set("n", "<C-k>", "<C-w>k", noremap)
-vim.keymap.set("n", "<C-l>", "<C-w>l", noremap)
-vim.keymap.set("n", "<C-h>", "<C-w>h", noremap)
-
-vim.keymap.set("n", "<leader>j", "<C-w>s", noremap)
-vim.keymap.set("n", "<leader>l", "<C-w>v", noremap)
-vim.keymap.set("n", "<leader>x", "<C-w>q", noremap)
-vim.keymap.set("n", "<leader>r", "<C-w>x", noremap) -- exchange current with left window
-vim.keymap.set("n", "<leader>=", "<C-w>=", noremap) -- reset all windows
-vim.keymap.set("n", "<leader>L", ":vertical resize +5<CR>", noremap)
-vim.keymap.set("n", "<leader>H", ":vertical resize -5<CR>", noremap)
-vim.keymap.set("n", "<leader>J", ":resize +5<CR>", noremap)
-vim.keymap.set("n", "<leader>K", ":resize -5<CR>", noremap)
-
------- BUFFERS
-
-vim.keymap.set("n", "<C-n>", ":bn<CR>", noremap)
-vim.keymap.set("n", "<C-p>", ":bp<CR>", noremap)
--- vim.keymap.set('', '<C-x>', ':bdelete<CR>')
-vim.keymap.set("n", "<C-x>", ":lua MiniBufremove.delete()<CR>", noremap)
-
------- SEARCHING
-
+-- searching
 vim.opt.hlsearch = true -- highligh matched search terms
 vim.opt.incsearch = true -- start searching as you type letters
 vim.opt.ignorecase = true -- make searches case sensitive
 vim.opt.smartcase = true -- will search case sensitive if uppercase present, needs ignorecase set
 
-vim.keymap.set("", "<BS>", ":noh<CR>", remap) -- clear search highlight
+vim.keymap.set("", "<BS>", ":noh<CR>") -- clear search highlight
 vim.opt.inccommand = "nosplit" -- live visualization of substitutions
 
 -- Search inside visual selection. `silent = false` makes effect immediately.
@@ -216,46 +62,112 @@ vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside 
 vim.keymap.set("x", "*", [[y/\V<C-R>=escape(@", '/\')<CR><CR>]])
 vim.keymap.set("x", "#", [[y?\V<C-R>=escape(@", '?\')<CR><CR>]])
 
--- ------ TERMINAL
---
--- -- Maps ESC to exit terminal's insert mode
--- vim.cmd([[
--- if has('nvim')
---     vim.keymap.set('t',  <Esc> <C-\><C-n>
---     vim.keymap.set('t',  <leader>q <C-\><C-n>
--- endif
--- ]])
---
--- -- open a new horizontal split with a terminal
--- vim.keymap.set('n', '<leader>T', ':new +terminal<CR>', noremap)
--- vim.keymap.set('t', '<leader>T', '<C-\\><C-n>:new +terminal<CR>', noremap)
---
--- -- open a new vertical split with a terminal
--- vim.keymap.set('n', '<leader>t', ':vnew +terminal<CR>', noremap)
--- vim.keymap.set('t', '<leader>t', '<C-\\><C-n>:vnew +terminal<cr>', noremap)
---
--- vim.cmd([[
--- augroup startup
--- 	autocmd!
--- 	" avoid nesting by adding a buffer to the existing vim session (credit justinmk)
--- 	autocmd VimEnter * if !empty($NVIM_LISTEN_ADDRESS) && $NVIM_LISTEN_ADDRESS !=# v:servername
--- 		\ |let g:r=jobstart(['nc', '-U', $NVIM_LISTEN_ADDRESS],{'rpc':v:true})
--- 		\ |let g:f=fnameescape(expand('%:p'))
--- 		\ |noau bwipe
--- 		\ |call rpcrequest(g:r, "nvim_command", "edit ".g:f)
--- 		\ |call rpcrequest(g:r, "nvim_command", "call lib#SetNumberDisplay()")
--- 		\ |qa
--- 		\ |endif
--- augroup END
---
--- augroup neovim_terminal
---     autocmd!
---     " Enter Terminal-mode (insert) automatically
---     autocmd TermOpen * startinsert
---     " Disables number lines on terminal buffers
---     autocmd TermOpen * :set nonumber norelativenumber
---     " revim.keymap.set('', 'Escape to leave terminal mode
---     autocmd TermOpen * vim.keymap.set('t', '<buffer> <Esc> <c-\><c-n>
--- augroup END
--- ]])
---
+vim.lsp.enable { "pyright", "rust_analyzer", "lua_ls", "ruff" }
+vim.diagnostic.config {
+    virtual_lines = false,
+    -- -- Only show virtual line diagnostics for the current cursor line
+    -- virtual_lines = { current_line = true },
+}
+
+
+-- leader
+vim.keymap.set("n", ";", "<Nop>", {noremap = true})
+vim.g.mapleader = ";"
+vim.opt.timeout = true
+vim.opt.timeoutlen = 1000
+vim.opt.ttimeoutlen = 10
+
+
+vim.keymap.set("i", "jk", "<esc>")
+
+vim.keymap.set("", "<leader>q", ":q!<cr>", {noremap = true})
+vim.keymap.set("n", "<leader>w", ":w<cr>", {noremap = true})
+vim.keymap.set("i", "<leader>w", "<C-c>:w<cr>", {noremap = true})
+
+
+-- emacs like jump beginning/end of line
+vim.keymap.set("n", "<C-A>", "^", {noremap = true})
+vim.keymap.set("n", "<C-E>", "$", {noremap = true})
+
+-- redo with U instead of Ctrl+R
+vim.keymap.set("n", "U", "<C-R>", {noremap = true})
+vim.keymap.set("n", "<C-R>", "Nup", {noremap = true})
+
+-- add newline without insert
+vim.keymap.set("n", "go", "o<ESC>k", { desc = "Put empty line above" })
+vim.keymap.set("n", "gO", "O<ESC>j", { desc = "Put empty line below" })
+
+-- Copy/paste with system clipboard
+vim.keymap.set("n", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
+vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste below from system clipboard" })
+vim.keymap.set("n", "<leader>P", '"+P', { desc = "Paste above from system clipboard" })
+
+-- Select recently pasted, yanked or changed text
+vim.keymap.set("n", "gy", "`[v`]", { desc = 'Select recently pasted, yanked or changed text' })
+
+-- Block insert in line visual mode
+vim.keymap.set('x', 'I', function() return vim.fn.mode() == 'V' and '^<C-v>I' or 'I' end, { expr = true })
+vim.keymap.set('x', 'A', function() return vim.fn.mode() == 'V' and '$<C-v>A' or 'A' end, { expr = true })
+
+-- make vim remember last cursor position
+vim.api.nvim_create_autocmd("BufReadPost", {
+    pattern = "*",
+    callback = function()
+        local last_pos = vim.fn.line("'\"")
+        if last_pos > 1 and last_pos <= vim.fn.line("$") then
+            vim.cmd("normal! g'\"")
+        end
+    end,
+})
+
+-- make dot work over visual line selections
+-- enablea a simple form of dot repetition over visual line selections.
+-- only simple operations that start from the beginning of a line be dot repeated.
+vim.keymap.set("x", ".", ":norm.<CR>", {noremap = true})
+
+-- highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+    group = yank_group,
+    pattern = "*",
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+})
+
+-- disable space so that it won't move cursor
+vim.keymap.set("n", "<SPACE>", "<Nop>", {noremap = true})
+
+-- disable screen move
+vim.keymap.set("", "<C-b>", "<Nop>") -- moves screen up one page, cursor to last line
+vim.keymap.set("", "<C-f>", "<Nop>") -- moves screen down one page, cursor to first line
+
+
+------ buffers
+-- vim.keymap.set('', '<leader>x', ':bdelete<CR>')
+vim.keymap.set("n", "<leader>x", ":lua MiniBufremove.delete()<CR>", {noremap = true})
+
+
+------ windows
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+-- automatically equalize splits when resized
+vim.api.nvim_create_autocmd("VimResized", {
+    pattern = "*",
+    command = "wincmd ="
+})
+
+-- kitty compatible navigation
+vim.keymap.set('n', '<Left-Mapping>', '<Cmd>KittyNavigateLeft<CR>', { silent = true })
+vim.keymap.set('n', '<Down-Mapping>', '<Cmd>KittyNavigateDown<CR>', { silent = true })
+vim.keymap.set('n', '<Up-Mapping>', '<Cmd>KittyNavigateUp<CR>', { silent = true })
+vim.keymap.set('n', '<Right-Mapping>', '<Cmd>KittyNavigateRight<CR>', { silent = true })
+
+vim.keymap.set("n", "<leader>j", "<C-w>s", {noremap = true})
+vim.keymap.set("n", "<leader>l", "<C-w>v", {noremap = true})
+-- vim.keymap.set("n", "<leader>r", "<C-w>x", {noremap = true}) -- exchange current with left window
+-- vim.keymap.set("n", "<leader>=", "<C-w>=", {noremap = true}) -- reset all windows
+-- vim.keymap.set("n", "<leader>L", ":vertical resize +5<CR>", {noremap = true})
+-- vim.keymap.set("n", "<leader>H", ":vertical resize -5<CR>", {noremap = true})
+-- vim.keymap.set("n", "<leader>J", ":resize +5<CR>", {noremap = true})
+-- vim.keymap.set("n", "<leader>K", ":resize -5<CR>", {noremap = true})
+

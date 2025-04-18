@@ -1,3 +1,7 @@
+---@diagnostic disable: undefined-global
+
+vim.cmd "set termguicolors"
+
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
 if not vim.loop.fs_stat(lazypath) then
@@ -12,34 +16,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- disable some builtin vim plugins
-local disabled_built_ins = {
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-    "spellfile_plugin",
-    "matchit",
-}
-for _, plugin in pairs(disabled_built_ins) do
-    vim.g["loaded_" .. plugin] = 1
-end
-
 require("xtheme").load()
-vim.cmd("set termguicolors")
-
 require "opts"
 require("lazy").setup("plugins", {
     ui = {
@@ -48,27 +25,27 @@ require("lazy").setup("plugins", {
         wrap = true, -- wrap the lines in the ui
 
         -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
-        border = "rounded",
+        border = "single",
         title = " Lazy Manager ",
         pills = true,
 
         icons = {
-            cmd = " [cmd] ",
-            config = " [config] ",
-            event = " [event] ",
-            ft = " [ft] ",
-            init = " ",
-            import = "~ ",
-            keys = " [keys] ",
-            lazy = " [lazy] ",
-            loaded = "●",
-            not_loaded = "○",
-            plugin = " [plug] ",
-            runtime = "NVIM",
-            require = " [req] ",
-            source = " ➜  ",
-            start = " ➜  ",
-            task = "✔ ",
+            loaded = "◼",
+            not_loaded = "□",
+            cmd = " - ",
+            config = " - ",
+            event = " - ",
+            ft = " - ",
+            init = " - ",
+            import = " - ",
+            keys = " - ",
+            lazy = " - ",
+            plugin = " - ",
+            runtime = " - ",
+            require = " - ",
+            source = " - ",
+            start = " ➜ ",
+            task = " - ",
             list = {
                 "*",
                 "-",

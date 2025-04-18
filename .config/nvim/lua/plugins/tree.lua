@@ -1,3 +1,5 @@
+---@diagnostic disable: undefined-global
+
 local F = {}
 function F.on_attach(bufnr)
     local api = require('nvim-tree.api')
@@ -71,25 +73,25 @@ return {
                     },
                     glyphs = {
                         default = "",
-                        symlink = "~",
+                        symlink = "",
                         bookmark = ">",
-                        modified = "m",
+                        modified = "*",
                         git = {
-                            unstaged = "-",
-                            staged = "+",
-                            unmerged = "x",
-                            renamed = "➜",
-                            untracked = " ",
-                            deleted = " ",
-                            ignored = " ",
+                            unstaged = "'",
+                            staged = "'",
+                            unmerged = "'",
+                            renamed = "'",
+                            untracked = "",
+                            deleted = "",
+                            ignored = "",
                         },
                         folder = {
                             default = "◼ ",
                             open = "┌ ",
                             empty = "□ ",
                             empty_open = "□ ",
-                            symlink = "~",
-                            symlink_open = "~",
+                            symlink = "",
+                            symlink_open = "",
                         },
                     },
                 },
