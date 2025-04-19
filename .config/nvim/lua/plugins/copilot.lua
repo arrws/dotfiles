@@ -9,6 +9,7 @@ return {
                 'copilot#Accept("<CR>")',
                 { expr = true, noremap = true, silent = true, replace_keycodes = false, desc = "copilot autocomplete" }
             )
+            vim.keymap.set("n", "<leader>a", ":CopilotChatToggle<CR>", { desc = "copilot chat" })
         end,
     },
     {
@@ -20,7 +21,6 @@ return {
         build = "make tiktoken", -- Only on MacOS or Linux
         opts = {
             model = "gpt-o3-mini", -- Default model, see ':CopilotChatModels'
-            clear_chat_on_new_prompt = false,
             mappings = {
                 reset = {
                     normal = "",

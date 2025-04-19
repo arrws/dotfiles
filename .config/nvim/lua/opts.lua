@@ -87,7 +87,7 @@ vim.keymap.set("i", "<leader>w", "<C-c>:w<cr>", {noremap = true})
 
 -- emacs like jump beginning/end of line
 vim.keymap.set("n", "<C-A>", "^", {noremap = true})
-vim.keymap.set("n", "<C-E>", "$", {noremap = true})
+-- vim.keymap.set("n", "<C-E>", "$", {noremap = true})
 
 -- redo with U instead of Ctrl+R
 vim.keymap.set("n", "U", "<C-R>", {noremap = true})
@@ -137,14 +137,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- disable space so that it won't move cursor
 vim.keymap.set("n", "<SPACE>", "<Nop>", {noremap = true})
 
--- disable screen move
-vim.keymap.set("", "<C-b>", "<Nop>") -- moves screen up one page, cursor to last line
-vim.keymap.set("", "<C-f>", "<Nop>") -- moves screen down one page, cursor to first line
-
 
 ------ buffers
--- vim.keymap.set('', '<leader>x', ':bdelete<CR>')
-vim.keymap.set("n", "<leader>x", ":lua MiniBufremove.delete()<CR>", {noremap = true})
+-- vim.keymap.set('', '<C-x', ':bdelete<CR>')
+vim.keymap.set("n", "<C-x", ":lua MiniBufremove.delete()<CR>", {noremap = true})
 
 
 ------ windows

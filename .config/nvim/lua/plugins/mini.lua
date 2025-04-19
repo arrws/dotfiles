@@ -21,6 +21,13 @@ return {
     },
 
     {
+        "echasnovski/mini.trailspace",
+        config = function()
+            require("mini.trailspace").setup {}
+        end,
+    },
+
+    {
         "echasnovski/mini.pairs",
         config = function()
             require("mini.pairs").setup {}

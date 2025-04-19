@@ -52,6 +52,8 @@ return {
                 },
                 completion = {
                     completeopt = "menu,menuone,noinsert",
+                    debounce = 180, -- ms before triggering autocomplete (default: 60)
+                    throttle = 90, -- ms between updates (default: 30)
                 },
             }
         end,
@@ -91,6 +93,7 @@ return {
                 require("conform").format { async = true, lsp_fallback = true, range = range }
             end, { range = true })
         end,
+        vim.keymap.set("n", "<leader>fp", ":Format<CR>", { desc = "format current buffer" }),
     },
 
     {
