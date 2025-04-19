@@ -36,7 +36,7 @@ return {
 
     black         = "#000000",
     blackish      = "#303030",
-    grey_0        = "#626262",
+    grey_0        = "#606060",
     grey_1        = "#767676",
     grey_2        = "#9E9E9E",
     grey_4        = "#BCBCBC",

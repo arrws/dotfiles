@@ -2,59 +2,73 @@ return {
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
+        dependencies = { "saghen/blink.cmp" },
+        config = function()
+            local servers = {
+                "pyright",
+                "rust_analyzer",
+                "lua_ls",
+                "ruff",
+            }
+            vim.lsp.enable { servers = servers }
+
+            local capabilities = require("blink.cmp").get_lsp_capabilities()
+            local lspconfig = require "lspconfig"
+            for _, server in ipairs(servers) do
+                lspconfig[server].setup {
+                    capabilities = capabilities,
+                }
+            end
+
+            vim.api.nvim_create_autocmd("LspAttach", {
+                desc = "Enable inlay hints",
+                callback = function(event)
+                    local id = vim.tbl_get(event, "data", "client_id")
+                    local client = id and vim.lsp.get_client_by_id(id)
+                    if client == nil or not client.supports_method "textDocument/inlayHint" then
+                        return
+                    end
+
+                    vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
+                end,
+            })
+        end,
     },
 
     {
-        "hrsh7th/nvim-cmp",
+        "Saghen/blink.cmp",
         event = "InsertEnter",
-        dependencies = {
-            "neovim/nvim-lspconfig",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-vsnip", -- required
-            "hrsh7th/vim-vsnip", -- required
+        version = "1.*",
+        opts = {
+            keymap = {
+                preset = "none",
+                ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+                ["<backspace>"] = { "hide", "fallback_to_mappings" },
+                ["<TAB>"] = { "select_next", "fallback" },
+                ["<S-TAB>"] = { "select_prev", "fallback" },
+                ["<C-n>"] = { "select_next", "fallback_to_mappings" },
+                ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+                ["<CR>"] = { "accept", "fallback_to_mappings" },
+            },
+
+            cmdline = { enabled = false },
+            signature = { enabled = true },
+
+            completion = {
+                documentation = { auto_show = false },
+                menu = {
+                    draw = {
+                        columns = { { "label", gap = 1 }, { "kind", gap = 1 }, { "source_name" } },
+                    },
+                },
+            },
+
+            sources = {
+                default = { "lsp", "path", "buffer" },
+            },
+
+            fuzzy = { implementation = "prefer_rust_with_warning" },
         },
-        opts = function()
-            local cmp = require "cmp"
-            return {
-                snippet = { -- required
-                    expand = function(args)
-                        vim.fn["vsnip#anonymous"](args.body)
-                    end,
-                },
-                mapping = {
-                    ["<Tab>"] = cmp.mapping.select_next_item(),
-                    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-                    ["<CR>"] = cmp.mapping.confirm { select = true },
-                    ["<C-n>"] = cmp.mapping.select_next_item(),
-                    ["<C-p>"] = cmp.mapping.select_prev_item(),
-                    ["<C-j>"] = cmp.mapping.confirm { select = true },
-                    ["<backspace>"] = cmp.mapping.abort(),
-                },
-                sources = cmp.config.sources {
-                    { name = "nvim_lsp" },
-                    { name = "vsnip" },
-                    { name = "buffer" },
-                    { name = "path" },
-                    { name = "spell" },
-                },
-                formatting = {
-                    format = function(entry, vim_item)
-                        vim_item.menu = ({
-                            nvim_lsp = "[LSP]",
-                            buffer = "[BUF]",
-                            path = "[PATH]",
-                            spell = "[SPELL]",
-                        })[entry.source.name]
-                        return vim_item
-                    end,
-                },
-                completion = {
-                    completeopt = "menu,menuone,noinsert",
-                },
-            }
-        end,
     },
 
     {
@@ -64,16 +78,11 @@ return {
             require("conform").setup {
                 formatters_by_ft = {
                     lua = { "stylua" },
-                    -- runs multiple formatters sequentially
-                    -- use a sub-list to run only the first available formatter
-                    -- bash = { "a", { "b", "c" } },
                     python = { "ruff_fix", "ruff_format", "yapf" },
                     nix = { "nixfmt" },
                     rust = { "rustfmt" },
-                    -- run on all filetypes
-                    ["*"] = { "codespell" },
-                    -- to on filetypes that don't have other formatters configured
-                    ["_"] = { "trim_whitespace" },
+                    ["*"] = { "codespell" }, -- all files
+                    ["_"] = { "trim_whitespace" }, -- files with no formatter configured
                 },
             }
         end,
@@ -91,6 +100,7 @@ return {
                 require("conform").format { async = true, lsp_fallback = true, range = range }
             end, { range = true })
         end,
+        vim.keymap.set("n", "<leader>p", ":Format<CR>", { desc = "format current buffer" }),
     },
 
     {

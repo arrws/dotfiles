@@ -23,9 +23,8 @@ function M.load()
 
     hl("WinSeparator",          { fg = c.black }) -- vertical bar splitting windows
 
-    hl("IndentBlanklineChar",   { fg = c.blackish, bg = c.black })
-    hl("IndentBlanklineSpaceChar", { link = "IndentBlanklineChar" })
-    hl("IndentBlanklineContextChar", { link = "IndentBlanklineChar" })
+    hl("IndentLine",            { fg = c.blackish })
+    hl("IndentLineCurrent",     { fg = c.blackish, bold = true })
 
     -- Floating Windows
     hl("NormalFloat",           { fg = c.whiteish, bg = c.black }) -- normal text in floating windows
@@ -39,7 +38,7 @@ function M.load()
 
     -- Statusbar Popup Menu
     hl("WildMenu",              { fg = c.green, bg = c.green_darkest }) -- active
-    hl("StatusLine",            { fg = c.grey_72, bg = c.black }) -- inactive
+    hl("StatusLine",            { fg = c.whiteish }) -- inactive
     hl("StatusLineNC",          { fg = c.black }) -- not-current windows
     hl("StatusLineTerm",        { link = "StatusLine" })
     hl("StatusLineTermNC",      { link = "StatusLineNC" })
@@ -51,6 +50,8 @@ function M.load()
     -- Autocomplete Popup Menu
     hl("PMenuSel",              { link = "WildMenu" }) -- selected item.
     hl("PMenu",                 { link = "StatusLine" }) -- normal item.
+    hl("PMenuKind",             { fg = c.grey_0 })
+    hl("PMenuExtra",            { fg = c.grey_0 })
     hl("PMenuSbar",             { link = "StatusLine" }) -- scrollbar.
     hl("PMenuThumb",            { link = "StatusLine" }) -- Thumb of the scrollbar.
 

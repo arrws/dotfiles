@@ -62,7 +62,7 @@ vim.keymap.set("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside 
 vim.keymap.set("x", "*", [[y/\V<C-R>=escape(@", '/\')<CR><CR>]])
 vim.keymap.set("x", "#", [[y?\V<C-R>=escape(@", '?\')<CR><CR>]])
 
-vim.lsp.enable { "pyright", "rust_analyzer", "lua_ls", "ruff" }
+
 vim.diagnostic.config {
     virtual_lines = false,
     -- -- Only show virtual line diagnostics for the current cursor line
@@ -84,10 +84,13 @@ vim.keymap.set("", "<leader>q", ":q!<cr>", {noremap = true})
 vim.keymap.set("n", "<leader>w", ":w<cr>", {noremap = true})
 vim.keymap.set("i", "<leader>w", "<C-c>:w<cr>", {noremap = true})
 
-
--- emacs like jump beginning/end of line
-vim.keymap.set("n", "<C-A>", "^", {noremap = true})
-vim.keymap.set("n", "<C-E>", "$", {noremap = true})
+-- reverse brackets
+vim.keymap.set({ "n", "o", "v" }, "[", "]", { noremap = true })
+vim.keymap.set({ "n", "o", "v" }, "]", "[", { noremap = true })
+vim.keymap.set({ "n", "o", "v" }, "{", "}", { noremap = true })
+vim.keymap.set({ "n", "o", "v" }, "}", "{", { noremap = true })
+vim.keymap.set({ "n", "o", "v" }, "[d", vim.diagnostic.goto_next, { noremap = true })
+vim.keymap.set({ "n", "o", "v" }, "]d", vim.diagnostic.goto_prev, { noremap = true })
 
 -- redo with U instead of Ctrl+R
 vim.keymap.set("n", "U", "<C-R>", {noremap = true})
@@ -98,12 +101,12 @@ vim.keymap.set("n", "go", "o<ESC>k", { desc = "Put empty line above" })
 vim.keymap.set("n", "gO", "O<ESC>j", { desc = "Put empty line below" })
 
 -- Copy/paste with system clipboard
-vim.keymap.set("n", "<leader>y", '"+y', { desc = "Copy to system clipboard" })
-vim.keymap.set("n", "<leader>p", '"+p', { desc = "Paste below from system clipboard" })
-vim.keymap.set("n", "<leader>P", '"+P', { desc = "Paste above from system clipboard" })
+vim.keymap.set("n", "gy", '"+y', { desc = "Copy to system clipboard" })
+vim.keymap.set("n", "gp", '"+p', { desc = "Paste below from system clipboard" })
+vim.keymap.set("n", "gP", '"+P', { desc = "Paste above from system clipboard" })
 
 -- Select recently pasted, yanked or changed text
-vim.keymap.set("n", "gy", "`[v`]", { desc = 'Select recently pasted, yanked or changed text' })
+vim.keymap.set("n", "gv", "`[v`]", { desc = 'Select recently pasted, yanked or changed text' })
 
 -- Block insert in line visual mode
 vim.keymap.set('x', 'I', function() return vim.fn.mode() == 'V' and '^<C-v>I' or 'I' end, { expr = true })
@@ -137,14 +140,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- disable space so that it won't move cursor
 vim.keymap.set("n", "<SPACE>", "<Nop>", {noremap = true})
 
--- disable screen move
-vim.keymap.set("", "<C-b>", "<Nop>") -- moves screen up one page, cursor to last line
-vim.keymap.set("", "<C-f>", "<Nop>") -- moves screen down one page, cursor to first line
-
 
 ------ buffers
--- vim.keymap.set('', '<leader>x', ':bdelete<CR>')
-vim.keymap.set("n", "<leader>x", ":lua MiniBufremove.delete()<CR>", {noremap = true})
+-- vim.keymap.set('', '<C-x', ':bdelete<CR>')
+vim.keymap.set("n", "<C-x>", ":lua MiniBufremove.delete()<CR>", {noremap = true})
 
 
 ------ windows
@@ -162,12 +161,12 @@ vim.keymap.set('n', '<Down-Mapping>', '<Cmd>KittyNavigateDown<CR>', { silent = t
 vim.keymap.set('n', '<Up-Mapping>', '<Cmd>KittyNavigateUp<CR>', { silent = true })
 vim.keymap.set('n', '<Right-Mapping>', '<Cmd>KittyNavigateRight<CR>', { silent = true })
 
-vim.keymap.set("n", "<leader>j", "<C-w>s", {noremap = true})
-vim.keymap.set("n", "<leader>l", "<C-w>v", {noremap = true})
--- vim.keymap.set("n", "<leader>r", "<C-w>x", {noremap = true}) -- exchange current with left window
--- vim.keymap.set("n", "<leader>=", "<C-w>=", {noremap = true}) -- reset all windows
--- vim.keymap.set("n", "<leader>L", ":vertical resize +5<CR>", {noremap = true})
--- vim.keymap.set("n", "<leader>H", ":vertical resize -5<CR>", {noremap = true})
--- vim.keymap.set("n", "<leader>J", ":resize +5<CR>", {noremap = true})
--- vim.keymap.set("n", "<leader>K", ":resize -5<CR>", {noremap = true})
+vim.keymap.set("n", "<leader>S", "<C-w>s", {noremap = true})
+vim.keymap.set("n", "<leader>s", "<C-w>v", {noremap = true})
+-- vim.keymap.set("n", "r", "<C-w>x", {noremap = true}) -- exchange current with left window
+-- vim.keymap.set("n", "=", "<C-w>=", {noremap = true}) -- reset all windows
+-- vim.keymap.set("n", "L", ":vertical resize +5<CR>", {noremap = true})
+-- vim.keymap.set("n", "H", ":vertical resize -5<CR>", {noremap = true})
+-- vim.keymap.set("n", "J", ":resize +5<CR>", {noremap = true})
+-- vim.keymap.set("n", "K", ":resize -5<CR>", {noremap = true})
 

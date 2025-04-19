@@ -3,6 +3,16 @@ return {
         "knubie/vim-kitty-navigator",
         build = "cp ./*.py ~/.config/kitty/",
     },
+    {
+        "norcalli/nvim-colorizer.lua",
+        event = "VeryLazy",
+        config = function()
+            require("colorizer").setup {
+                "*",
+                lua = { mode = "foreground" },
+            }
+        end,
+    },
 
     {
         "chentoast/marks.nvim",
@@ -15,18 +25,18 @@ return {
                 bjiltin_marks = { ".", "<", ">", "^" },
                 refresh_interval = 250, -- 150
                 mappings = {
-                    next = "]m",
-                    prev = "[m",
+                    next = "]'",
+                    prev = "['",
                 },
             }
             -- use only global marks - it's stupid but it works
             for i in string.gmatch("abcdefghijklmnopqrstuvwxyz", ".") do
                 -- vim.keymap.set("n", "ma", "mA", {noremap = true})
-                vim.keymap.set("n", "m" .. i, "m" .. string.upper(i), {noremap = true})
+                vim.keymap.set("n", "m" .. i, "m" .. string.upper(i), { noremap = true })
                 -- vim.keymap.set("n", "'a", "'A", {noremap = true})
-                vim.keymap.set("n", "'" .. i, "'" .. string.upper(i), {noremap = true})
+                vim.keymap.set("n", "'" .. i, "'" .. string.upper(i), { noremap = true })
                 -- vim.keymap.set("n", "dma", ":delmarks A<CR>", {noremap = true})
-                vim.keymap.set("n", "dm" .. i, ":delmarks " .. string.upper(i).. "<CR>", {noremap = true})
+                vim.keymap.set("n", "dm" .. i, ":delmarks " .. string.upper(i) .. "<CR>", { noremap = true })
             end
         end,
     },
@@ -61,15 +71,4 @@ return {
             extensions = {},
         },
     },
-
-    --     {
-    --         "norcalli/nvim-colorizer.lua",
-    --         event = "VeryLazy",
-    --         config = function()
-    --             require("colorizer").setup {
-    --                 "*",
-    --                 lua = { mode = "foreground" },
-    --             }
-    --         end,
-    --     },
 }

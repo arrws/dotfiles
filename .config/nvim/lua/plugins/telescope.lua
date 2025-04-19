@@ -32,30 +32,40 @@ return {
             local builtin = require "telescope.builtin"
             local live_grep_args = require("telescope").load_extension "live_grep_args"
 
-            vim.keymap.set("n", "<leader>fu", builtin.resume, { desc = "resume" })
+            vim.keymap.set("n", "<leader>o", builtin.resume, { desc = "resume" })
 
             -- file pickers
-            vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "files" })
-            vim.keymap.set("n", "<leader>fF", builtin.git_files, { desc = "files respecting .gitignore" })
-            vim.keymap.set("n", "<leader>fg", live_grep_args.live_grep_raw, { desc = "live rip grep" }) -- live ripgrep (accepts args)
-            vim.keymap.set("n", "<leader>fo", builtin.oldfiles, { desc = "old files" })
+            vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "files" })
+            vim.keymap.set("n", "<leader>F", builtin.oldfiles, { desc = "old files" })
+            vim.keymap.set("n", "<leader>r", live_grep_args.live_grep_raw, { desc = "live rip grep" }) -- live ripgrep (accepts args)
+            vim.keymap.set("n", "<leader>R", builtin.git_files, { desc = "files respecting .gitignore" })
 
             -- nvim pickers
-            vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "buffers" })
-            vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "quickfix" })
-            vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "keymaps" })
-            vim.keymap.set("n", "<leader>fc", builtin.commands, { desc = "commands" })
-            vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "marks" })
-            vim.keymap.set("n", "<leader>fy", builtin.registers, { desc = "registers" })
-            vim.keymap.set("n", "<leader>fz", builtin.spell_suggest, { desc = "spell_suggest" })
-            vim.keymap.set("n", "<leader>f?", builtin.man_pages, { desc = "man_pages" })
+            vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "buffers" })
+            vim.keymap.set("n", "<leader>x", builtin.quickfix, { desc = "quickfix" })
+            vim.keymap.set("n", "<leader>m", builtin.marks, { desc = "marks" })
+            vim.keymap.set("n", "<leader>y", builtin.registers, { desc = "registers" })
+
+            -- help pickers
+            vim.keymap.set("n", "<leader>hz", builtin.spell_suggest, { desc = "spell_suggest" })
+            vim.keymap.set("n", "<leader>hk", builtin.keymaps, { desc = "keymaps" })
+            vim.keymap.set("n", "<leader>hc", builtin.commands, { desc = "commands" })
+            vim.keymap.set("n", "<leader>hm", builtin.man_pages, { desc = "man_pages" })
 
             -- lsp pickers
-            vim.keymap.set("n", "<leader>ft", builtin.treesitter, { desc = "treesitter symbols" })
-            vim.keymap.set("n", "<leader>fw", builtin.lsp_document_symbols, { desc = "buffer symbols" })
-            vim.keymap.set("n", "<leader>fi", builtin.lsp_implementations, { desc = "implementations" })
-            vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "references" })
-            vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "diagnostics"})
+            vim.keymap.set("n", "<leader>lt", builtin.treesitter, { desc = "treesitter symbols" })
+            vim.keymap.set("n", "<leader>ls", builtin.lsp_document_symbols, { desc = "buffer symbols" })
+            vim.keymap.set("n", "<leader>li", builtin.lsp_implementations, { desc = "implementations" })
+            vim.keymap.set("n", "<leader>lr", builtin.lsp_references, { desc = "references" })
+            vim.keymap.set("n", "<leader>lD", builtin.diagnostics, { desc = "diagnostics" })
+            vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, { desc = "line diagnostic" })
+            vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "code action" })
+            vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, { desc = "go to definition" })
+            vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration, { desc = "go to declaration" })
+            vim.keymap.set("n", "<leader>i", vim.lsp.buf.implementation, { desc = "go to implementation" })
+            vim.keymap.set("n", "<leader>t", vim.lsp.buf.type_definition, { desc = "go to type definition" })
+            vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "hover" })
+            vim.keymap.set("n", "<leader>K", vim.lsp.buf.signature_help, { desc = "signature help" })
 
             -- git pickers
             vim.keymap.set("n", "<leader>gs", builtin.git_status, { desc = "git status" })
@@ -63,7 +73,6 @@ return {
             vim.keymap.set("n", "<leader>gc", builtin.git_bcommits, { desc = "git buffer commits" })
             vim.keymap.set("n", "<leader>gC", builtin.git_commits, { desc = "git commits" })
             vim.keymap.set("n", "<leader>gb", builtin.git_branches, { desc = "git branches" })
-
         end,
 
         opts = function()
@@ -78,8 +87,8 @@ return {
 
                             ["<CR>"] = actions.select_default,
                             ["<C-j>"] = actions.select_default,
-                            ["<leader>l"] = actions.file_vsplit,
-                            ["<leader>j"] = actions.file_split,
+                            ["<leader>s"] = actions.file_vsplit,
+                            ["<leader>S"] = actions.file_split,
 
                             ["<C-n>"] = actions.move_selection_next,
                             ["<C-p>"] = actions.move_selection_previous,
