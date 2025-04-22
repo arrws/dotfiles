@@ -52,7 +52,7 @@ vim.opt.incsearch = true -- start searching as you type letters
 vim.opt.ignorecase = true -- make searches case sensitive
 vim.opt.smartcase = true -- will search case sensitive if uppercase present, needs ignorecase set
 
-vim.keymap.set("", "<BS>", ":noh<CR>") -- clear search highlight
+vim.keymap.set("n", "<BS>", ":noh<CR>") -- clear search highlight
 vim.opt.inccommand = "nosplit" -- live visualization of substitutions
 
 -- Search inside visual selection. `silent = false` makes effect immediately.
@@ -84,13 +84,13 @@ vim.keymap.set("", "<leader>q", ":q!<cr>", {noremap = true})
 vim.keymap.set("n", "<leader>w", ":w<cr>", {noremap = true})
 vim.keymap.set("i", "<leader>w", "<C-c>:w<cr>", {noremap = true})
 
--- reverse brackets
-vim.keymap.set({ "n", "o", "v" }, "[", "]", { noremap = true })
-vim.keymap.set({ "n", "o", "v" }, "]", "[", { noremap = true })
-vim.keymap.set({ "n", "o", "v" }, "{", "}", { noremap = true })
-vim.keymap.set({ "n", "o", "v" }, "}", "{", { noremap = true })
-vim.keymap.set({ "n", "o", "v" }, "[d", vim.diagnostic.goto_next, { noremap = true })
-vim.keymap.set({ "n", "o", "v" }, "]d", vim.diagnostic.goto_prev, { noremap = true })
+-- -- reverse brackets
+-- vim.keymap.set({ "n", "o", "v" }, "[", "]", { noremap = true })
+-- vim.keymap.set({ "n", "o", "v" }, "]", "[", { noremap = true })
+-- vim.keymap.set({ "n", "o", "v" }, "{", "}", { noremap = true })
+-- vim.keymap.set({ "n", "o", "v" }, "}", "{", { noremap = true })
+-- vim.keymap.set({ "n", "o", "v" }, "[d", vim.diagnostic.goto_next, { noremap = true })
+-- vim.keymap.set({ "n", "o", "v" }, "]d", vim.diagnostic.goto_prev, { noremap = true })
 
 -- redo with U instead of Ctrl+R
 vim.keymap.set("n", "U", "<C-R>", {noremap = true})
@@ -99,6 +99,9 @@ vim.keymap.set("n", "<C-R>", "Nup", {noremap = true})
 -- add newline without insert
 vim.keymap.set("n", "go", "o<ESC>k", { desc = "Put empty line above" })
 vim.keymap.set("n", "gO", "O<ESC>j", { desc = "Put empty line below" })
+
+-- avoid resetting
+vim.keymap.set("n", "K", "<Nop>")
 
 -- Copy/paste with system clipboard
 vim.keymap.set("n", "gy", '"+y', { desc = "Copy to system clipboard" })

@@ -43,7 +43,7 @@ return {
             keymap = {
                 preset = "none",
                 ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-                ["<backspace>"] = { "hide", "fallback_to_mappings" },
+                -- ["<BS>"] = { "hide", "fallback_to_mappings" },
                 ["<TAB>"] = { "select_next", "fallback" },
                 ["<S-TAB>"] = { "select_prev", "fallback" },
                 ["<C-n>"] = { "select_next", "fallback_to_mappings" },
