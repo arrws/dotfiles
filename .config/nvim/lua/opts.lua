@@ -100,8 +100,8 @@ vim.keymap.set("n", "<C-R>", "Nup", {noremap = true})
 vim.keymap.set("n", "go", "o<ESC>k", { desc = "Put empty line above" })
 vim.keymap.set("n", "gO", "O<ESC>j", { desc = "Put empty line below" })
 
--- avoid resetting
-vim.keymap.set("n", "K", "<Nop>")
+-- -- avoid resetting
+-- vim.keymap.set("n", "K", "<Nop>") -- should be go to definition
 
 -- Copy/paste with system clipboard
 vim.keymap.set("n", "gy", '"+y', { desc = "Copy to system clipboard" })

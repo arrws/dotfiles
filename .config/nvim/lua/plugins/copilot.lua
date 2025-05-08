@@ -9,7 +9,7 @@ return {
                 'copilot#Accept("<CR>")',
                 { expr = true, noremap = true, silent = true, replace_keycodes = false, desc = "copilot autocomplete" }
             )
-            vim.keymap.set("n", "<leader>a", ":CopilotChatToggle<CR>", { desc = "copilot chat" })
+            vim.keymap.set("n", "<leader>l", ":CopilotChatToggle<CR>", { desc = "copilot chat" })
         end,
     },
     {

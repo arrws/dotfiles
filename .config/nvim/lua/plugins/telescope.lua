@@ -37,8 +37,8 @@ return {
             -- file pickers
             vim.keymap.set("n", "<leader>f", builtin.find_files, { desc = "files" })
             vim.keymap.set("n", "<leader>F", builtin.oldfiles, { desc = "old files" })
-            vim.keymap.set("n", "<leader>r", live_grep_args.live_grep_raw, { desc = "live rip grep" }) -- live ripgrep (accepts args)
-            vim.keymap.set("n", "<leader>R", builtin.git_files, { desc = "files respecting .gitignore" })
+            vim.keymap.set("n", "<leader>g", live_grep_args.live_grep_raw, { desc = "live rip grep" }) -- live ripgrep (accepts args)
+            vim.keymap.set("n", "<leader>G", builtin.git_files, { desc = "files respecting .gitignore" })
 
             -- nvim pickers
             vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "buffers" })
@@ -53,15 +53,16 @@ return {
             vim.keymap.set("n", "<leader>hm", builtin.man_pages, { desc = "man_pages" })
 
             -- lsp pickers
-            vim.keymap.set("n", "<leader>lt", builtin.treesitter, { desc = "treesitter symbols" })
-            vim.keymap.set("n", "<leader>ls", builtin.lsp_document_symbols, { desc = "buffer symbols" })
-            vim.keymap.set("n", "<leader>li", builtin.lsp_implementations, { desc = "implementations" })
-            vim.keymap.set("n", "<leader>lr", builtin.lsp_references, { desc = "references" })
-            vim.keymap.set("n", "<leader>lD", builtin.diagnostics, { desc = "diagnostics" })
-            vim.keymap.set("n", "<leader>ld", vim.diagnostic.open_float, { desc = "line diagnostic" })
-            vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, { desc = "code action" })
-            vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, { desc = "go to definition" })
-            vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration, { desc = "go to declaration" })
+            vim.keymap.set("n", "<leader>t", builtin.treesitter, { desc = "treesitter symbols" })
+            vim.keymap.set("n", "<leader>T", builtin.lsp_document_symbols, { desc = "buffer symbols" })
+            vim.keymap.set("n", "<leader>i", builtin.lsp_implementations, { desc = "implementations" })
+            vim.keymap.set("n", "<leader>r", builtin.lsp_references, { desc = "references" })
+            vim.keymap.set("n", "<leader>D", builtin.diagnostics, { desc = "diagnostics" })
+            vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "line diagnostic" })
+            vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "code action" })
+            -- vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition, { desc = "go to definition" })
+            vim.keymap.set("n", "K", vim.lsp.buf.definition, { desc = "go to definition" })
+            -- vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration, { desc = "go to declaration" })
             vim.keymap.set("n", "<leader>i", vim.lsp.buf.implementation, { desc = "go to implementation" })
             vim.keymap.set("n", "<leader>t", vim.lsp.buf.type_definition, { desc = "go to type definition" })
             vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "hover" })
