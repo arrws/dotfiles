@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 
 paths=(
-".bin/"
+# ".bin/"
 
-".zshrc"
-".gitconfig"
+# ".zshrc"
+# ".gitconfig"
 
-".config/kitty/"
-".config/bat/"
-".config/lsd/"
+# ".config/kitty/"
+# ".config/bat/"
+# ".config/lsd/"
 
 ".config/nvim/"
-".config/yazi/*.toml"
-".config/neofetch/"
+# ".config/yazi/*.toml"
+# ".config/neofetch/"
 
-".skynet.png"
+# ".skynet.png"
 )
 
 for item in "${paths[@]}"; do
@@ -37,6 +37,6 @@ if [[ "$ok" == "B" ]]; then
 elif [[ "$ok" == "C" ]]; then
     echo "to copy to local run:"
     echo "rsync -avR ${args} $HOME"
-    # rsync -avR ${args} $HOME
+    rsync -avR ${args} $HOME
 fi
 
