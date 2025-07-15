@@ -15,6 +15,9 @@ paths=(
 ".config/nvim/init.lua"
 ".config/nvim/lazy-lock.json"
 
+".claude/commands/"
+".claude/CLAUDE.md"
+
 ".skynet.png"
 )
 
