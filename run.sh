@@ -6,13 +6,14 @@ paths=(
 ".zshrc"
 ".gitconfig"
 
-".config/kitty/"
-".config/bat/"
-".config/lsd/"
+".config/kitty/kitty.conf"
+".config/lsd/config.yaml"
+".config/bat/config"
+".config/bat/themes/xtheme.tmTheme"
 
-".config/nvim/"
-".config/yazi/*.toml"
-".config/neofetch/"
+".config/nvim/lua/"
+".config/nvim/init.lua"
+".config/nvim/lazy-lock.json"
 
 ".skynet.png"
 )
