@@ -48,7 +48,7 @@ return {
                 ["<S-TAB>"] = { "select_prev", "fallback" },
                 ["<C-n>"] = { "select_next", "fallback_to_mappings" },
                 ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
-                ["<CR>"] = { "accept", "fallback_to_mappings" },
+                -- ["<CR>"] = { "accept", "fallback_to_mappings" },
             },
 
             cmdline = { enabled = false },

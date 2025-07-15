@@ -62,3 +62,18 @@ require("lazy").setup("plugins", {
         notify = true, -- get a notification when changes are found
     },
 })
+-- vim.keymap.set("n", "<C-K>", vim.lsp.buf.definition, { desc = "go to definition" })
+vim.keymap.set("n", "<C-K>", function()
+    local clients = vim.lsp.get_active_clients { bufnr = 0 }
+
+    -- Check if any active LSP client supports goToDefinition
+    for _, client in ipairs(clients) do
+        if client.supports_method "textDocument/definition" then
+            vim.lsp.buf.definition()
+            return
+        end
+    end
+
+    -- Fall back to gf if no LSP definition available
+    vim.cmd "normal! gf"
+end, { silent = true, noremap = true })
