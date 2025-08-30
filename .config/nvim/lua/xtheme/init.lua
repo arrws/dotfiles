@@ -119,11 +119,6 @@ function M.load()
     hl("DiagnosticInfo",        { link = "InfoMsg" })
     hl("DiagnosticHint",        { link = "HintMsg" })
 
-    hl("NvimTreeLspDiagnosticsError",       { link = "DiagnosticError" })
-    hl("NvimTreeLspDiagnosticsHint",        { link = "DiagnosticHint" })
-    hl("NvimTreeLspDiagnosticsInformation", { link = "DiagnosticInfo" })
-    hl("NvimTreeLspDiagnosticsWarning",     { link = "DiagnosticWarn" })
-
     ------ CODING
 
     -- Text

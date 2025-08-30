@@ -1,45 +1,38 @@
-return {
-    {
-        "neovim/nvim-lspconfig",
-        event = { "BufReadPre", "BufNewFile" },
-        dependencies = { "saghen/blink.cmp" },
-        config = function()
-            local servers = {
-                "pyright",
-                "rust_analyzer",
-                "lua_ls",
-                "ruff",
-            }
-            vim.lsp.enable { servers = servers }
+vim.pack.add {
+    { src = "https://github.com/Saghen/blink.cmp", version = "v1.6.0" },
+    { src = "https://github.com/stevearc/conform.nvim" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+    { src = "https://github.com/neovim/nvim-lspconfig" },
+}
 
-            local capabilities = require("blink.cmp").get_lsp_capabilities()
-            local lspconfig = require "lspconfig"
-            for _, server in ipairs(servers) do
-                lspconfig[server].setup {
-                    capabilities = capabilities,
-                }
-            end
+-- LSP Configuration
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    callback = function()
+        local servers = { "pyright", "rust_analyzer", "lua_ls", "ruff" }
 
-            vim.api.nvim_create_autocmd("LspAttach", {
-                desc = "Enable inlay hints",
-                callback = function(event)
-                    local id = vim.tbl_get(event, "data", "client_id")
-                    local client = id and vim.lsp.get_client_by_id(id)
-                    if client == nil or not client.supports_method "textDocument/inlayHint" then
-                        return
-                    end
+        local lspconfig = require "lspconfig"
+        local capabilities = require("blink.cmp").get_lsp_capabilities()
+        for _, server in ipairs(servers) do
+            lspconfig[server].setup { capabilities = capabilities }
+        end
+    end,
+    once = true,
+})
 
-                    vim.lsp.inlay_hint.enable(true, { bufnr = event.buf })
-                end,
-            })
-        end,
-    },
+-- inlay hints
+vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client and client:supports_method "textDocument/inlayHint" then
+            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+        end
+    end,
+})
 
-    {
-        "Saghen/blink.cmp",
-        event = "InsertEnter",
-        version = "1.*",
-        opts = {
+-- Blink.cmp
+vim.api.nvim_create_autocmd("InsertEnter", {
+    callback = function()
+        require("blink.cmp").setup {
             keymap = {
                 preset = "none",
                 ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
@@ -68,64 +61,87 @@ return {
             },
 
             fuzzy = { implementation = "prefer_rust_with_warning" },
-        },
-    },
+        }
+    end,
+    once = true,
+})
 
-    {
-        "stevearc/conform.nvim",
-        event = { "BufReadPost", "BufNewFile" },
-        config = function()
-            require("conform").setup {
-                formatters_by_ft = {
-                    lua = { "stylua" },
-                    python = { "ruff_fix", "ruff_format", "yapf" },
-                    nix = { "nixfmt" },
-                    rust = { "rustfmt" },
-                    ["*"] = { "codespell" }, -- all files
-                    ["_"] = { "trim_whitespace" }, -- files with no formatter configured
-                },
-            }
-        end,
-        -- command to run async formatting
-        init = function()
-            vim.api.nvim_create_user_command("Format", function(args)
-                local range = nil
-                if args.count ~= -1 then
-                    local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
-                    range = {
-                        start = { args.line1, 0 },
-                        ["end"] = { args.line2, end_line:len() },
-                    }
-                end
-                require("conform").format { async = true, lsp_fallback = true, range = range }
-            end, { range = true })
-        end,
-        vim.keymap.set("n", "<leader>p", ":Format<CR>", { desc = "format current buffer" }),
-    },
+-- Conform formatter
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    callback = function()
+        require("conform").setup {
+            formatters_by_ft = {
+                lua = { "stylua" },
+                python = { "ruff_fix", "ruff_format", "yapf" },
+                nix = { "nixfmt" },
+                rust = { "rustfmt" },
+                ["*"] = { "codespell" }, -- all files
+                ["_"] = { "trim_whitespace" }, -- files with no formatter configured
+            },
+        }
+    end,
+    once = true,
+})
 
-    {
-        "nvim-treesitter/nvim-treesitter",
-        event = { "BufReadPost", "BufNewFile" },
-        opts = {
-            highlight = { enable = true },
-            indent = { enable = true },
+vim.api.nvim_create_user_command("Format", function(args)
+    local range = nil
+    if args.count ~= -1 then
+        local end_line = vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+        range = {
+            start = { args.line1, 0 },
+            ["end"] = { args.line2, end_line:len() },
+        }
+    end
+    require("conform").format { async = true, lsp_fallback = true, range = range }
+end, { range = true })
+
+vim.keymap.set({ "n", "v" }, "<leader>p", function()
+    require("conform").format {
+        async = true,
+        lsp_fallback = true,
+    }
+end, { desc = "Format buffer" })
+
+-- Treesitter
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+    callback = function()
+        require("nvim-treesitter.configs").setup {
             ensure_installed = {
                 "c",
                 "cpp",
+                "diff",
                 "lua",
                 "vim",
                 "vimdoc",
                 "query",
-                "markdown",
-                "markdown_inline",
                 "python",
-                "sql",
                 "rust",
-                "regex",
-                "ledger",
+                "sql",
                 "bash",
                 "yaml",
+                "markdown",
+                "markdown_inline",
+                "regex",
+                "ledger",
             },
-        },
-    },
-}
+            auto_install = false,
+            highlight = {
+                enable = true,
+                additional_vim_regex_highlighting = false,
+            },
+            indent = {
+                enable = true,
+            },
+            incremental_selection = {
+                enable = true,
+                keymaps = {
+                    init_selection = false,
+                    node_incremental = "v",
+                    scope_incremental = false,
+                    node_decremental = "V",
+                },
+            },
+        }
+    end,
+    once = true,
+})
