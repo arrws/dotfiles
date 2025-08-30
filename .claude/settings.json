@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "bash",
+      "ls",
+      "mv",
+      "Bash(ls:*)",
+      "Bash(mv:*)",
+      "Bash(mkdir:*)",
+      "Bash(find:*)",
+      "Bash(curl:*)",
+      "Bash(uv:*)",
+      "Bash(python:*)",
+      "WebSearch"
+    ],
+    "deny": [],
+    "ask": [],
+    "defaultMode": "acceptEdits"
+  },
+  "model": "opusplan"
+}

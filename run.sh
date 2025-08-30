@@ -13,7 +13,11 @@ paths=(
 
 ".config/nvim/lua/"
 ".config/nvim/init.lua"
-".config/nvim/lazy-lock.json"
+".config/nvim/CLAUDE.md"
+
+".claude/commands/"
+".claude/CLAUDE.md"
+".claude/settings.json"
 
 ".skynet.png"
 )
