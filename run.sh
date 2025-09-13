@@ -16,6 +16,7 @@ paths=(
 ".config/nvim/CLAUDE.md"
 
 ".claude/commands/"
+".claude/hooks/"
 ".claude/CLAUDE.md"
 ".claude/settings.json"
 

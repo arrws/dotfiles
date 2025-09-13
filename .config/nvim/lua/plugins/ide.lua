@@ -8,7 +8,7 @@ vim.pack.add {
 -- LSP Configuration
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
     callback = function()
-        local servers = { "pyright", "rust_analyzer", "lua_ls", "ruff" }
+        local servers = { "pyright", "rust_analyzer", "hls", "lua_ls", "ruff" }
 
         local lspconfig = require "lspconfig"
         local capabilities = require("blink.cmp").get_lsp_capabilities()
@@ -43,10 +43,8 @@ vim.api.nvim_create_autocmd("InsertEnter", {
                 ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
                 -- ["<CR>"] = { "accept", "fallback_to_mappings" },
             },
-
             cmdline = { enabled = false },
             signature = { enabled = true },
-
             completion = {
                 documentation = { auto_show = false },
                 menu = {
@@ -55,11 +53,9 @@ vim.api.nvim_create_autocmd("InsertEnter", {
                     },
                 },
             },
-
             sources = {
                 default = { "lsp", "path", "buffer" },
             },
-
             fuzzy = { implementation = "prefer_rust_with_warning" },
         }
     end,
