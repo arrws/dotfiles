@@ -6,7 +6,7 @@ paths=(
 ".zshrc"
 ".gitconfig"
 
-".config/kitty/kitty.conf"
+".config/ghostty/config"
 ".config/lsd/config.yaml"
 ".config/bat/config"
 ".config/bat/themes/xtheme.tmTheme"

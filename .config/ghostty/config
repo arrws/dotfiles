@@ -1,0 +1,42 @@
+macos-titlebar-style = tabs
+theme = Apple System Colors
+background = #000000
+window-padding-x = 6
+window-padding-y = 6
+scrollback-limit = 8000
+
+font-family = Source Code Pro
+font-size = 14
+
+command = zsh
+
+copy-on-select = clipboard
+confirm-close-surface = true
+
+# Split management
+
+keybind = cmd+shift+enter=new_split
+keybind = cmd+shift+x=close_surface
+
+keybind = cmd+j=goto_split:down
+keybind = cmd+k=goto_split:up
+keybind = cmd+h=goto_split:left
+keybind = cmd+l=goto_split:right
+
+keybind = cmd+shift+j=resize_split:down,10
+keybind = cmd+shift+k=resize_split:up,10
+keybind = cmd+shift+h=resize_split:left,10
+keybind = cmd+shift+l=resize_split:right,10
+
+# Tab management
+
+keybind = cmd+enter=new_tab
+keybind = cmd+x=close_tab
+keybind = cmd+period=prompt_surface_title
+
+keybind = cmd+d=next_tab
+keybind = cmd+s=previous_tab
+
+keybind = cmd+shift+d=move_tab:1
+keybind = cmd+shift+s=move_tab:-1
+
