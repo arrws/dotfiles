@@ -6,7 +6,7 @@
     helper = store
 
 [rerere]
-    enabled = true
+    enabled = false
 
 [branch]
     autosetuprebase = always
@@ -16,6 +16,7 @@
 
 [core]
     pager = delta
+    editor = vi
 
 [interactive]
     diffFilter = delta

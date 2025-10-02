@@ -112,28 +112,23 @@ map("n", "<C-x>", function()
 end, { noremap = true, desc = "Delete buffer" })
 
 
+------ splits
+map("n", "<leader>s", "<C-w>v", { noremap = true, desc = "Vertical split" })
+map("n", "<leader>S", "<C-w>s", { noremap = true, desc = "Horizontal split" })
+map("n", "<D-l>", "<C-w>l", {noremap = true, desc = "Move to right split"})
+map("n", "<D-h>", "<C-w>h", {noremap = true, desc = "Move to left split"})
+map("n", "<D-j>", "<C-w>j", {noremap = true, desc = "Move to bottom split"})
+map("n", "<D-k>", "<C-w>k", {noremap = true, desc = "Move to top split"})
+map("n", "<D-S-l>", ":vertical resize +5<CR>", {noremap = true, desc = "Resize split right"})
+map("n", "<D-S-h>", ":vertical resize -5<CR>", {noremap = true, desc = "Resize split left"})
+-- map("n", "<D-S-j>", ":resize +5<CR>", {noremap = true, desc = "Resize split down"})
+-- map("n", "<D-S-k>", ":resize -5<CR>", {noremap = true, desc = "Resize split up"})
+-- map("n", "r", "<D-w>x", {noremap = true}) -- exchange current with left window
+-- map("n", "=", "<D-w>=", {noremap = true}) -- reset all windows
+
 -- automatically equalize splits when resized
 vim.api.nvim_create_autocmd("VimResized", {
     pattern = "*",
     command = "wincmd ="
 })
-
-
-
-
--- map("n", "<C-K>", vim.lsp.buf.definition, { desc = "go to definition" })
-map("n", "<C-K>", function()
-    local clients = vim.lsp.get_active_clients { bufnr = 0 }
-
-    -- Check if any active LSP client supports goToDefinition
-    for _, client in ipairs(clients) do
-        if client.server_capabilities.definitionProvider then
-            vim.lsp.buf.definition()
-            return
-        end
-    end
-
-    -- Fall back to gf if no LSP definition available
-    vim.cmd "normal! gf"
-end, { silent = true, noremap = true })
 

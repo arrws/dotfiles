@@ -30,9 +30,9 @@ local function setup_telescope()
 
                     ["<C-n>"] = actions.move_selection_next,
                     ["<C-p>"] = actions.move_selection_previous,
+                    ["<C-q>"] = actions.send_selected_to_qflist,
 
                     ["<C-t>"] = actions.toggle_selection + actions.move_selection_worse,
-                    ["<leader>q"] = actions.send_selected_to_qflist,
 
                     ["<C-u>"] = actions.preview_scrolling_up,
                     ["<C-d>"] = actions.preview_scrolling_down,
@@ -144,13 +144,7 @@ t_map("<leader>D", "diagnostics", "diagnostics")
 -- LSP keymaps (not telescope)
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "line diagnostic" })
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "code action" })
--- vim.keymap.set("n", "<leader>k", vim.lsp.buf.definition, { desc = "go to definition" })
--- vim.keymap.set("n", "K", vim.lsp.buf.definition, { desc = "go to definition" })
--- vim.keymap.set("n", "<leader>D", vim.lsp.buf.declaration, { desc = "go to declaration" })
--- vim.keymap.set("n", "<leader>i", vim.lsp.buf.implementation, { desc = "go to implementation" })
 vim.keymap.set("n", "<leader>T", vim.lsp.buf.type_definition, { desc = "go to type definition" })
-vim.keymap.set("n", "<leader>k", vim.lsp.buf.hover, { desc = "hover" })
--- vim.keymap.set("n", "<leader>K", vim.lsp.buf.signature_help, { desc = "signature help" })
 
 -- Git pickers
 t_map("<leader>gs", "git_status", "git status")

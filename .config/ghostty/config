@@ -1,42 +1,52 @@
-macos-titlebar-style = tabs
+macos-icon = custom-style
+macos-icon-frame = aluminum
+macos-icon-ghost-color = white
+macos-icon-screen-color = black
+macos-titlebar-style = transparent
+
 theme = Apple System Colors
 background = #000000
+
 window-padding-x = 6
 window-padding-y = 6
-scrollback-limit = 8000
 
 font-family = Source Code Pro
-font-size = 14
+font-size = 16
 
 command = zsh
-
+scrollback-limit = 8000
 copy-on-select = clipboard
 confirm-close-surface = true
 
+split-divider-color = #222
+unfocused-split-fill = black
+unfocused-split-opacity = 0.6
+
+
+keybind = cmd+f=write_scrollback_file:open
+keybind = cmd+backspace=text:\x17
+
+
 # Split management
-
-keybind = cmd+shift+enter=new_split
-keybind = cmd+shift+x=close_surface
-
-keybind = cmd+j=goto_split:down
-keybind = cmd+k=goto_split:up
-keybind = cmd+h=goto_split:left
-keybind = cmd+l=goto_split:right
-
-keybind = cmd+shift+j=resize_split:down,10
-keybind = cmd+shift+k=resize_split:up,10
-keybind = cmd+shift+h=resize_split:left,10
-keybind = cmd+shift+l=resize_split:right,10
+keybind = cmd+backslash=new_split:right
+keybind = cmd+shift+backslash=new_split:down
+keybind = performable:cmd+j=goto_split:down
+keybind = performable:cmd+k=goto_split:up
+keybind = performable:cmd+h=goto_split:left
+keybind = performable:cmd+l=goto_split:right
+# keybind = performable:cmd+shift+j=resize_split:down,20
+# keybind = performable:cmd+shift+k=resize_split:up,20
+# keybind = performable:cmd+shift+h=resize_split:left,20
+# keybind = performable:cmd+shift+l=resize_split:right,20
 
 # Tab management
-
 keybind = cmd+enter=new_tab
-keybind = cmd+x=close_tab
+keybind = cmd+shift+x=close_tab
+keybind = cmd+x=close_surface
 keybind = cmd+period=prompt_surface_title
-
 keybind = cmd+d=next_tab
 keybind = cmd+s=previous_tab
-
 keybind = cmd+shift+d=move_tab:1
 keybind = cmd+shift+s=move_tab:-1
 
+keybind = shift+enter=text:\x1b\r
