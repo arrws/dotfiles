@@ -25,8 +25,8 @@ local function setup_telescope()
 
                     ["<CR>"] = actions.select_default,
                     ["<C-j>"] = actions.select_default,
-                    ["<leader>s"] = actions.file_vsplit,
-                    ["<leader>S"] = actions.file_split,
+                    ["<leader>//"] = actions.file_vsplit,
+                    ["<leader>|"] = actions.file_split,
 
                     ["<C-n>"] = actions.move_selection_next,
                     ["<C-p>"] = actions.move_selection_previous,
@@ -135,8 +135,8 @@ t_map("<leader>hc", "commands", "commands")
 t_map("<leader>hm", "man_pages", "man_pages")
 
 -- LSP pickers
-t_map("<leader>t", "treesitter", "treesitter symbols")
-t_map("<leader>T", "lsp_document_symbols", "buffer symbols")
+-- t_map("<leader>t", "treesitter", "treesitter symbols")
+-- t_map("<leader>T", "lsp_document_symbols", "buffer symbols")
 t_map("<leader>i", "lsp_implementations", "implementations")
 -- t_map("<leader>r", "lsp_references", "references")
 t_map("<leader>D", "diagnostics", "diagnostics")

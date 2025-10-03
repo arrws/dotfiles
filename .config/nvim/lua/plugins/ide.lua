@@ -71,7 +71,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
                 python = { "ruff_fix", "ruff_format", "yapf" },
                 nix = { "nixfmt" },
                 rust = { "rustfmt" },
-                ["*"] = { "codespell" }, -- all files
                 ["_"] = { "trim_whitespace" }, -- files with no formatter configured
             },
         }
@@ -130,13 +129,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
                 enable = true,
             },
             incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = false,
-                    node_incremental = "v",
-                    scope_incremental = false,
-                    node_decremental = "V",
-                },
+                enable = false,
+                keymaps = {},
             },
         }
     end,

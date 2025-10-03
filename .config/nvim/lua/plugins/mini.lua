@@ -34,8 +34,8 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
                 line_up = "<up>",
             },
         }
-        vim.keymap.set({ "n", "o", "v" }, "[h", ":lua MiniDiff.goto_hunk('next')<CR>", { noremap = true })
-        vim.keymap.set({ "n", "o", "v" }, "]h", ":lua MiniDiff.goto_hunk('prev')<CR>", { noremap = true })
+        vim.keymap.set({ "n", "o", "v" }, "]h", ":lua MiniDiff.goto_hunk('next')<CR>", { noremap = true })
+        vim.keymap.set({ "n", "o", "v" }, "[h", ":lua MiniDiff.goto_hunk('prev')<CR>", { noremap = true })
     end,
     once = true,
 })
