@@ -34,10 +34,10 @@ keybind = performable:cmd+j=goto_split:down
 keybind = performable:cmd+k=goto_split:up
 keybind = performable:cmd+h=goto_split:left
 keybind = performable:cmd+l=goto_split:right
-# keybind = performable:cmd+shift+j=resize_split:down,20
-# keybind = performable:cmd+shift+k=resize_split:up,20
-# keybind = performable:cmd+shift+h=resize_split:left,20
-# keybind = performable:cmd+shift+l=resize_split:right,20
+keybind = performable:cmd+shift+j=resize_split:down,20
+keybind = performable:cmd+shift+k=resize_split:up,20
+keybind = performable:cmd+shift+h=resize_split:left,20
+keybind = performable:cmd+shift+l=resize_split:right,20
 
 # Tab management
 keybind = cmd+enter=new_tab
