@@ -3,7 +3,7 @@ vim.pack.add {
     { src = "https://github.com/nvim-mini/mini.nvim" },
 }
 
-require("indentmini").setup { char = "│" }
+require("indentmini").setup()
 
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     callback = function()

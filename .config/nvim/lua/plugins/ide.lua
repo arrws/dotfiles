@@ -35,18 +35,11 @@ vim.api.nvim_create_autocmd("InsertEnter", {
         require("blink.cmp").setup {
             keymap = {
                 preset = "none",
-                ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-                -- ["<BS>"] = { "hide", "fallback_to_mappings" },
-                ["<TAB>"] = { "select_next", "fallback" },
-                ["<S-TAB>"] = { "select_prev", "fallback" },
-                ["<C-n>"] = { "select_next", "fallback_to_mappings" },
-                ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
-                -- ["<CR>"] = { "accept", "fallback_to_mappings" },
+                ["<TAB>"] = { "select_next", "fallback" }, -- C-n
+                ["<S-TAB>"] = { "select_prev", "fallback" }, -- C-p
             },
             cmdline = { enabled = false },
-            signature = { enabled = true },
             completion = {
-                documentation = { auto_show = false },
                 menu = {
                     draw = {
                         columns = { { "label", gap = 1 }, { "kind", gap = 1 }, { "source_name" } },
@@ -56,7 +49,6 @@ vim.api.nvim_create_autocmd("InsertEnter", {
             sources = {
                 default = { "lsp", "path", "buffer" },
             },
-            fuzzy = { implementation = "prefer_rust_with_warning" },
         }
     end,
     once = true,
@@ -68,10 +60,10 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
         require("conform").setup {
             formatters_by_ft = {
                 lua = { "stylua" },
-                python = { "ruff_fix", "ruff_format", "yapf" },
+                python = { "ruff_fix", "ruff_format" },
                 nix = { "nixfmt" },
                 rust = { "rustfmt" },
-                ["_"] = { "trim_whitespace" }, -- files with no formatter configured
+                ["_"] = { "trim_whitespace" },
             },
         }
     end,
@@ -120,17 +112,11 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
                 "markdown_inline",
                 "ledger",
             },
-            auto_install = false,
             highlight = {
                 enable = true,
-                additional_vim_regex_highlighting = false,
             },
             indent = {
                 enable = true,
-            },
-            incremental_selection = {
-                enable = false,
-                keymaps = {},
             },
         }
     end,

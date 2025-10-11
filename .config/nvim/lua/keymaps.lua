@@ -70,15 +70,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 map("n", "<SPACE>", "<Nop>", { noremap = true })
 
 ------ splits
-map("n", "<leader>\\", "<C-w>v", { noremap = true, desc = "Vertical split" })
-map("n", "<leader>|", "<C-w>s", { noremap = true, desc = "Horizontal split" })
+map("n", "<D-\\>", "<C-w>v", { noremap = true, desc = "Vertical split" })
+map("n", "<D-S-\\>", "<C-w>s", { noremap = true, desc = "Horizontal split" })
 map("n", "<D-l>", "<C-w>l", { noremap = true, desc = "Move to right split" })
 map("n", "<D-h>", "<C-w>h", { noremap = true, desc = "Move to left split" })
 map("n", "<D-j>", "<C-w>j", { noremap = true, desc = "Move to bottom split" })
 map("n", "<D-k>", "<C-w>k", { noremap = true, desc = "Move to top split" })
-map("n", "<D-S-l>", ":vertical resize +5<CR>", { noremap = true, desc = "Resize split right" })
-map("n", "<D-S-h>", ":vertical resize -5<CR>", { noremap = true, desc = "Resize split left" })
-map("n", "<D-S-j>", ":horizontal resize +5<CR>", {noremap = true, desc = "Resize split down"})
-map("n", "<D-S-k>", ":horizontal resize -5<CR>", {noremap = true, desc = "Resize split up"})
+map("n", "<D-S-l>", ":vertical resize -4<CR>", { noremap = true, desc = "Resize split left" })
+map("n", "<D-S-h>", ":vertical resize +4<CR>", { noremap = true, desc = "Resize split right" })
+map("n", "<D-S-j>", ":horizontal resize -2<CR>", {noremap = true, desc = "Resize split up"})
+map("n", "<D-S-k>", ":horizontal resize +2<CR>", {noremap = true, desc = "Resize split down"})
 -- map("n", "r", "<D-w>x", {noremap = true}) -- exchange current with left window
 -- map("n", "=", "<D-w>=", {noremap = true}) -- reset all windows

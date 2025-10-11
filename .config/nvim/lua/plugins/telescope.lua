@@ -20,39 +20,19 @@ local function setup_telescope()
         defaults = {
             mappings = {
                 i = {
+                    -- C-q quickfix C-n C-p
                     ["<esc>"] = actions.close,
                     ["<leader>q"] = actions.close,
-
-                    ["<CR>"] = actions.select_default,
-                    ["<C-j>"] = actions.select_default,
+                    ["<C-j>"] = actions.select_default, -- Enter
                     ["<leader>//"] = actions.file_vsplit,
                     ["<leader>|"] = actions.file_split,
-
-                    ["<C-n>"] = actions.move_selection_next,
-                    ["<C-p>"] = actions.move_selection_previous,
-                    ["<C-q>"] = actions.send_selected_to_qflist,
-
                     ["<C-t>"] = actions.toggle_selection + actions.move_selection_worse,
-
-                    ["<C-u>"] = actions.preview_scrolling_up,
-                    ["<C-d>"] = actions.preview_scrolling_down,
                     ["<C-x>"] = actions.delete_buffer,
                 },
                 n = {
                     ["q"] = actions.close,
                 },
             },
-            vimgrep_arguments = {
-                "rg",
-                "--color=never",
-                "--no-heading",
-                "--with-filename",
-                "--line-number",
-                "--column",
-                "--smart-case",
-                -- "--trim" -- remove indentation
-            },
-            layout_strategy = "horizontal",
             sorting_strategy = "ascending",
             layout_config = {
                 horizontal = { prompt_position = "top", preview_width = 0.55, results_width = 0.8 },
@@ -62,9 +42,7 @@ local function setup_telescope()
                 preview_cutoff = 120,
             },
             path_display = { "truncate" },
-            border = {},
             borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
-            use_less = true,
         },
     }
 

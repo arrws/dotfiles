@@ -20,24 +20,26 @@ confirm-close-surface = true
 
 split-divider-color = #222
 unfocused-split-fill = black
-unfocused-split-opacity = 0.6
+unfocused-split-opacity = 0.85
 
 
 keybind = cmd+f=write_scrollback_file:open
 keybind = cmd+backspace=text:\x17
 
+# disable write scrollback to file to use in nvim
+keybind = cmd+shift+j=unbind
 
-# Split management
-keybind = cmd+backslash=new_split:right
-keybind = cmd+shift+backslash=new_split:down
-keybind = performable:cmd+j=goto_split:down
-keybind = performable:cmd+k=goto_split:up
-keybind = performable:cmd+h=goto_split:left
-keybind = performable:cmd+l=goto_split:right
-keybind = performable:cmd+shift+j=resize_split:down,20
-keybind = performable:cmd+shift+k=resize_split:up,20
-keybind = performable:cmd+shift+h=resize_split:left,20
-keybind = performable:cmd+shift+l=resize_split:right,20
+# # Split management
+# keybind = cmd+backslash=new_split:right
+# keybind = cmd+shift+backslash=new_split:down
+# keybind = performable:cmd+j=goto_split:down
+# keybind = performable:cmd+k=goto_split:up
+# keybind = performable:cmd+h=goto_split:left
+# keybind = performable:cmd+l=goto_split:right
+# keybind = performable:cmd+shift+j=resize_split:down,20
+# keybind = performable:cmd+shift+k=resize_split:up,20
+# keybind = performable:cmd+shift+h=resize_split:left,20
+# keybind = performable:cmd+shift+l=resize_split:right,20
 
 # Tab management
 keybind = cmd+enter=new_tab

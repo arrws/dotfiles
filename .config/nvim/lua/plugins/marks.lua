@@ -1,13 +1,10 @@
 vim.pack.add { { src = "https://github.com/chentoast/marks.nvim" } }
 
--- Marks.nvim setup (lazy load on VeryLazy)
 vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         vim.defer_fn(function()
             require("marks").setup {
                 default_mappings = false,
-                builtin_marks = { ".", "<", ">", "^" },
-                refresh_interval = 250,
                 mappings = {
                     next = "]'",
                     prev = "['",

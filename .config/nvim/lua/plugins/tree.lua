@@ -44,27 +44,12 @@ vim.keymap.set("n", "<leader>n", ":NvimTreeToggle<cr>")
 require("nvim-tree").setup {
     on_attach = F.on_attach,
     disable_netrw = true,
-    sync_root_with_cwd = false,
-    view = {
-        width = 25,
-        side = "left",
-        number = false,
-        relativenumber = false,
-        signcolumn = "yes",
-    },
+    view = { width = 25 },
     renderer = {
         icons = {
-            webdev_colors = true,
-            git_placement = "before",
-            modified_placement = "after",
             padding = "",
             symlink_arrow = " ➜ ",
-            show = {
-                git = true,
-                folder = true,
-                folder_arrow = false,
-                file = true,
-            },
+            show = { folder_arrow = false },
             glyphs = {
                 default = "",
                 symlink = "",
@@ -94,28 +79,10 @@ require("nvim-tree").setup {
             icons = { corner = "└ ", edge = "│ ", item = "│ ", none = "  " },
         },
     },
-    update_focused_file = { enable = true, update_root = false, ignore_list = {} },
-    system_open = { cmd = nil, args = {} },
-    filters = {
-        dotfiles = false,
-        no_buffer = false,
-        custom = {},
-        exclude = {},
-    },
+    update_focused_file = { enable = true },
     actions = {
-        use_system_clipboard = true,
-        change_dir = {
-            enable = true,
-            global = true,
-            restrict_above_cwd = false,
-        },
+        change_dir = { global = true }
     },
-    git = {
-        enable = true,
-        ignore = true,
-        show_on_dirs = true,
-        show_on_open_dirs = true,
-        timeout = 500,
-    },
-    live_filter = { prefix = "> ", always_show_folders = true },
+    git = { timeout = 500 },
+    live_filter = { prefix = "> " },
 }
