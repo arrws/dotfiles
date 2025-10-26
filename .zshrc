@@ -140,8 +140,8 @@ fi
 
 # cat -> bat
 if command -v bat &>/dev/null; then
-    # export BAT_THEME="xtheme"
-    export BAT_THEME="Visual Studio Dark+"
+    export BAT_THEME="xtheme"
+    # export BAT_THEME="Visual Studio Dark+"
     alias cat='bat --paging never --decorations never'
 fi
 
@@ -156,7 +156,7 @@ function cl { builtin cd "$1" && ls; }
 alias ..='cd ..'
 alias cd..='cd ..'
 
-alias v='~/.bin/nvim'
+
 alias p='python3'
 
 
@@ -170,4 +170,3 @@ eval "$(fzf --zsh)"
 # bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
 # alias helpvim='bat ~/codex/vim*'
 function help { curl cheat.sh/$1 }
-
