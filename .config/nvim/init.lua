@@ -1,5 +1,4 @@
 require "opts"
-require("xtheme").load()
 require "keymaps"
 
 -- Load lua/plugins/*

@@ -17,8 +17,7 @@ Neovim 0.12+ configuration using native `vim.pack` package manager.
 │   │   ├── mini.lua       # Mini.nvim modules
 │   │   ├── copilot.lua    # GitHub Copilot
 │   │   ├── lualine.lua    # Statusline
-│   │   ├── marks.lua      # Visual marks
-│   │   └── kitty.lua      # Terminal integration
+│   │   └── marks.lua      # Visual marks
 │   └── xtheme/            # Custom theme
 │       ├── colors.lua     # Color palette
 │       ├── init.lua       # Highlight groups
@@ -75,6 +74,34 @@ cargo build --release
 4. **Theme Changes**: Modify `lua/xtheme/colors.lua` palette
 5. **LSP Additions**: Add to servers list in `lua/plugins/ide.lua`
 
+
+## Neovim Installation
+
+### Latest Development Build (macOS ARM64)
+
+To get the latest Neovim features and fixes:
+
+```bash
+# Download latest nightly build
+curl -L -o nvim-macos-arm64.tar.gz https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz
+
+# Remove quarantine attributes (avoids "unknown developer" warning)
+xattr -c ./nvim-macos-arm64.tar.gz
+
+# Extract archive
+tar xzvf nvim-macos-arm64.tar.gz
+
+# Install to /tmp (or move to preferred location)
+rm -rf /tmp/nvim-macos-arm64 && mv nvim-macos-arm64 /tmp/
+
+# Clean up
+rm nvim-macos-arm64.tar.gz
+
+# Run nvim
+/tmp/nvim-macos-arm64/bin/nvim
+```
+
+For permanent installation, move to `/usr/local/` or `/opt/` and update your PATH.
 
 ## LSP Server Installation
 

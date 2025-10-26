@@ -22,10 +22,6 @@ setopt share_history
 setopt append_history
 setopt inc_append_history
 
-# # auto correction
-# setopt correct
-# setopt correct_all
-
 # tab completion
 autoload -Uz compinit && compinit
 
@@ -33,9 +29,6 @@ autoload -Uz compinit && compinit
 zmodload zsh/complist
 zstyle ':completion:*' menu yes no-select interactive
 bindkey '^N' menu-select
-
-# hack for kitty ctrl-backspace
-bindkey '^Q' backward-kill-word
 
 # auto cd folder
 unsetopt autocd
@@ -57,7 +50,7 @@ set -o emacs
 stty start ""
 stty stop ""
 
-export EDITOR=nvim
+export EDITOR=vi
 export VISUAL=nvim
 
 export TERM=xterm-256color
@@ -83,15 +76,8 @@ function git_branch_name() {
     fi
 }
 
-# # if non-zero, prints last exit code
-# colored_exit_code() {
-#   echo "%(?..${nl}%F{8}exit %F{1}%?)%f"
-# }
-
 # Config for prompt. PS1 synonym.
-# PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) $(colored_exit_code) %f"
 PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) %f"
-# RPROMPT="$G2%D{%H:%M:%S}"
 
 
 ### FISH ABBREVIATIONS
@@ -131,9 +117,7 @@ zle -N accept-line expand-alias-and-accept-line
 
 
 ### ABBREVIATIONS
-
 eval "$(/opt/homebrew/bin/brew shellenv)"
-
 
 # git
 abbrev-alias g='git'
@@ -155,9 +139,9 @@ if command -v lsd &> /dev/null; then
 fi
 
 # cat -> bat
-# run: bat cache --build
 if command -v bat &>/dev/null; then
-    export BAT_THEME="xtheme"
+    # export BAT_THEME="xtheme"
+    export BAT_THEME="Visual Studio Dark+"
     alias cat='bat --paging never --decorations never'
 fi
 
@@ -172,34 +156,9 @@ function cl { builtin cd "$1" && ls; }
 alias ..='cd ..'
 alias cd..='cd ..'
 
-
+alias v='~/.bin/nvim'
 alias p='python3'
 
-
-# yazi shell wrapper to change current dir
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-}
-
-
-# neovim
-if command -v nvim &>/dev/null; then
-    alias v='nvim'
-fi
-
-alias cube='cd /Users/nan/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/cube; v what.md'
-
-abbrev-alias config_zsh='cd /Users/nan/ ; v .zshrc'
-abbrev-alias config_vim='cd /Users/nan/.config/nvim/ ; v init.lua'
-abbrev-alias config_kitty='cd /Users/nan/.config/kitty/ ; v kitty.conf'
-abbrev-alias config_yazi='cd /Users/nan/.config/yazi/ ; v keymap.toml'
-abbrev-alias config_lsd='cd /Users/nan/.config/lsd/ ; v config.yaml'
-abbrev-alias config_bat='cd /Users/nan/.config/bat/ ; v config'
 
 # FZF
 export FZF_DEFAULT_COMMAND='rg --files --hidden' # --no-ignore-vcs --vimgrep --glob=\!.git'
@@ -211,6 +170,4 @@ eval "$(fzf --zsh)"
 # bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
 # alias helpvim='bat ~/codex/vim*'
 function help { curl cheat.sh/$1 }
-
-export PATH="/Users/nan/.bin:$PATH:/usr/local/bin"
 

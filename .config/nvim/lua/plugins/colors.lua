@@ -1,0 +1,47 @@
+return {
+    term_magenta  = "#FF00FF",
+    term_red      = "#FF0000",
+    term_yellow   = "#FFFF00",
+    term_green    = "#00FF00",
+    term_cyan     = "#00FFFF",
+    term_blue     = "#0000FF",
+
+    pink_dark     = "#400040",
+    red_dark      = "#551010",
+    yellow_dark   = "#404010",
+    green_dark    = "#104010",
+    green_darkest = "#052505",
+    blue_dark     = "#304050",
+
+    red           = "#FF5555",
+    red_1         = "#FDADAD",
+    green         = "#99E387",
+    blue          = "#4DC4FF",
+
+    yellow        = "#ECDB60",
+    yellow_1      = "#FFE6A0",
+    yellow_2      = "#FCD4A0",
+    yellow_3      = "#EFEF8F",
+    yellow_4      = "#F5EACA",
+    yellow_5      = "#F2F2E9",
+
+    purple_1      = "#DBC5EB",
+    purple_2      = "#B592DB",
+    purple_3      = "#9369C8",
+
+    pink          = "#FFB4DA",
+    pink_1        = "#F6A1D1",
+    pink_2        = "#E47FBA",
+    pink_3        = "#D25FAA",
+    black         = "#1B1B1C",
+    -- black         = "#1E1E1E",
+    -- white         = "#F1F1F1",
+    blackish      = "#2D2D30",
+
+    grey_0        = "#606060",
+    grey_1        = "#767676",
+    grey_2        = "#9E9E9E",
+    grey_4        = "#BCBCBC",
+    whiteish      = "#D9D9D9",
+    white         = "#FFFFFF",
+}
