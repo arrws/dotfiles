@@ -43,6 +43,15 @@ local function setup_telescope()
             },
             path_display = { "truncate" },
             borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+            -- vimgrep_arguments = {
+            --   '~/.bin/rg',
+            --   '--color=never',
+            --   '--no-heading',
+            --   '--with-filename',
+            --   '--line-number',
+            --   '--column',
+            --   '--smart-case'
+            -- }
         },
     }
 

@@ -52,6 +52,8 @@ else
 fi
 
 nvim --headless "+TSInstallSync diff lua vim vimdoc query python rust bash yaml markdown markdown_inline" +qa 2>&1 || warn "Some Treesitter parsers may have failed"
+
+:lua vim.pack.update()
 ```
 
 zsh
