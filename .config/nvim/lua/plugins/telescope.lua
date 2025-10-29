@@ -15,7 +15,6 @@ local function setup_telescope()
     telescope_setup = true
 
     local actions = require "telescope.actions"
-
     require("telescope").setup {
         defaults = {
             mappings = {

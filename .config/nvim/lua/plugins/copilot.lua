@@ -1,10 +1,5 @@
--- vim.pack.add {
---     { src = "https://github.com/github/copilot.vim" },
---     { src = "https://github.com/nvim-lua/plenary.nvim", version = "master" },
---     { src = "https://github.com/CopilotC-Nvim/CopilotChat.nvim" },
--- }
---
--- -- Copilot.vim
+-- -- Copilot Complete
+-- vim.pack.add { { src = "https://github.com/github/copilot.vim" } }
 -- vim.keymap.set(
 --     "i",
 --     "<C-l>",
@@ -12,8 +7,9 @@
 --     { expr = true, noremap = true, silent = true, replace_keycodes = false, desc = "copilot autocomplete" }
 -- )
 -- vim.keymap.set("n", "<leader>l", ":CopilotChatToggle<CR>", { desc = "copilot chat" })
---
--- -- CopilotChat
+
+-- -- Copilot Chat
+-- vim.pack.add { { src = "https://github.com/CopilotC-Nvim/CopilotChat.nvim" } }
 -- require("CopilotChat").setup {
 --     model = "gpt-5",
 --     mappings = {

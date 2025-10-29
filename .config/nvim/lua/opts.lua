@@ -1,5 +1,3 @@
----@diagnostic disable: undefined-global
-
 vim.opt.termguicolors = true    -- true color support
 vim.opt.swapfile = false
 vim.opt.wildoptions = "tagfile" -- show options across the status bar

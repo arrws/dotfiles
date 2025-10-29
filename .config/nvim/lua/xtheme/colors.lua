@@ -39,6 +39,7 @@ return {
     grey_0        = "#606060",
     grey_1        = "#767676",
     grey_2        = "#9E9E9E",
+    grey_3        = "#ADADAD",
     grey_4        = "#BCBCBC",
     whiteish      = "#D9D9D9",
     white         = "#FFFFFF",
