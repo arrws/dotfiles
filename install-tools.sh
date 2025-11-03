@@ -38,13 +38,20 @@ curl -L --progress-bar https://github.com/lsd-rs/lsd/releases/download/v1.2.0/ls
 tar -xzf "$TMP_DIR/lsd.tar.gz" -C "$TMP_DIR"
 cp "$TMP_DIR/lsd-v1.2.0-x86_64-unknown-linux-gnu/lsd" "$BIN_DIR/"
 
+# fd
+echo "Downloading fd..."
+curl -L --progress-bar https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-musl.tar.gz \
+  -o "$TMP_DIR/fd.tar.gz"
+tar -xzf "$TMP_DIR/fd.tar.gz" -C "$TMP_DIR"
+cp "$TMP_DIR/fd-v10.2.0-x86_64-unknown-linux-musl/fd" "$BIN_DIR/"
+
 # blink.cmp
 echo "Downloading blink.cmp..."
 mkdir -p "$HOME/.local/lib"
 curl -L --progress-bar https://github.com/Saghen/blink.cmp/releases/download/v1.7.0/x86_64-unknown-linux-gnu.so \
   -o "$HOME/.local/lib/blink_cmp_fuzzy.so"
 # blink.cmp library installed to ~/.local/lib/blink_cmp_fuzzy.so
-# Add to your shell rc: export LD_LIBRARY_PATH=\"\$HOME/.local/lib:\$LD_LIBRARY_PATH\"
+# Add to shell: export LD_LIBRARY_PATH=\"\$HOME/.local/lib:\$LD_LIBRARY_PATH\"
 
 # zsh-static
 echo "Downloading zsh-static..."
@@ -59,4 +66,6 @@ curl -L --progress-bar https://github.com/neovim/neovim/releases/download/v0.10.
   -o "$TMP_DIR/nvim.appimage"
 chmod +x "$TMP_DIR/nvim.appimage"
 cp "$TMP_DIR/nvim.appimage" "$BIN_DIR/nvim"
+# if no FUSE: extract with 'cd ~/.bin && ./nvim --appimage-extract' then use 'squashfs-root/usr/bin/nvim'
+
 
