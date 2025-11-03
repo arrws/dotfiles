@@ -78,6 +78,9 @@ map("n", "go", "o<ESC>k", { desc = "Put empty line below" })
 -- overrides reselect last visual selection
 map("n", "gv", "`[v`]", { desc = "Select last pasted, yanked or changed text" })
 
+-- block visual fallback
+map('n', '<leader>v', '<C-v>', { noremap = true })
+
 -- Block insert in line visual mode
 map("x", "I", function()
     return vim.fn.mode() == "V" and "^<C-v>I" or "I"

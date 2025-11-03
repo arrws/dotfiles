@@ -62,7 +62,7 @@ cp "$TMP_DIR/bin/zsh-static" "$BIN_DIR/zsh"
 
 # neovim
 echo "Downloading neovim..."
-curl -L --progress-bar https://github.com/neovim/neovim/releases/download/v0.10.2/nvim.appimage \
+curl -L --progress-bar https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.appimage \
   -o "$TMP_DIR/nvim.appimage"
 chmod +x "$TMP_DIR/nvim.appimage"
 cp "$TMP_DIR/nvim.appimage" "$BIN_DIR/nvim"

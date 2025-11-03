@@ -1,0 +1,19 @@
+// Override key bindings by placing them into your key bindings file.
+[
+    { "key": "ctrl+alt+'",             "command": "workbench.action.terminal.new", "when": "terminalProcessSupported || terminalWebExtensionContributedProfile" },
+    { "key": "ctrl+alt+d",                 "command": "workbench.action.nextEditor" },
+    { "key": "ctrl+alt+s",                 "command": "workbench.action.previousEditor" },
+    { "key": "ctrl+alt+shift+d",           "command": "workbench.action.moveEditorRightInGroup" },
+    { "key": "ctrl+alt+shift+s",           "command": "workbench.action.moveEditorLeftInGroup" },
+    { "key": "ctrl+alt+x",                 "command": "workbench.action.closeActiveEditor" },
+
+    { "key": "ctrl+alt+f",                 "command": "actions.find", "when": "editorFocus || editorIsOpen" },
+    // { "key": "ctrl+alt+shift+f",           "command": "workbench.action.findInFiles" },
+    { "key": "ctrl+alt+; r",               "command": "workbench.action.findInFiles" },
+    // { "key": "ctrl+alt+p",                 "command": "workbench.action.quickOpen" },
+    { "key": "ctrl+alt+; f",               "command": "workbench.action.quickOpen" },
+    // { "key": "enter",                      "command": "quickInput.accept", "when": "inQuickInput && quickInputType != 'quickWidget'" },
+
+    { "key": "ctrl+alt+shift+\\",          "command": "-workbench.action.splitEditorDown" },
+    { "key": "ctrl+alt+\\",                "command": "-workbench.action.splitEditorRight" },
+]

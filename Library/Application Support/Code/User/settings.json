@@ -1,0 +1,88 @@
+{
+  "terminal.integrated.defaultLocation": "editor",
+  "files.autoSave": "onFocusChange",
+  "terminal.integrated.lineHeight": 1.35,
+  
+  "vim.easymotion": false,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": false,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.leader": ";",
+  
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
+    }
+  ],
+  
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<BS>"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": ["<C-k>"],
+      "commands": ["editor.action.revealDefinition"]
+    },
+    {
+      "before": ["<leader>", "w"],
+      "commands": [":w"]
+    },
+    {
+      "before": ["<leader>", "q"],
+      "commands": [":q!"]
+    },
+    {
+      "before": ["<leader>", "Q"],
+      "commands": ["workbench.action.closeActiveEditor"]
+    },
+    {
+      "before": ["U"],
+      "after": ["<C-r>"]
+    },
+    {
+      "before": ["<C-r>"],
+      "after": []
+    },
+    {
+      "before": ["g", "O"],
+      "after": ["O", "<Esc>", "j"]
+    },
+    {
+      "before": ["g", "o"],
+      "after": ["o", "<Esc>", "k"]
+    },
+    {
+      "before": ["g", "v"],
+      "after": ["`", "[", "v", "`", "]"]
+    },
+    {
+      "before": ["<leader>", "v"],
+      "after": ["<C-v>"]
+    },
+    {
+      "before": ["<space>"],
+      "after": []
+    }
+  ],
+  
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["."],
+      "commands": ["vim.remap"],
+      "after": [":", "n", "o", "r", "m", ".", "<CR>"]
+    }
+  ],
+  
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false,
+    "<C-w>": false
+  },
+  
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  }
+}
