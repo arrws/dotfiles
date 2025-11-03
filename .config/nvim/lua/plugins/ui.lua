@@ -13,9 +13,7 @@ require("lualine").setup {
     },
 }
 
--- vscode infinite hack
-require("xtheme").load()
-
+-- -- vscode infinite hack
 -- vim.pack.add { { src = "https://github.com/askfiy/visual_studio_code" } }
 -- require("visual_studio_code").setup {
 --     mode = "dark",

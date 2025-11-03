@@ -1,9 +1,5 @@
 ### ZSH CONFIG
 
-export DYLD_LIBRARY_PATH=/opt/homebrew/Cellar/libssh2/1.11.0_1/lib/
-export OPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl@3/
-export CFLAGS="-Wno-incompatible-pointer-types"
-
 # Enable substitution in the prompt.
 setopt prompt_subst
 setopt autocd autopushd

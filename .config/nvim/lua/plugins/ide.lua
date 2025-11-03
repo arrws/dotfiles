@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
         for server, config in pairs(servers) do
             config.capabilities = base_capabilities
             vim.lsp.config(server, config)
-            vim.lsp.enable(server)
+            -- vim.lsp.enable(server)
         end
 
     end,

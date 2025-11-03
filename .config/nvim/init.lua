@@ -1,4 +1,5 @@
 require "config"
+require("xtheme").load()
 
 -- Load lua/plugins/*
 do

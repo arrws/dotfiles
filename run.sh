@@ -13,7 +13,6 @@ paths=(
 
 ".config/nvim/lua/"
 ".config/nvim/init.lua"
-".config/nvim/CLAUDE.md"
 
 ".claude/commands/"
 ".claude/hooks/"
@@ -21,6 +20,9 @@ paths=(
 ".claude/settings.json"
 
 ".skynet.png"
+
+"~/Library/Application\ Support/Code/User/settings.json"
+"~/Library/Application\ Support/Code/User/keybindings.json"
 )
 
 for item in "${paths[@]}"; do
