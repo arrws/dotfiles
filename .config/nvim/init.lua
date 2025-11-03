@@ -1,5 +1,4 @@
-require "opts"
-require "keymaps"
+require "config"
 
 -- Load lua/plugins/*
 do
