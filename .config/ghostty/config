@@ -43,8 +43,7 @@ keybind = cmd+0=reset_font_size:all
 
 # Tab management
 keybind = cmd+enter=new_tab
-keybind = cmd+shift+x=close_tab
-keybind = cmd+x=close_surface
+keybind = cmd+x=close_tab
 keybind = cmd+period=prompt_surface_title
 keybind = cmd+d=next_tab
 keybind = cmd+s=previous_tab

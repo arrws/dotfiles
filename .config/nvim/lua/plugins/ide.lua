@@ -43,8 +43,43 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
         base_capabilities.textDocument.semanticTokens = {
             dynamicRegistration = false,
             requests = { full = { delta = true } },
-            tokenTypes = { "namespace", "type", "class", "enum", "interface", "struct", "typeParameter", "parameter", "variable", "property", "enumMember", "event", "function", "method", "macro", "keyword", "modifier", "comment", "string", "number", "regexp", "operator", "decorator" },
-            tokenModifiers = { "declaration", "definition", "readonly", "static", "deprecated", "abstract", "async", "modification", "documentation", "defaultLibrary" },
+            tokenTypes = {
+                "namespace",
+                "type",
+                "class",
+                "enum",
+                "interface",
+                "struct",
+                "typeParameter",
+                "parameter",
+                "variable",
+                "property",
+                "enumMember",
+                "event",
+                "function",
+                "method",
+                "macro",
+                "keyword",
+                "modifier",
+                "comment",
+                "string",
+                "number",
+                "regexp",
+                "operator",
+                "decorator",
+            },
+            tokenModifiers = {
+                "declaration",
+                "definition",
+                "readonly",
+                "static",
+                "deprecated",
+                "abstract",
+                "async",
+                "modification",
+                "documentation",
+                "defaultLibrary",
+            },
         }
 
         for server, config in pairs(servers) do
@@ -52,7 +87,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
             vim.lsp.config(server, config)
             -- vim.lsp.enable(server)
         end
-
     end,
     once = true,
 })
@@ -90,9 +124,6 @@ vim.api.nvim_create_user_command("Format", function(args)
     end
     require("conform").format { async = true, lsp_fallback = true, range = range }
 end, { range = true })
-vim.keymap.set({ "n", "v" }, "<leader>p", function()
-    require("conform").format { async = true, lsp_fallback = true }
-end, { desc = "Format buffer" })
 
 -- Treesitter
 vim.pack.add { { src = "https://github.com/nvim-treesitter/nvim-treesitter" } }
