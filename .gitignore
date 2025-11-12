@@ -1,3 +1,4 @@
+.bin/nvim-macos-arm64/
 *.temp
 *.csv
 *.txt

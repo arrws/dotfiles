@@ -23,7 +23,8 @@ unfocused-split-fill = black
 unfocused-split-opacity = 0.85
 
 # cmd+backspace deletes last word
-keybind = cmd+backspace=text:\x17
+# sends Ctrl+h ascii to zsh
+keybind = cmd+backspace=text:\x08
 
 # shift+endter does newline
 keybind = shift+enter=text:\x1b\r
@@ -31,19 +32,18 @@ keybind = shift+enter=text:\x1b\r
 # disable write scrollback to file to use in nvim
 keybind = cmd+shift+j=unbind
 
-
 # TODO: less terminal output once supported
 # keybind = cmd+f=write_scrollback_file:open
 
-# TODO: all windows :all
+# TODO: all windows :all not working
+# keybind = cmd+0=reset_font_size:all
 keybind = cmd+equal=increase_font_size:1
 keybind = cmd+minus=decrease_font_size:1
-keybind = cmd+0=reset_font_size:all
 
 
 # Tab management
 keybind = cmd+enter=new_tab
-keybind = cmd+x=close_tab
+keybind = cmd+q=close_tab
 keybind = cmd+period=prompt_surface_title
 keybind = cmd+d=next_tab
 keybind = cmd+s=previous_tab

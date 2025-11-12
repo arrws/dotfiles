@@ -1,5 +1,9 @@
 ### ZSH CONFIG
 
+export EDITOR=vi
+export VISUAL=nvim
+export TERM=xterm-256color
+
 # Enable substitution in the prompt.
 setopt prompt_subst
 setopt autocd autopushd
@@ -35,8 +39,10 @@ bindkey "^N" down-line-or-history
 
 # Ctrl+w/b for word jumping
 bindkey "^W" forward-word
-bindkey "^B" backward-word
+# bindkey "^B" backward-word
 
+# Ctrl+h for deleting last word backward-kill-word
+bindkey '\x08' backward-kill-word
 
 ### TERMINAL OPTIONS
 
@@ -45,11 +51,6 @@ set -o emacs
 # disable freezing of term ^S ^Q
 stty start ""
 stty stop ""
-
-export EDITOR=vi
-export VISUAL=nvim
-
-export TERM=xterm-256color
 
 
 ### PROMPT SETUP
