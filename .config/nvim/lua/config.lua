@@ -31,6 +31,9 @@ vim.opt.breakindent = true
 vim.opt.ignorecase = true       -- case insensitive search
 vim.opt.smartcase = true        -- case sensitive if uppercase present
 
+-- vim.opt.autowrite = true        -- auto save on certain events
+-- vim.opt.autowriteall = true        -- auto save on buffer/windows switch
+
 local map = vim.keymap.set
 
 map("n", "<BS>", ":noh<CR>", { desc = "Clear search highlight" })
@@ -60,11 +63,11 @@ map("i", "jk", "<esc>", { desc = "Exit insert mode" })
 map("t", "jk", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
 
 map("n", "<leader>w", ":w<cr>", { noremap = true, desc = "Save file" })
-map("n", "<leader>q", ":q!<cr>", { noremap = true, desc = "Quit without saving" })
 map("n", "<leader>t", ":term<cr>", { noremap = true, desc = "Enter terminal mode" })
+-- map("n", "<leader>q", ":q!<cr>", { noremap = true, desc = "Quit without saving" })
 
 --- buffers
-map("n", "<leader>Q", function() -- ':bdelete<CR>'
+map("n", "<leader>q", function() -- ':bdelete<CR>'
     require("mini.bufremove").delete(0, false)
 end, { noremap = true, desc = "Delete buffer" })
 
@@ -108,6 +111,7 @@ map("n", "<SPACE>", "<Nop>", { noremap = true })
 ------ splits
 map("n", "<D-\\>", "<C-w>v", { noremap = true, desc = "Vertical split" })
 map("n", "<D-S-\\>", "<C-w>s", { noremap = true, desc = "Horizontal split" })
+map("n", "<D-q>", "<C-w>q", { noremap = true, desc = "Quit split" })
 map("n", "<D-l>", "<C-w>l", { noremap = true, desc = "Move to right split" })
 map("n", "<D-h>", "<C-w>h", { noremap = true, desc = "Move to left split" })
 map("n", "<D-j>", "<C-w>j", { noremap = true, desc = "Move to bottom split" })

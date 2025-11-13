@@ -1,5 +1,12 @@
 ### dotfiles
 
+(for ghostty)
+System Settings → Keyboard → Keyboard Shortcuts → App Shortcuts
+Click the + button
+Select All Applications to disabled everywhere
+Menu Title: Show All Tabs
+
+
 homebrew:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

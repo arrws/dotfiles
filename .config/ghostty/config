@@ -32,6 +32,9 @@ keybind = shift+enter=text:\x1b\r
 # disable write scrollback to file to use in nvim
 keybind = cmd+shift+j=unbind
 
+# disable cmd+q quit ghostty
+keybind = global:cmd+q=unbind
+
 # TODO: less terminal output once supported
 # keybind = cmd+f=write_scrollback_file:open
 
@@ -42,8 +45,9 @@ keybind = cmd+minus=decrease_font_size:1
 
 
 # Tab management
+keybind = cmd+'=new_tab
 keybind = cmd+enter=new_tab
-keybind = cmd+q=close_tab
+keybind = cmd+x=close_tab
 keybind = cmd+period=prompt_surface_title
 keybind = cmd+d=next_tab
 keybind = cmd+s=previous_tab
