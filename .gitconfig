@@ -42,9 +42,9 @@
 
     ; git to/from move style hack
     map-styles = \
-       bold purple => xtheme.darkred black, \
+       bold purple => xtheme.darkred, \
        bold blue => syntax "#271344", \
-       bold cyan => xtheme.darkgreen black, \
+       bold cyan => xtheme.darkgreen, \
        bold yellow => syntax "#222f14"
 
     ; line numbers

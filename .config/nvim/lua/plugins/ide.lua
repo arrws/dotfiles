@@ -7,32 +7,6 @@
 --     { expr = true, noremap = true, silent = true, replace_keycodes = false, desc = "copilot autocomplete" }
 -- )
 
--- Blink.cmp
-vim.pack.add { { src = "https://github.com/Saghen/blink.cmp" } }
-vim.api.nvim_create_autocmd("InsertEnter", {
-    callback = function()
-        require("blink.cmp").setup {
-            keymap = {
-                preset = "none",
-                ["<TAB>"] = { "select_next", "fallback" }, -- C-n
-                ["<S-TAB>"] = { "select_prev", "fallback" }, -- C-p
-            },
-            cmdline = { enabled = false },
-            completion = {
-                menu = {
-                    draw = {
-                        columns = { { "label", gap = 1 }, { "kind", gap = 1 }, { "source_name" } },
-                    },
-                },
-            },
-            sources = {
-                default = { "lsp", "path", "buffer" },
-            },
-        }
-    end,
-    once = true,
-})
-
 -- LSP
 vim.pack.add { { src = "https://github.com/neovim/nvim-lspconfig" } }
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
@@ -45,56 +19,9 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
             hls = {},
         }
 
-        -- Base capabilities from blink.cmp
-        local base_capabilities = require("blink.cmp").get_lsp_capabilities()
-
-        -- Add semantic token support
-        base_capabilities.textDocument.semanticTokens = {
-            dynamicRegistration = false,
-            requests = { full = { delta = true } },
-            tokenTypes = {
-                "namespace",
-                "type",
-                "class",
-                "enum",
-                "interface",
-                "struct",
-                "typeParameter",
-                "parameter",
-                "variable",
-                "property",
-                "enumMember",
-                "event",
-                "function",
-                "method",
-                "macro",
-                "keyword",
-                "modifier",
-                "comment",
-                "string",
-                "number",
-                "regexp",
-                "operator",
-                "decorator",
-            },
-            tokenModifiers = {
-                "declaration",
-                "definition",
-                "readonly",
-                "static",
-                "deprecated",
-                "abstract",
-                "async",
-                "modification",
-                "documentation",
-                "defaultLibrary",
-            },
-        }
-
         for server, config in pairs(servers) do
-            config.capabilities = base_capabilities
             vim.lsp.config(server, config)
-            -- vim.lsp.enable(server)
+            vim.lsp.enable(server)
         end
     end,
     once = true,
@@ -115,9 +42,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
     callback = function()
         require("conform").setup {
             formatters_by_ft = {
-                lua = { "stylua" },
                 python = { "ruff_fix", "ruff_format" },
-                nix = { "nixfmt" },
+                lua = { "stylua" },
                 rust = { "rustfmt" },
                 ["_"] = { "trim_whitespace" },
             },
