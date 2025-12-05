@@ -12,7 +12,7 @@
       "Bash(python:*)",
       "Bash(python3:*)",
       "WebSearch",
-      "WebFetch(domain:github.com)"
+      "WebFetch"
     ],
     "deny": [],
     "ask": [],
