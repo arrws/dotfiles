@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     callback = function()
         require("mini.diff").setup { -- :lua MiniDiff.toggle_overlay()
             view = {
-                style = "sign", -- "number"
+                style = "sign",      -- "number"
                 signs = { add = "+", change = ">", delete = "-" },
             },
         }
@@ -34,7 +34,5 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     once = true,
 })
 
--- Indent
 vim.pack.add { { src = "https://github.com/nvimdev/indentmini.nvim" } }
 require("indentmini").setup()
-

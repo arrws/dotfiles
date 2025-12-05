@@ -1,41 +1,3 @@
--- Lualine
-vim.pack.add { { src = "https://github.com/nvim-lualine/lualine.nvim" } }
-require("lualine").setup {
-    options = {
-        icons_enabled = false,
-        theme = (require "xtheme.line"),
-        component_separators = { "|", "|" },
-        section_separators = { "", "" },
-    },
-    sections = {
-        lualine_b = { "branch" },
-        lualine_c = { { "filename", path = 3 } }, -- fullpath
-    },
-}
-
--- -- Marks
--- vim.pack.add { { src = "https://github.com/chentoast/marks.nvim" } }
--- vim.api.nvim_create_autocmd("VimEnter", {
---     callback = function()
---         vim.defer_fn(function()
---             require("marks").setup {
---                 default_mappings = false,
---                 mappings = {
---                     next = "]'",
---                     prev = "['",
---                 },
---             }
---             -- Use only global marks
---             for i in string.gmatch("abcdefghijklmnopqrstuvwxyz", ".") do
---                 vim.keymap.set("n", "m" .. i, "m" .. string.upper(i), { noremap = true })
---                 vim.keymap.set("n", "'" .. i, "'" .. string.upper(i), { noremap = true })
---                 vim.keymap.set("n", "dm" .. i, ":delmarks " .. string.upper(i) .. "<CR>", { noremap = true })
---             end
---         end, 50)
---     end,
---     once = true,
--- })
-
 -- -- vscode infinite hack
 -- vim.pack.add { { src = "https://github.com/askfiy/visual_studio_code" } }
 -- require("visual_studio_code").setup {
@@ -57,7 +19,7 @@ require("lualine").setup {
 -- }
 -- vim.cmd "colorscheme visual_studio_code"
 -- local c = require "xtheme.colors"
--- c.black = "#1B1B1C"
+-- c.black = "##1E1E1E"
 -- c.blackish = "#3E3E40"
 -- c.blacker = "#1E1E1E"
 -- c.white = "#F1F1F1"
@@ -84,3 +46,32 @@ require("lualine").setup {
 --     NvimTreeFolderName = { fg = c.grey_4 },
 --     NvimTreeFolderIcon = { fg = c.grey_4 },
 -- }
+
+-- lualine
+vim.pack.add { { src = "https://github.com/nvim-lualine/lualine.nvim" } }
+require("lualine").setup {
+    options = {
+        icons_enabled = false,
+        theme = (require "xtheme.line"),
+        component_separators = { "|", "|" },
+        section_separators = { "", "" },
+    },
+    sections = {
+        lualine_b = { "branch" },
+        lualine_c = { { "filename", path = 3 } }, -- fullpath
+    },
+}
+
+-- marks
+vim.pack.add { { src = "https://github.com/chentoast/marks.nvim" } }
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        vim.defer_fn(function()
+            require("marks").setup {
+                default_mappings = false,
+                mappings = { next = "]'", prev = "['" },
+            }
+        end, 50)
+    end,
+    once = true,
+})

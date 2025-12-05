@@ -1,59 +1,53 @@
-vim.opt.termguicolors = true    -- true color support
-vim.opt.swapfile = false
-vim.opt.wildoptions = "tagfile" -- show options across the status bar
+vim.o.termguicolors = true -- true color support
+vim.o.swapfile = false
+vim.o.wildoptions = "tagfile" -- show options across the status bar
 
-vim.opt.clipboard = "unnamed"   -- Copy/paste with system clipboard
+vim.o.clipboard = "unnamed" -- Copy/paste with system clipboard
 
-vim.opt.ttimeoutlen = 10        -- time to wait for key code sequence (default: 50)
+vim.o.ttimeoutlen = 10 -- time to wait for key code sequence (default: 50)
 
-vim.opt.number = true           -- show line numbers
-vim.opt.numberwidth = 1         -- number column width (default: 4)
-vim.opt.signcolumn = "auto:1"   -- sign column with max width 1
-vim.opt.fillchars = "vert:│"    -- vertical bar delimiter
+vim.o.number = true -- show line numbers
+vim.o.numberwidth = 1 -- number column width (default: 4)
+vim.o.signcolumn = "auto:1" -- sign column with max width 1
+vim.o.fillchars = "vert:│" -- vertical bar delimiter
 
-vim.opt.cursorline = true       -- highlight current line
-vim.opt.showmatch = true        -- show matching braces
+vim.o.cursorline = true -- highlight current line
+vim.o.showmatch = true -- show matching braces
 
-vim.opt.undofile = true         -- save undo history
+vim.o.undofile = true -- save undo history
 
-vim.opt.splitbelow = true       -- new window below current
-vim.opt.splitright = true       -- new window right of current
+vim.o.splitbelow = true -- new window below current
+vim.o.splitright = true -- new window right of current
 
-vim.opt.diffopt:append "vertical"   -- vertical diffs
+vim.opt.diffopt:append "vertical" -- vertical diffs
 
-vim.opt.expandtab = true        -- TAB is expanded into spaces
-vim.opt.shiftwidth = 4          -- indent width (default: 8)
-vim.opt.tabstop = 4             -- tab width (default: 8)
-vim.opt.softtabstop = 4         -- backspace removes 4 spaces
-vim.opt.smartindent = true
-vim.opt.breakindent = true
+vim.o.expandtab = true -- TAB is expanded into spaces
+vim.o.shiftwidth = 4 -- indent width (default: 8)
+vim.o.tabstop = 4 -- tab width (default: 8)
+vim.o.softtabstop = 4 -- backspace removes 4 spaces
+vim.o.smartindent = true
+vim.o.breakindent = true
 
-vim.opt.ignorecase = true       -- case insensitive search
-vim.opt.smartcase = true        -- case sensitive if uppercase present
+vim.o.ignorecase = true -- case insensitive search
+vim.o.smartcase = true  -- case sensitive if uppercase present
 
--- vim.opt.autowrite = true        -- auto save on certain events
--- vim.opt.autowriteall = true        -- auto save on buffer/windows switch
+-- vim.o.autowrite = true        -- auto save on certain events
+-- vim.o.autowriteall = true        -- auto save on buffer/windows switch
 
 local map = vim.keymap.set
+
+-- for native autocomplete
+vim.o.complete = ".,o"                             -- use buffer and omnifunc
+vim.o.completeopt = "fuzzy,menuone,noselect,popup" -- add 'popup' for docs (sometimes)
+vim.o.autocomplete = true
+vim.o.pumheight = 5
+
 
 map("n", "<BS>", ":noh<CR>", { desc = "Clear search highlight" })
 
 -- Search inside visual selection. `silent = false` makes effect immediately.
 map("x", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
 
--- map("n", "<C-K>", vim.lsp.buf.definition, { desc = "go to definition" })
-map("n", "<C-K>", function()
-    local clients = vim.lsp.get_active_clients { bufnr = 0 }
-    -- Check if any active LSP client supports goToDefinition
-    for _, client in ipairs(clients) do
-        if client.server_capabilities.definitionProvider then
-            vim.lsp.buf.definition()
-            return
-        end
-    end
-    -- Fall back to gf if no LSP definition available
-    vim.cmd "normal! gf"
-end, { silent = true, noremap = true, desc = "Go to definition or follow file" })
 
 -- leader
 map("n", ";", "<Nop>", { noremap = true })
@@ -95,6 +89,9 @@ end, { expr = true, desc = "Insert at end of each line" })
 -- make dot work over visual line selections
 map("x", ".", ":norm.<CR>", { noremap = true, desc = "Repeat last command on selection" })
 
+-- " copy selection to gui-clipboard
+-- xnoremap Y "+y
+
 -- highlight on yank
 local yank_group = vim.api.nvim_create_augroup("HighlightYank", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -104,6 +101,26 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank()
     end,
 })
+
+-- yank all
+map("n", "yY", "gg0yG<C-o>", { noremap = true, desc = "Copy all buffer content" })
+
+-- overload ' to both set and jump to mark
+-- use only global marks
+-- clear marks with: delmarks! | delmarks A-Z0-9
+for i in string.gmatch("abcdefghijklmnopqrstuvwxyz", ".") do
+    local mark = string.upper(i)
+    -- map("n", "m" .. i, "m" .. mark, { noremap = true })
+    -- map("n", "'" .. i, "'" .. mark, { noremap = true })
+    map("n", "'" .. i, function()
+        local pos = vim.api.nvim_get_mark(mark, {})
+        if pos[1] == 0 then
+            vim.cmd("mark " .. mark)     -- set mark
+        else
+            vim.cmd("normal! `" .. mark) -- jump to mark
+        end
+    end, { desc = "Toggle mark " .. mark })
+end
 
 -- disable space so that it won't move cursor
 map("n", "<SPACE>", "<Nop>", { noremap = true })
@@ -118,7 +135,7 @@ map("n", "<D-j>", "<C-w>j", { noremap = true, desc = "Move to bottom split" })
 map("n", "<D-k>", "<C-w>k", { noremap = true, desc = "Move to top split" })
 map("n", "<D-S-l>", ":vertical resize -4<CR>", { noremap = true, desc = "Resize split left" })
 map("n", "<D-S-h>", ":vertical resize +4<CR>", { noremap = true, desc = "Resize split right" })
-map("n", "<D-S-j>", ":horizontal resize -2<CR>", {noremap = true, desc = "Resize split up"})
-map("n", "<D-S-k>", ":horizontal resize +2<CR>", {noremap = true, desc = "Resize split down"})
+map("n", "<D-S-j>", ":horizontal resize -2<CR>", { noremap = true, desc = "Resize split up" })
+map("n", "<D-S-k>", ":horizontal resize +2<CR>", { noremap = true, desc = "Resize split down" })
 -- map("n", "r", "<D-w>x", {noremap = true}) -- exchange current with left window
 -- map("n", "=", "<D-w>=", {noremap = true}) -- reset all windows
