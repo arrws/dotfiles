@@ -22,12 +22,37 @@ split-divider-color = #222
 unfocused-split-fill = black
 unfocused-split-opacity = 0.85
 
+# cmd+backspace deletes last word
+# sends Ctrl+h ascii to zsh
+keybind = cmd+backspace=text:\x08
 
-keybind = cmd+f=write_scrollback_file:open
-keybind = cmd+backspace=text:\x17
+# shift+endter does newline
+keybind = shift+enter=text:\x1b\r
 
 # disable write scrollback to file to use in nvim
 keybind = cmd+shift+j=unbind
+
+# disable cmd+q quit ghostty
+keybind = global:cmd+q=unbind
+
+# TODO: less terminal output once supported
+# keybind = cmd+f=write_scrollback_file:open
+
+# TODO: all windows :all not working
+# keybind = cmd+0=reset_font_size:all
+keybind = cmd+equal=increase_font_size:1
+keybind = cmd+minus=decrease_font_size:1
+
+
+# Tab management
+keybind = cmd+'=new_tab
+keybind = cmd+enter=new_tab
+keybind = cmd+x=close_tab
+keybind = cmd+period=prompt_surface_title
+keybind = cmd+d=next_tab
+keybind = cmd+s=previous_tab
+keybind = cmd+shift+d=move_tab:1
+keybind = cmd+shift+s=move_tab:-1
 
 # # Split management
 # keybind = cmd+backslash=new_split:right
@@ -41,14 +66,3 @@ keybind = cmd+shift+j=unbind
 # keybind = performable:cmd+shift+h=resize_split:left,20
 # keybind = performable:cmd+shift+l=resize_split:right,20
 
-# Tab management
-keybind = cmd+enter=new_tab
-keybind = cmd+shift+x=close_tab
-keybind = cmd+x=close_surface
-keybind = cmd+period=prompt_surface_title
-keybind = cmd+d=next_tab
-keybind = cmd+s=previous_tab
-keybind = cmd+shift+d=move_tab:1
-keybind = cmd+shift+s=move_tab:-1
-
-keybind = shift+enter=text:\x1b\r
