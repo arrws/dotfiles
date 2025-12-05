@@ -15,7 +15,6 @@ local function setup_telescope()
     telescope_setup = true
 
     local actions = require "telescope.actions"
-
     require("telescope").setup {
         defaults = {
             mappings = {
@@ -93,12 +92,12 @@ t_map("<leader>o", "resume", "resume")
 
 -- File pickers
 t_map("<leader>f", "find_files", "files")
-t_map("<leader>F", "oldfiles", "old files")
+t_map("<leader>F", "git_files", "files respecting .gitignore")
 vim.keymap.set("n", "<leader>r", function()
     setup_telescope()
     require("telescope").extensions.live_grep_args.live_grep_args()
 end, { desc = "live rip grep" })
-t_map("<leader>R", "git_files", "files respecting .gitignore")
+t_map("<leader>R", "oldfiles", "old files")
 
 -- Nvim pickers
 t_map("<leader>b", "buffers", "buffers")
@@ -106,27 +105,29 @@ t_map("<leader>x", "quickfix", "quickfix")
 t_map("<leader>m", "marks", "marks")
 t_map("<leader>y", "registers", "registers")
 
--- Help pickers
-t_map("<leader>hz", "spell_suggest", "spell_suggest")
-t_map("<leader>hk", "keymaps", "keymaps")
-t_map("<leader>hc", "commands", "commands")
-t_map("<leader>hm", "man_pages", "man_pages")
 
 -- LSP pickers
--- t_map("<leader>t", "treesitter", "treesitter symbols")
--- t_map("<leader>T", "lsp_document_symbols", "buffer symbols")
-t_map("<leader>i", "lsp_implementations", "implementations")
--- t_map("<leader>r", "lsp_references", "references")
 t_map("<leader>D", "diagnostics", "diagnostics")
+t_map("<leader>i", "lsp_implementations", "implementations")
+-- t_map("<leader>T", "lsp_document_symbols", "buffer symbols")
+-- t_map("<leader>r", "lsp_references", "references")
+-- t_map("<leader>t", "treesitter", "treesitter symbols")
 
 -- LSP keymaps (not telescope)
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "line diagnostic" })
 vim.keymap.set("n", "<leader>a", vim.lsp.buf.code_action, { desc = "code action" })
 vim.keymap.set("n", "<leader>T", vim.lsp.buf.type_definition, { desc = "go to type definition" })
 
--- Git pickers
-t_map("<leader>gs", "git_status", "git status")
-t_map("<leader>gS", "git_stash", "git stash")
-t_map("<leader>gc", "git_bcommits", "git buffer commits")
-t_map("<leader>gC", "git_commits", "git commits")
-t_map("<leader>gb", "git_branches", "git branches")
+
+-- -- Help pickers
+-- t_map("<leader>hz", "spell_suggest", "spell_suggest")
+-- t_map("<leader>hk", "keymaps", "keymaps")
+-- t_map("<leader>hc", "commands", "commands")
+-- t_map("<leader>hm", "man_pages", "man_pages")
+
+-- -- Git pickers
+-- t_map("<leader>gs", "git_status", "git status")
+-- t_map("<leader>gS", "git_stash", "git stash")
+-- t_map("<leader>gc", "git_bcommits", "git buffer commits")
+-- t_map("<leader>gC", "git_commits", "git commits")
+-- t_map("<leader>gb", "git_branches", "git branches")

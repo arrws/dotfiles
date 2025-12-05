@@ -80,6 +80,7 @@ function M.load()
 	hl("NvimTreeImageFile",     { link="NvimTreeSpecialFile" })
 	hl("NvimTreeSymlink",       { link="NvimTreeSpecialFile" })
 	hl("NvimTreeFolderIcon",    { fg = c.grey_0 })
+	hl("NvimTreeFolderName",    { link="Directory" })
 	hl("NvimTreeFileIcon",      { link="NvimTreeFolderIcon" })
     hl("NvimTreeWindowPicker",  { fg = c.green, bold=true})
 

@@ -1,10 +1,5 @@
-vim.pack.add {
-    { src = "https://github.com/nvimdev/indentmini.nvim" },
-    { src = "https://github.com/nvim-mini/mini.nvim" },
-}
-
-require("indentmini").setup()
-
+-- Mini
+vim.pack.add { { src = "https://github.com/nvim-mini/mini.nvim" } }
 vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     callback = function()
         require("mini.diff").setup { -- :lua MiniDiff.toggle_overlay()
@@ -26,7 +21,6 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
                 right = "<right>",
                 down = "<down>",
                 up = "<up>",
-
                 -- Move current line
                 line_left = "<left>",
                 line_right = "<right>",
@@ -39,3 +33,8 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     end,
     once = true,
 })
+
+-- Indent
+vim.pack.add { { src = "https://github.com/nvimdev/indentmini.nvim" } }
+require("indentmini").setup()
+
