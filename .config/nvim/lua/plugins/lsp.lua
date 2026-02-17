@@ -68,17 +68,16 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 -- treesitter
 vim.pack.add { { src = "https://github.com/nvim-treesitter/nvim-treesitter" } }
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
-        require("nvim-treesitter.configs").setup {
-            ensure_installed = { "diff", "vim", "vimdoc", "query", "bash", "c", "cpp", "lua", "python", "rust", "haskell", "sql", "yaml", "regex", "markdown", "markdown_inline", "ledger" },
-            highlight = {
-                enable = true,
-            },
-            indent = {
-                enable = true,
-            },
-        }
+        local ok, treesitter = pcall(require, "nvim-treesitter")
+        if not ok then
+            vim.notify("nvim-treesitter is not available", vim.log.levels.WARN)
+            return
+        end
+
+        treesitter.setup {}
+        treesitter.install { "diff", "vim", "vimdoc", "query", "bash", "c", "cpp", "lua", "python", "rust", "haskell", "sql", "yaml", "regex", "markdown", "markdown_inline", "ledger" }
     end,
     once = true,
 })

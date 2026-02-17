@@ -1,13 +1,9 @@
 vim.pack.add {
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/nvim-telescope/telescope.nvim" },
-    { src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim" },
     { src = "https://github.com/nvim-telescope/telescope-live-grep-args.nvim" },
     { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 }
--- build native fzf
--- cd ~/.local/share/nvim/site/pack/core/opt/telescope-fzf-native.nvim
--- make
 
 -- Setup telescope when first command is run
 local telescope_setup = false
@@ -52,20 +48,6 @@ local function setup_telescope()
             borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
         },
     }
-
-    -- Load extensions
-    if vim.fn.executable "make" == 1 then
-        -- Build fzf-native if needed (support Linux/macOS artifacts)
-        local fzf_path = vim.fn.stdpath "data" .. "/site/pack/packages/start/telescope-fzf-native.nvim"
-        if vim.fn.isdirectory(fzf_path) == 1 then
-            local so = fzf_path .. "/build/libfzf.so"
-            local dylib = fzf_path .. "/build/libfzf.dylib"
-            if vim.fn.filereadable(so) == 0 and vim.fn.filereadable(dylib) == 0 then
-                vim.fn.system("cd " .. fzf_path .. " && make")
-            end
-        end
-        require("telescope").load_extension "fzf"
-    end
 
     require("telescope").load_extension "live_grep_args"
     require("telescope").load_extension "ui-select"

@@ -8,14 +8,12 @@ Menu Title: Hide Ghostty
 Select All Applications to disabled everywhere
 leave blank
 
-homebrew:
+brew:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
 
-!!! install:
-```bash
-brew install ghostty zsh rsync git lsd bat ripgrep fd sd curl git-delta htop neovim
+brew install ghostty zsh sk rsync git lsd bat ripgrep fd sd curl git-delta htop neovim yt-dlp tree-sitter-cli
+brew install --cask codex
 ```
 
 rust:
@@ -26,7 +24,7 @@ source "$HOME/.cargo/env"
 
 python:
 ```bash
-cargo install --locked uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 nodejs:
@@ -36,9 +34,9 @@ brew install node
 
 lsp servers:
 ```bash
-rustup component add rust-analyzer 2>/dev/null || warn "rust-analyzer already installed"
-npm install -g pyright 2>/dev/null || warn "pyright already installed"
-pip3 install --user ruff 2>/dev/null || warn "ruff already installed"
+rustup component add rust-analyzer
+npm install -g pyright
+pip3 install --user ruff
 ```
 
 bat:
@@ -48,29 +46,6 @@ bat cache --build
 
 nvim:
 ```bash
-cd "$PLUGIN_DIR/telescope-fzf-native.nvim" && make
-
-BLINK_DIR="$HOME/.local/share/nvim/site/pack/core/opt/blink.cmp"
-if [ ! -d "$BLINK_DIR" ]; then
-    log "Building blink.cmp..."
-    git clone --depth=1 https://github.com/Saghen/blink.cmp "$BLINK_DIR"
-    cd "$BLINK_DIR" && cargo build --release
-else
-    log "blink.cmp already exists"
-fi
-
-nvim --headless "+TSInstallSync diff lua vim vimdoc query python rust bash yaml markdown markdown_inline" +qa 2>&1 || warn "Some Treesitter parsers may have failed"
-
+:lua require("nvim-treesitter").install({"diff","vim","vimdoc","query","bash","c","cpp","lua","python","rust","haskell","sql","yaml","regex","markdown","markdown_inline","ledger"})
 :lua vim.pack.update()
-```
-
-zsh
-```bash
-# Set zsh as default shell if not already
-if [ "$SHELL" != "$(which zsh)" ]; then
-    log "Setting zsh as default shell..."
-    chsh -s "$(which zsh)"
-else
-    log "zsh is already the default shell"
-fi
 ```

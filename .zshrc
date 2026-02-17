@@ -21,6 +21,7 @@ setopt hist_ignore_space
 setopt share_history
 setopt append_history
 setopt inc_append_history
+setopt extended_history
 
 # tab completion
 autoload -Uz compinit && compinit
@@ -153,17 +154,20 @@ function cl { builtin cd "$1" && ls; }
 alias ..='cd ..'
 alias cd..='cd ..'
 
+function help { curl cheat.sh/$1 }
 
 alias p='python3'
+alias v='/Users/andr/Downloads/nvim-macos-arm64/bin/nvim'
 
 
-# FZF
-export FZF_DEFAULT_COMMAND='rg --files --hidden' # --no-ignore-vcs --vimgrep --glob=\!.git'
-export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --bind=ctrl-j:accept,ctrl-k:kill-line'
-eval "$(fzf --zsh)"
+# SKIM
+export SKIM_DEFAULT_COMMAND="rg --files --hidden"
+export SKIM_CTRL_T_COMMAND="$SKIM_DEFAULT_COMMAND"
+export SKIM_DEFAULT_OPTIONS="--height 40% --layout=reverse --case=smart --tiebreak=score,index --bind=ctrl-j:accept,ctrl-k:kill-line"
 
-# help
-# bindkey -s '^h' 'rg -NI . ~/codex/help | fzf^M'
-# alias helpvim='bat ~/codex/vim*'
-function help { curl cheat.sh/$1 }
+# Load official skim zsh completion + key bindings (Ctrl-T/Ctrl-R/Alt-C)
+if command -v sk >/dev/null 2>&1; then
+    source <(sk --shell zsh --shell-bindings)
+fi
+
+. "$HOME/.local/bin/env"

@@ -4,6 +4,7 @@ paths=(
 ".bin/"
 
 ".zshrc"
+".zprofile"
 ".gitconfig"
 
 ".config/ghostty/config"
