@@ -129,11 +129,11 @@ abbrev-alias ga='git add'
 
 ### ALIASES
 
-# ls -> lsd
-if command -v lsd &> /dev/null; then
-    alias l='lsd'
-    alias ls='lsd'
-    alias la='lsd -la'
+# ls -> eza
+if command -v eza &> /dev/null; then
+    alias l="eza --color=auto --icons=never --sort=name"
+    alias ls="eza --color=auto --icons=never --sort=name"
+    alias la="eza -la --color=auto --icons=never --sort=name"
 fi
 
 # cat -> bat

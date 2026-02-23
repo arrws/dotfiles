@@ -8,7 +8,6 @@ paths=(
 ".gitconfig"
 
 ".config/ghostty/config"
-".config/lsd/config.yaml"
 ".config/bat/config"
 ".config/bat/themes/xtheme.tmTheme"
 ".config/karabiner/karabiner.json"
