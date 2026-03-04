@@ -35,7 +35,7 @@ keybind = cmd+shift+j=unbind
 # disable cmd+q quit ghostty
 keybind = global:cmd+q=unbind
 
-# TODO: less terminal output once supported
+# # search scrollback by opening it in your editor
 # keybind = cmd+f=write_scrollback_file:open
 
 # TODO: all windows :all not working
@@ -65,4 +65,3 @@ keybind = cmd+shift+s=move_tab:-1
 # keybind = performable:cmd+shift+k=resize_split:up,20
 # keybind = performable:cmd+shift+h=resize_split:left,20
 # keybind = performable:cmd+shift+l=resize_split:right,20
-

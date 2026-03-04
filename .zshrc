@@ -170,4 +170,4 @@ if command -v sk >/dev/null 2>&1; then
     source <(sk --shell zsh --shell-bindings)
 fi
 
-. "$HOME/.local/bin/env"
+export PATH="/Users/andr/.bin:$PATH"

@@ -1,8 +1,113 @@
-#!/bin/sh
-# Colored yearly calendar
-/opt/homebrew/opt/util-linux/bin/cal -wym $@ | perl -p -E '
-   sub col { "\033\[38;5;$_[0]m$1\033\[0m" }
-   s/^(.\d)/col 241/ge;
-   s/   \K( [2-9]|\d\d) /col(241).q( )/ge;
-   /y|er/ && s/^(.+)$/col 12/ge;
-   /Mo Tu/ && s/^(.+)$/col 6/ge'
+#!/usr/bin/env python3
+"""Colored calendar in Python.
+
+Behavior:
+- `cal.py` -> full current year (3x4 grid)
+- `cal.py <year>` -> full given year (3x4 grid)
+- `cal.py <month> <year>` -> single month view
+"""
+
+from __future__ import annotations
+
+import calendar
+import datetime as dt
+import sys
+
+
+COL_MONTH = "\033[38;5;12m"
+COL_WEEKDAY = "\033[38;5;6m"
+COL_WEEKNUM = "\033[38;5;238m"
+COL_HL = "\033[48;5;236;38;5;231m"
+COL_RESET = "\033[0m"
+
+MONTH_WIDTH = 23
+GRID_COLS = 3
+GRID_TOTAL_WIDTH = MONTH_WIDTH * GRID_COLS + 3 * (GRID_COLS - 1)
+WEEKDAY_HEADER = "   Mo Tu We Th Fr Sa Su"
+
+
+def color(text: str, code: str) -> str:
+    return f"{code}{text}{COL_RESET}"
+
+
+def centered(text: str, width: int) -> str:
+    return text.center(width)
+
+
+def month_block(month: int, year: int, today: dt.date, show_year: bool) -> list[str]:
+    cal = calendar.Calendar(firstweekday=0)  # Monday
+    weeks = []
+    dates = list(cal.itermonthdates(year, month))
+    for i in range(0, len(dates), 7):
+        weeks.append(dates[i : i + 7])
+    while len(weeks) < 6:
+        weeks.append([])
+
+    title = f"{calendar.month_name[month]} {year}" if show_year else calendar.month_name[month]
+    lines = [color(centered(title, MONTH_WIDTH), COL_MONTH), color(WEEKDAY_HEADER, COL_WEEKDAY)]
+
+    for week in weeks[:6]:
+        week_num = week[0].isocalendar().week if week else None
+        day_cells = []
+        for idx in range(7):
+            if not week:
+                day_cells.append("  ")
+                continue
+            d = week[idx]
+            if d.month != month:
+                day_cells.append("  ")
+                continue
+            cell = f"{d.day:2d}"
+            if d == today:
+                cell = color(cell, COL_HL)
+            day_cells.append(cell)
+        week_txt = f"{week_num:2d}" if week_num is not None else "  "
+        line = f"{color(week_txt, COL_WEEKNUM)} " + " ".join(day_cells)
+        lines.append(line)
+
+    return lines
+
+
+def render_year(year: int, today: dt.date) -> str:
+    out: list[str] = [color(centered(str(year), GRID_TOTAL_WIDTH), COL_MONTH), ""]
+    blocks = {m: month_block(m, year, today, show_year=False) for m in range(1, 13)}
+
+    for row_start in (1, 4, 7, 10):
+        a = blocks[row_start]
+        b = blocks[row_start + 1]
+        c = blocks[row_start + 2]
+        for i in range(8):
+            out.append(f"{a[i]}   {b[i]}   {c[i]}")
+        if row_start != 10:
+            out.append("")
+    return "\n".join(out)
+
+
+def main(argv: list[str]) -> int:
+    today = dt.date.today()
+
+    try:
+        if len(argv) == 0:
+            print(render_year(today.year, today))
+            return 0
+        if len(argv) == 1:
+            year = int(argv[0])
+            print(render_year(year, today))
+            return 0
+        if len(argv) == 2:
+            month = int(argv[0])
+            year = int(argv[1])
+            if not (1 <= month <= 12):
+                raise ValueError("month must be 1..12")
+            print("\n".join(month_block(month, year, today, show_year=True)))
+            return 0
+    except ValueError as exc:
+        print(f"cal.py: {exc}", file=sys.stderr)
+        return 2
+
+    print("Usage: cal.py [year] | [month year]", file=sys.stderr)
+    return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))

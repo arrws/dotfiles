@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import os
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+HOSTS_FILE = Path("/etc/hosts")
+START = "# >>> local-site-blocker >>>"
+END = "# <<< local-site-blocker <<<"
+DOMAIN_RE = re.compile(r"^[a-z0-9.-]+\.[a-z0-9.-]+$")
+
+
+def normalize(domains: list[str]) -> list[str]:
+    out = []
+    for d in domains:
+        d = d.strip().lower().lstrip(".")
+        if DOMAIN_RE.match(d) and ".." not in d:
+            out.append(d)
+        else:
+            print(f"Skipping invalid domain: {d}", file=sys.stderr)
+    return sorted(set(out))
+
+
+def parse_hosts(text: str) -> tuple[list[str], list[str]]:
+    lines = text.splitlines()
+    clean = []
+    blocked = []
+    in_block = False
+
+    for line in lines:
+        if line == START:
+            in_block = True
+            continue
+        if line == END:
+            in_block = False
+            continue
+        if in_block:
+            parts = line.split()
+            if len(parts) >= 2 and parts[0] == "127.0.0.1":
+                domain = parts[1]
+                if domain.startswith("www."):
+                    domain = domain[4:]
+                blocked.append(domain)
+            continue
+        clean.append(line)
+    return clean, sorted(set(blocked))
+
+
+def write_hosts(base_lines: list[str], blocked_domains: list[str]) -> None:
+    out = base_lines[:]
+    if blocked_domains:
+        if out and out[-1].strip() != "":
+            out.append("")
+        out.append(START)
+        for d in sorted(set(blocked_domains)):
+            out.append(f"127.0.0.1 {d}")
+            out.append(f"127.0.0.1 www.{d}")
+        out.append(END)
+    text = "\n".join(out).rstrip() + "\n"
+    HOSTS_FILE.write_text(text, encoding="utf-8")
+
+    # Refresh DNS cache on macOS.
+    subprocess.run(["dscacheutil", "-flushcache"], check=False)
+    subprocess.run(["killall", "-HUP", "mDNSResponder"], check=False)
+
+
+def require_root() -> None:
+    if os.geteuid() != 0:
+        print("This action needs sudo/root.", file=sys.stderr)
+        sys.exit(1)
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Simple macOS site blocker using /etc/hosts")
+    sub = parser.add_subparsers(dest="cmd", required=True)
+
+    p_block = sub.add_parser("block")
+    p_block.add_argument("domains", nargs="+")
+
+    p_unblock = sub.add_parser("unblock")
+    p_unblock.add_argument("domains", nargs="+")
+
+    sub.add_parser("list")
+
+    args = parser.parse_args()
+    base, blocked = parse_hosts(HOSTS_FILE.read_text(encoding="utf-8", errors="ignore"))
+
+    if args.cmd == "list":
+        if not blocked:
+            print("No domains are currently blocked by this script.")
+        else:
+            print("Blocked domains:")
+            for d in blocked:
+                print(f"  - {d}")
+        return
+
+    require_root()
+    domains = normalize(args.domains)
+    if not domains:
+        print("No valid domains provided.", file=sys.stderr)
+        sys.exit(1)
+
+    current = set(blocked)
+    if args.cmd == "block":
+        current.update(domains)
+        write_hosts(base, sorted(current))
+        print("Blocked domains:")
+    else:
+        current -= set(domains)
+        write_hosts(base, sorted(current))
+        print("Unblocked domains:")
+    for d in domains:
+        print(f"  - {d}")
+
+
+if __name__ == "__main__":
+    main()
