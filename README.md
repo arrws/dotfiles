@@ -1,6 +1,6 @@
 ### dotfiles
 
-System Settings → Keyboard → Keyboard Shortcuts → App Shortcuts
+System Settings -> Keyboard -> Keyboard Shortcuts -> App Shortcuts
 > overlaps ghostty cmd+\ and cmd+h
 Menu Title: Show All Tabs
 Menu Title: Hide Ghostty
@@ -12,24 +12,22 @@ brew:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-brew install ghostty zsh sk rsync git lsd bat ripgrep fd sd curl git-delta htop neovim yt-dlp tree-sitter-cli
+brew install ghostty zsh rsync git curl htop neovim yt-dlp
+brew install sk lsd bat ripgrep fd sd git-delta tree-sitter-cli
 brew install --cask codex
+brew install node
 ```
 
-rust:
+rust fallback:
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
+cargo install skim lsd bat ripgrep fd-find sd git-delta tree-sitter-cli
 ```
 
 python:
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-nodejs:
-```bash
-brew install node
 ```
 
 lsp servers:
