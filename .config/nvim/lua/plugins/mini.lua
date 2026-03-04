@@ -33,6 +33,3 @@ vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
     end,
     once = true,
 })
-
-vim.pack.add { { src = "https://github.com/nvimdev/indentmini.nvim" } }
-require("indentmini").setup()

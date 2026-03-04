@@ -1,12 +1,3 @@
--- -- copilot auto complete
--- vim.pack.add { { src = "https://github.com/github/copilot.vim" } }
--- vim.keymap.set(
---     "i",
---     "<C-l>",
---     'copilot#Accept("<CR>")',
---     { expr = true, noremap = true, silent = true, replace_keycodes = false, desc = "copilot autocomplete" }
--- )
-
 -- lsp setup
 vim.pack.add { { src = "https://github.com/neovim/nvim-lspconfig" } }
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
@@ -44,24 +35,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 return { abbr = abbr, menu = menu }
             end,
         })
-    end,
-})
-
--- -- inlay hints
--- vim.api.nvim_create_autocmd("LspAttach", {
---     callback = function(args)
---         local client = vim.lsp.get_client_by_id(args.data.client_id)
---         if client and client:supports_method "textDocument/inlayHint" then
---             vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
---         end
---     end,
--- })
-
---- auto format
-vim.api.nvim_create_autocmd('BufWritePre', {
-    pattern = '*',
-    callback = function()
-        vim.lsp.buf.format { async = false }
     end,
 })
 
