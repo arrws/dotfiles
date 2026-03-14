@@ -14,9 +14,22 @@ font-family = Source Code Pro
 font-size = 16
 
 command = zsh
+
+scrollbar = system
 scrollback-limit = 8000
 copy-on-select = clipboard
 confirm-close-surface = true
+
+selection-clear-on-typing = true
+
+# Working directory inheritance
+window-inherit-working-directory = false
+tab-inherit-working-directory = false
+split-inherit-working-directory = true
+
+# Command finish notifications
+notify-on-command-finish = unfocused
+notify-on-command-finish-after = 30s
 
 split-divider-color = #222
 unfocused-split-fill = black
@@ -35,8 +48,12 @@ keybind = cmd+shift+j=unbind
 # disable cmd+q quit ghostty
 keybind = global:cmd+q=unbind
 
-# # search scrollback by opening it in your editor
-# keybind = cmd+f=write_scrollback_file:open
+# search scrollback
+keybind = cmd+f=start_search
+keybind = escape=end_search
+keybind = cmd+p=navigate_search:next
+keybind = cmd+n=navigate_search:previous
+
 
 # TODO: all windows :all not working
 # keybind = cmd+0=reset_font_size:all
