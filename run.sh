@@ -3,6 +3,7 @@
 paths=(
 ".bin/"
 
+".bashrc"
 ".zshrc"
 ".zprofile"
 ".gitconfig"
@@ -12,12 +13,14 @@ paths=(
 ".config/bat/themes/xtheme.tmTheme"
 ".config/karabiner/karabiner.json"
 ".config/nvim/lua/"
+".config/nvim/plugin/"
 ".config/nvim/init.lua"
 
 ".claude/commands/"
 ".claude/hooks/"
 ".claude/CLAUDE.md"
 ".claude/settings.json"
+".codex/config.toml"
 
 ".skynet.png"
 )

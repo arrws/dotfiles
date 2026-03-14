@@ -13,8 +13,9 @@ brew:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 brew install ghostty zsh rsync git curl htop neovim yt-dlp
-brew install sk lsd bat ripgrep fd sd git-delta tree-sitter-cli
+brew install sk eza bat ripgrep fd sd git-delta tree-sitter-cli
 brew install --cask codex
+brew install --cask claude-code
 brew install node
 ```
 
@@ -22,7 +23,7 @@ rust fallback:
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
-cargo install skim lsd bat ripgrep fd-find sd git-delta tree-sitter-cli
+cargo install skim eza bat ripgrep fd-find sd git-delta tree-sitter-cli
 ```
 
 python:
