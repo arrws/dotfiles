@@ -1,5 +1,9 @@
 -- OPTIONS
 
+-- Disable netrw (nvim-tree handles file browsing)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 vim.o.termguicolors = true -- true color support
 vim.o.swapfile = false
 vim.o.wildoptions = "tagfile" -- show options across the status bar
