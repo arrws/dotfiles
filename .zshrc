@@ -40,7 +40,7 @@ bindkey "^N" down-line-or-history
 
 # Ctrl+w/b for word jumping
 bindkey "^W" forward-word
-# bindkey "^B" backward-word
+bindkey "^B" backward-word
 
 # Ctrl+h for deleting last word backward-kill-word
 bindkey '\x08' backward-kill-word
@@ -56,7 +56,6 @@ stty stop ""
 
 ### PROMPT SETUP
 
-# Colors
 RED='%F{red}'
 GREEN='%F{green}'
 G2='%F{235}'
