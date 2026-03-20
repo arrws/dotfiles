@@ -12,8 +12,8 @@ brew:
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-brew install ghostty zsh rsync git curl htop neovim yt-dlp
-brew install sk eza bat ripgrep fd sd git-delta tree-sitter-cli
+brew install ghostty neovim git htop
+brew install sk eza bat ripgrep fd git-delta tree-sitter-cli
 brew install --cask codex
 brew install --cask claude-code
 brew install node
