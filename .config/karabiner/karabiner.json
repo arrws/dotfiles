@@ -6,7 +6,6 @@
                 "rules": [
                     {
                         "description": "Cmd+HJKL to Arrow Keys",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -147,14 +146,6 @@
                         {
                             "from": { "key_code": "hyphen" },
                             "to": [{ "key_code": "close_bracket" }]
-                        },
-                        {
-                            "from": { "key_code": "left_command" },
-                            "to": [{ "key_code": "vk_none" }]
-                        },
-                        {
-                            "from": { "key_code": "left_option" },
-                            "to": [{ "key_code": "left_command" }]
                         }
                     ]
                 },
@@ -172,6 +163,14 @@
                 {
                     "from": { "key_code": "f6" },
                     "to": [{ "key_code": "vk_none" }]
+                },
+                {
+                    "from": { "key_code": "f7" },
+                    "to": [{ "apple_vendor_top_case_key_code": "illumination_down" }]
+                },
+                {
+                    "from": { "key_code": "f9" },
+                    "to": [{ "apple_vendor_top_case_key_code": "illumination_up" }]
                 }
             ],
             "name": "Default profile",

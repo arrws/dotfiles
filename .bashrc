@@ -126,3 +126,5 @@ fi
 export PATH="/Users/andr/.bin:$PATH"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+. "$HOME/.local/bin/env"
