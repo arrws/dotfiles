@@ -142,6 +142,10 @@ if command -v bat &>/dev/null; then
 fi
 
 
+siri() {
+  pi -p --model zai/glm-5-turbo "$*"
+}
+
 # core
 alias cp='cp -Riv'
 alias mv='mv -iv'

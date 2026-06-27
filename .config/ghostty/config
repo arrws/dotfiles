@@ -52,7 +52,7 @@ keybind = global:cmd+q=unbind
 
 # search scrollback
 keybind = cmd+f=start_search
-keybind = performable:escape=end_search
+keybind = performable:backspace=end_search
 keybind = cmd+p=navigate_search:next
 keybind = cmd+n=navigate_search:previous
 
