@@ -15,6 +15,7 @@
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { Type } from "typebox";
+import { withBorder } from "./_shared/tool-border";
 
 const DEFAULT_USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
@@ -125,7 +126,7 @@ function extractDdgResults(html: string): DdgResult[] {
 
 export default function (pi: ExtensionAPI) {
   // --- web_fetch -----------------------------------------------------------
-  pi.registerTool({
+  pi.registerTool(withBorder({
     name: "web_fetch",
     label: "Web Fetch",
     description:
@@ -187,10 +188,10 @@ export default function (pi: ExtensionAPI) {
         };
       }
     },
-  });
+  }));
 
   // --- web_search ----------------------------------------------------------
-  pi.registerTool({
+  pi.registerTool(withBorder({
     name: "web_search",
     label: "Web Search",
     description:
@@ -269,5 +270,5 @@ export default function (pi: ExtensionAPI) {
         };
       }
     },
-  });
+  }));
 }
