@@ -21,7 +21,6 @@ setopt hist_ignore_space
 setopt share_history
 setopt append_history
 setopt inc_append_history
-setopt extended_history
 
 # tab completion
 autoload -Uz compinit && compinit
@@ -156,8 +155,9 @@ alias cd..='cd ..'
 function help { curl cheat.sh/$1 }
 
 alias p='python3'
-alias v='/Users/andr/Downloads/nvim-macos-arm64/bin/nvim'
+alias v='nvim'
 
+alias cube='cd ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/cube'
 
 # SKIM
 export SKIM_DEFAULT_COMMAND="rg --files --hidden"
@@ -169,4 +169,13 @@ if command -v sk >/dev/null 2>&1; then
     source <(sk --shell zsh --shell-bindings)
 fi
 
-export PATH="/Users/andr/.bin:$PATH"
+export PATH="/Users/nan/.bin:$PATH"
+
+# bun completions
+[ -s "/Users/nan/.bun/_bun" ] && source "/Users/nan/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+. "$HOME/.local/bin/env"
