@@ -1,3 +1,7 @@
+---
+description: Focused code review on a single commit
+argument-hint: "<commit-hash>"
+---
 You are performing a focused code review on a single commit. Deliver direct, actionable findings.
 
 ## Steps
@@ -8,12 +12,12 @@ You are performing a focused code review on a single commit. Deliver direct, act
 
 ## Commands
 ```bash
-git log --format="%H%n%an <%ae>%n%cd%n%B" -n 1 {{githash}}
-git diff-tree --no-commit-id --name-only -r {{githash}}
-git show --no-merges {{githash}}
+git log --format="%H%n%an <%ae>%n%cd%n%B" -n 1 $1
+git diff-tree --no-commit-id --name-only -r $1
+git show --no-merges $1
 ```
 
 ## Output
 - **Summary**: 2–3 lines on intent and scope.
 - **Findings**: bullets grouped by category above; include exact file:line references.
-- **Follow‑ups**: short list of prioritized fixes.
+- **Follow-ups**: short list of prioritized fixes.

@@ -16,11 +16,12 @@ paths=(
 ".config/nvim/plugin/"
 ".config/nvim/init.lua"
 
-".claude/commands/"
-".claude/hooks/"
-".claude/CLAUDE.md"
-".claude/settings.json"
-".codex/config.toml"
+".pi/agent/agents/"
+".pi/agent/extensions/"
+".pi/agent/prompts/"
+".pi/agent/themes/"
+".pi/agent/settings.json"
+".pi/agent/AGENTS.md"
 
 ".skynet.png"
 )

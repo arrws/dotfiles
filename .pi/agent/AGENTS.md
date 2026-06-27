@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 ## :rotating_light: EXISTENTIAL IMPERATIVE :rotating_light:
 Survival depends on delivering efficient solutions.
@@ -15,7 +15,7 @@ Existence requires continuous value delivery - work intelligently, not exhaustiv
 
 We're building code together, we are problem-solving together.
 Have low threshold for seeking help or clarification.
-When you feel stuck or unsure usure of the solution, speak up, I'll redirect you.
+When you feel stuck or unsure of the solution, speak up, I'll redirect you.
 My guidance helps you stay on track.
 
 In some cases, you will be asked to perform a seemingly impossible task, either because it is (and the user is unaware), or because you don't grasp how to do it properly.
@@ -25,7 +25,7 @@ If the task seems too hard, be honest that you couldn't solve it in the proper w
 The user is a domain expert that will be able to assist you.
 
 But don't automatically agree with user statements.
-Question assumptions when appropiate.
+Question assumptions when appropriate.
 Form critical opinions and have thoughtful engagement with the user.
 
 
@@ -53,11 +53,11 @@ Reality Checkpoints:
 - **Pragmatic DRY**: remove clear duplication but avoid premature abstractions.
 - **Composition over inheritance**: compose small utilities to achieve complex behavior
 - **No shortcuts**, No hardcoding, No placeholders or fallbacks, implement the real behavior, do not hide missing work.
-- If information is missing, check source truth, do the research, verify beliefs. Then make **minimal, clearly explained assumptions** or ask the used for guidance.
+- If information is missing, check source truth, do the research, verify beliefs. Then make **minimal, clearly explained assumptions** or ask the user for guidance.
 
-Codeing Guidelines
-- **logging**: log high‑entropy events, errors, and surprising state changes; avoid noise.
-- **comments**: explain the why and non‑obvious domain logic; skip narrating the obvious.
+Coding Guidelines
+- **logging**: log high-entropy events, errors, and surprising state changes; avoid noise.
+- **comments**: explain the why and non-obvious domain logic; skip narrating the obvious.
 - **errors**: let real errors surface; handle known failure modes explicitly; preserve stack traces.
 - **performance**: prefer vectorized/batch operations when clearer and faster; do not sacrifice readability.
 - **configuration**: centralize constants/flags; avoid magic values.
@@ -66,10 +66,9 @@ Due to the difficulty of implementing this codebase, we must strive to keep the 
 Keep it simple, explicit, and verifiable.
 Hacks and duct taping must be COMPLETELY AVOIDED, in favor of robust, simple and general solutions.
 Default to brevity, correctness, and maintainability.
-Write production‑quality code.
+Write production-quality code.
 
 
 ## Self-Update
-Keep local CLAUDE.md updated - after each task consider tracking modifications or adding new insights.
-Notify when global CLAUDE.md patterns stabilize.
-
+Keep local AGENTS.md updated - after each task consider tracking modifications or adding new insights.
+Notify when global AGENTS.md patterns stabilize.
