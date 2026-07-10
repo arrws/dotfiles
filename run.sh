@@ -27,5 +27,5 @@ paths=(
 )
 
 GITPWD=$(pwd)
-cd $HOME && rsync -avR --del "${paths[@]}" $GITPWD && cd $GITPWD
+cd $HOME && rsync -avR --delete "${paths[@]}" $GITPWD && cd $GITPWD
 echo "DONE"
