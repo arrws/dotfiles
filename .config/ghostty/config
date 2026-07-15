@@ -6,6 +6,8 @@ macos-titlebar-style = transparent
 
 theme = Apple System Colors
 background = #000000
+foreground = #E0E0E0
+split-divider-color = #222222
 
 window-padding-x = 6
 window-padding-y = 6
@@ -36,7 +38,6 @@ split-inherit-working-directory = true
 notify-on-command-finish = unfocused
 notify-on-command-finish-after = 30s
 
-split-divider-color = #222
 unfocused-split-fill = black
 unfocused-split-opacity = 0.85
 
@@ -88,11 +89,11 @@ keybind = cmd+shift+s=move_tab:-1
 # forward cmd+hjkl to nvim as kitty keyboard protocol sequences
 # CSI-u format: ESC [ keycode ; modifiers u
 # Super bit=8, modifiers = bits+1, so Super alone = 9, Shift+Super = 10
-# keybind = cmd+h=text:\x1b[104;9u
-# keybind = cmd+l=text:\x1b[108;9u
+keybind = cmd+h=text:\x1b[104;9u
+keybind = cmd+l=text:\x1b[108;9u
 # keybind = cmd+j=text:\x1b[106;9u
 # keybind = cmd+k=text:\x1b[107;9u
-# keybind = cmd+shift+h=text:\x1b[104;10u
-# keybind = cmd+shift+l=text:\x1b[108;10u
+keybind = cmd+shift+h=text:\x1b[104;10u
+keybind = cmd+shift+l=text:\x1b[108;10u
 # keybind = cmd+shift+j=text:\x1b[106;10u
 # keybind = cmd+shift+k=text:\x1b[107;10u

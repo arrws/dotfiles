@@ -49,7 +49,7 @@ vim.o.autocomplete = true
 vim.o.pumheight = 5
 
 
-require("xtheme").load()
+require("theme").load()
 
 
 -- KEYBINDINGS

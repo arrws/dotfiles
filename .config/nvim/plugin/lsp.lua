@@ -41,6 +41,23 @@ local ok, treesitter = pcall(require, "nvim-treesitter")
 if ok then
     treesitter.setup {}
     treesitter.install { "diff", "vim", "vimdoc", "query", "bash", "c", "cpp", "lua", "python", "rust", "haskell", "sql", "yaml", "regex", "markdown", "markdown_inline", "ledger" }
+
+    -- nvim-treesitter provides parsers and queries but no longer enables highlighting automatically.
+    -- Start Neovim's Tree-sitter highlighter for the filetypes backed by the parsers above.
+    local highlight_group = vim.api.nvim_create_augroup("TreesitterHighlight", { clear = true })
+    vim.api.nvim_create_autocmd("FileType", {
+        group = highlight_group,
+        pattern = {
+            "diff", "vim", "vimdoc", "query", "sh", "bash", "c", "cpp",
+            "lua", "python", "rust", "haskell", "sql", "yaml", "markdown",
+            "ledger",
+        },
+        callback = function()
+            -- keep missing buffer from interrupting buffer startup while an async install is in progress
+            pcall(vim.treesitter.start)
+        end,
+        desc = "Enable Tree-sitter highlighting when a parser is available",
+    })
 else
     vim.notify("nvim-treesitter is not available", vim.log.levels.WARN)
 end

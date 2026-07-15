@@ -44,8 +44,7 @@ bindkey "^B" backward-word
 # Ctrl+h for deleting last word backward-kill-word
 bindkey '\x08' backward-kill-word
 
-### TERMINAL OPTIONS
-
+# terminal options
 set -o emacs
 
 # disable freezing of term ^S ^Q
@@ -53,13 +52,15 @@ stty start ""
 stty stop ""
 
 
-### PROMPT SETUP
+### PROMPT
 
 RED='%F{red}'
 GREEN='%F{green}'
-G2='%F{235}'
 G1='%F{240}'
 G0='%F{245}'
+
+# Config for prompt. PS1 synonym.
+PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) %f"
 
 # Find and set branch name var if in git repository.
 function git_branch_name() {
@@ -76,7 +77,7 @@ function git_branch_name() {
 PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) %f"
 
 
-### FISH ABBREVIATIONS
+### FISH ABBREVIATIONS SETUP
 
 # declare a list of expandable aliases to fill up later
 typeset -a ealiases
@@ -113,6 +114,7 @@ zle -N accept-line expand-alias-and-accept-line
 
 
 ### ABBREVIATIONS
+#
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # git
@@ -127,59 +129,37 @@ abbrev-alias ga='git add'
 
 ### ALIASES
 
-# ls -> eza
-if command -v eza &> /dev/null; then
-    alias l="eza --color=auto --icons=never --sort=name"
-    alias ls="eza --color=auto --icons=never --sort=name"
-    alias la="eza -la --color=auto --icons=never --sort=name"
-fi
-
-# cat -> bat
-if command -v bat &>/dev/null; then
-    export BAT_THEME="xtheme"
-    # export BAT_THEME="Visual Studio Dark+"
-    alias cat='bat --paging never --decorations never'
-fi
-
-
-siri() {
-  pi -p --model zai/glm-5-turbo "$*"
-}
-
-# core
 alias cp='cp -Riv'
 alias mv='mv -iv'
 alias rm='rm -riv'
 alias mkdir='mkdir -p'
 
-function cl { builtin cd "$1" && ls; }
 alias ..='cd ..'
 alias cd..='cd ..'
 
-function help { curl cheat.sh/$1 }
+alias la="ls -la"
+
+if command -v bat &>/dev/null; then
+    alias cat='bat --paging never --decorations never --theme Nord'
+fi
 
 alias p='python3'
 alias v='nvim'
 
 alias cube='cd ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/cube'
 
-# SKIM
+siri() {
+  pi -p --model zai/glm-5-turbo "$*"
+}
+
+# skim
 export SKIM_DEFAULT_COMMAND="rg --files --hidden"
 export SKIM_CTRL_T_COMMAND="$SKIM_DEFAULT_COMMAND"
 export SKIM_DEFAULT_OPTIONS="--height 40% --layout=reverse --case=smart --tiebreak=score,index --bind=ctrl-j:accept,ctrl-k:kill-line"
 
-# Load official skim zsh completion + key bindings (Ctrl-T/Ctrl-R/Alt-C)
+# official skim zsh completion and key bindings (Ctrl-T/Ctrl-R/Alt-C)
 if command -v sk >/dev/null 2>&1; then
     source <(sk --shell zsh --shell-bindings)
 fi
 
 export PATH="/Users/nan/.bin:$PATH"
-
-# bun completions
-[ -s "/Users/nan/.bun/_bun" ] && source "/Users/nan/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-. "$HOME/.local/bin/env"
