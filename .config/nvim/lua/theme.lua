@@ -15,7 +15,6 @@ function M.load()
     vim.api.nvim_set_hl(0, "NormalNC",              { fg = c.gray_soft, bg = c.black }) -- normal text in non-current windows
 
     vim.api.nvim_set_hl(0, "WinSeparator",          { fg = c.black }) -- vertical bar splitting windows
-    vim.api.nvim_set_hl(0, "VertSplit",             { link = "WinSeparator" })
 
     vim.api.nvim_set_hl(0, "IndentLine",            { fg = c.gray_deep })
     vim.api.nvim_set_hl(0, "IndentLineCurrent",     { fg = c.gray_dark })
@@ -40,8 +39,8 @@ function M.load()
 
     vim.api.nvim_set_hl(0, "PMenuSel",              { link = "WildMenu" }) -- selected item.
     vim.api.nvim_set_hl(0, "PMenu",                 { link = "StatusLine" }) -- normal item.
-    vim.api.nvim_set_hl(0, "PMenuKind",             { fg = c.grey_soft })
-    vim.api.nvim_set_hl(0, "PMenuExtra",            { fg = c.grey_soft })
+    vim.api.nvim_set_hl(0, "PMenuKind",             { fg = c.gray_soft })
+    vim.api.nvim_set_hl(0, "PMenuExtra",            { fg = c.gray_soft })
     vim.api.nvim_set_hl(0, "PMenuSbar",             { link = "StatusLine" }) -- scrollbar.
     vim.api.nvim_set_hl(0, "PMenuThumb",            { link = "StatusLine" }) -- Thumb of the scrollbar.
 

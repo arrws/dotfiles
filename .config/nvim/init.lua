@@ -1,6 +1,6 @@
 -- OPTIONS
 
--- Disable netrw (nvim-tree handles file browsing)
+-- Disable netrw before plugins load (nvim-tree handles file browsing)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 

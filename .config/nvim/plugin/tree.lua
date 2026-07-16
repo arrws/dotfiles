@@ -27,8 +27,8 @@ function F.on_attach(bufnr)
     vim.keymap.set("n", "D", api.fs.remove, opts "Delete")
     vim.keymap.set("n", "y", api.fs.copy.node, opts "Copy")
     vim.keymap.set("n", "p", api.fs.paste, opts "Paste")
-    vim.keymap.set("n", "f", api.live_filter.start, opts "Filter")
-    vim.keymap.set("n", "<BS>", api.live_filter.clear, opts "Clean Filter")
+    vim.keymap.set("n", "f", api.filter.live.start, opts "Filter")
+    vim.keymap.set("n", "<BS>", api.filter.live.clear, opts "Clean Filter")
     vim.keymap.set("n", "R", api.tree.reload, opts "Refresh")
     vim.keymap.set("n", ".", api.tree.toggle_hidden_filter, opts "Toggle Dotfiles")
     vim.keymap.set("n", "z", api.tree.toggle_gitignore_filter, opts "Toggle Git Ignore")
@@ -43,32 +43,30 @@ vim.keymap.set("n", "<leader>n", ":NvimTreeToggle<cr>")
 -- Setup nvim-tree
 require("nvim-tree").setup {
     on_attach = F.on_attach,
-    disable_netrw = true,
     view = { width = 25 },
     renderer = {
         icons = {
-            padding = "",
+            padding = { icon = "" },
             symlink_arrow = " ➜ ",
             show = { folder_arrow = false },
             glyphs = {
                 default = "",
                 symlink = "",
                 bookmark = ">",
-                modified = "*",
                 git = {
-                    unstaged = "'",
-                    staged = "'",
-                    unmerged = "'",
-                    renamed = "'",
+                    unstaged = "`",
+                    staged = "'`",
+                    unmerged = "`",
+                    renamed = "`",
                     untracked = "",
                     deleted = "",
                     ignored = "",
                 },
                 folder = {
-                    default = "◼ ",
-                    open = "┌ ",
-                    empty = "□ ",
-                    empty_open = "□ ",
+                    default = "",
+                    open = "",
+                    empty = "",
+                    empty_open = "",
                     symlink = "",
                     symlink_open = "",
                 },
@@ -76,7 +74,7 @@ require("nvim-tree").setup {
         },
         indent_markers = {
             enable = true,
-            icons = { corner = "└ ", edge = "│ ", item = "│ ", none = "  " },
+            icons = { corner = "└", edge = "│", item = "├", none = " " },
         },
     },
     update_focused_file = { enable = true },

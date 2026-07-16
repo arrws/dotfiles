@@ -19,7 +19,6 @@ window-padding-y = 6
 font-family = Source Code Pro
 font-size = 16
 
-command = zsh
 term = xterm-ghostty
 
 scrollbar = system
