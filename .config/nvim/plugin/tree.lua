@@ -8,7 +8,6 @@ function F.on_attach(bufnr)
         return {
             desc = "nvim-tree: " .. desc,
             buffer = bufnr,
-            noremap = true,
             silent = true,
             nowait = true,
         }

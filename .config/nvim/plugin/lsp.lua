@@ -17,6 +17,15 @@ end
 -- auto complete
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
+        local function map(key, action, desc)
+            vim.keymap.set("n", key, action, { buffer = ev.buf, desc = desc })
+        end
+
+        map("<C-K>", vim.lsp.buf.definition, "go to definition")
+        map("<leader>a", vim.lsp.buf.code_action, "code action")
+        map("<leader>T", vim.lsp.buf.type_definition, "go to type definition")
+        map("<leader>i", require("telescope.builtin").lsp_implementations, "implementations")
+
         vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, {
             convert = function(item)
                 -- Only show abbr name, remove leading misc chars (bullets etc.),

@@ -5,59 +5,47 @@ vim.pack.add {
     { src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 }
 
--- Setup telescope when first command is run
-local telescope_setup = false
-local function setup_telescope()
-    if telescope_setup then
-        return
-    end
-    telescope_setup = true
-
-    local actions = require "telescope.actions"
-    require("telescope").setup {
-        defaults = {
-            mappings = {
-                i = {
-                    -- C-q quickfix C-n C-p
-                    ["<C-j>"] = actions.select_default, -- Enter
-                    ["<D-q>"] = actions.close,
-                    -- ["<esc>"] = actions.close,
-                    -- ["<leader>q"] = actions.close,
-                    ["<leader>//"] = actions.file_vsplit,
-                    ["<leader>|"] = actions.file_split,
-                    ["<C-t>"] = actions.toggle_selection + actions.move_selection_worse,
-                    ["<C-x>"] = actions.delete_buffer,
-                },
-                n = {
-                    ["q"] = actions.close,
-                },
+local actions = require "telescope.actions"
+require("telescope").setup {
+    defaults = {
+        mappings = {
+            i = {
+                -- C-q quickfix C-n C-p
+                ["<C-j>"] = actions.select_default, -- Enter
+                ["<D-q>"] = actions.close,
+                -- ["<esc>"] = actions.close,
+                -- ["<leader>q"] = actions.close,
+                ["<leader>//"] = actions.file_vsplit,
+                ["<leader>|"] = actions.file_split,
+                ["<C-t>"] = actions.toggle_selection + actions.move_selection_worse,
+                ["<C-x>"] = actions.delete_buffer,
             },
-            sorting_strategy = "ascending",
-            layout_config = {
-                horizontal = {
-                    prompt_position = "top",
-                    preview_width = 0.55,
-                    results_width = 0.8
-                },
-                vertical = { mirror = false },
-                width = 0.87,
-                height = 0.80,
-                preview_cutoff = 120,
+            n = {
+                ["q"] = actions.close,
             },
-            path_display = { "truncate" },
-            borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
         },
-    }
+        sorting_strategy = "ascending",
+        layout_config = {
+            horizontal = {
+                prompt_position = "top",
+                preview_width = 0.55,
+                results_width = 0.8
+            },
+            width = 0.87,
+            height = 0.80,
+            preview_cutoff = 120,
+        },
+        path_display = { "truncate" },
+        borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+    },
+}
 
-    require("telescope").load_extension "live_grep_args"
-    require("telescope").load_extension "ui-select"
-end
+require("telescope").load_extension "live_grep_args"
+require("telescope").load_extension "ui-select"
 
 
--- keymaps lazy load setup function
 local function t_map(key, picker, desc, use_extension)
     vim.keymap.set("n", key, function()
-        setup_telescope()
         if use_extension then
             require("telescope").extensions[use_extension][picker]()
         else
@@ -80,12 +68,8 @@ t_map("<leader>x", "quickfix", "quickfix")
 t_map("<leader>m", "marks", "marks")
 t_map("<leader>y", "registers", "registers")
 
-map("n", "<C-K>", vim.lsp.buf.definition, { desc = "go to definition" })
-map("n", "<leader>a", vim.lsp.buf.code_action, { desc = "code action" })
-map("n", "<leader>T", vim.lsp.buf.type_definition, { desc = "go to type definition" })
 map("n", "<leader>d", vim.diagnostic.open_float, { desc = "line diagnostic" })
 t_map("<leader>D", "diagnostics", "diagnostics")
-t_map("<leader>i", "lsp_implementations", "implementations")
 -- t_map("<leader>T", "lsp_document_symbols", "buffer symbols")
 -- t_map("<leader>r", "lsp_references", "references")
 -- t_map("<leader>t", "treesitter", "treesitter symbols")
