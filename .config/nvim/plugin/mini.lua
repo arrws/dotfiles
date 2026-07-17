@@ -3,7 +3,7 @@ vim.pack.add { { src = "https://github.com/nvim-mini/mini.nvim" } }
 require("mini.diff").setup { -- :lua MiniDiff.toggle_overlay()
     view = {
         style = "sign",      -- "number"
-        signs = { add = "+", change = ">", delete = "-" },
+        signs = { add = "+", change = "−", delete = "-" },
     },
 }
 require("mini.bufremove").setup {}

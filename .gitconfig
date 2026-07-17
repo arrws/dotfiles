@@ -22,10 +22,12 @@
     diffFilter = delta
 
 [merge]
-    conflictstyle = diff3
+    conflictstyle = zdiff3
 
 [diff]
     colorMoved = default
+    algorithm = histogram
+
 
 [color]
     ui = auto
@@ -33,16 +35,16 @@
 [color "status"]
     header = "#EEEEEE"
     branch = "#EEEEEE"
-    nobranch = "#FF0000"
+    nobranch = "#FF2020"
     added = "#00D75F"
     updated = "#00D75F"
-    changed = "#5FAFFF"
+    changed = "#33ABEF"
     untracked = "#A8A8A8"
-    unmerged = "bold #FF0000"
+    unmerged = "bold #FF2020"
 
 [color "diff"]
-    meta = "#5FAFFF"
-    old = "#FF0000"
+    meta = "#33ABEF"
+    old = "#FF2020"
     new = "#00D75F"
 
 [delta]
@@ -50,46 +52,54 @@
     features = delta
 
 [delta "delta"]
+    red = "#FF2020"
+    red-light ="#FF5F5F"
+    green = "#00D75F"
+    green-light = "#77EE77"
+    blue = "#33ABEF"
+    black = "#000000"
+    gray-dark = "#1C1C1C"
+    gray = "#808080"
+    white = "#EEEEEE"
+
     syntax-theme = "none"
     hyperlinks = true
 
-    darkgreen = "#000000"
-    darkred = "#000000"
-    green = "#5FFF5F"
-    red = "#FF0000"
-
     map-styles = \
-       bold purple => delta.darkred, \
-       bold blue => syntax "#000000", \
-       bold cyan => delta.darkgreen, \
-       bold yellow => syntax "#000000"
+       bold purple => delta.black, \
+       bold blue => syntax delta.black, \
+       bold cyan => delta.black, \
+       bold yellow => syntax delta.black
 
     side-by-side = false
+
     line-numbers = true
     line-numbers-left-format = "{nm:>3} "
     line-numbers-right-format = "{np:>3} │"
-    line-numbers-left-style = "#585858"
-    line-numbers-right-style = "#1C1C1C"
-    line-numbers-minus-style = "#FF0000"
-    line-numbers-plus-style = "#00D75F"
-    line-numbers-zero-style = "#585858"
+    line-numbers-left-style = delta.gray
+    line-numbers-right-style = delta.gray-dark
+    line-numbers-minus-style = delta.red
+    line-numbers-plus-style = delta.green
+    line-numbers-zero-style = delta.gray
 
     keep-plus-minus-markers = false
+
     plus-non-emph-style = syntax
-    plus-emph-style = "#5FFF5F" "#000000" bold
-    plus-style = "#87D7AF" "#000000"
-    plus-empty-line-marker-style = "#000000"
+    plus-emph-style = delta.green-light delta.black bold
+    plus-style = delta.green delta.black
+    plus-empty-line-marker-style = delta.black
+
     minus-non-emph-style = syntax
-    minus-emph-style = "#FF0000" "#000000" bold
-    minus-style = "#FF5F5F" "#000000"
-    minus-empty-line-marker-style = "#000000"
+    minus-emph-style = delta.red-light delta.black bold
+    minus-style = delta.red delta.black
+    minus-empty-line-marker-style = delta.black
 
     hunk-header-style = omit
     hunk-header-decoration-style = omit
     hunk-header-file-style = omit
     hunk-header-line-number-style = omit
 
-    file-style = bold "#5FAFFF"
+    file-style = bold delta.blue
     file-decoration-style = omit
     file-added-label = >
     file-copied-label = >
@@ -98,15 +108,18 @@
     file-renamed-label = >
 
     inline-hint-style = omit
-    whitespace-error-style = "#FFFFFF" "#FF0000"
+    whitespace-error-style = delta.black delta.gray-dark
     zero-style = syntax
-    grep-file-style = "#5FAFFF"
-    grep-line-number-style = "#808080"
+
+    grep-file-style = delta.blue
+    grep-line-number-style = delta.gray
+
     blame-code-style = syntax
     blame-separator-style = omit
-    commit-style = "#5FAFFF"
+    commit-style = delta.blue
     commit-decoration-style = omit
-    merge-conflict-ours-diff-header-style = "#5FAFFF"
+
+    merge-conflict-ours-diff-header-style = delta.blue
     merge-conflict-ours-diff-header-decoration-style = omit
-    merge-conflict-theirs-diff-header-style = "#FF0000"
+    merge-conflict-theirs-diff-header-style = delta.red
     merge-conflict-theirs-diff-header-decoration-style = omit

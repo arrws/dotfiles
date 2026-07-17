@@ -1,0 +1,4 @@
+--theme="nvim"
+--style=numbers,changes,rule
+--paging=never
+--decorations never

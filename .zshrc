@@ -2,19 +2,18 @@
 
 export EDITOR=vi
 export VISUAL=nvim
-export TERM=xterm-256color
+
+export COLORTERM=truecolor
+export CLICOLOR=1
 
 # Enable substitution in the prompt.
 setopt prompt_subst
 setopt autocd autopushd
 
-export CLICOLOR=1
-export COLORTERM="truecolor"
-
 # command history
 export HISTSIZE=5000
-export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
+export HISTFILE="$HOME/.history"
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
 
@@ -114,14 +113,11 @@ zle -N accept-line expand-alias-and-accept-line
 
 
 ### ABBREVIATIONS
-#
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # git
 abbrev-alias g='git'
 abbrev-alias gs='git status'
-abbrev-alias gst='git stash'
-abbrev-alias gc='git checkout'
 abbrev-alias gd='git diff'
 abbrev-alias gl='git log'
 abbrev-alias ga='git add'
@@ -140,7 +136,7 @@ alias cd..='cd ..'
 alias la="ls -la"
 
 if command -v bat &>/dev/null; then
-    alias cat='bat --paging never --decorations never --theme Nord'
+    alias cat='bat --paging never --decorations never'
 fi
 
 alias p='python3'

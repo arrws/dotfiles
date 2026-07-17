@@ -4,10 +4,7 @@ macos-icon-ghost-color = white
 macos-icon-screen-color = black
 macos-titlebar-style = transparent
 
-theme = Apple System Colors
-background = #000000
-foreground = #E0E0E0
-split-divider-color = #222222
+theme = nvim
 
 window-padding-x = 6
 window-padding-y = 6

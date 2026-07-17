@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>name</key>
+  <string>nvim</string>
+  <key>settings</key>
+  <array>
+    <dict>
+      <key>settings</key>
+      <dict>
+        <key>background</key><string>#000000</string>
+        <key>caret</key><string>#EEEEEE</string>
+        <key>foreground</key><string>#D7D7D7</string>
+        <key>invisibles</key><string>#303030</string>
+        <key>lineHighlight</key><string>#1C1C1C</string>
+        <key>selection</key><string>#303030</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Comments</string>
+      <key>scope</key><string>comment, punctuation.definition.comment</string>
+      <key>settings</key><dict>
+        <key>fontStyle</key><string>italic</string>
+        <key>foreground</key><string>#515C65</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Strings</string>
+      <key>scope</key><string>string, string.quoted, string.unquoted, meta.path, meta.link</string>
+      <key>settings</key><dict>
+        <key>fontStyle</key><string>italic</string>
+        <key>foreground</key><string>#82D9C2</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Numbers</string>
+      <key>scope</key><string>constant.numeric</string>
+      <key>settings</key><dict>
+        <key>fontStyle</key><string>italic</string>
+        <key>foreground</key><string>#99FFE4</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Booleans and language constants</string>
+      <key>scope</key><string>constant.language, constant.character, constant.other</string>
+      <key>settings</key><dict>
+        <key>fontStyle</key><string>italic</string>
+        <key>foreground</key><string>#6FB8A6</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Variables and parameters</string>
+      <key>scope</key><string>variable, variable.other, variable.language, variable.parameter</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#F8ECEC</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Identifiers and properties</string>
+      <key>scope</key><string>entity.name.variable, variable.other.property, meta.object-literal.key</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#CCD0D8</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Functions and methods</string>
+      <key>scope</key><string>entity.name.function, entity.name.function.preprocessor, support.function, support.function.builtin, variable.function, meta.function-call</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#A3BFEC</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Keywords, statements, and operators</string>
+      <key>scope</key><string>keyword, keyword.control, keyword.operator, storage.type, storage.modifier, punctuation.separator, punctuation.section, punctuation.accessor</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#A0A0A5</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Definitions and macros</string>
+      <key>scope</key><string>entity.name.function.preprocessor, entity.name.constant, constant.other.symbol, meta.preprocessor, support.constant</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#FFCFA8</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Types</string>
+      <key>scope</key><string>support.type, entity.name.type, entity.name.type.primitive, storage.type.primitive, storage.type.built-in</string>
+      <key>settings</key><dict>
+        <key>fontStyle</key><string>italic</string>
+        <key>foreground</key><string>#FFCFA8</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Classes</string>
+      <key>scope</key><string>entity.name.class, entity.name.struct, entity.name.enum, entity.name.interface, entity.other.inherited-class</string>
+      <key>settings</key><dict>
+        <key>fontStyle</key><string>italic</string>
+        <key>foreground</key><string>#FFC088</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Modules and namespaces</string>
+      <key>scope</key><string>entity.name.namespace, entity.name.module, support.module</string>
+      <key>settings</key><dict>
+        <key>fontStyle</key><string>italic</string>
+        <key>foreground</key><string>#CCD0D8</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Attributes, decorators, and imports</string>
+      <key>scope</key><string>entity.other.attribute-name, meta.annotation, meta.decorator, keyword.control.import, keyword.control.from</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#65737E</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Tags and special characters</string>
+      <key>scope</key><string>entity.name.tag, constant.character.escape, constant.character.escaped, punctuation.definition.tag</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#FFCFA8</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Inserted and changed</string>
+      <key>scope</key><string>markup.inserted, markup.changed, meta.diff.range, meta.diff.header.from-file</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#00D75F</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key><string>Deleted and invalid</string>
+      <key>scope</key><string>markup.deleted, invalid, invalid.illegal, meta.diff.header.to-file</string>
+      <key>settings</key><dict>
+        <key>foreground</key><string>#FF0000</string>
+      </dict>
+    </dict>
+  </array>
+</dict>
+</plist>
