@@ -11,8 +11,6 @@ export HISTFILE="$HOME/.history"
 export HISTCONTROL=ignorespace:erasedups
 shopt -s histappend
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
 
 # Editing and completion
 set -o emacs
@@ -33,6 +31,9 @@ __prompt_command() {
     PS1="\[\e[38;5;240m\]\w ${branch}${color}> \[\e[0m\]"
 }
 PROMPT_COMMAND=__prompt_command
+
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 
 # ALIASES
@@ -71,6 +72,7 @@ export SKIM_DEFAULT_COMMAND="rg --files --hidden"
 export SKIM_CTRL_T_COMMAND="$SKIM_DEFAULT_COMMAND"
 export SKIM_DEFAULT_OPTIONS="--height 40% --layout=reverse --case=smart --tiebreak=score,index --bind=ctrl-j:accept,ctrl-k:kill-line"
 
+# official skim zsh completion and key bindings (Ctrl-T/Ctrl-R/Alt-C)
 if command -v sk >/dev/null 2>&1; then
     source <(sk --shell bash --shell-bindings)
 fi

@@ -47,9 +47,19 @@ return {
     red             = "#FF2020", -- git: Removed diff text
     red_dark        = "#551010",
 
+    yellow_pale     = "#F5EACA",
     yellow_light    = "#FFFF77", -- term: bright ANSI yellow
     yellow          = "#FFFF00",
     yellow_dark     = "#404010",
+    yellow          = "#ECDB60",
 
+    pink            = "#FFB4DA",
+    pink_1          = "#F6A1D1",
+    pink_2          = "#E47FBA",
+    pink_3          = "#D25FAA",
     purple          = "#CC73D9", -- term: ANSI magenta
+    purple_3        = "#9369C8",
+    purple_2        = "#B592DB",
+    purple_1        = "#DBC5EB",
+
 }

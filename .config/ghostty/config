@@ -17,6 +17,7 @@ font-family = Source Code Pro
 font-size = 16
 
 term = xterm-ghostty
+command = zsh
 
 scrollbar = system
 scrollback-limit = 8000
@@ -31,6 +32,7 @@ tab-inherit-working-directory = false
 split-inherit-working-directory = true
 
 # Command finish notifications
+split-divider-color = #222
 notify-on-command-finish = unfocused
 notify-on-command-finish-after = 30s
 

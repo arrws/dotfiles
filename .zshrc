@@ -52,7 +52,6 @@ stty stop ""
 
 
 ### PROMPT
-
 RED='%F{red}'
 GREEN='%F{green}'
 G1='%F{240}'
@@ -76,46 +75,14 @@ function git_branch_name() {
 PROMPT="$G1%~ "'$(git_branch_name)'"%(?.$GREEN>.$RED>) %f"
 
 
-### FISH ABBREVIATIONS SETUP
-
-# declare a list of expandable aliases to fill up later
-typeset -a ealiases
-ealiases=()
-
-# write a function for adding an alias to the list mentioned above
-function abbrev-alias() {
-    alias $1
-    ealiases+=(${1%%\=*})
-}
-
-# expand any aliases in the current line buffer
-function expand-ealias() {
-    if [[ $LBUFFER =~ "^(${(j:|:)ealiases})\$" ]]; then
-        zle _expand_alias
-        zle expand-word
-    fi
-    zle magic-space
-}
-zle -N expand-ealias
-
-# Bind the space key to the expand-alias function above, so that space will expand any expandable aliases
-bindkey ' '             expand-ealias
-bindkey '^ '            magic-space     # control-space to bypass completion
-bindkey -M isearch " "  magic-space     # normal space during searches
-
-# A function for expanding any aliases before accepting the line as is and executing the entered command
-expand-alias-and-accept-line() {
-    expand-ealias
-    zle .backward-delete-char
-    zle .accept-line
-}
-zle -N accept-line expand-alias-and-accept-line
-
-
-### ABBREVIATIONS
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# git
+
+# ABBREVIATIONS
+
+# fish style abbreviations
+source ~/.bin/fish
+
 abbrev-alias g='git'
 abbrev-alias gs='git status'
 abbrev-alias gd='git diff'
@@ -133,22 +100,26 @@ alias mkdir='mkdir -p'
 alias ..='cd ..'
 alias cd..='cd ..'
 
-alias la="ls -la"
+
+if command -v eza &> /dev/null; then
+    alias ls="eza --color=auto --icons=never --sort=name"
+    alias la="eza -la --color=auto --icons=never --sort=name"
+fi
 
 if command -v bat &>/dev/null; then
-    alias cat='bat --paging never --decorations never'
+    alias cat='bat'
 fi
+
+alias cube='cd ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/cube'
 
 alias p='python3'
 alias v='nvim'
-
-alias cube='cd ~/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/cube'
 
 siri() {
   pi -p --model zai/glm-5-turbo "$*"
 }
 
-# skim
+# Skim
 export SKIM_DEFAULT_COMMAND="rg --files --hidden"
 export SKIM_CTRL_T_COMMAND="$SKIM_DEFAULT_COMMAND"
 export SKIM_DEFAULT_OPTIONS="--height 40% --layout=reverse --case=smart --tiebreak=score,index --bind=ctrl-j:accept,ctrl-k:kill-line"
