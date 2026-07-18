@@ -1,0 +1,7 @@
+--height 40%
+--layout reverse
+--case smart
+--tiebreak score,index
+--bind 'ctrl-j:accept,ctrl-k:kill-line'
+--prompt '> '
+--color 'none,normal:##D7D7D7,matched:##FFFFFF,current:##5FFF5F,bg+:##003000,current_match-fg:##FFFFFF,current_match-bg:##003000,query:##EEEEEE,spinner:##00D75F,info:##A8A8A8,prompt:##D7D7D7,cursor:##00D75F,header:##A8A8A8,border:##585858,scrollbar:##808080'

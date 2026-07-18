@@ -21,12 +21,10 @@ setopt share_history
 setopt append_history
 setopt inc_append_history
 
-# tab completion
-autoload -Uz compinit && compinit
-
-# autocomplete tab show options doubletab fill
+# enable tab completion
+autoload -U compinit && compinit
 zmodload zsh/complist
-zstyle ':completion:*' menu yes no-select interactive
+zstyle ':completion:*' menu yes select
 bindkey '^N' menu-select
 
 # auto cd folder
@@ -102,6 +100,7 @@ alias cd..='cd ..'
 
 
 if command -v eza &> /dev/null; then
+    export EZA_CONFIG_DIR="$HOME/.config/eza"
     alias ls="eza --color=auto --icons=never --sort=name"
     alias la="eza -la --color=auto --icons=never --sort=name"
 fi
@@ -122,7 +121,7 @@ siri() {
 # Skim
 export SKIM_DEFAULT_COMMAND="rg --files --hidden"
 export SKIM_CTRL_T_COMMAND="$SKIM_DEFAULT_COMMAND"
-export SKIM_DEFAULT_OPTIONS="--height 40% --layout=reverse --case=smart --tiebreak=score,index --bind=ctrl-j:accept,ctrl-k:kill-line"
+export SKIM_OPTIONS_FILE="$HOME/.config/skim/config"
 
 # official skim zsh completion and key bindings (Ctrl-T/Ctrl-R/Alt-C)
 if command -v sk >/dev/null 2>&1; then

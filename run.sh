@@ -9,6 +9,8 @@ paths=(
 
 ".config/ghostty/"
 ".config/bat/"
+".config/eza/"
+".config/skim/"
 
 ".config/karabiner/karabiner.json"
 

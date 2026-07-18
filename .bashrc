@@ -52,7 +52,11 @@ alias mkdir='mkdir -p'
 alias ..='cd ..'
 alias cd..='cd ..'
 
-alias la='ls -la'
+if command -v eza &>/dev/null; then
+    export EZA_CONFIG_DIR="$HOME/.config/eza"
+    alias ls="eza --color=auto --icons=never --sort=name"
+    alias la="eza -la --color=auto --icons=never --sort=name"
+fi
 
 if command -v bat &>/dev/null; then
     alias cat='bat'
@@ -70,7 +74,7 @@ siri() {
 # Skim
 export SKIM_DEFAULT_COMMAND="rg --files --hidden"
 export SKIM_CTRL_T_COMMAND="$SKIM_DEFAULT_COMMAND"
-export SKIM_DEFAULT_OPTIONS="--height 40% --layout=reverse --case=smart --tiebreak=score,index --bind=ctrl-j:accept,ctrl-k:kill-line"
+export SKIM_OPTIONS_FILE="$HOME/.config/skim/config"
 
 # official skim zsh completion and key bindings (Ctrl-T/Ctrl-R/Alt-C)
 if command -v sk >/dev/null 2>&1; then

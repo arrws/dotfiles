@@ -1,0 +1,56 @@
+# Neovim-inspired eza palette.
+filekinds:
+  directory:
+    foreground: "#FFA028"
+    is_bold: false
+
+perms:
+  user_read:
+    foreground: "#A8A8A8"
+    is_bold: false
+  group_read:
+    foreground: "#A8A8A8"
+  other_read:
+    foreground: "#A8A8A8"
+  user_write:
+    foreground: "#FF2020"
+    is_bold: false
+  group_write:
+    foreground: "#FF2020"
+  other_write:
+    foreground: "#FF2020"
+  user_execute_file:
+    foreground: "#00D75F"
+    is_bold: false
+  user_execute_other:
+    foreground: "#00D75F"
+    is_bold: false
+  group_execute:
+    foreground: "#00D75F"
+  other_execute:
+    foreground: "#00D75F"
+  attribute:
+    foreground: "#585858"
+
+size:
+  number_byte: &size
+    foreground: "#D7D7D7"
+  number_kilo: *size
+  number_mega: *size
+  number_giga: *size
+  number_huge: *size
+  unit_byte: *size
+  unit_kilo: *size
+  unit_mega: *size
+  unit_giga: *size
+  unit_huge: *size
+
+users:
+  user_you: &user
+    foreground: "#808080"
+    is_bold: false
+  user_root: *user
+  user_other: *user
+
+date:
+  foreground: "#33ABEF"
